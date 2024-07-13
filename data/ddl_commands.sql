@@ -1,6 +1,8 @@
 CREATE TABLE CentriMonitoraggio (
     NomeCentro varchar(20) PRIMARY KEY,
     Indirizzo varchar(50) NOT NULL,
+    numeroCivico int NOT NULL,
+    cap char(5) NOT NULL,
     Comune varchar(20) NOT NULL,
     Provincia char(2)
 );
