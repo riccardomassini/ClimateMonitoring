@@ -296,8 +296,6 @@ public class RegistraCentro extends javax.swing.JFrame {
             count++;
         }else
             out.setText("Il paese non esiste");
-        
-        System.out.println(aree.toString());
 
         if(count==numAree){
             areeLabel.setVisible(false);
