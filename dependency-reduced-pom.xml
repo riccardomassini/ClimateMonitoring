@@ -103,7 +103,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>GestioneScelta.java</mainClass>
+                  <mainClass>client.frame.GestioneScelta.java</mainClass>
                 </transformer>
               </transformers>
             </configuration>

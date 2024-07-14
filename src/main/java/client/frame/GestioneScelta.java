@@ -2,13 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package frame;
+package client.frame;
 
-import Database.ConnessioneDB;
-import RegistraEventi.*;
-import java.io.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import client.registraeventi.Chiusura;
+import client.registraeventi.LoggerEventi;
+import server.Database.ConnessioneDB;
+import server.Database.InserisciCSV;
 
 /**
  *
@@ -27,7 +26,7 @@ public class GestioneScelta extends javax.swing.JFrame {
         String nomeTabella = "CoordinateMonitoraggio";
         String filePath = "data/CoordinateMonitoraggio.dati.csv";
 
-        ConnessioneDB.inserisciDaCSV(nomeTabella, filePath);
+        InserisciCSV.inserisciDaCSV(nomeTabella, filePath);
     }
 
     /**

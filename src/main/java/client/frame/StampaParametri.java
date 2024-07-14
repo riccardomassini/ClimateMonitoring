@@ -2,16 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package frame;
+package client.frame;
 
-import RegistraEventi.*;
-import gestionefile.*;
+import client.registraeventi.Chiusura;
+import commons.oggetti.Paese;
+import commons.oggetti.ParametriClimatici;
+
 import java.sql.*;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
-import oggetti.*;
+import commons.oggetti.*;
+import server.gestionefile.GestisciPaesi;
+import server.gestionefile.GestisciParametri;
 
 /**
  *

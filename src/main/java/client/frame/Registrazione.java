@@ -2,12 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package frame;
+package client.frame;
 
-import oggetti.*;
-import RegistraEventi.*;
-import gestionefile.*;
-import org.postgresql.util.PSQLException;
+import client.registraeventi.Chiusura;
+import client.registraeventi.LoggerEventi;
+import commons.oggetti.OperatoriClimatici;
+import commons.oggetti.*;
+import server.gestionefile.GestisciOperatori;
 
 /**
  *
