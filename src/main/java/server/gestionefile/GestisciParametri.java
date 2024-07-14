@@ -1,10 +1,8 @@
 package server.gestionefile;
 
-import server.Database.*;
 import commons.oggetti.Paese;
 import commons.oggetti.ParametriClimatici;
-import commons.oggetti.*;
-import server.Database.ConnessioneDB;
+import server.Database.ConnettoreDatabase;
 
 import java.util.*;
 import java.sql.*;
@@ -32,7 +30,7 @@ public class GestisciParametri{
     
     public void inserisciParametri(ParametriClimatici parametri){
         try {
-            Connection connessione = ConnessioneDB.getConnection();
+            Connection connessione = ConnettoreDatabase.ottieniConnettore().ottieniConnessioneDatabase();
             
             String query = "INSERT INTO parametriClimatici " +
                     "(geonameid, centro, datainserimento, vento, " +
@@ -73,7 +71,7 @@ public class GestisciParametri{
         ArrayList<String> paesi = new ArrayList<>();
         
         try {   
-            Connection connessione = ConnessioneDB.getConnection();
+            Connection connessione = ConnettoreDatabase.ottieniConnessioneDatabase();
             String query = "SELECT paese FROM parametriclimatici";
             PreparedStatement esegui = connessione.prepareStatement(query);
             set = esegui.executeQuery();
@@ -119,7 +117,7 @@ public class GestisciParametri{
         }
         
         try{
-            connessione = ConnessioneDB.getConnection();
+            connessione = ConnettoreDatabase.ottieniConnettore().ottieniConnessioneDatabase();
             String query = "SELECT * FROM parametriclimatici";
             PreparedStatement esegui = connessione.prepareStatement(query);
             set = esegui.executeQuery();

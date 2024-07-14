@@ -1,10 +1,8 @@
 package server.gestionefile;
 
-import server.Database.*;
 import commons.oggetti.CentroMonitoraggio;
 import commons.oggetti.Paese;
-import commons.oggetti.*;
-import server.Database.ConnessioneDB;
+import server.Database.ConnettoreDatabase;
 
 import java.util.*;
 import java.sql.*;
@@ -28,7 +26,7 @@ public class GestisciCentri {
     public void registraCentroAree(CentroMonitoraggio centro, ArrayList<Paese> aree){
         Connection connessione = null;
         try {
-            connessione = ConnessioneDB.getConnection();
+            connessione = ConnettoreDatabase.ottieniConnettore().ottieniConnessioneDatabase();
             
             String query1 = "INSERT INTO CentriMonitoraggio(nomeCentro, indirizzo, numerocivico, cap, comune, provincia) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement esegui1 = connessione.prepareStatement(query1);
@@ -68,7 +66,7 @@ public class GestisciCentri {
         StringTokenizer token = null;
         
         try {
-            Connection connessione = ConnessioneDB.getConnection();
+            Connection connessione = ConnettoreDatabase.ottieniConnettore().ottieniConnessioneDatabase();
             
             String query = "SELECT coordinateMonitoraggio.* " +
                            "FROM areeMonitorateDaCentri NATURAL JOIN coordinateMonitoraggio " +

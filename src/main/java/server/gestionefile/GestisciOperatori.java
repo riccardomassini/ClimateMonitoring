@@ -3,13 +3,12 @@ package server.gestionefile;;
 
 import client.registraeventi.LoggerEventi;
 import commons.oggetti.OperatoriClimatici;
-import commons.oggetti.*;
+
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.postgresql.util.PSQLException;
-import server.Database.*;
-import server.Database.ConnessioneDB;
+import server.Database.ConnettoreDatabase;
 
 /**
  * Classe utilizza una struttura dati di tipo OperatoriClimatici per gestire,
@@ -27,7 +26,7 @@ public class GestisciOperatori{
     public boolean registrazione(OperatoriClimatici operatore){
         Connection connessione = null;
         try {
-            connessione = ConnessioneDB.getConnection();
+            connessione = ConnettoreDatabase.ottieniConnettore().ottieniConnessioneDatabase();
             /*if(verificaDuplicato(connessione, operatore.getUserID())){
                 System.out.println("Errore... chiave primaria duplicata");
                 return;
@@ -79,7 +78,7 @@ public class GestisciOperatori{
         ResultSet set = null;
         Connection connessione = null;
         try {
-            connessione = ConnessioneDB.getConnection();
+            connessione = ConnettoreDatabase.ottieniConnettore().ottieniConnessioneDatabase();
             
             String query = "SELECT * FROM OperatoriRegistrati WHERE userid = ? AND password = ? ";
             
@@ -120,7 +119,7 @@ public class GestisciOperatori{
         PreparedStatement esegui = null;
 
         try {
-            connessione = ConnessioneDB.getConnection();
+            connessione = ConnettoreDatabase.ottieniConnettore().ottieniConnessioneDatabase();
             String query = "UPDATE OperatoriRegistrati SET centro = ? WHERE userid = ?";
             esegui = connessione.prepareStatement(query);
             esegui.setString(1, nuovoCentro);
@@ -143,7 +142,7 @@ public class GestisciOperatori{
         ResultSet set = null;
 
         try {
-            connessione = ConnessioneDB.getConnection();
+            connessione = ConnettoreDatabase.ottieniConnettore().ottieniConnessioneDatabase();
             String query = "SELECT centro FROM OperatoriRegistrati WHERE userid = ?";
             esegui = connessione.prepareStatement(query);
             esegui.setInt(1, operatore.getUserID());

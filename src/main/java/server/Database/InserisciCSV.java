@@ -13,7 +13,7 @@ public class InserisciCSV {
         boolean isEmpty = true;
         String sql = "SELECT COUNT(*) FROM " + nomeTabella;
 
-        try (Connection conn = ConnessioneDB.getConnection();
+        try (Connection conn = ConnettoreDatabase.ottieniConnettore().ottieniConnessioneDatabase();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
@@ -36,7 +36,7 @@ public class InserisciCSV {
         String line;
         String cvsSplitBy = ",";
 
-        try (Connection conn = ConnessioneDB.getConnection();
+        try (Connection conn = ConnettoreDatabase.ottieniConnettore().ottieniConnessioneDatabase();
              BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
 
             line = br.readLine();

@@ -6,7 +6,6 @@ package client.frame;
 
 import client.registraeventi.Chiusura;
 import client.registraeventi.LoggerEventi;
-import server.Database.ConnessioneDB;
 import server.Database.InserisciCSV;
 
 /**

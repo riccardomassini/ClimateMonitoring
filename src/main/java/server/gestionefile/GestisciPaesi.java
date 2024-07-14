@@ -1,9 +1,7 @@
  package server.gestionefile;
 
-import server.Database.*;
 import commons.oggetti.Paese;
-import commons.oggetti.*;
-import server.Database.ConnessioneDB;
+import server.Database.ConnettoreDatabase;
 
 import java.sql.*;
 import java.util.logging.Level;
@@ -41,7 +39,7 @@ public class GestisciPaesi{
     public ResultSet leggiPaesi(){
         ResultSet set = null;
         try {
-            Connection connessione = ConnessioneDB.getConnection();
+            Connection connessione = ConnettoreDatabase.ottieniConnettore().ottieniConnessioneDatabase();
             
             String query = "SELECT * FROM coordinatemonitoraggio";
             PreparedStatement esegui = connessione.prepareStatement(query);
@@ -54,7 +52,12 @@ public class GestisciPaesi{
     
     public ResultSet ricercaNome(String scelta) {
         ResultSet set = null;
-        Connection connessione = ConnessioneDB.getConnection();
+        Connection connessione = null;
+        try {
+            connessione = ConnettoreDatabase.ottieniConnettore().ottieniConnessioneDatabase();
+        } catch (SQLException e) {
+            System.err.println("Impossibile connettersi al database");
+        }
 
         if (connessione != null) {
             try {
@@ -78,8 +81,14 @@ public class GestisciPaesi{
     
     public ResultSet ricercaStato(String scelta){
         ResultSet set = null;
-        Connection connessione = ConnessioneDB.getConnection();
-        
+        Connection connessione = null;
+
+        try {
+            connessione = ConnettoreDatabase.ottieniConnettore().ottieniConnessioneDatabase();
+        } catch (SQLException e) {
+            System.err.println("Impossibile connettersi al database");
+        }
+
         if(connessione!=null){
             try {
                 String query = "SELECT * FROM coordinatemonitoraggio WHERE codicestato = ?";
@@ -96,7 +105,14 @@ public class GestisciPaesi{
     
     public ResultSet ricercaCooPlus(double targetLatitudine, double targetLongitudine){
         ResultSet set = null;
-        Connection connessione = ConnessioneDB.getConnection();
+        Connection connessione = null;
+
+        try {
+            connessione = ConnettoreDatabase.ottieniConnettore().ottieniConnessioneDatabase();
+        } catch (SQLException e) {
+            System.err.println("Impossibile connettersi al database");
+        }
+
         if(connessione!=null){
             try {
                 
@@ -126,7 +142,12 @@ public class GestisciPaesi{
     
     public Paese ricercaNomeCC(String scelta1, String scelta2){
         scelta2 = scelta2.toUpperCase();
-        Connection connessione = ConnessioneDB.getConnection();
+        Connection connessione = null;
+        try {
+            ConnettoreDatabase.ottieniConnettore().ottieniConnessioneDatabase();
+        } catch (SQLException e) {
+            System.err.println("Impossibile connettersi al database");
+        }
         ResultSet set = null;
         if(connessione!=null){
             try {
