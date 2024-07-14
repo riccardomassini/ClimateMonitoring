@@ -6,6 +6,9 @@ package server.Database;
 
 import java.sql.*;
 
+/**
+ * Questa classe fornisce connessioni con il database
+ */
 public class ConnettoreDatabase {
     private static final int PORTA_DEFAULT_POSTGRESQL = 5432;
     private static final String DRIVER_JDBC = "org.postgresql.Driver";
@@ -30,13 +33,8 @@ public class ConnettoreDatabase {
         return contenitoreSingletonConnettoreDatabase.singleton;
     }
 
-    /*public Connection ottieniConnessioneDatabase() throws SQLException {
-        return DriverManager.ottieniConnessioneDatabase(URL, USERNAME, PASSWORD);
-    }*/
-
     public Connection ottieniConnessioneDatabase() throws SQLException {
         return DriverManager.getConnection(URL, USERNAME, PASSWORD);
     }
-
 
 }

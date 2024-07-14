@@ -144,7 +144,7 @@ public class GestisciPaesi{
         scelta2 = scelta2.toUpperCase();
         Connection connessione = null;
         try {
-            ConnettoreDatabase.ottieniConnettore().ottieniConnessioneDatabase();
+            connessione = ConnettoreDatabase.ottieniConnettore().ottieniConnessioneDatabase();
         } catch (SQLException e) {
             System.err.println("Impossibile connettersi al database");
         }
