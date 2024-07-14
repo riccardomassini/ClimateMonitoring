@@ -24,10 +24,6 @@ public class GestioneScelta extends javax.swing.JFrame {
     public GestioneScelta() {
         initComponents();
         addWindowListener(new Chiusura());
-        String nomeTabella = "CoordinateMonitoraggio";
-        String filePath = "data/CoordinateMonitoraggio.dati.csv";
-
-        ConnessioneDB.inserisciDaCSV(nomeTabella, filePath);
     }
 
     /**
