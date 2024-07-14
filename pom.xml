@@ -97,7 +97,7 @@
               <username>postgres</username>
               <password>root</password>
               <srcFiles>
-                <srcFile>data/ddl_commands.sql</srcFile>
+                <srcFile>data/sql_commands.sql</srcFile>
               </srcFiles>
             </configuration>
           </execution>
