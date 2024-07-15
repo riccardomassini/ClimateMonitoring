@@ -19,7 +19,7 @@ public class ConnessioneDB {
         try {
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch (SQLException e) {
-            System.err.println("Errore durante la connessione al database PostgreSQL: " + e.getMessage());
+            System.err.println("Errore durante la connessione al database PostgreSQL, prima di utilizzare il programma fare il build del progetto.");
         }
         return connection;
     }

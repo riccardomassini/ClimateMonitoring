@@ -7,6 +7,7 @@ package frame;
 import Database.ConnessioneDB;
 import RegistraEventi.*;
 import java.io.*;
+import java.sql.Connection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,8 +23,13 @@ public class GestioneScelta extends javax.swing.JFrame {
      * Creates new form GestioneScelta
      */
     public GestioneScelta() {
-        initComponents();
-        addWindowListener(new Chiusura());
+        Connection connection = ConnessioneDB.getConnection();
+        if(connection!=null) {
+            initComponents();
+            addWindowListener(new Chiusura());
+        }else{
+            System.exit(1);
+        }
     }
 
     /**
