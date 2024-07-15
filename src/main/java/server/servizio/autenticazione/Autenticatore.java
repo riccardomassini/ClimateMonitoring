@@ -1,5 +1,5 @@
 
-package server.servizio;;
+package server.servizio.autenticazione;;
 
 import client.registraeventi.LoggerEventi;
 import commons.oggetti.Operatore;
@@ -20,7 +20,7 @@ public class Autenticatore {
     
     LoggerEventi logger = LoggerEventi.getInstance();
     
-    private Operatore operatore = new Operatore();
+    private Sessione sessione;
     
     //TODO rmi
     public boolean registrati(Operatore operatore){
@@ -90,8 +90,8 @@ public class Autenticatore {
             set = esegui.executeQuery();
             
             while(set.next()){
-                this.operatore = new Operatore(set.getString("nome"), set.getString("cognome"), set.getString("codfisc"), set.getString("email"),
-                                                       set.getInt("userid"), set.getString("password"), set.getString("centro"));
+                this.sessione = new Sessione(new Operatore(set.getString("nome"), set.getString("cognome"), set.getString("codfisc"), set.getString("email"),
+                                                       set.getInt("userid"), set.getString("password"), set.getString("centro")));
                 return true;
             }
         } catch (SQLException ex) {
@@ -113,7 +113,7 @@ public class Autenticatore {
 
     //TODO rmi da rimuovere
     public Operatore getOperatore(){
-        return this.operatore;
+        return sessione.getOperatore();
     }
     
     /**
