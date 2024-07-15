@@ -8,9 +8,11 @@ import client.registraeventi.Chiusura;
 import client.registraeventi.LoggerEventi;
 import commons.oggetti.Operatore;
 
+import java.rmi.RemoteException;
 import java.util.*;
 
-import server.servizio.Autenticatore;
+import commons.servizio.Autenticazione;
+import server.servizio.autenticazione.Autenticatore;
 
 /**
  *
@@ -18,7 +20,7 @@ import server.servizio.Autenticatore;
  */
 public class Login extends javax.swing.JFrame {
 
-    Autenticatore go = new Autenticatore();
+    Autenticazione autenticazione = new Autenticatore();
     ArrayList<Operatore> op = new ArrayList<>();
     AreaOperatore ao = new AreaOperatore();
     LoggerEventi logger = LoggerEventi.getInstance();
@@ -139,17 +141,23 @@ public class Login extends javax.swing.JFrame {
         String pass = password.getText();
         commons.oggetti.Operatore operatore = new commons.oggetti.Operatore(id, pass);
 
-        if(go.login(operatore)){
-            AreaOperatore ao = new AreaOperatore(operatore.getUsername(), operatore.getPassword());
-            ao.setLocation(this.getX(), this.getY());
-            this.setVisible(false);
-            ao.setVisible(true);
-            logger.log("Operatore " + id + " ha effettuato il login.");
-        }else{
-            if(id==0)
-                out.setText("ID non valido");
-            else
-                out.setText("Utente non registrato");
+        //TODO rmi client
+        try {
+            if (autenticazione.login(operatore.getUsername(), operatore.getPassword())) {
+                AreaOperatore ao = new AreaOperatore(operatore.getUsername(), operatore.getPassword());
+                ao.setLocation(this.getX(), this.getY());
+                this.setVisible(false);
+                ao.setVisible(true);
+                logger.log("Operatore " + id + " ha effettuato il login.");
+            } else {
+                if (id == 0)
+                    out.setText("ID non valido");
+                else
+                    out.setText("Utente non registrato");
+            }
+        } catch(RemoteException ex) {
+            System.err.println("Errore RMI");
+            System.exit(1);
         }
             
     }//GEN-LAST:event_okActionPerformed

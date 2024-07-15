@@ -16,8 +16,8 @@ public class DizionarioDatabase {
     public static final String OPERATORI_ATTRIBUTO_COGNOME = "Cognome";
     public static final String OPERATORI_ATTRIBUTO_CF = "CodFisc";
     public static final String OPERATORI_ATTRIBUTO_EMAIL = "Email";
-    public static final String OPERATORI_PASSWORD = "Password";
-    public static final String OPERATORI_IDCENTROMONITORAGGIO = "Centro";
+    public static final String OPERATORI_ATTRIBUTO_PASSWORD = "Password";
+    public static final String OPERATORI_ATTRIBUTO_IDCENTROMONITORAGGIO = "Centro";
 
     public static final String CENTRIMONITORAGGIO_RELAZIONE = "CentriMonitoraggio";
     public static final String CENTRIMONITORAGGIO_ATTRIBUTO_NOMECENTRO = "NomeCentro";

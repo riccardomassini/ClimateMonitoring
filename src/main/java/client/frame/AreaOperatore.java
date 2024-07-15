@@ -11,17 +11,19 @@ import commons.oggetti.Operatore;
 import commons.oggetti.PuntoInteresse;
 import commons.oggetti.Misurazione;
 
+import java.rmi.RemoteException;
 import java.sql.*;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import commons.servizio.Autenticazione;
 import server.servizio.GestisciCentri;
-import server.servizio.Autenticatore;
+import server.servizio.autenticazione.Autenticatore;
 
 public class AreaOperatore extends javax.swing.JFrame {
 
-    Autenticatore go = new Autenticatore();
+    Autenticazione autenticazione = new Autenticatore();
     GestisciCentri gc = new GestisciCentri();
     ArrayList<Operatore> op = new ArrayList<>();
     ArrayList<CentroMonitoraggio> cm = new ArrayList<>();
@@ -38,33 +40,39 @@ public class AreaOperatore extends javax.swing.JFrame {
         initComponents();
         addWindowListener(new Chiusura());
         passato = new Operatore(id, password);
-        
-        if(go.login(passato)){
-            passato = go.getOperatore();
-            Operatore operatore = go.getOperatore();
-            jLabel2.setText("OPERATORE " +passato.getUsername());
-            try {
-                if(gc.centroMonitoraggioAssociato(passato)){
-                    titReg.setVisible(false);
-                    centro.setVisible(false);
-                    out1.setText("Centro " +passato.getIdCentroMonitoraggio());
-                    centroOp = passato.getIdCentroMonitoraggio();
-                    out2.setVisible(true);
-                }else{
-                    titReg.setVisible(true);
-                    centro.setVisible(true);
-                    jLabel1.setVisible(false);
-                    jLabel3.setVisible(false);
-                    jLabel4.setVisible(false);
-                    CCPP.setVisible(false);
-                    nomePP.setVisible(false);
-                    cercaParam.setVisible(false);
-                    out1.setVisible(false);
-                    out2.setVisible(false);
+
+        //TODO rmi client
+        try {
+            if (autenticazione.login(passato.getUsername(), passato.getPassword())) {
+                passato = autenticazione.ottieniOperatoreAutenticato();
+                Operatore operatore = autenticazione.ottieniOperatoreAutenticato();
+                jLabel2.setText("OPERATORE " + passato.getUsername());
+                try {
+                    if (gc.centroMonitoraggioAssociato(passato)) {
+                        titReg.setVisible(false);
+                        centro.setVisible(false);
+                        out1.setText("Centro " + passato.getIdCentroMonitoraggio());
+                        centroOp = passato.getIdCentroMonitoraggio();
+                        out2.setVisible(true);
+                    } else {
+                        titReg.setVisible(true);
+                        centro.setVisible(true);
+                        jLabel1.setVisible(false);
+                        jLabel3.setVisible(false);
+                        jLabel4.setVisible(false);
+                        CCPP.setVisible(false);
+                        nomePP.setVisible(false);
+                        cercaParam.setVisible(false);
+                        out1.setVisible(false);
+                        out2.setVisible(false);
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(AreaOperatore.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (SQLException ex) {
-                Logger.getLogger(AreaOperatore.class.getName()).log(Level.SEVERE, null, ex);
-            }  
+            }
+        } catch(RemoteException ex) {
+            System.err.println("Errore RMI");
+            System.exit(1);
         }
     }
 

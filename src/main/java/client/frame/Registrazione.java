@@ -7,7 +7,10 @@ package client.frame;
 import client.registraeventi.Chiusura;
 import client.registraeventi.LoggerEventi;
 import commons.oggetti.Operatore;
-import server.servizio.Autenticatore;
+import commons.servizio.Autenticazione;
+import server.servizio.autenticazione.Autenticatore;
+
+import java.rmi.RemoteException;
 
 /**
  *
@@ -15,7 +18,7 @@ import server.servizio.Autenticatore;
  */
 public class Registrazione extends javax.swing.JFrame {
 
-    Autenticatore go = new Autenticatore();
+    Autenticazione autenticazione = new Autenticatore();
     LoggerEventi logger = LoggerEventi.getInstance();
     Operatore passato;
     
@@ -170,24 +173,70 @@ public class Registrazione extends javax.swing.JFrame {
             out1.setText("Nome troppo corto");
         if(cognome.length() <= 0)
             out2.setText("Cognome troppo corto");
-        if(!go.checkCodiceFiscale(cf))
+        if(!checkCodiceFiscale(cf))
             out3.setText("CF non valido");
-        if(!go.controlloMail(mail))
+        if(!controlloMail(mail))
             out4.setText("mail non valida");
         if(id <= 0)
             out5.setText("Scegli un id maggiore di 0");
         if(pass.length() <= 0)
             out6.setText("Password troppo corta");
-        if(nome.length()>0 && cognome.length()>0 && go.checkCodiceFiscale(cf) && go.controlloMail(mail) && id>0 && pass.length()>0){
+        if(nome.length()>0 && cognome.length()>0 && checkCodiceFiscale(cf) && controlloMail(mail) && id>0 && pass.length()>0){
             Operatore operatore = new Operatore(nome, cognome, cf, mail, id, pass);
-            if(go.registrati(operatore)){
-                out1.setText("Utente registrato");
-                logger.log("Nuovo operatore registrato: " +nome+ " " +cf+ " " +mail+ " " +id+ " " +pass);
-                backActionPerformed(evt);
-            }else
-                out5.setText("ID già presente");
+
+            //TODO rmi client
+            try {
+                if (autenticazione.registrazione(operatore)) {
+                    out1.setText("Utente registrato");
+                    logger.log("Nuovo operatore registrato: " + nome + " " + cf + " " + mail + " " + id + " " + pass);
+                    backActionPerformed(evt);
+                } else
+                    out5.setText("ID già presente");
+            } catch(RemoteException ex) {
+                System.err.println("Errore RMI");
+                System.exit(1);
+            }
+
         }
     }//GEN-LAST:event_regActionPerformed
+
+    /**
+     * Metodo che controlla se la mail inserita durante la registrazione è valida
+     * @param mail mail dell'operatore
+     * @return valore booleano, true se la mail è valida, false altrimenti
+     */
+    private boolean controlloMail(String mail){
+        if(mail.contains("@") && mail.length()>0)
+            return true;
+
+        return false;
+    }
+
+    /**
+     * Metodo che controlla se il codice fiscale è valido
+     * @param codiceFiscale codice fiscale da controllare
+     * @return valore booleano, true se il codice fiscale è valido, false altrimenti
+     */
+    private boolean checkCodiceFiscale(String codiceFiscale){
+        int limNum = 7, limChar = 9, contN = 0, contC = 0;
+        if (codiceFiscale == null || codiceFiscale.length() != 16)
+            return false;
+
+        for (int i = 0; i < 16; i++){
+            char c = Character.toUpperCase(codiceFiscale.charAt(i));
+            if (!(c >= '0' && c <= '9') && !(c >= 'A' && c <= 'Z'))
+                return false;
+
+            if(c >= '0' && c <= '9')
+                contN++;
+            else
+                contC++;
+        }
+        if(limNum!=contN || limChar!=contC)
+            return false;
+
+        return true;
+    }
 
     /**
      * @param args the command line arguments

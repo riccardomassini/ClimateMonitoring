@@ -6,9 +6,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 public interface Autenticazione extends Remote {
-    boolean registrati(Operatore operatore) throws RemoteException;
-    boolean login(Operatore operatore) throws RemoteException;
-
-    //TODO da rimuovere
-    Operatore getOperatore() throws RemoteException;
+    boolean registrazione(Operatore nuovoOperatore) throws RemoteException;
+    boolean login(int username, String password) throws RemoteException;
+    Operatore ottieniOperatoreAutenticato() throws RemoteException;
 }

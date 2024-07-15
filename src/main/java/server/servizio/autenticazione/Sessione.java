@@ -4,7 +4,7 @@ package server.servizio.autenticazione;
 import commons.oggetti.Operatore;
 
 public class Sessione {
-    Operatore operatore;
+    private Operatore operatore;
 
     public Sessione(Operatore operatore) {
         this.operatore = operatore;

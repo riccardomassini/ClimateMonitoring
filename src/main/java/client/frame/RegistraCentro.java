@@ -16,7 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import server.servizio.GestisciCentri;
-import server.servizio.Autenticatore;
+import server.servizio.autenticazione.Autenticatore;
 import server.servizio.ricercapoi.RepositoryPuntiInteresse;
 
 public class RegistraCentro extends javax.swing.JFrame {

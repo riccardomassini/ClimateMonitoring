@@ -6,10 +6,12 @@ package client.frame;
 
 import client.registraeventi.Chiusura;
 import commons.oggetti.PuntoInteresse;
+import commons.servizio.RicercaPuntiInteresse;
 import server.servizio.ricercapoi.RepositoryPuntiInteresse;
 import server.servizio.GestisciParametri;
 
 import javax.swing.table.DefaultTableModel;
+import java.rmi.RemoteException;
 
 /**
  *
@@ -17,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Cittadino extends javax.swing.JFrame {
 
-    RepositoryPuntiInteresse ricercaPOI = new RepositoryPuntiInteresse();
+    RicercaPuntiInteresse ricercaPOI = new RepositoryPuntiInteresse();
     GestisciParametri gParam = new GestisciParametri();
     DefaultTableModel model;
     
@@ -45,7 +47,16 @@ public class Cittadino extends javax.swing.JFrame {
         ric4.setText("");
         model = (DefaultTableModel) tabella.getModel();
 
-        PuntoInteresse[] elencoPuntiInteresse = ricercaPOI.ottieniElencoPuntiInteresse();
+        PuntoInteresse[] elencoPuntiInteresse = null;
+
+        //TODO rmi client
+        try {
+            elencoPuntiInteresse = ricercaPOI.ottieniElencoPuntiInteresse();
+        } catch(RemoteException ex) {
+            System.err.println("Errore RMI");
+            System.exit(1);
+        }
+
         model.setRowCount(0);
         Object[] dati = new Object[7];
 
@@ -229,7 +240,16 @@ public class Cittadino extends javax.swing.JFrame {
             double lat = Double.parseDouble(ric2.getText());
             double lon = Double.parseDouble(ric3.getText());
             if(lat>-90 && lat<90 && lon>-180 && lon<180){
-                PuntoInteresse[] elencoPuntiInteresse = ricercaPOI.ricercaPerCoordinate(lat, lon);
+                PuntoInteresse[] elencoPuntiInteresse = null;
+
+                //TODO rmi client
+                try {
+                    elencoPuntiInteresse = ricercaPOI.ricercaPerCoordinate(lat, lon);
+                } catch(RemoteException ex) {
+                    System.err.println("Errore RMI");
+                    System.exit(1);
+                }
+
                 model.setRowCount(0);
                 Object[] dati = new Object[7];
 
@@ -296,7 +316,16 @@ public class Cittadino extends javax.swing.JFrame {
         ric4.setText("");
         
         String nome = ric1.getText();
-        PuntoInteresse[] elencoPuntiInteresse = ricercaPOI.ricercaPerNome(nome);
+        PuntoInteresse[] elencoPuntiInteresse = null;
+
+        //TODO rmi client
+        try {
+            elencoPuntiInteresse = ricercaPOI.ricercaPerNome(nome);
+        } catch(RemoteException ex) {
+            System.err.println("Errore RMI");
+            System.exit(1);
+        }
+
         model.setRowCount(0);
         Object[] dati = new Object[7];
             
@@ -327,7 +356,16 @@ public class Cittadino extends javax.swing.JFrame {
         ric3.setText("");
         
         String codice = ric4.getText();
-        PuntoInteresse[] elencoPuntiInteresse = ricercaPOI.ricercaPerNazione(codice);
+        PuntoInteresse[] elencoPuntiInteresse = null;
+
+        //TODO rmi client
+        try {
+            elencoPuntiInteresse = ricercaPOI.ricercaPerNazione(codice);
+        } catch(RemoteException ex) {
+            System.err.println("Errore RMI");
+            System.exit(1);
+        }
+
         model.setRowCount(0);
         Object[] dati = new Object[7];
 
