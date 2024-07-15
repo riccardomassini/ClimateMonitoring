@@ -10,8 +10,7 @@ import commons.oggetti.OperatoriClimatici;
 
 import java.util.*;
 
-import commons.oggetti.*;
-import server.gestionefile.GestisciOperatori;
+import server.servizio.GestisciOperatori;
 
 /**
  *

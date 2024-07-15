@@ -5,15 +5,16 @@
 package client.frame;
 
 import client.registraeventi.Chiusura;
-import commons.oggetti.Paese;
+import commons.oggetti.PuntoInteresse;
 import commons.oggetti.ParametriClimatici;
 
 import java.sql.*;
 import java.util.*;
 import javax.swing.table.DefaultTableModel;
-import commons.oggetti.*;
-import server.gestionefile.GestisciPaesi;
-import server.gestionefile.GestisciParametri;
+
+import server.servizio.GestisciCentri;
+import server.servizio.ricercapoi.RepositoryPuntiInteresse;
+import server.servizio.GestisciParametri;
 
 /**
  *
@@ -21,8 +22,9 @@ import server.gestionefile.GestisciParametri;
  */
 public class StampaParametri extends javax.swing.JFrame {
 
+    GestisciCentri gc = new GestisciCentri();
     GestisciParametri gParam = new GestisciParametri();
-    GestisciPaesi gPaesi = new GestisciPaesi();
+    RepositoryPuntiInteresse gPaesi = new RepositoryPuntiInteresse();
     DefaultTableModel model1, model2, model3;
     
     public StampaParametri() {
@@ -163,17 +165,17 @@ public class StampaParametri extends javax.swing.JFrame {
         String nome = ric1.getText();
         String codice = ric2.getText();
 
-        Paese paese = gPaesi.ricercaNomeCC(nome, codice);
+        PuntoInteresse paese = gc.ricercaPuntiInteresseAssociati(nome, codice);
         if(paese != null){
-            parametri = gParam.ricercaParametriArea(paese);
+            parametri = gParam.ottieniMisurazioniSuPuntoInteresse(paese);
             if(parametri.isEmpty())
                 out.setText("Nessuna rilevazione");
             double[] media;
-            media = gParam.getMedie();
+            media = gParam.ottieniMediaMisurazioni();
             int[] moda;
-            moda = gParam.getModa();
+            moda = gParam.ottieniModaMisurazioni();
 
-            //ar = gp.ricercaParametriArea(nome, codice);
+            //ar = ricercaPOI.ottieniMisurazioniSuPuntoInteresse(nome, codice);
             model1.setRowCount(0);
             model2.setRowCount(0);
             model3.setRowCount(0);

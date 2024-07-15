@@ -8,23 +8,23 @@ import client.registraeventi.Chiusura;
 import client.registraeventi.LoggerEventi;
 import commons.oggetti.CentroMonitoraggio;
 import commons.oggetti.OperatoriClimatici;
-import commons.oggetti.Paese;
+import commons.oggetti.PuntoInteresse;
 
 import java.sql.SQLException;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import commons.oggetti.*;
-import server.gestionefile.GestisciCentri;
-import server.gestionefile.GestisciOperatori;
-import server.gestionefile.GestisciPaesi;
+
+import server.servizio.GestisciCentri;
+import server.servizio.GestisciOperatori;
+import server.servizio.ricercapoi.RepositoryPuntiInteresse;
 
 public class RegistraCentro extends javax.swing.JFrame {
 
     GestisciCentri gc = new GestisciCentri();
     GestisciOperatori go = new GestisciOperatori();
-    GestisciPaesi gp = new GestisciPaesi();
-    ArrayList<Paese> aree = new ArrayList<>();
+    RepositoryPuntiInteresse gp = new RepositoryPuntiInteresse();
+    ArrayList<PuntoInteresse> aree = new ArrayList<>();
     ArrayList<OperatoriClimatici> op = new ArrayList<>();
     LoggerEventi logger = LoggerEventi.getInstance();
     OperatoriClimatici passato;
@@ -264,11 +264,11 @@ public class RegistraCentro extends javax.swing.JFrame {
         int numAree = Integer.parseInt(numaReg.getText());
 
             
-        gc.registraCentroAree(new CentroMonitoraggio(nome, indirizzo, numCivico, cap, comune, provincia), aree);
+        gc.registraCentroMonitoraggio(new CentroMonitoraggio(nome, indirizzo, numCivico, cap, comune, provincia), aree);
         logger.log("Nuovo centro registrato: " +aree.toString()+ " " +nome+ " " +indirizzo+ " " +numCivico+ " " +cap+ " " +comune+ " " +provincia+ " " +numAree);
      
         try {
-            go.setCentro(passato, nome);
+            gc.associaCentroMonitoraggio(passato, nome);
         } catch (SQLException ex) {
             Logger.getLogger(RegistraCentro.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -284,9 +284,9 @@ public class RegistraCentro extends javax.swing.JFrame {
         String asname = nomepReg.getText();
         String cc = codiceReg.getText();
         int numAree = Integer.parseInt(numaReg.getText());
-        Paese p;
+        PuntoInteresse p;
 
-        p = gp.ricercaNomeCC(asname, cc);
+        p = gc.ricercaPuntiInteresseAssociati(asname, cc);
         
         if(aree.contains(p)){
             out8.setText("Paese già inserito");

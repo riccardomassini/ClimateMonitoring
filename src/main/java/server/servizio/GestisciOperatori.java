@@ -1,5 +1,5 @@
 
-package server.gestionefile;;
+package server.servizio;;
 
 import client.registraeventi.LoggerEventi;
 import commons.oggetti.OperatoriClimatici;
@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.postgresql.util.PSQLException;
-import server.Database.ConnettoreDatabase;
+import server.database.ConnettoreDatabase;
 
 /**
  * Classe utilizza una struttura dati di tipo OperatoriClimatici per gestire,
@@ -22,8 +22,8 @@ public class GestisciOperatori{
     
     private OperatoriClimatici operatore = new OperatoriClimatici();
     
-    
-    public boolean registrazione(OperatoriClimatici operatore){
+    //TODO rmi
+    public boolean registrati(OperatoriClimatici operatore){
         Connection connessione = null;
         try {
             connessione = ConnettoreDatabase.ottieniConnettore().ottieniConnessioneDatabase();
@@ -73,7 +73,8 @@ public class GestisciOperatori{
     }
     return false;
 }*/
-    
+
+    //TODO rmi
     public boolean login(OperatoriClimatici operatore){
         ResultSet set = null;
         Connection connessione = null;
@@ -108,69 +109,15 @@ public class GestisciOperatori{
         }
         return false;
     }
-    
 
+
+    //TODO rmi da rimuovere
     public OperatoriClimatici getOperatore(){
         return this.operatore;
     }
     
-    public void setCentro(OperatoriClimatici operatore, String nuovoCentro) throws SQLException {
-        Connection connessione = null;
-        PreparedStatement esegui = null;
-
-        try {
-            connessione = ConnettoreDatabase.ottieniConnettore().ottieniConnessioneDatabase();
-            String query = "UPDATE OperatoriRegistrati SET centro = ? WHERE userid = ?";
-            esegui = connessione.prepareStatement(query);
-            esegui.setString(1, nuovoCentro);
-            esegui.setInt(2, operatore.getUserID());
-            esegui.executeUpdate();
-        } finally {
-            // Chiudi le risorse in modo sicuro
-            if (esegui != null) {
-                esegui.close();
-            }
-            if (connessione != null) {
-                connessione.close();
-            }
-        }
-    }
-    
-    public boolean haCentro(OperatoriClimatici operatore) throws SQLException {
-        Connection connessione = null;
-        PreparedStatement esegui = null;
-        ResultSet set = null;
-
-        try {
-            connessione = ConnettoreDatabase.ottieniConnettore().ottieniConnessioneDatabase();
-            String query = "SELECT centro FROM OperatoriRegistrati WHERE userid = ?";
-            esegui = connessione.prepareStatement(query);
-            esegui.setInt(1, operatore.getUserID());
-            set = esegui.executeQuery();
-
-            if (set.next()) {
-                String centro = set.getString("centro");
-                if (centro != null) {
-                    return true;
-                }
-            }
-        } finally {
-            // Chiudi le risorse in modo sicuro
-            if (set != null) {
-                set.close();
-            }
-            if (esegui != null) {
-                esegui.close();
-            }
-            if (connessione != null) {
-                connessione.close();
-            }
-        }
-        return false;
-    }
-    
     /**
-     * Metodo che controlla se la mail inserita durante la registrazione è valida
+     * Metodo che controlla se la mail inserita durante la registrati è valida
      * @param mail mail dell'operatore
      * @return valore booleano, true se la mail è valida, false altrimenti
      */

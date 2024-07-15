@@ -7,8 +7,7 @@ package client.frame;
 import client.registraeventi.Chiusura;
 import client.registraeventi.LoggerEventi;
 import commons.oggetti.OperatoriClimatici;
-import commons.oggetti.*;
-import server.gestionefile.GestisciOperatori;
+import server.servizio.GestisciOperatori;
 
 /**
  *
@@ -181,7 +180,7 @@ public class Registrazione extends javax.swing.JFrame {
             out6.setText("Password troppo corta");
         if(nome.length()>0 && cognome.length()>0 && go.checkCodiceFiscale(cf) && go.controlloMail(mail) && id>0 && pass.length()>0){
             OperatoriClimatici operatore = new OperatoriClimatici(nome, cognome, cf, mail, id, pass);
-            if(go.registrazione(operatore)){
+            if(go.registrati(operatore)){
                 out1.setText("Utente registrato");
                 logger.log("Nuovo operatore registrato: " +nome+ " " +cf+ " " +mail+ " " +id+ " " +pass);
                 backActionPerformed(evt);

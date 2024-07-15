@@ -7,14 +7,13 @@ package client.frame;
 import client.registraeventi.Chiusura;
 import client.registraeventi.LoggerEventi;
 import commons.oggetti.OperatoriClimatici;
-import commons.oggetti.Paese;
+import commons.oggetti.PuntoInteresse;
 import commons.oggetti.ParametriClimatici;
 
 import java.sql.*;
 import java.util.Date;
 
-import commons.oggetti.*;
-import server.gestionefile.GestisciParametri;
+import server.servizio.GestisciParametri;
 
 /**
  *
@@ -26,14 +25,14 @@ public class Parametri extends javax.swing.JFrame {
     LoggerEventi logger = LoggerEventi.getInstance();
     OperatoriClimatici passato;
     String nomeCentroPassato;
-    Paese paesePassato;
+    PuntoInteresse paesePassato;
     
     
     public Parametri(){
         initComponents();
     }
     
-    public Parametri(int id, String pass, String nomeCentro, Paese paese){
+    public Parametri(int id, String pass, String nomeCentro, PuntoInteresse paese){
         initComponents();
         addWindowListener(new Chiusura());
         passato = new OperatoriClimatici(id, pass);
@@ -231,7 +230,7 @@ public class Parametri extends javax.swing.JFrame {
             Date dataOggi = new Date();
             Timestamp tempo = new Timestamp(dataOggi.getTime());
 
-            gp.inserisciParametri(new ParametriClimatici(paesePassato.getGeonameID(), nomeCentroPassato, tempo, vento, noteV, umidita, noteU, pressione, notePres, temperatura, noteT, precipitazioni, notePrec, altitudine, noteA, massa, noteM));
+            gp.inserisciNuovaMisurazione(new ParametriClimatici(paesePassato.getIdPuntoInteresse(), nomeCentroPassato, tempo, vento, noteV, umidita, noteU, pressione, notePres, temperatura, noteT, precipitazioni, notePrec, altitudine, noteA, massa, noteM));
 
             logger.log("Nuovi parametri inseriti per " +paesePassato+ " " +nomeCentroPassato+ " " +vento+ " " +umidita+ " " +pressione+ " " +temperatura+ " " +precipitazioni+ " " +altitudine+ " " +massa+ " " +noteV+ " " +noteU+ " " +notePres+ " " +noteT+ " " +notePrec+ " " +noteA+ " " +noteM );
         }

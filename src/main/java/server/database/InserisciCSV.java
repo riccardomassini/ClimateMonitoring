@@ -1,4 +1,4 @@
-package server.Database;
+package server.database;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

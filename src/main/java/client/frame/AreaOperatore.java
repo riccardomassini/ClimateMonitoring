@@ -8,16 +8,16 @@ import client.registraeventi.Chiusura;
 import client.registraeventi.LoggerEventi;
 import commons.oggetti.CentroMonitoraggio;
 import commons.oggetti.OperatoriClimatici;
-import commons.oggetti.Paese;
+import commons.oggetti.PuntoInteresse;
 import commons.oggetti.ParametriClimatici;
 
 import java.sql.*;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import commons.oggetti.*;
-import server.gestionefile.GestisciCentri;
-import server.gestionefile.GestisciOperatori;
+
+import server.servizio.GestisciCentri;
+import server.servizio.GestisciOperatori;
 
 public class AreaOperatore extends javax.swing.JFrame {
 
@@ -44,7 +44,7 @@ public class AreaOperatore extends javax.swing.JFrame {
             OperatoriClimatici operatore = go.getOperatore();
             jLabel2.setText("OPERATORE " +passato.getUserID());
             try {
-                if(go.haCentro(passato)){
+                if(gc.centroMonitoraggioAssociato(passato)){
                     titReg.setVisible(false);
                     centro.setVisible(false);
                     out1.setText("Centro " +passato.getCentroM());
@@ -207,9 +207,9 @@ public class AreaOperatore extends javax.swing.JFrame {
         out2.setText("");
         String nome = nomePP.getText();
         String codice = CCPP.getText();
-        Paese p;
+        PuntoInteresse p;
 
-        p = gc.trovaArea(nome, codice, centroOp);
+        p = gc.trovaAreaAssociata(nome, codice, centroOp);
 
         if(p!=null){
             Parametri pa = new Parametri(passato.getUserID(), passato.getPassword(), centroOp, p);

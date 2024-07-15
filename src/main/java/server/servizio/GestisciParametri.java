@@ -1,8 +1,8 @@
-package server.gestionefile;
+package server.servizio;
 
-import commons.oggetti.Paese;
+import commons.oggetti.PuntoInteresse;
 import commons.oggetti.ParametriClimatici;
-import server.Database.ConnettoreDatabase;
+import server.database.ConnettoreDatabase;
 
 import java.util.*;
 import java.sql.*;
@@ -27,8 +27,8 @@ public class GestisciParametri{
      */
     private int[] moda = new int[7];
     
-    
-    public void inserisciParametri(ParametriClimatici parametri){
+    //TODO rmi
+    public void inserisciNuovaMisurazione(ParametriClimatici parametri){
         try {
             Connection connessione = ConnettoreDatabase.ottieniConnettore().ottieniConnessioneDatabase();
             
@@ -85,18 +85,18 @@ public class GestisciParametri{
                     String cc = token.nextToken();
                     double lat = Double.parseDouble(token.nextToken());
                     double lon = Double.parseDouble(token.nextToken());
-                    if(asname.equals(paese.getAsname()) && cc.equals(paese.getCc()))
+                    if(asname.equals(paese.getNomePuntoInteresseASCII()) && cc.equals(paese.getCodiceNazione()))
                         paesi.add(asname + "," + cc + "," +lat+ "," +lon);
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(GestisciParametri.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestisciParametri.class.getNomePuntoInteresse()).log(Level.SEVERE, null, ex);
         }
         return paesi;
     }*/
     
-
-    public ArrayList<ParametriClimatici> ricercaParametriArea(Paese paese){
+    //TODO rmi
+    public ArrayList<ParametriClimatici> ottieniMisurazioniSuPuntoInteresse(PuntoInteresse paese){
         ResultSet set = null;
         Connection connessione = null;
         
@@ -142,7 +142,7 @@ public class GestisciParametri{
                 String noteM = set.getString("massaghiacciainote");
                 
                 
-                if(paese.getGeonameID() == geonameid){
+                if(paese.getIdPuntoInteresse() == geonameid){
                     cont[0][vento]++;
                     cont[1][umidita]++;
                     cont[2][pres]++;
@@ -159,7 +159,7 @@ public class GestisciParametri{
                     somme[5] = somme[5] + alt;
                     somme[6] = somme[6] + massa;
 
-                    parametri.add(new ParametriClimatici(paese.getGeonameID(), nomeC, data, vento, noteV, umidita, noteU, pres, notePres, tempe, noteT, prec, notePrec, alt, noteA, massa, noteM));
+                    parametri.add(new ParametriClimatici(paese.getIdPuntoInteresse(), nomeC, data, vento, noteV, umidita, noteU, pres, notePres, tempe, noteT, prec, notePrec, alt, noteA, massa, noteM));
                 }
 
             }
@@ -186,12 +186,14 @@ public class GestisciParametri{
         
         return parametri;
     }
-    
-    public double[] getMedie() {
+
+    //TODO rmi
+    public double[] ottieniMediaMisurazioni() {
         return medie;
     }
 
-    public int[] getModa() {
+    //TODO Rmi
+    public int[] ottieniModaMisurazioni() {
         return moda;
     }
 }

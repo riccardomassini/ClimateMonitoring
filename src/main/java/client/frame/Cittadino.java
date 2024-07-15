@@ -4,14 +4,11 @@
  */
 package client.frame;
 
-import client.registraeventi.*;
 import client.registraeventi.Chiusura;
-import server.gestionefile.GestisciPaesi;
-import server.gestionefile.GestisciParametri;
+import commons.oggetti.PuntoInteresse;
+import server.servizio.ricercapoi.RepositoryPuntiInteresse;
+import server.servizio.GestisciParametri;
 
-import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Cittadino extends javax.swing.JFrame {
 
-    GestisciPaesi gp = new GestisciPaesi();
+    RepositoryPuntiInteresse ricercaPOI = new RepositoryPuntiInteresse();
     GestisciParametri gParam = new GestisciParametri();
     DefaultTableModel model;
     
@@ -47,25 +44,21 @@ public class Cittadino extends javax.swing.JFrame {
         ric3.setText("");
         ric4.setText("");
         model = (DefaultTableModel) tabella.getModel();
-        
-        try {
-            ResultSet set = gp.leggiPaesi();
-            model.setRowCount(0);
-            
-            Object dati[] = new Object[7];
-            
-            while(set.next()){
-                dati[0] = set.getString("geonameid");
-                dati[1] = set.getString("nomepaese");
-                dati[2] = set.getString("asciipaese");
-                dati[3] = set.getString("codicestato");
-                dati[4] = set.getString("nomestato");
-                dati[5] = set.getDouble("latitudine");
-                dati[6] = set.getDouble("longitudine");
-                model.addRow(dati);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Cittadino.class.getName()).log(Level.SEVERE, null, ex);
+
+        PuntoInteresse[] elencoPuntiInteresse = ricercaPOI.ottieniElencoPuntiInteresse();
+        model.setRowCount(0);
+        Object[] dati = new Object[7];
+
+        for(PuntoInteresse puntoInteresse : elencoPuntiInteresse){
+            dati[0] = puntoInteresse.getIdPuntoInteresse();
+            dati[1] = puntoInteresse.getNomePuntoInteresse();
+            dati[2] = puntoInteresse.getNomePuntoInteresseASCII();
+            dati[3] = puntoInteresse.getCodiceNazione();
+            dati[4] = puntoInteresse.getNomeNazione();
+            dati[5] = puntoInteresse.getLatitudine();
+            dati[6] = puntoInteresse.getLongitudine();
+
+            model.addRow(dati);
         }
     }
 
@@ -216,20 +209,19 @@ public class Cittadino extends javax.swing.JFrame {
 
     private void cerca2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerca2ActionPerformed
         out.setText("");
-        ResultSet set = null;
         try {
             /*try{
             Paese p = new Paese();
             double lat = Double.parseDouble(ric2.getText());
             double lon = Double.parseDouble(ric3.getText());
             try {
-            p = gp.ricercaCoo(lat, lon);
+            p = ricercaPOI.ricercaCoo(lat, lon);
             } catch (FileNotFoundException ex) {
-            Logger.getLogger(Cittadino.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Cittadino.class.getNomePuntoInteresse()).log(Level.SEVERE, null, ex);
             }
             model.setRowCount(0);
 
-            Object data[] = {p.getAsname(), p.getCc(), p.getLat(), p.getLon()};
+            Object data[] = {p.getNomePuntoInteresseASCII(), p.getCodiceNazione(), p.getLatitudine(), p.getLongitudine()};
             model.addRow(data);
             }catch(NumberFormatException ex){
             
@@ -237,35 +229,28 @@ public class Cittadino extends javax.swing.JFrame {
             double lat = Double.parseDouble(ric2.getText());
             double lon = Double.parseDouble(ric3.getText());
             if(lat>-90 && lat<90 && lon>-180 && lon<180){
-                set = gp.ricercaCooPlus(lat, lon);
+                PuntoInteresse[] elencoPuntiInteresse = ricercaPOI.ricercaPerCoordinate(lat, lon);
                 model.setRowCount(0);
+                Object[] dati = new Object[7];
 
-                Object dati[] = new Object[7];
-                while(set.next()){
-                    dati[0] = set.getString("geonameid");
-                    dati[1] = set.getString("nomepaese");
-                    dati[2] = set.getString("asciipaese");
-                    dati[3] = set.getString("codicestato");
-                    dati[4] = set.getString("nomestato");
-                    dati[5] = set.getDouble("latitudine");
-                    dati[6] = set.getDouble("longitudine");
+                for(PuntoInteresse puntoInteresse : elencoPuntiInteresse){
+                    dati[0] = puntoInteresse.getIdPuntoInteresse();
+                    dati[1] = puntoInteresse.getNomePuntoInteresse();
+                    dati[2] = puntoInteresse.getNomePuntoInteresseASCII();
+                    dati[3] = puntoInteresse.getCodiceNazione();
+                    dati[4] = puntoInteresse.getNomeNazione();
+                    dati[5] = puntoInteresse.getLatitudine();
+                    dati[6] = puntoInteresse.getLongitudine();
+
                     model.addRow(dati);
                 }
-            }else
+
+            } else
                 out.setText("valori inesistenti");
         }catch(NumberFormatException ex){
             out.setText("Valori non validi");
-        } catch (SQLException ex) {
-            Logger.getLogger(Cittadino.class.getName()).log(Level.SEVERE, null, ex);
-        }finally {
-            if (set != null) {
-                try {
-                    set.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(GestisciPaesi.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
+
     }//GEN-LAST:event_cerca2ActionPerformed
 
     private void comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboActionPerformed
@@ -311,33 +296,22 @@ public class Cittadino extends javax.swing.JFrame {
         ric4.setText("");
         
         String nome = ric1.getText();
-        ResultSet set = gp.ricercaNome(nome);
+        PuntoInteresse[] elencoPuntiInteresse = ricercaPOI.ricercaPerNome(nome);
         model.setRowCount(0);
-        
-        Object dati[] = new Object[7];
-        try {
+        Object[] dati = new Object[7];
             
-            while(set.next()){
-                dati[0] = set.getString("geonameid");
-                dati[1] = set.getString("nomepaese");
-                dati[2] = set.getString("asciipaese");
-                dati[3] = set.getString("codicestato");
-                dati[4] = set.getString("nomestato");
-                dati[5] = set.getDouble("latitudine");
-                dati[6] = set.getDouble("longitudine");
-                model.addRow(dati);     
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Cittadino.class.getName()).log(Level.SEVERE, null, ex);
-        }finally {
-            if (set != null) {
-                try {
-                    set.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(GestisciPaesi.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+        for(PuntoInteresse puntoInteresse : elencoPuntiInteresse){
+            dati[0] = puntoInteresse.getIdPuntoInteresse();
+            dati[1] = puntoInteresse.getNomePuntoInteresse();
+            dati[2] = puntoInteresse.getNomePuntoInteresseASCII();
+            dati[3] = puntoInteresse.getCodiceNazione();
+            dati[4] = puntoInteresse.getNomeNazione();
+            dati[5] = puntoInteresse.getLatitudine();
+            dati[6] = puntoInteresse.getLongitudine();
+
+            model.addRow(dati);
         }
+
     }//GEN-LAST:event_cerca1ActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
@@ -353,31 +327,20 @@ public class Cittadino extends javax.swing.JFrame {
         ric3.setText("");
         
         String codice = ric4.getText();
-        ResultSet set = gp.ricercaStato(codice);
+        PuntoInteresse[] elencoPuntiInteresse = ricercaPOI.ricercaPerNazione(codice);
         model.setRowCount(0);
+        Object[] dati = new Object[7];
 
-        Object dati[] = new Object[7];
-        try {
-            while(set.next()){
-                dati[0] = set.getString("geonameid");
-                dati[1] = set.getString("nomepaese");
-                dati[2] = set.getString("asciipaese");
-                dati[3] = set.getString("codicestato");
-                dati[4] = set.getString("nomestato");
-                dati[5] = set.getDouble("latitudine");
-                dati[6] = set.getDouble("longitudine");
-                model.addRow(dati);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Cittadino.class.getName()).log(Level.SEVERE, null, ex);
-        }finally {
-            if (set != null) {
-                try {
-                    set.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(GestisciPaesi.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+        for(PuntoInteresse puntoInteresse : elencoPuntiInteresse){
+            dati[0] = puntoInteresse.getIdPuntoInteresse();
+            dati[1] = puntoInteresse.getNomePuntoInteresse();
+            dati[2] = puntoInteresse.getNomePuntoInteresseASCII();
+            dati[3] = puntoInteresse.getCodiceNazione();
+            dati[4] = puntoInteresse.getNomeNazione();
+            dati[5] = puntoInteresse.getLatitudine();
+            dati[6] = puntoInteresse.getLongitudine();
+
+            model.addRow(dati);
         }
     }//GEN-LAST:event_cerca3ActionPerformed
 

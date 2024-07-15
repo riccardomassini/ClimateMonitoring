@@ -1,8 +1,10 @@
-package server.gestionefile;
+package server.servizio;
 
 import commons.oggetti.CentroMonitoraggio;
-import commons.oggetti.Paese;
-import server.Database.ConnettoreDatabase;
+import commons.oggetti.OperatoriClimatici;
+import commons.oggetti.PuntoInteresse;
+import server.database.ConnettoreDatabase;
+import server.servizio.ricercapoi.RepositoryPuntiInteresse;
 
 import java.util.*;
 import java.sql.*;
@@ -22,8 +24,8 @@ public class GestisciCentri {
      */
     public GestisciCentri(){}
     
-    
-    public void registraCentroAree(CentroMonitoraggio centro, ArrayList<Paese> aree){
+    //TODO rmi
+    public void registraCentroMonitoraggio(CentroMonitoraggio centro, ArrayList<PuntoInteresse> aree){
         Connection connessione = null;
         try {
             connessione = ConnettoreDatabase.ottieniConnettore().ottieniConnessioneDatabase();
@@ -38,11 +40,11 @@ public class GestisciCentri {
             esegui1.setString(6, centro.getProvincia());
             esegui1.executeUpdate();
             
-            for(Paese p: aree){
+            for(PuntoInteresse p: aree){
                 String query2 = "INSERT INTO areemonitoratedacentri(centro, geonameid) VALUES (?, ?)";
                 PreparedStatement esegui2 = connessione.prepareStatement(query2);
                 esegui2.setString(1, centro.getNome());
-                esegui2.setInt(2, p.getGeonameID());
+                esegui2.setInt(2, p.getIdPuntoInteresse());
                 esegui2.executeUpdate();
             }
         } catch (SQLException ex) {
@@ -57,10 +59,11 @@ public class GestisciCentri {
             }
         }
     }
-    
-    public Paese trovaArea(String nomeP, String code, String centroOp){
+
+    //TODO rmi
+    public PuntoInteresse trovaAreaAssociata(String nomeP, String code, String centroOp){
         ResultSet set = null;
-        Paese paese = null;
+        PuntoInteresse paese = null;
         code = code.toUpperCase();
         String areeArray;
         StringTokenizer token = null;
@@ -87,7 +90,7 @@ public class GestisciCentri {
                 double lat = set.getDouble("latitudine");
                 double lon = set.getDouble("longitudine");
 
-                paese = new Paese(geonameID, name, asname, cc, cname, lat, lon);
+                paese = new PuntoInteresse(geonameID, name, asname, cc, cname, lat, lon);
             }
             
             /*try{
@@ -116,6 +119,111 @@ public class GestisciCentri {
         } 
         return paese;
     }
+
+    //TODO rmi
+    public void associaCentroMonitoraggio(OperatoriClimatici operatore, String nuovoCentro) throws SQLException {
+        Connection connessione = null;
+        PreparedStatement esegui = null;
+
+        try {
+            connessione = ConnettoreDatabase.ottieniConnettore().ottieniConnessioneDatabase();
+            String query = "UPDATE OperatoriRegistrati SET centro = ? WHERE userid = ?";
+            esegui = connessione.prepareStatement(query);
+            esegui.setString(1, nuovoCentro);
+            esegui.setInt(2, operatore.getUserID());
+            esegui.executeUpdate();
+        } finally {
+            // Chiudi le risorse in modo sicuro
+            if (esegui != null) {
+                esegui.close();
+            }
+            if (connessione != null) {
+                connessione.close();
+            }
+        }
+    }
+
+    //TODO rmi
+    public boolean centroMonitoraggioAssociato(OperatoriClimatici operatore) throws SQLException {
+        Connection connessione = null;
+        PreparedStatement esegui = null;
+        ResultSet set = null;
+
+        try {
+            connessione = ConnettoreDatabase.ottieniConnettore().ottieniConnessioneDatabase();
+            String query = "SELECT centro FROM OperatoriRegistrati WHERE userid = ?";
+            esegui = connessione.prepareStatement(query);
+            esegui.setInt(1, operatore.getUserID());
+            set = esegui.executeQuery();
+
+            if (set.next()) {
+                String centro = set.getString("centro");
+                if (centro != null) {
+                    return true;
+                }
+            }
+        } finally {
+            // Chiudi le risorse in modo sicuro
+            if (set != null) {
+                set.close();
+            }
+            if (esegui != null) {
+                esegui.close();
+            }
+            if (connessione != null) {
+                connessione.close();
+            }
+        }
+        return false;
+    }
+
+    //TODO rmi
+    public PuntoInteresse ricercaPuntiInteresseAssociati(String scelta1, String scelta2){
+        scelta2 = scelta2.toUpperCase();
+        Connection connessione = null;
+        try {
+            connessione = ConnettoreDatabase.ottieniConnettore().ottieniConnessioneDatabase();
+        } catch (SQLException e) {
+            System.err.println("Impossibile connettersi al database");
+        }
+        ResultSet set = null;
+        if(connessione!=null){
+            try {
+                String query = "SELECT * FROM coordinatemonitoraggio WHERE UPPER(asciipaese) = ? AND codicestato = ?";
+                PreparedStatement esegui = connessione.prepareStatement(query);
+                esegui.setString(1, scelta1.toUpperCase());
+                esegui.setString(2, scelta2.toUpperCase());
+
+                set = esegui.executeQuery();
+
+                while(set.next()){
+                    int geonameID = set.getInt("geonameid");
+                    String name = set.getString("nomepaese");
+                    String asname = set.getString("asciipaese");
+                    String cc = set.getString("codicestato");
+                    String cname = set.getString("nomestato");
+                    double lat = set.getDouble("latitudine");
+                    double lon = set.getDouble("longitudine");
+
+                    return new PuntoInteresse(geonameID, name, asname, cc, cname, lat, lon);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(RepositoryPuntiInteresse.class.getName()).log(Level.SEVERE, null, ex);
+            }finally{
+                if (set != null) {
+                    try {
+                        set.close();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(RepositoryPuntiInteresse.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+
+
     
     /**
      * Metodo controlla se il cap inserito dall'utente è valido
