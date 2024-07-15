@@ -2,7 +2,7 @@ package server.servizio.ricercapoi;
 
 import static java.lang.Math.*;
 
-public class CalcoloHaversine {
+class CalcoloHaversine {
     private static final double RAGGIO_PIANETA_TERRA_KM = 6371;
 
     public static double haversine(double latitudine1, double longitudine1, double latitudine2, double longitudine2) {

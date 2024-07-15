@@ -20,22 +20,18 @@ public class RepositoryPuntiInteresse  {
         this.puntiInteresseDAO = new ImplPuntiInteresseDAO();
     }
 
-    //TODO rmi
     public PuntoInteresse[] ottieniElencoPuntiInteresse(){
         return puntiInteresseDAO.ottieniElencoPuntiInteresse();
     }
 
-    //TODO rmi
     public PuntoInteresse[] ricercaPerNome(String nome) {
         return puntiInteresseDAO.ottieniPuntiInteressePerNome(nome);
     }
 
-    //TODO rmi
     public PuntoInteresse[] ricercaPerNazione(String codiceNazione){
         return puntiInteresseDAO.ottieniPuntiInteressePerCodiceNazione(codiceNazione);
     }
 
-    //TODO rmi
     public PuntoInteresse[] ricercaPerCoordinate(double latitudine, double longitudine){
         PuntoInteresse[] elencoPuntiInteresse = puntiInteresseDAO.ottieniElencoPuntiInteresse();
         TreeMap<Double, PuntoInteresse> distanze = new TreeMap<>();
@@ -51,6 +47,5 @@ public class RepositoryPuntiInteresse  {
 
         return elencoPuntiInteresse;
     }
-    
 
 }
