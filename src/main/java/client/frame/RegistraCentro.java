@@ -7,7 +7,7 @@ package client.frame;
 import client.registraeventi.Chiusura;
 import client.registraeventi.LoggerEventi;
 import commons.oggetti.CentroMonitoraggio;
-import commons.oggetti.OperatoriClimatici;
+import commons.oggetti.Operatore;
 import commons.oggetti.PuntoInteresse;
 
 import java.sql.SQLException;
@@ -16,18 +16,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import server.servizio.GestisciCentri;
-import server.servizio.GestisciOperatori;
+import server.servizio.Autenticatore;
 import server.servizio.ricercapoi.RepositoryPuntiInteresse;
 
 public class RegistraCentro extends javax.swing.JFrame {
 
     GestisciCentri gc = new GestisciCentri();
-    GestisciOperatori go = new GestisciOperatori();
+    Autenticatore go = new Autenticatore();
     RepositoryPuntiInteresse gp = new RepositoryPuntiInteresse();
     ArrayList<PuntoInteresse> aree = new ArrayList<>();
-    ArrayList<OperatoriClimatici> op = new ArrayList<>();
+    ArrayList<Operatore> op = new ArrayList<>();
     LoggerEventi logger = LoggerEventi.getInstance();
-    OperatoriClimatici passato;
+    Operatore passato;
     int count;
     
     public RegistraCentro() {
@@ -37,7 +37,7 @@ public class RegistraCentro extends javax.swing.JFrame {
     public RegistraCentro(int id, String pass){
         initComponents();
         addWindowListener(new Chiusura());
-        passato = new OperatoriClimatici(id, pass);
+        passato = new Operatore(id, pass);
         areeLabel.setVisible(false);
         nomepReg.setVisible(false);
         codiceReg.setVisible(false);
@@ -193,7 +193,7 @@ public class RegistraCentro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-        AreaOperatore ao = new AreaOperatore(passato.getUserID(), passato.getPassword());
+        AreaOperatore ao = new AreaOperatore(passato.getUsername(), passato.getPassword());
         ao.setLocation(this.getX(), this.getY());
         this.setVisible(false);
         ao.setVisible(true);
@@ -272,7 +272,7 @@ public class RegistraCentro extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(RegistraCentro.class.getName()).log(Level.SEVERE, null, ex);
         }
-        AreaOperatore ao = new AreaOperatore(passato.getUserID(), passato.getPassword());
+        AreaOperatore ao = new AreaOperatore(passato.getUsername(), passato.getPassword());
         ao.setLocation(this.getX(), this.getY());
         this.setVisible(false);
         ao.setVisible(true);

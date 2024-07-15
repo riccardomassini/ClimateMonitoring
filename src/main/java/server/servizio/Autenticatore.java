@@ -2,7 +2,7 @@
 package server.servizio;;
 
 import client.registraeventi.LoggerEventi;
-import commons.oggetti.OperatoriClimatici;
+import commons.oggetti.Operatore;
 
 import java.sql.*;
 import java.util.logging.Level;
@@ -11,41 +11,41 @@ import org.postgresql.util.PSQLException;
 import server.database.ConnettoreDatabase;
 
 /**
- * Classe utilizza una struttura dati di tipo OperatoriClimatici per gestire,
+ * Classe utilizza una struttura dati di tipo Operatore per gestire,
  * per organizzare e salvare in un file tutti i parametri inseriti dall'utente
  * @author Nome: Riccardo Massini   Matricola: 753291   Sede: CO
  * @version 1.0
  */
-public class GestisciOperatori{
+public class Autenticatore {
     
     LoggerEventi logger = LoggerEventi.getInstance();
     
-    private OperatoriClimatici operatore = new OperatoriClimatici();
+    private Operatore operatore = new Operatore();
     
     //TODO rmi
-    public boolean registrati(OperatoriClimatici operatore){
+    public boolean registrati(Operatore operatore){
         Connection connessione = null;
         try {
             connessione = ConnettoreDatabase.ottieniConnettore().ottieniConnessioneDatabase();
-            /*if(verificaDuplicato(connessione, operatore.getUserID())){
+            /*if(verificaDuplicato(connessione, operatore.getUsername())){
                 System.out.println("Errore... chiave primaria duplicata");
                 return;
             }*/
             String query = "INSERT INTO OperatoriRegistrati(userid, nome, cognome, codfisc, email, password, centro) VALUES (?, ?, ?, ?, ?, ?, NULL)";
             PreparedStatement esegui = connessione.prepareStatement(query);
             
-            esegui.setInt(1, operatore.getUserID());
+            esegui.setInt(1, operatore.getUsername());
             esegui.setString(2, operatore.getNome());
             esegui.setString(3, operatore.getCognome());
-            esegui.setString(4, operatore.getCf());
-            esegui.setString(5, operatore.getMail());
+            esegui.setString(4, operatore.getCodiceFiscale());
+            esegui.setString(5, operatore.getEmail());
             esegui.setString(6, operatore.getPassword());
 
             esegui.executeUpdate();
         }catch(PSQLException e){
             return false;
         }catch (SQLException ex) {
-            Logger.getLogger(GestisciOperatori.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Autenticatore.class.getName()).log(Level.SEVERE, null, ex);
         }finally {
         // Chiudi la connessione nel blocco finally
             if (connessione != null) {
@@ -75,7 +75,7 @@ public class GestisciOperatori{
 }*/
 
     //TODO rmi
-    public boolean login(OperatoriClimatici operatore){
+    public boolean login(Operatore operatore){
         ResultSet set = null;
         Connection connessione = null;
         try {
@@ -84,18 +84,18 @@ public class GestisciOperatori{
             String query = "SELECT * FROM OperatoriRegistrati WHERE userid = ? AND password = ? ";
             
             PreparedStatement esegui = connessione.prepareStatement(query);     // PER EVITARE SQL INJECTION
-            esegui.setInt(1, operatore.getUserID());
+            esegui.setInt(1, operatore.getUsername());
             esegui.setString(2, operatore.getPassword());
             
             set = esegui.executeQuery();
             
             while(set.next()){
-                this.operatore = new OperatoriClimatici(set.getString("nome"), set.getString("cognome"), set.getString("codfisc"), set.getString("email"), 
+                this.operatore = new Operatore(set.getString("nome"), set.getString("cognome"), set.getString("codfisc"), set.getString("email"),
                                                        set.getInt("userid"), set.getString("password"), set.getString("centro"));
                 return true;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(GestisciOperatori.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Autenticatore.class.getName()).log(Level.SEVERE, null, ex);
         }finally {
         // Chiudi la connessione nel blocco finally
             if (connessione != null) {
@@ -112,7 +112,7 @@ public class GestisciOperatori{
 
 
     //TODO rmi da rimuovere
-    public OperatoriClimatici getOperatore(){
+    public Operatore getOperatore(){
         return this.operatore;
     }
     

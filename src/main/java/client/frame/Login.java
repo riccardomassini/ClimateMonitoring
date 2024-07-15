@@ -6,11 +6,11 @@ package client.frame;
 
 import client.registraeventi.Chiusura;
 import client.registraeventi.LoggerEventi;
-import commons.oggetti.OperatoriClimatici;
+import commons.oggetti.Operatore;
 
 import java.util.*;
 
-import server.servizio.GestisciOperatori;
+import server.servizio.Autenticatore;
 
 /**
  *
@@ -18,8 +18,8 @@ import server.servizio.GestisciOperatori;
  */
 public class Login extends javax.swing.JFrame {
 
-    GestisciOperatori go = new GestisciOperatori();
-    ArrayList<OperatoriClimatici> op = new ArrayList<>();
+    Autenticatore go = new Autenticatore();
+    ArrayList<Operatore> op = new ArrayList<>();
     AreaOperatore ao = new AreaOperatore();
     LoggerEventi logger = LoggerEventi.getInstance();
     
@@ -117,7 +117,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_passwordActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-        Operatore op = new Operatore();
+        client.frame.Operatore op = new client.frame.Operatore();
         op.setLocation(this.getX(), this.getY());
         this.setVisible(false);
         op.setVisible(true); 
@@ -137,10 +137,10 @@ public class Login extends javax.swing.JFrame {
         }catch(NumberFormatException e){}
 
         String pass = password.getText();
-        OperatoriClimatici operatore = new OperatoriClimatici(id, pass);
+        commons.oggetti.Operatore operatore = new commons.oggetti.Operatore(id, pass);
 
         if(go.login(operatore)){
-            AreaOperatore ao = new AreaOperatore(operatore.getUserID(), operatore.getPassword());
+            AreaOperatore ao = new AreaOperatore(operatore.getUsername(), operatore.getPassword());
             ao.setLocation(this.getX(), this.getY());
             this.setVisible(false);
             ao.setVisible(true);

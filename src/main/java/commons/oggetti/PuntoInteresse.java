@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * Classe che contiene tutti gli attributi che formano l'oggetto Paese
- * @author Nome: Riccardo Massini   Matricola: 753291   Sede: CO
+ * @author Nome: RicodiceNazioneardo Massini   Matricola: 753291   Sede: CO
  * @author Nome: Massimiliano De Lorenzo    Matricola: 754160   Sede: CO
  * @version 1.0
  */
@@ -20,21 +20,15 @@ public class PuntoInteresse implements Serializable {
     public PuntoInteresse() {
     }
 
-    /**
-     * Costruttore pieno che servirà per istanziare l'oggetto di tipo Paese
-     * @param asname nome del Paese
-     * @param cc codice del Paese
-     * @param lat latitudine del Paese
-     * @param lon longitudine del Paese
-     */
-    public PuntoInteresse(int geonameID, String name, String asname, String cc, String cname, double lat, double lon) {
-        this.idPuntoInteresse = geonameID;
-        this.nomePuntoInteresse = name;
-        this.nomePuntoInteresseASCII = asname;
-        this.codiceNazione = cc;
-        this.nomeNazione = cname;
-        this.latitudine = lat;
-        this.longitudine = lon;
+    public PuntoInteresse(int idPuntoInteresse, String nomePuntoInteresse, String nomePuntoInteresseASCII, String codiceNazione, String nomeNazione, double latitudine, double longitudine) {
+        this();
+        this.idPuntoInteresse = idPuntoInteresse;
+        this.nomePuntoInteresse = nomePuntoInteresse;
+        this.nomePuntoInteresseASCII = nomePuntoInteresseASCII;
+        this.codiceNazione = codiceNazione;
+        this.nomeNazione = nomeNazione;
+        this.latitudine = latitudine;
+        this.longitudine = longitudine;
     }
 
     public int getIdPuntoInteresse() {

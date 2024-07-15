@@ -6,7 +6,7 @@ package client.frame;
 
 import client.registraeventi.Chiusura;
 import commons.oggetti.PuntoInteresse;
-import commons.oggetti.ParametriClimatici;
+import commons.oggetti.Misurazione;
 
 import java.sql.*;
 import java.util.*;
@@ -160,7 +160,7 @@ public class StampaParametri extends javax.swing.JFrame {
 
     private void cercaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cercaActionPerformed
         ResultSet set = null;
-        ArrayList<ParametriClimatici> parametri;
+        ArrayList<Misurazione> parametri;
         out.setText("");
         String nome = ric1.getText();
         String codice = ric2.getText();
@@ -182,23 +182,23 @@ public class StampaParametri extends javax.swing.JFrame {
 
             Object dati[] = new Object[20];
             for(int i=0; i<parametri.size(); i++){
-                dati[0] = parametri.get(i).getNomeC();
-                dati[1] = parametri.get(i).getData();
-                dati[2] = parametri.get(i).getData();
-                dati[3] = parametri.get(i).getVento();
-                dati[4] = parametri.get(i).getUmidita();
-                dati[5] = parametri.get(i).getPressione();
-                dati[6] = parametri.get(i).getTemperatura();
-                dati[7] = parametri.get(i).getPrecipitazioni();
-                dati[8] = parametri.get(i).getAltitudine();
-                dati[9]= parametri.get(i).getMassa();
-                dati[10] = parametri.get(i).getNoteV();
-                dati[11] = parametri.get(i).getNoteU();
-                dati[12] = parametri.get(i).getNotePres();
-                dati[13] = parametri.get(i).getNoteT();
-                dati[14] = parametri.get(i).getNotePrec();
-                dati[15] = parametri.get(i).getNoteA();
-                dati[16] = parametri.get(i).getNoteM();
+                dati[0] = parametri.get(i).getNomeCentro();
+                dati[1] = parametri.get(i).getTimestampMisurazione();
+                dati[2] = parametri.get(i).getTimestampMisurazione();
+                dati[3] = parametri.get(i).getValutazioneVento();
+                dati[4] = parametri.get(i).getValutazioneUmidita();
+                dati[5] = parametri.get(i).getValutazionePressione();
+                dati[6] = parametri.get(i).getValutazioneTemperatura();
+                dati[7] = parametri.get(i).getValutazionePrecipitazioni();
+                dati[8] = parametri.get(i).getValutazioneAltitudineGhiacciai();
+                dati[9]= parametri.get(i).getValutazioneMassaGhiacciai();
+                dati[10] = parametri.get(i).getCommentoVento();
+                dati[11] = parametri.get(i).getCommentoUmidita();
+                dati[12] = parametri.get(i).getCommentoPressione();
+                dati[13] = parametri.get(i).getCommentoTemperatura();
+                dati[14] = parametri.get(i).getCommentoPrecipitazioni();
+                dati[15] = parametri.get(i).getCommentoAltitudineGhiacciai();
+                dati[16] = parametri.get(i).getCommentoMassaGhiacciai();
 
                 model1.addRow(dati);
             }

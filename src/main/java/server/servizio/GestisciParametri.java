@@ -1,7 +1,7 @@
 package server.servizio;
 
 import commons.oggetti.PuntoInteresse;
-import commons.oggetti.ParametriClimatici;
+import commons.oggetti.Misurazione;
 import server.database.ConnettoreDatabase;
 
 import java.util.*;
@@ -10,7 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Classe che utilizza una struttura dati di tipo ParametriClimatici per gestire,
+ * Classe che utilizza una struttura dati di tipo Misurazione per gestire,
  * per organizzare e salvare in un file tutti i parametri inseriti dall'utente
  * @author Nome: Riccardo Massini   Matricola: 753291   Sede: CO
  * @version 1.0
@@ -28,7 +28,7 @@ public class GestisciParametri{
     private int[] moda = new int[7];
     
     //TODO rmi
-    public void inserisciNuovaMisurazione(ParametriClimatici parametri){
+    public void inserisciNuovaMisurazione(Misurazione parametri){
         try {
             Connection connessione = ConnettoreDatabase.ottieniConnettore().ottieniConnessioneDatabase();
             
@@ -41,23 +41,23 @@ public class GestisciParametri{
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             
             PreparedStatement esegui = connessione.prepareStatement(query);
-            esegui.setInt(1, parametri.getGeonameid());
-            esegui.setString(2, parametri.getNomeC());
-            esegui.setTimestamp(3, parametri.getData());
-            esegui.setInt(4, Integer.parseInt(parametri.getVento().toString()));
-            esegui.setString(5, parametri.getNoteV());
-            esegui.setInt(6, Integer.parseInt(parametri.getUmidita().toString()));
-            esegui.setString(7, parametri.getNoteU());
-            esegui.setInt(8, Integer.parseInt(parametri.getPressione().toString()));
-            esegui.setString(9, parametri.getNotePres());
-            esegui.setInt(10, Integer.parseInt(parametri.getTemperatura().toString()));
-            esegui.setString(11, parametri.getNoteT());
-            esegui.setInt(12, Integer.parseInt(parametri.getPrecipitazioni().toString()));
-            esegui.setString(13, parametri.getNotePrec());
-            esegui.setInt(14, Integer.parseInt(parametri.getAltitudine().toString()));
-            esegui.setString(15, parametri.getNoteA());
-            esegui.setInt(16, Integer.parseInt(parametri.getMassa().toString()));
-            esegui.setString(17, parametri.getNoteM());
+            esegui.setInt(1, parametri.getIdPuntoInteresse());
+            esegui.setString(2, parametri.getNomeCentro());
+            esegui.setTimestamp(3, parametri.getTimestampMisurazione());
+            esegui.setInt(4, Integer.parseInt(parametri.getValutazioneVento().toString()));
+            esegui.setString(5, parametri.getCommentoVento());
+            esegui.setInt(6, Integer.parseInt(parametri.getValutazioneUmidita().toString()));
+            esegui.setString(7, parametri.getCommentoUmidita());
+            esegui.setInt(8, Integer.parseInt(parametri.getValutazionePressione().toString()));
+            esegui.setString(9, parametri.getCommentoPressione());
+            esegui.setInt(10, Integer.parseInt(parametri.getValutazioneTemperatura().toString()));
+            esegui.setString(11, parametri.getCommentoTemperatura());
+            esegui.setInt(12, Integer.parseInt(parametri.getValutazionePrecipitazioni().toString()));
+            esegui.setString(13, parametri.getCommentoPrecipitazioni());
+            esegui.setInt(14, Integer.parseInt(parametri.getValutazioneAltitudineGhiacciai().toString()));
+            esegui.setString(15, parametri.getCommentoAltitudineGhiacciai());
+            esegui.setInt(16, Integer.parseInt(parametri.getValutazioneMassaGhiacciai().toString()));
+            esegui.setString(17, parametri.getCommentoMassaGhiacciai());
             esegui.executeUpdate();
             
         } catch (SQLException ex) {
@@ -96,12 +96,12 @@ public class GestisciParametri{
     }*/
     
     //TODO rmi
-    public ArrayList<ParametriClimatici> ottieniMisurazioniSuPuntoInteresse(PuntoInteresse paese){
+    public ArrayList<Misurazione> ottieniMisurazioniSuPuntoInteresse(PuntoInteresse paese){
         ResultSet set = null;
         Connection connessione = null;
         
         //ArrayList<String> paesi = convertiPaese(paese);
-        ArrayList<ParametriClimatici> parametri = new ArrayList<>();
+        ArrayList<Misurazione> parametri = new ArrayList<>();
         
         int somme[] = new int[7];
         int cont[][] = new int[7][7];
@@ -159,7 +159,7 @@ public class GestisciParametri{
                     somme[5] = somme[5] + alt;
                     somme[6] = somme[6] + massa;
 
-                    parametri.add(new ParametriClimatici(paese.getIdPuntoInteresse(), nomeC, data, vento, noteV, umidita, noteU, pres, notePres, tempe, noteT, prec, notePrec, alt, noteA, massa, noteM));
+                    parametri.add(new Misurazione(paese.getIdPuntoInteresse(), nomeC, data, vento, noteV, umidita, noteU, pres, notePres, tempe, noteT, prec, notePrec, alt, noteA, massa, noteM));
                 }
 
             }

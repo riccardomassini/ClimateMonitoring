@@ -6,8 +6,8 @@ package client.frame;
 
 import client.registraeventi.Chiusura;
 import client.registraeventi.LoggerEventi;
-import commons.oggetti.OperatoriClimatici;
-import server.servizio.GestisciOperatori;
+import commons.oggetti.Operatore;
+import server.servizio.Autenticatore;
 
 /**
  *
@@ -15,9 +15,9 @@ import server.servizio.GestisciOperatori;
  */
 public class Registrazione extends javax.swing.JFrame {
 
-    GestisciOperatori go = new GestisciOperatori();
+    Autenticatore go = new Autenticatore();
     LoggerEventi logger = LoggerEventi.getInstance();
-    OperatoriClimatici passato;
+    Operatore passato;
     
     public Registrazione() {
         initComponents();
@@ -140,7 +140,7 @@ public class Registrazione extends javax.swing.JFrame {
     }//GEN-LAST:event_mailRegActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-        Operatore op = new Operatore();
+        client.frame.Operatore op = new client.frame.Operatore();
         op.setLocation(this.getX(), this.getY());
         this.setVisible(false);
         op.setVisible(true); 
@@ -179,7 +179,7 @@ public class Registrazione extends javax.swing.JFrame {
         if(pass.length() <= 0)
             out6.setText("Password troppo corta");
         if(nome.length()>0 && cognome.length()>0 && go.checkCodiceFiscale(cf) && go.controlloMail(mail) && id>0 && pass.length()>0){
-            OperatoriClimatici operatore = new OperatoriClimatici(nome, cognome, cf, mail, id, pass);
+            Operatore operatore = new Operatore(nome, cognome, cf, mail, id, pass);
             if(go.registrati(operatore)){
                 out1.setText("Utente registrato");
                 logger.log("Nuovo operatore registrato: " +nome+ " " +cf+ " " +mail+ " " +id+ " " +pass);

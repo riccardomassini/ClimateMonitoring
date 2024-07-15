@@ -1,7 +1,7 @@
 package server.servizio;
 
 import commons.oggetti.CentroMonitoraggio;
-import commons.oggetti.OperatoriClimatici;
+import commons.oggetti.Operatore;
 import commons.oggetti.PuntoInteresse;
 import server.database.ConnettoreDatabase;
 import server.servizio.ricercapoi.RepositoryPuntiInteresse;
@@ -32,10 +32,10 @@ public class GestisciCentri {
             
             String query1 = "INSERT INTO CentriMonitoraggio(nomeCentro, indirizzo, numerocivico, cap, comune, provincia) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement esegui1 = connessione.prepareStatement(query1);
-            esegui1.setString(1, centro.getNome());
+            esegui1.setString(1, centro.getNomeCentro());
             esegui1.setString(2, centro.getIndirizzo());
-            esegui1.setInt(3, centro.getNumCivico());
-            esegui1.setString(4, centro.getCap());
+            esegui1.setInt(3, centro.getNumeroCivico());
+            esegui1.setString(4, centro.getCAP());
             esegui1.setString(5, centro.getComune());
             esegui1.setString(6, centro.getProvincia());
             esegui1.executeUpdate();
@@ -43,7 +43,7 @@ public class GestisciCentri {
             for(PuntoInteresse p: aree){
                 String query2 = "INSERT INTO areemonitoratedacentri(centro, geonameid) VALUES (?, ?)";
                 PreparedStatement esegui2 = connessione.prepareStatement(query2);
-                esegui2.setString(1, centro.getNome());
+                esegui2.setString(1, centro.getNomeCentro());
                 esegui2.setInt(2, p.getIdPuntoInteresse());
                 esegui2.executeUpdate();
             }
@@ -121,7 +121,7 @@ public class GestisciCentri {
     }
 
     //TODO rmi
-    public void associaCentroMonitoraggio(OperatoriClimatici operatore, String nuovoCentro) throws SQLException {
+    public void associaCentroMonitoraggio(Operatore operatore, String nuovoCentro) throws SQLException {
         Connection connessione = null;
         PreparedStatement esegui = null;
 
@@ -130,7 +130,7 @@ public class GestisciCentri {
             String query = "UPDATE OperatoriRegistrati SET centro = ? WHERE userid = ?";
             esegui = connessione.prepareStatement(query);
             esegui.setString(1, nuovoCentro);
-            esegui.setInt(2, operatore.getUserID());
+            esegui.setInt(2, operatore.getUsername());
             esegui.executeUpdate();
         } finally {
             // Chiudi le risorse in modo sicuro
@@ -144,7 +144,7 @@ public class GestisciCentri {
     }
 
     //TODO rmi
-    public boolean centroMonitoraggioAssociato(OperatoriClimatici operatore) throws SQLException {
+    public boolean centroMonitoraggioAssociato(Operatore operatore) throws SQLException {
         Connection connessione = null;
         PreparedStatement esegui = null;
         ResultSet set = null;
@@ -153,7 +153,7 @@ public class GestisciCentri {
             connessione = ConnettoreDatabase.ottieniConnettore().ottieniConnessioneDatabase();
             String query = "SELECT centro FROM OperatoriRegistrati WHERE userid = ?";
             esegui = connessione.prepareStatement(query);
-            esegui.setInt(1, operatore.getUserID());
+            esegui.setInt(1, operatore.getUsername());
             set = esegui.executeQuery();
 
             if (set.next()) {

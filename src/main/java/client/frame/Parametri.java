@@ -6,9 +6,9 @@ package client.frame;
 
 import client.registraeventi.Chiusura;
 import client.registraeventi.LoggerEventi;
-import commons.oggetti.OperatoriClimatici;
+import commons.oggetti.Operatore;
 import commons.oggetti.PuntoInteresse;
-import commons.oggetti.ParametriClimatici;
+import commons.oggetti.Misurazione;
 
 import java.sql.*;
 import java.util.Date;
@@ -23,7 +23,7 @@ public class Parametri extends javax.swing.JFrame {
 
     GestisciParametri gp = new GestisciParametri();
     LoggerEventi logger = LoggerEventi.getInstance();
-    OperatoriClimatici passato;
+    Operatore passato;
     String nomeCentroPassato;
     PuntoInteresse paesePassato;
     
@@ -35,7 +35,7 @@ public class Parametri extends javax.swing.JFrame {
     public Parametri(int id, String pass, String nomeCentro, PuntoInteresse paese){
         initComponents();
         addWindowListener(new Chiusura());
-        passato = new OperatoriClimatici(id, pass);
+        passato = new Operatore(id, pass);
         this.nomeCentroPassato = nomeCentro;
         this.paesePassato = paese;
     }
@@ -196,7 +196,7 @@ public class Parametri extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-        AreaOperatore ao = new AreaOperatore(passato.getUserID(), passato.getPassword());
+        AreaOperatore ao = new AreaOperatore(passato.getUsername(), passato.getPassword());
         ao.setLocation(this.getX(), this.getY());
         this.setVisible(false); 
         ao.setVisible(true);
@@ -230,11 +230,11 @@ public class Parametri extends javax.swing.JFrame {
             Date dataOggi = new Date();
             Timestamp tempo = new Timestamp(dataOggi.getTime());
 
-            gp.inserisciNuovaMisurazione(new ParametriClimatici(paesePassato.getIdPuntoInteresse(), nomeCentroPassato, tempo, vento, noteV, umidita, noteU, pressione, notePres, temperatura, noteT, precipitazioni, notePrec, altitudine, noteA, massa, noteM));
+            gp.inserisciNuovaMisurazione(new Misurazione(paesePassato.getIdPuntoInteresse(), nomeCentroPassato, tempo, vento, noteV, umidita, noteU, pressione, notePres, temperatura, noteT, precipitazioni, notePrec, altitudine, noteA, massa, noteM));
 
             logger.log("Nuovi parametri inseriti per " +paesePassato+ " " +nomeCentroPassato+ " " +vento+ " " +umidita+ " " +pressione+ " " +temperatura+ " " +precipitazioni+ " " +altitudine+ " " +massa+ " " +noteV+ " " +noteU+ " " +notePres+ " " +noteT+ " " +notePrec+ " " +noteA+ " " +noteM );
         }
-        AreaOperatore ao = new AreaOperatore(passato.getUserID(), passato.getPassword());
+        AreaOperatore ao = new AreaOperatore(passato.getUsername(), passato.getPassword());
         ao.setLocation(this.getX(), this.getY());
         this.setVisible(false);
         ao.setVisible(true);

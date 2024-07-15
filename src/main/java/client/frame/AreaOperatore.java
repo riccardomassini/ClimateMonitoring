@@ -7,9 +7,9 @@ package client.frame;
 import client.registraeventi.Chiusura;
 import client.registraeventi.LoggerEventi;
 import commons.oggetti.CentroMonitoraggio;
-import commons.oggetti.OperatoriClimatici;
+import commons.oggetti.Operatore;
 import commons.oggetti.PuntoInteresse;
-import commons.oggetti.ParametriClimatici;
+import commons.oggetti.Misurazione;
 
 import java.sql.*;
 import java.util.*;
@@ -17,17 +17,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import server.servizio.GestisciCentri;
-import server.servizio.GestisciOperatori;
+import server.servizio.Autenticatore;
 
 public class AreaOperatore extends javax.swing.JFrame {
 
-    GestisciOperatori go = new GestisciOperatori();
+    Autenticatore go = new Autenticatore();
     GestisciCentri gc = new GestisciCentri();
-    ArrayList<OperatoriClimatici> op = new ArrayList<>();
+    ArrayList<Operatore> op = new ArrayList<>();
     ArrayList<CentroMonitoraggio> cm = new ArrayList<>();
-    ArrayList<ParametriClimatici> pm = new ArrayList<>();
+    ArrayList<Misurazione> pm = new ArrayList<>();
     String centroOp;
-    OperatoriClimatici passato;
+    Operatore passato;
     LoggerEventi logger = LoggerEventi.getInstance();
     
     public AreaOperatore(){
@@ -37,18 +37,18 @@ public class AreaOperatore extends javax.swing.JFrame {
     public AreaOperatore(int id, String password){
         initComponents();
         addWindowListener(new Chiusura());
-        passato = new OperatoriClimatici(id, password);
+        passato = new Operatore(id, password);
         
         if(go.login(passato)){
             passato = go.getOperatore();
-            OperatoriClimatici operatore = go.getOperatore();
-            jLabel2.setText("OPERATORE " +passato.getUserID());
+            Operatore operatore = go.getOperatore();
+            jLabel2.setText("OPERATORE " +passato.getUsername());
             try {
                 if(gc.centroMonitoraggioAssociato(passato)){
                     titReg.setVisible(false);
                     centro.setVisible(false);
-                    out1.setText("Centro " +passato.getCentroM());
-                    centroOp = passato.getCentroM();
+                    out1.setText("Centro " +passato.getIdCentroMonitoraggio());
+                    centroOp = passato.getIdCentroMonitoraggio();
                     out2.setVisible(true);
                 }else{
                     titReg.setVisible(true);
@@ -197,7 +197,7 @@ public class AreaOperatore extends javax.swing.JFrame {
     }//GEN-LAST:event_backActionPerformed
 
     private void centroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_centroActionPerformed
-        RegistraCentro rc = new RegistraCentro(passato.getUserID(), passato.getPassword());
+        RegistraCentro rc = new RegistraCentro(passato.getUsername(), passato.getPassword());
         rc.setLocation(this.getX(), this.getY());
         this.setVisible(false);
         rc.setVisible(true);
@@ -212,7 +212,7 @@ public class AreaOperatore extends javax.swing.JFrame {
         p = gc.trovaAreaAssociata(nome, codice, centroOp);
 
         if(p!=null){
-            Parametri pa = new Parametri(passato.getUserID(), passato.getPassword(), centroOp, p);
+            Parametri pa = new Parametri(passato.getUsername(), passato.getPassword(), centroOp, p);
             pa.setLocation(this.getX(), this.getY());
             this.setVisible(false); 
             pa.setVisible(true);

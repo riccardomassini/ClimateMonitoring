@@ -27,7 +27,7 @@ public class DizionarioDatabase {
     public static final String CENTRIMONITORAGGIO_ATTRIBUTO_COMUNE = "Comune";
     public static final String CENTRIMONITORAGGIO_ATTRIBUTO_PROVINCIA = "Provincia";
 
-    public static final String MISURAZIONI_RELAZIONE = "ParametriClimatici";
+    public static final String MISURAZIONI_RELAZIONE = "Misurazione";
     public static final String MISURAZIONI_ATTRIBUTO_IDPUNTOINTERESSE = "GeonameID";
     public static final String MISURAZIONI_ATTRIBUTO_IDCENTROMONITORAGGIO = "Centro";
     public static final String MISURAZIONI_ATTRIBUTO_TIMESTAMP = "DataInserimento";
