@@ -14,11 +14,9 @@
     </dependency>
 
     <dependency>
-      <groupId>com.sample</groupId>
-      <artifactId>sample</artifactId>
-      <version>1.0</version>
-      <scope>system</scope>
-      <systemPath>${project.basedir}/data/AbsoluteLayout-RELEASE210.jar</systemPath>
+      <groupId>org.netbeans.external</groupId>
+      <artifactId>AbsoluteLayout</artifactId>
+      <version>RELEASE210</version>
     </dependency>
 
     <dependency>
@@ -124,6 +122,34 @@
         <configuration>
           <encoding>UTF-8</encoding>
         </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>3.3.0</version>
+        <configuration>
+          <finalName>ClimateMonitor</finalName> <!-- Imposta il nome del file JAR -->
+          <appendAssemblyId>false</appendAssemblyId>
+          <archive>
+            <manifest>
+              <Main-Class>frame.GestioneScelta</Main-Class>
+            </manifest>
+          </archive>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+          <outputDirectory>${project.basedir}/jar</outputDirectory>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
 
     </plugins>

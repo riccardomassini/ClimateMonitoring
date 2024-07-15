@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 
 public class LoggerEventi{
     private static LoggerEventi instance;
-    private static final String LOG_FILE = "./data/Applicazione.dati.log";
+    private static final String LOG_FILE = "../data/Applicazione.dati.log";
     private FileWriter fileWriter;
 
     private LoggerEventi() {
