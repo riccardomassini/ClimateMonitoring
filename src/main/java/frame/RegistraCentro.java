@@ -22,6 +22,7 @@ public class RegistraCentro extends javax.swing.JFrame {
     ArrayList<OperatoriClimatici> op = new ArrayList<>();
     LoggerEventi logger = LoggerEventi.getInstance();
     OperatoriClimatici passato;
+    boolean centroPresente = false;
     int count;
     
     public RegistraCentro() {
@@ -225,6 +226,8 @@ public class RegistraCentro extends javax.swing.JFrame {
 
         if(nome.length()<=0)
             out1.setText("Troppo corto");
+        if(gc.centroEsistente(nome))
+            out1.setText("Centro già presente");
         if(indirizzo.length()<=0)
             out2.setText("Troppo corto");
         if(!gc.controlloCap(cap))
@@ -234,7 +237,7 @@ public class RegistraCentro extends javax.swing.JFrame {
         if(provincia.length()!=2)
             out6.setText("inserire 2 lettere");
             
-        if(nome.length()>0 && indirizzo.length()>0 && numCivico != -1 && gc.controlloCap(cap) && comune.length()>0 && provincia.length()==2 && numAree>0){
+        if(nome.length()>0 && !gc.centroEsistente(nome) && indirizzo.length()>0 && numCivico != -1 && gc.controlloCap(cap) && comune.length()>0 && provincia.length()==2 && numAree>0){
             areeLabel.setVisible(true);
             nomepReg.setVisible(true);
             codiceReg.setVisible(true);
@@ -257,10 +260,10 @@ public class RegistraCentro extends javax.swing.JFrame {
         String provincia = proReg.getText();
         int numAree = Integer.parseInt(numaReg.getText());
 
-            
+
         gc.registraCentroAree(new CentroMonitoraggio(nome, indirizzo, numCivico, cap, comune, provincia), aree);
-        logger.log("Nuovo centro registrato: " +aree.toString()+ " " +nome+ " " +indirizzo+ " " +numCivico+ " " +cap+ " " +comune+ " " +provincia+ " " +numAree);
-     
+        logger.log("Nuovo centro registrato: " + aree.toString() + " " + nome + " " + indirizzo + " " + numCivico + " " + cap + " " + comune + " " + provincia + " " + numAree);
+
         try {
             go.setCentro(passato, nome);
         } catch (SQLException ex) {
@@ -270,11 +273,12 @@ public class RegistraCentro extends javax.swing.JFrame {
         ao.setLocation(this.getX(), this.getY());
         this.setVisible(false);
         ao.setVisible(true);
+
     }//GEN-LAST:event_centroRegActionPerformed
 
     private void insAreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insAreeActionPerformed
         out8.setText("");
-        
+
         String asname = nomepReg.getText();
         String cc = codiceReg.getText();
         int numAree = Integer.parseInt(numaReg.getText());
@@ -283,10 +287,11 @@ public class RegistraCentro extends javax.swing.JFrame {
         p = gp.ricercaNomeCC(asname, cc);
         
         if(aree.contains(p)){
-            out8.setText("Paese già inserito");
+            out8.setText("Già inserito");
         }else if(p!=null){
             aree.add(p);
             count++;
+            out8.setText("Paese inserito");
         }else
             out8.setText("Il paese non esiste");
 

@@ -106,8 +106,7 @@ public class GestisciPaesi{
                            "sin(radians(?)) * sin(radians(latitudine))" +
                            ")) AS distanza " +
                            "FROM coordinatemonitoraggio " +
-                           "ORDER BY distanza " +
-                           "LIMIT 10";
+                           "ORDER BY distanza ";
                 
                 PreparedStatement esegui = connessione.prepareStatement(query);
                 esegui.setDouble(1, targetLatitudine);

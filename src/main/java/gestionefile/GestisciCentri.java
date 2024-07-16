@@ -44,16 +44,9 @@ public class GestisciCentri {
                 esegui2.setInt(2, p.getGeonameID());
                 esegui2.executeUpdate();
             }
+
         } catch (SQLException ex) {
             Logger.getLogger(GestisciCentri.class.getName()).log(Level.SEVERE, null, ex);
-        }finally {
-            try {
-                if (connessione != null) {
-                    connessione.close(); // Chiusura della connessione nel blocco finally
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
     
@@ -88,32 +81,32 @@ public class GestisciCentri {
 
                 paese = new Paese(geonameID, name, asname, cc, cname, lat, lon);
             }
-            
-            /*try{
-                while(set.next()){
-                    areeArray = set.getString("areeDiInteresse");
-                    areeArray = areeArray.substring(2, areeArray.length());
-                    token = new StringTokenizer(areeArray, "\",\"");
-
-                    while(token.hasMoreTokens()){
-                        String asname = token.nextToken();
-                        String cc = token.nextToken();    
-                        double lat = Double.parseDouble(token.nextToken());
-                        double lon = Double.parseDouble(token.nextToken());
-                        if(asname.equals(nomeP) && cc.equals(code)){
-                            //paese = new Paese(asname, cc, lat, lon);
-                            break;
-                        }
-                    }   
-                }
-            }catch(NoSuchElementException e){
-                System.err.println("Quest'area non esiste nel centro \n");
-            }*/
-            
         } catch (SQLException ex) {
             Logger.getLogger(GestisciCentri.class.getName()).log(Level.SEVERE, null, ex);
         } 
         return paese;
+    }
+
+    public boolean centroEsistente(String nomeCentro) {
+        Connection connessione = null;
+        ResultSet resultSet = null;
+        boolean esiste = false;
+
+        try {
+            connessione = ConnessioneDB.getConnection();
+
+            String query = "SELECT 1 FROM CentriMonitoraggio WHERE nomeCentro = ?";
+            PreparedStatement esegui = connessione.prepareStatement(query);
+            esegui.setString(1, nomeCentro);
+            resultSet = esegui.executeQuery();
+
+            if (resultSet.next()) {
+                esiste = true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GestisciCentri.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return esiste;
     }
     
     /**
