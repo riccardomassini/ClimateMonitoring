@@ -82,31 +82,10 @@ public class GestisciCentri {
                 paese = new Paese(geonameID, name, asname, cc, cname, lat, lon);
             }
         } catch (SQLException ex) {
+            System.out.println("SIIIII AVEVO RAGIONE!!!");
             Logger.getLogger(GestisciCentri.class.getName()).log(Level.SEVERE, null, ex);
         } 
         return paese;
-    }
-
-    public boolean centroEsistente(String nomeCentro) {
-        Connection connessione = null;
-        ResultSet resultSet = null;
-        boolean esiste = false;
-
-        try {
-            connessione = ConnessioneDB.getConnection();
-
-            String query = "SELECT 1 FROM CentriMonitoraggio WHERE nomeCentro = ?";
-            PreparedStatement esegui = connessione.prepareStatement(query);
-            esegui.setString(1, nomeCentro);
-            resultSet = esegui.executeQuery();
-
-            if (resultSet.next()) {
-                esiste = true;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(GestisciCentri.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return esiste;
     }
     
     /**

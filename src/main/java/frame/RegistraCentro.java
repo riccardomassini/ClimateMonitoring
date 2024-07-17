@@ -226,8 +226,6 @@ public class RegistraCentro extends javax.swing.JFrame {
 
         if(nome.length()<=0)
             out1.setText("Troppo corto");
-        if(gc.centroEsistente(nome))
-            out1.setText("Centro già presente");
         if(indirizzo.length()<=0)
             out2.setText("Troppo corto");
         if(!gc.controlloCap(cap))
@@ -237,7 +235,7 @@ public class RegistraCentro extends javax.swing.JFrame {
         if(provincia.length()!=2)
             out6.setText("inserire 2 lettere");
             
-        if(nome.length()>0 && !gc.centroEsistente(nome) && indirizzo.length()>0 && numCivico != -1 && gc.controlloCap(cap) && comune.length()>0 && provincia.length()==2 && numAree>0){
+        if(nome.length()>0 && indirizzo.length()>0 && numCivico != -1 && gc.controlloCap(cap) && comune.length()>0 && provincia.length()==2 && numAree>0){
             areeLabel.setVisible(true);
             nomepReg.setVisible(true);
             codiceReg.setVisible(true);
