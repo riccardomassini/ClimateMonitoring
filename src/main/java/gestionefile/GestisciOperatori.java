@@ -51,16 +51,6 @@ public class GestisciOperatori{
             return false;
         }catch (SQLException ex) {
             Logger.getLogger(GestisciOperatori.class.getName()).log(Level.SEVERE, null, ex);
-        }finally {
-        // Chiudi la connessione nel blocco finally
-            if (connessione != null) {
-                try {
-                    connessione.close();
-                } catch (SQLException e) {
-                    // Gestisci eventuali eccezioni durante la chiusura della connessione
-                    e.printStackTrace();
-                }
-            }
         }
         return true;
     }
@@ -100,16 +90,6 @@ public class GestisciOperatori{
             }
         } catch (SQLException ex) {
             Logger.getLogger(GestisciOperatori.class.getName()).log(Level.SEVERE, null, ex);
-        }finally {
-        // Chiudi la connessione nel blocco finally
-            if (connessione != null) {
-                try {
-                    connessione.close();
-                } catch (SQLException e) {
-                    // Gestisci eventuali eccezioni durante la chiusura della connessione
-                    e.printStackTrace();
-                }
-            }
         }
         return false;
     }
@@ -123,22 +103,12 @@ public class GestisciOperatori{
         Connection connessione = null;
         PreparedStatement esegui = null;
 
-        try {
-            connessione = ConnessioneDB.getConnection();
-            String query = "UPDATE OperatoriRegistrati SET centro = ? WHERE userid = ?";
-            esegui = connessione.prepareStatement(query);
-            esegui.setString(1, nuovoCentro);
-            esegui.setInt(2, operatore.getUserID());
-            esegui.executeUpdate();
-        } finally {
-            // Chiudi le risorse in modo sicuro
-            if (esegui != null) {
-                esegui.close();
-            }
-            if (connessione != null) {
-                connessione.close();
-            }
-        }
+        connessione = ConnessioneDB.getConnection();
+        String query = "UPDATE OperatoriRegistrati SET centro = ? WHERE userid = ?";
+        esegui = connessione.prepareStatement(query);
+        esegui.setString(1, nuovoCentro);
+        esegui.setInt(2, operatore.getUserID());
+        esegui.executeUpdate();
     }
     
     public boolean haCentro(OperatoriClimatici operatore) throws SQLException {
@@ -146,31 +116,19 @@ public class GestisciOperatori{
         PreparedStatement esegui = null;
         ResultSet set = null;
 
-        try {
-            connessione = ConnessioneDB.getConnection();
-            String query = "SELECT centro FROM OperatoriRegistrati WHERE userid = ?";
-            esegui = connessione.prepareStatement(query);
-            esegui.setInt(1, operatore.getUserID());
-            set = esegui.executeQuery();
+        connessione = ConnessioneDB.getConnection();
+        String query = "SELECT centro FROM OperatoriRegistrati WHERE userid = ?";
+        esegui = connessione.prepareStatement(query);
+        esegui.setInt(1, operatore.getUserID());
+        set = esegui.executeQuery();
 
-            if (set.next()) {
-                String centro = set.getString("centro");
-                if (centro != null) {
-                    return true;
-                }
-            }
-        } finally {
-            // Chiudi le risorse in modo sicuro
-            if (set != null) {
-                set.close();
-            }
-            if (esegui != null) {
-                esegui.close();
-            }
-            if (connessione != null) {
-                connessione.close();
+        if (set.next()) {
+            String centro = set.getString("centro");
+            if (centro != null) {
+                return true;
             }
         }
+        
         return false;
     }
     

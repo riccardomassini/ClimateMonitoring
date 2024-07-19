@@ -2,7 +2,6 @@ package gestionefile;
 
 import Database.*;
 import oggetti.*;
-import java.io.*;
 import java.util.*;
 import java.sql.*;
 import java.util.logging.Level;
@@ -16,13 +15,10 @@ import java.util.logging.Logger;
  */
 public class GestisciCentri {
     
-    /**
-     * Costruttore che scrive e crea il file se non esiste
-     */
     public GestisciCentri(){}
     
     
-    public void registraCentroAree(CentroMonitoraggio centro, ArrayList<Paese> aree){
+    public boolean registraCentroAree(CentroMonitoraggio centro, ArrayList<Paese> aree){
         Connection connessione = null;
         try {
             connessione = ConnessioneDB.getConnection();
@@ -37,16 +33,10 @@ public class GestisciCentri {
             esegui1.setString(6, centro.getProvincia());
             esegui1.executeUpdate();
             
-            for(Paese p: aree){
-                String query2 = "INSERT INTO areemonitoratedacentri(centro, geonameid) VALUES (?, ?)";
-                PreparedStatement esegui2 = connessione.prepareStatement(query2);
-                esegui2.setString(1, centro.getNome());
-                esegui2.setInt(2, p.getGeonameID());
-                esegui2.executeUpdate();
-            }
-
+            inserisciAreeMonitorate(centro, aree);
+            return true;
         } catch (SQLException ex) {
-            Logger.getLogger(GestisciCentri.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
     }
     
@@ -54,8 +44,6 @@ public class GestisciCentri {
         ResultSet set = null;
         Paese paese = null;
         code = code.toUpperCase();
-        String areeArray;
-        StringTokenizer token = null;
         
         try {
             Connection connessione = ConnessioneDB.getConnection();
@@ -82,10 +70,62 @@ public class GestisciCentri {
                 paese = new Paese(geonameID, name, asname, cc, cname, lat, lon);
             }
         } catch (SQLException ex) {
-            System.out.println("SIIIII AVEVO RAGIONE!!!");
             Logger.getLogger(GestisciCentri.class.getName()).log(Level.SEVERE, null, ex);
         } 
         return paese;
+    }
+    
+    public ResultSet leggiCentri(){
+        ResultSet set = null;
+        try {
+            Connection connessione = ConnessioneDB.getConnection();
+            
+            String query = "SELECT nomeCentro FROM CentriMonitoraggio";
+            PreparedStatement esegui = connessione.prepareStatement(query);
+            set = esegui.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(GestisciPaesi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return set;
+    }
+    
+    private void inserisciAreeMonitorate(CentroMonitoraggio centro, ArrayList<Paese> aree){
+        Connection connessione = ConnessioneDB.getConnection();
+        for(Paese p: aree){
+            try {
+                String query2 = "INSERT INTO areemonitoratedacentri(centro, geonameid) VALUES (?, ?)";
+                PreparedStatement esegui2 = connessione.prepareStatement(query2);
+                esegui2.setString(1, centro.getNome());
+                esegui2.setInt(2, p.getGeonameID());
+                esegui2.executeUpdate();
+            } catch (SQLException ex) {
+                Logger.getLogger(GestisciCentri.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    /**
+     * Metodo che controlla se un centro di monitoraggio con il nome specificato
+     * viola la primary key (ossia se esiste già un centro con lo stesso nome)
+     * @param nomeCentro il nome del centro di monitoraggio da verificare
+     * @return true se il nome del centro viola la primary key, false altrimenti
+     */
+    public boolean centroGiaPresente(String nomeCentro) {
+        ResultSet set = null;
+        boolean esiste = false;
+        try {
+            Connection connessione = ConnessioneDB.getConnection();
+            
+            String query = "SELECT 1 FROM CentriMonitoraggio WHERE nomeCentro = ?";
+            PreparedStatement esegui = connessione.prepareStatement(query);
+            esegui.setString(1, nomeCentro);
+            set = esegui.executeQuery();
+            
+            esiste = set.next();
+        } catch (SQLException ex) {
+            Logger.getLogger(GestisciCentri.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return esiste;
     }
     
     /**

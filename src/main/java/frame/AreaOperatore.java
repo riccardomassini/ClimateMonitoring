@@ -39,13 +39,15 @@ public class AreaOperatore extends javax.swing.JFrame {
             try {
                 if(go.haCentro(passato)){
                     titReg.setVisible(false);
-                    centro.setVisible(false);
+                    registraCentro.setVisible(false);
+                    scegliCentro.setVisible(false);
                     out1.setText("Centro " +passato.getCentroM());
                     centroOp = passato.getCentroM();
                     out2.setVisible(true);
                 }else{
                     titReg.setVisible(true);
-                    centro.setVisible(true);
+                    registraCentro.setVisible(true);
+                    scegliCentro.setVisible(true);
                     jLabel1.setVisible(false);
                     jLabel3.setVisible(false);
                     jLabel4.setVisible(false);
@@ -71,7 +73,7 @@ public class AreaOperatore extends javax.swing.JFrame {
     private void initComponents() {
 
         back = new javax.swing.JButton();
-        centro = new javax.swing.JButton();
+        registraCentro = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         CCPP = new javax.swing.JTextField();
         nomePP = new javax.swing.JTextField();
@@ -84,6 +86,7 @@ public class AreaOperatore extends javax.swing.JFrame {
         out1 = new javax.swing.JLabel();
         titReg = new javax.swing.JLabel();
         out2 = new javax.swing.JLabel();
+        scegliCentro = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -96,13 +99,13 @@ public class AreaOperatore extends javax.swing.JFrame {
         });
         getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 254, -1, -1));
 
-        centro.setText("Registra");
-        centro.addActionListener(new java.awt.event.ActionListener() {
+        registraCentro.setText("Registra");
+        registraCentro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                centroActionPerformed(evt);
+                registraCentroActionPerformed(evt);
             }
         });
-        getContentPane().add(centro, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, -1, -1));
+        getContentPane().add(registraCentro, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("OPERATORE");
@@ -134,48 +137,26 @@ public class AreaOperatore extends javax.swing.JFrame {
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(181, 158, -1, -1));
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         titolo.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         titolo.setText("AREA OPERATORE");
+        jPanel1.add(titolo, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 25, -1, -1));
 
         out1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jPanel1.add(out1, new org.netbeans.lib.awtextra.AbsoluteConstraints(166, 110, 160, 31));
 
         titReg.setText("REGISTRA IL CENTRO");
+        jPanel1.add(titReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 159, -1, 18));
+        jPanel1.add(out2, new org.netbeans.lib.awtextra.AbsoluteConstraints(293, 210, 121, 26));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(158, 158, 158)
-                .addComponent(titReg)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(76, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(titolo)
-                        .addGap(72, 72, 72))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(out1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(114, 114, 114))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(out2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26))))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(titolo)
-                .addGap(37, 37, 37)
-                .addComponent(out1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(titReg, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(out2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(84, Short.MAX_VALUE))
-        );
+        scegliCentro.setText("Scegli");
+        scegliCentro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                scegliCentroActionPerformed(evt);
+            }
+        });
+        jPanel1.add(scegliCentro, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 190, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 320));
 
@@ -189,12 +170,12 @@ public class AreaOperatore extends javax.swing.JFrame {
         l.setVisible(true); 
     }//GEN-LAST:event_backActionPerformed
 
-    private void centroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_centroActionPerformed
+    private void registraCentroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registraCentroActionPerformed
         RegistraCentro rc = new RegistraCentro(passato.getUserID(), passato.getPassword());
         rc.setLocation(this.getX(), this.getY());
         this.setVisible(false);
         rc.setVisible(true);
-    }//GEN-LAST:event_centroActionPerformed
+    }//GEN-LAST:event_registraCentroActionPerformed
 
     private void cercaParamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cercaParamActionPerformed
         out2.setText("");
@@ -214,8 +195,15 @@ public class AreaOperatore extends javax.swing.JFrame {
     }//GEN-LAST:event_cercaParamActionPerformed
 
     private void CCPPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CCPPActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_CCPPActionPerformed
+
+    private void scegliCentroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scegliCentroActionPerformed
+        ScegliCentro sc = new ScegliCentro(passato.getUserID(), passato.getPassword());
+        sc.setLocation(this.getX(), this.getY());
+        this.setVisible(false);
+        sc.setVisible(true);
+    }//GEN-LAST:event_scegliCentroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -256,7 +244,6 @@ public class AreaOperatore extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CCPP;
     private javax.swing.JButton back;
-    private javax.swing.JButton centro;
     private javax.swing.JButton cercaParam;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -266,6 +253,8 @@ public class AreaOperatore extends javax.swing.JFrame {
     private javax.swing.JTextField nomePP;
     private javax.swing.JLabel out1;
     private javax.swing.JLabel out2;
+    private javax.swing.JButton registraCentro;
+    private javax.swing.JButton scegliCentro;
     private javax.swing.JLabel titReg;
     private javax.swing.JLabel titolo;
     // End of variables declaration//GEN-END:variables

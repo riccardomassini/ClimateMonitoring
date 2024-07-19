@@ -1,23 +1,33 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Database;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class ConnessioneDB {
 
     private static final String URL = "jdbc:postgresql://localhost:5432/climate";
     private static final String USERNAME = "postgres";
     private static final String PASSWORD = "root";
+    private static Connection connection = null;
 
-    public static Connection getConnection() {
-        Connection connection = null;
+    private ConnessioneDB() {
         try {
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch (SQLException e) {
-            System.err.println("Errore durante la connessione al database PostgreSQL, prima di utilizzare il programma fare il build del progetto.");
+            e.printStackTrace();
+            throw new RuntimeException("Errore durante la connessione al database", e);
+        }
+    }
+
+    // Metodo pubblico per ottenere l'istanza della connessione
+    public static Connection getConnection() {
+        if (connection == null) {
+            synchronized (ConnessioneDB.class) {
+                if (connection == null) {
+                    new ConnessioneDB();
+                }
+            }
         }
         return connection;
     }

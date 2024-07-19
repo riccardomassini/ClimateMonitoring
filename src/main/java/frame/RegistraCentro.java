@@ -226,6 +226,8 @@ public class RegistraCentro extends javax.swing.JFrame {
 
         if(nome.length()<=0)
             out1.setText("Troppo corto");
+        if(gc.centroGiaPresente(nome))
+            out1.setText("Già presente");
         if(indirizzo.length()<=0)
             out2.setText("Troppo corto");
         if(!gc.controlloCap(cap))
@@ -235,7 +237,7 @@ public class RegistraCentro extends javax.swing.JFrame {
         if(provincia.length()!=2)
             out6.setText("inserire 2 lettere");
             
-        if(nome.length()>0 && indirizzo.length()>0 && numCivico != -1 && gc.controlloCap(cap) && comune.length()>0 && provincia.length()==2 && numAree>0){
+        if(nome.length()>0 && !gc.centroGiaPresente(nome) && indirizzo.length()>0 && numCivico != -1 && gc.controlloCap(cap) && comune.length()>0 && provincia.length()==2 && numAree>0){
             areeLabel.setVisible(true);
             nomepReg.setVisible(true);
             codiceReg.setVisible(true);
@@ -259,18 +261,19 @@ public class RegistraCentro extends javax.swing.JFrame {
         int numAree = Integer.parseInt(numaReg.getText());
 
 
-        gc.registraCentroAree(new CentroMonitoraggio(nome, indirizzo, numCivico, cap, comune, provincia), aree);
-        logger.log("Nuovo centro registrato: " + aree.toString() + " " + nome + " " + indirizzo + " " + numCivico + " " + cap + " " + comune + " " + provincia + " " + numAree);
+        if(gc.registraCentroAree(new CentroMonitoraggio(nome, indirizzo, numCivico, cap, comune, provincia), aree)){
+            logger.log("Nuovo centro registrato: " + aree.toString() + " " + nome + " " + indirizzo + " " + numCivico + " " + cap + " " + comune + " " + provincia + " " + numAree);
 
-        try {
-            go.setCentro(passato, nome);
-        } catch (SQLException ex) {
-            Logger.getLogger(RegistraCentro.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                go.setCentro(passato, nome);
+            } catch (SQLException ex) {
+                Logger.getLogger(RegistraCentro.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            AreaOperatore ao = new AreaOperatore(passato.getUserID(), passato.getPassword());
+            ao.setLocation(this.getX(), this.getY());
+            this.setVisible(false);
+            ao.setVisible(true);
         }
-        AreaOperatore ao = new AreaOperatore(passato.getUserID(), passato.getPassword());
-        ao.setLocation(this.getX(), this.getY());
-        this.setVisible(false);
-        ao.setVisible(true);
 
     }//GEN-LAST:event_centroRegActionPerformed
 

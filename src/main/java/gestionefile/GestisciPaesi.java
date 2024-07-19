@@ -148,14 +148,6 @@ public class GestisciPaesi{
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(GestisciPaesi.class.getName()).log(Level.SEVERE, null, ex);
-            }finally{
-                if (set != null) {
-                    try {
-                        set.close();
-                    } catch (SQLException ex) {
-                        Logger.getLogger(GestisciPaesi.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
             }
         }
         return null;
