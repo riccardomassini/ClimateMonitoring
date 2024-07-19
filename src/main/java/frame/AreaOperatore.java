@@ -10,6 +10,7 @@ import java.sql.*;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import oggetti.*;
 
 public class AreaOperatore extends javax.swing.JFrame {
@@ -19,9 +20,12 @@ public class AreaOperatore extends javax.swing.JFrame {
     ArrayList<OperatoriClimatici> op = new ArrayList<>();
     ArrayList<CentroMonitoraggio> cm = new ArrayList<>();
     ArrayList<ParametriClimatici> pm = new ArrayList<>();
-    String centroOp;
-    OperatoriClimatici passato;
     LoggerEventi logger = LoggerEventi.getInstance();
+    OperatoriClimatici passato;
+    String centroOp;
+    String sceltaPaese = null;
+    String nomePaese = null;
+    String cc = null;
     
     public AreaOperatore(){
         initComponents();
@@ -43,16 +47,28 @@ public class AreaOperatore extends javax.swing.JFrame {
                     scegliCentro.setVisible(false);
                     out1.setText("Centro " +passato.getCentroM());
                     centroOp = passato.getCentroM();
+                    try {
+                        ResultSet set = gc.trovaAreeMonitorate(centroOp);
+                        ArrayList<String> names = new ArrayList<>();
+
+                        while (set.next()) {
+                            names.add(set.getString("asciipaese") + " " + set.getString("codicestato"));
+                        }
+
+                        names.add(0, "nessun paese");
+
+                        String[] namesArray = names.toArray(new String[0]);
+                        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(namesArray);
+                        scelta.setModel(model);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(AreaOperatore.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     out2.setVisible(true);
                 }else{
                     titReg.setVisible(true);
                     registraCentro.setVisible(true);
                     scegliCentro.setVisible(true);
-                    jLabel1.setVisible(false);
-                    jLabel3.setVisible(false);
-                    jLabel4.setVisible(false);
-                    CCPP.setVisible(false);
-                    nomePP.setVisible(false);
+                    scelta.setVisible(false);
                     cercaParam.setVisible(false);
                     out1.setVisible(false);
                     out2.setVisible(false);
@@ -74,19 +90,15 @@ public class AreaOperatore extends javax.swing.JFrame {
 
         back = new javax.swing.JButton();
         registraCentro = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        CCPP = new javax.swing.JTextField();
-        nomePP = new javax.swing.JTextField();
-        cercaParam = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         titolo = new javax.swing.JLabel();
         out1 = new javax.swing.JLabel();
         titReg = new javax.swing.JLabel();
         out2 = new javax.swing.JLabel();
         scegliCentro = new javax.swing.JButton();
+        scelta = new javax.swing.JComboBox<>();
+        cercaParam = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -107,48 +119,21 @@ public class AreaOperatore extends javax.swing.JFrame {
         });
         getContentPane().add(registraCentro, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setText("OPERATORE");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(166, 79, -1, 24));
-
-        CCPP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CCPPActionPerformed(evt);
-            }
-        });
-        getContentPane().add(CCPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(181, 214, 73, -1));
-        getContentPane().add(nomePP, new org.netbeans.lib.awtextra.AbsoluteConstraints(181, 180, 73, -1));
-
-        cercaParam.setText("Cerca");
-        cercaParam.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cercaParamActionPerformed(evt);
-            }
-        });
-        getContentPane().add(cercaParam, new org.netbeans.lib.awtextra.AbsoluteConstraints(181, 254, -1, -1));
-
-        jLabel3.setText("Nome");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 183, 56, -1));
-
-        jLabel4.setText("Codice");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 217, 56, -1));
-
-        jLabel1.setText("Cerca Paese");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(181, 158, -1, -1));
-
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         titolo.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         titolo.setText("AREA OPERATORE");
-        jPanel1.add(titolo, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 25, -1, -1));
+        jPanel1.add(titolo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, -1, -1));
 
         out1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jPanel1.add(out1, new org.netbeans.lib.awtextra.AbsoluteConstraints(166, 110, 160, 31));
+        jPanel1.add(out1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 170, 31));
 
         titReg.setText("REGISTRA IL CENTRO");
         jPanel1.add(titReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 159, -1, 18));
-        jPanel1.add(out2, new org.netbeans.lib.awtextra.AbsoluteConstraints(293, 210, 121, 26));
+
+        out2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jPanel1.add(out2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 210, 100, 26));
 
         scegliCentro.setText("Scegli");
         scegliCentro.addActionListener(new java.awt.event.ActionListener() {
@@ -157,6 +142,25 @@ public class AreaOperatore extends javax.swing.JFrame {
             }
         });
         jPanel1.add(scegliCentro, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 190, -1, -1));
+
+        scelta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sceltaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(scelta, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 120, 30));
+
+        cercaParam.setText("Cerca");
+        cercaParam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cercaParamActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cercaParam, new org.netbeans.lib.awtextra.AbsoluteConstraints(302, 160, 80, 30));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setText("OPERATORE");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, -1, 24));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 320));
 
@@ -179,24 +183,17 @@ public class AreaOperatore extends javax.swing.JFrame {
 
     private void cercaParamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cercaParamActionPerformed
         out2.setText("");
-        String nome = nomePP.getText();
-        String codice = CCPP.getText();
         Paese p;
-
-        p = gc.trovaArea(nome, codice, centroOp);
-
-        if(p!=null){
+        
+        if(sceltaPaese != null && sceltaPaese != "nessun paese"){
+            p = gc.trovaArea(nomePaese, cc, centroOp);
             Parametri pa = new Parametri(passato.getUserID(), passato.getPassword(), centroOp, p);
             pa.setLocation(this.getX(), this.getY());
             this.setVisible(false); 
             pa.setVisible(true);
         }else
-            out2.setText("Paese non trovato");
+            out2.setText("Invalido");
     }//GEN-LAST:event_cercaParamActionPerformed
-
-    private void CCPPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CCPPActionPerformed
-
-    }//GEN-LAST:event_CCPPActionPerformed
 
     private void scegliCentroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scegliCentroActionPerformed
         ScegliCentro sc = new ScegliCentro(passato.getUserID(), passato.getPassword());
@@ -204,6 +201,13 @@ public class AreaOperatore extends javax.swing.JFrame {
         this.setVisible(false);
         sc.setVisible(true);
     }//GEN-LAST:event_scegliCentroActionPerformed
+
+    private void sceltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sceltaActionPerformed
+        sceltaPaese = (String) scelta.getSelectedItem();
+        String[] parts = sceltaPaese.split(" ");
+        nomePaese = parts[0];
+        cc = parts[1];
+    }//GEN-LAST:event_sceltaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -242,19 +246,15 @@ public class AreaOperatore extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField CCPP;
     private javax.swing.JButton back;
     private javax.swing.JButton cercaParam;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField nomePP;
     private javax.swing.JLabel out1;
     private javax.swing.JLabel out2;
     private javax.swing.JButton registraCentro;
     private javax.swing.JButton scegliCentro;
+    private javax.swing.JComboBox<String> scelta;
     private javax.swing.JLabel titReg;
     private javax.swing.JLabel titolo;
     // End of variables declaration//GEN-END:variables

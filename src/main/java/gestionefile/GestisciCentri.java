@@ -75,6 +75,26 @@ public class GestisciCentri {
         return paese;
     }
     
+    public ResultSet trovaAreeMonitorate(String centroOp){
+        ResultSet set = null;
+        
+        try {
+            Connection connessione = ConnessioneDB.getConnection();
+            
+            String query = "SELECT coordinateMonitoraggio.* " +
+                           "FROM areeMonitorateDaCentri NATURAL JOIN coordinateMonitoraggio " +
+                           "WHERE areeMonitorateDaCentri.centro = ?";
+
+            PreparedStatement esegui = connessione.prepareStatement(query);
+            esegui.setString(1, centroOp);
+            set = esegui.executeQuery();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(GestisciCentri.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        return set;
+    }
+    
     public ResultSet leggiCentri(){
         ResultSet set = null;
         try {

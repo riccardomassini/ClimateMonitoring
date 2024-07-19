@@ -179,7 +179,7 @@ public class StampaParametri extends javax.swing.JFrame {
             Object dati[] = new Object[20];
             for(int i=0; i<parametri.size(); i++){
                 dati[0] = parametri.get(i).getNomeC();
-                dati[1] = parametri.get(i).getData();
+                dati[1] = parametri.get(i).getGeonameid();
                 dati[2] = parametri.get(i).getData();
                 dati[3] = parametri.get(i).getVento();
                 dati[4] = parametri.get(i).getUmidita();

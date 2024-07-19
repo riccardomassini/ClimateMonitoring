@@ -4,7 +4,6 @@
  */
 package frame;
 
-import RegistraEventi.*;
 import gestionefile.*;
 import java.sql.*;
 import java.util.*;
