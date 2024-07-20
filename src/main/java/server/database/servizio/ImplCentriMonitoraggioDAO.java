@@ -10,8 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import static server.database.DizionarioDatabase.*;
 
@@ -104,6 +102,7 @@ public class ImplCentriMonitoraggioDAO  implements CentriMonitoraggioDAO {
         }
     }
 
+    /*
     @Override
     public CentroMonitoraggio otteniCentroMonitoraggioAssociatoOperatore(int username) {
         CentroMonitoraggio centro = null;
@@ -127,7 +126,7 @@ public class ImplCentriMonitoraggioDAO  implements CentriMonitoraggioDAO {
             Logger.getLogger(ImplPuntiInteresseDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return centro;
-    }
+    }*/
 
     private int parseInt(String str) {
         StringBuilder t = new StringBuilder();

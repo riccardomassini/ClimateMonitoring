@@ -5,7 +5,6 @@
 package client.frame;
 
 import client.registraeventi.Chiusura;
-import client.registraeventi.LoggerEventi;
 import commons.oggetti.CentroMonitoraggio;
 import commons.oggetti.Operatore;
 import commons.oggetti.PuntoInteresse;
@@ -15,7 +14,7 @@ import java.util.*;
 
 import commons.servizio.GestioneCentriMonitoraggio;
 import commons.servizio.RicercaPuntiInteresse;
-import server.servizio.GestoreCentriMonitoraggio;
+import server.servizio.centrimonitoraggio.GestoreCentriMonitoraggio;
 import server.servizio.ricercapoi.RepositoryPuntiInteresse;
 
 public class RegistraCentro extends javax.swing.JFrame {

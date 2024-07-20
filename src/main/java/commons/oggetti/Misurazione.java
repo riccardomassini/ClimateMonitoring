@@ -29,7 +29,11 @@ public class Misurazione {
     private Object valutazioneMassaGhiacciai;
     private String commentoMassaGhiacciai;
 
-    
+    public Misurazione() {
+
+    }
+
+
     public Misurazione(int idPuntoInteresse, String nomeCentro, Timestamp timestampMisurazione, Object valutazioneVento, String commentoVentoV, Object valutazioneUmidita, String commentoUmidita, Object valutazionePressione, String commentoPressione, Object valutazioneTemperatura, String commentoTemperatura, Object valutazionePrecipitazioni, String commentoPrecipitazioni, Object valutazioneAltitudineGhiacciai, String commentoAltitudineGhiacciai, Object valutazioneMassaGhiacciai, String commentoMassaGhiacciai) {
         this.idPuntoInteresse = idPuntoInteresse;
         this.nomeCentro = nomeCentro;

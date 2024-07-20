@@ -5,23 +5,19 @@
 package client.frame;
 
 import client.registraeventi.Chiusura;
-import client.registraeventi.LoggerEventi;
 import commons.oggetti.Operatore;
 import commons.oggetti.PuntoInteresse;
 import commons.oggetti.Misurazione;
 
+import java.rmi.RemoteException;
 import java.sql.*;
 import java.util.Date;
 
-import server.servizio.GestisciParametri;
+import commons.servizio.GestioneMisurazioni;
+import server.servizio.GestoreMisurazioni;
 
-/**
- *
- * @author hew15bc502nl
- */
 public class Parametri extends javax.swing.JFrame {
-    GestisciParametri gp = new GestisciParametri();
-    LoggerEventi logger = LoggerEventi.getInstance();
+    GestioneMisurazioni gestioneMisurazioni = new GestoreMisurazioni();
     Operatore operatorePassato;
     String nomeCentroPassato;
     PuntoInteresse puntoInteressePassato;
@@ -227,9 +223,14 @@ public class Parametri extends javax.swing.JFrame {
             Date dataOggi = new Date();
             Timestamp tempo = new Timestamp(dataOggi.getTime());
 
-            gp.inserisciNuovaMisurazione(new Misurazione(puntoInteressePassato.getIdPuntoInteresse(), nomeCentroPassato, tempo, vento, noteV, umidita, noteU, pressione, notePres, temperatura, noteT, precipitazioni, notePrec, altitudine, noteA, massa, noteM));
+            //TODO rmi client
+            try {
+                gestioneMisurazioni.inserisciNuovaMisurazione(new Misurazione(puntoInteressePassato.getIdPuntoInteresse(), nomeCentroPassato, tempo, vento, noteV, umidita, noteU, pressione, notePres, temperatura, noteT, precipitazioni, notePrec, altitudine, noteA, massa, noteM));
+            } catch(RemoteException ex) {
+                System.err.println("Errore RMI");
+                System.exit(1);
+            }
 
-            logger.log("Nuovi parametri inseriti per " + puntoInteressePassato + " " +nomeCentroPassato+ " " +vento+ " " +umidita+ " " +pressione+ " " +temperatura+ " " +precipitazioni+ " " +altitudine+ " " +massa+ " " +noteV+ " " +noteU+ " " +notePres+ " " +noteT+ " " +notePrec+ " " +noteA+ " " +noteM );
         }
         AreaOperatore ao = new AreaOperatore(operatorePassato.getUsername(), operatorePassato.getPassword());
         ao.setLocation(this.getX(), this.getY());

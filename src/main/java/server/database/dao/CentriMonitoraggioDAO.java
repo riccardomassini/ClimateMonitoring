@@ -8,5 +8,5 @@ public interface CentriMonitoraggioDAO {
     void inserisciPuntiInteresseMonitoratiDaCentro(String nomeCentro, PuntoInteresse[] elencoPuntiInteresse);
     PuntoInteresse[] ottieniPuntiInteresseMonitoratiDaCentro(String nomeCentro);
     void aggiornaCentroMonitoraggioAssociatoOperatore(int username, String nomeCentro);
-    CentroMonitoraggio otteniCentroMonitoraggioAssociatoOperatore(int username);
+    //CentroMonitoraggio otteniCentroMonitoraggioAssociatoOperatore(int username);
 }

@@ -12,7 +12,7 @@ import java.rmi.RemoteException;
 
 import commons.servizio.Autenticazione;
 import commons.servizio.GestioneCentriMonitoraggio;
-import server.servizio.GestoreCentriMonitoraggio;
+import server.servizio.centrimonitoraggio.GestoreCentriMonitoraggio;
 import server.servizio.autenticazione.Autenticatore;
 
 public class AreaOperatore extends javax.swing.JFrame {

@@ -1,4 +1,4 @@
-package server.servizio;
+package server.servizio.centrimonitoraggio;
 
 import commons.oggetti.CentroMonitoraggio;
 import commons.oggetti.PuntoInteresse;
@@ -41,10 +41,11 @@ public class GestoreCentriMonitoraggio implements GestioneCentriMonitoraggio {
         centriMonitoraggioDAO.aggiornaCentroMonitoraggioAssociatoOperatore(usernameOperatore, nomeNuovoCentro);
     }
 
+    /*
     @Override
     public CentroMonitoraggio ottieniCentroMonitoraggioAssociatoOperatore(int usernameOperatore) throws RemoteException {
         return centriMonitoraggioDAO.otteniCentroMonitoraggioAssociatoOperatore(usernameOperatore);
-    }
+    }*/
 
 
 }

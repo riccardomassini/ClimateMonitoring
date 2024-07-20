@@ -1,7 +1,6 @@
 
-package server.servizio.autenticazione;;
+package server.servizio.autenticazione;
 
-import client.registraeventi.LoggerEventi;
 import commons.oggetti.Operatore;
 
 import commons.servizio.Autenticazione;

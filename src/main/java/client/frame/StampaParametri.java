@@ -8,24 +8,30 @@ import client.registraeventi.Chiusura;
 import commons.oggetti.PuntoInteresse;
 import commons.oggetti.Misurazione;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
-import java.sql.*;
-import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+import commons.servizio.GestioneCentriMonitoraggio;
+import commons.servizio.GestioneMisurazioni;
 import commons.servizio.RicercaPuntiInteresse;
-import server.servizio.GestoreCentriMonitoraggio;
+import org.netbeans.lib.awtextra.AbsoluteConstraints;
+import org.netbeans.lib.awtextra.AbsoluteLayout;
+import server.servizio.GestoreMisurazioni;
+import server.servizio.centrimonitoraggio.GestoreCentriMonitoraggio;
 import server.servizio.ricercapoi.RepositoryPuntiInteresse;
-import server.servizio.GestisciParametri;
 
 /**
  *
  * @author hew15bc502nl
  */
-public class StampaParametri extends javax.swing.JFrame {
-
-    GestoreCentriMonitoraggio gc = new GestoreCentriMonitoraggio();
-    GestisciParametri gParam = new GestisciParametri();
+public class StampaParametri extends JFrame {
+    GestioneMisurazioni gestioneMisurazioni = new GestoreMisurazioni();
     RicercaPuntiInteresse ricercaPuntiInteresse = new RepositoryPuntiInteresse();
     DefaultTableModel model1, model2, model3;
     
@@ -49,56 +55,56 @@ public class StampaParametri extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jLabel1 = new javax.swing.JLabel();
-        back = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        ric1 = new javax.swing.JTextField();
-        ric2 = new javax.swing.JTextField();
-        cerca = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tabella1 = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tabella2 = new javax.swing.JTable();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tabella3 = new javax.swing.JTable();
-        out = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        jScrollPane4 = new JScrollPane();
+        jTextArea1 = new JTextArea();
+        jLabel1 = new JLabel();
+        back = new JButton();
+        jLabel2 = new JLabel();
+        ric1 = new JTextField();
+        ric2 = new JTextField();
+        cerca = new JButton();
+        jScrollPane1 = new JScrollPane();
+        tabella1 = new JTable();
+        jScrollPane2 = new JScrollPane();
+        tabella2 = new JTable();
+        jScrollPane3 = new JScrollPane();
+        tabella3 = new JTable();
+        out = new JLabel();
+        jPanel1 = new JPanel();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane4.setViewportView(jTextArea1);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setFont(new Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("STAMPA PARAMETRI");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(211, 15, -1, 27));
+        getContentPane().add(jLabel1, new AbsoluteConstraints(211, 15, -1, 27));
 
         back.setText("Indietro");
-        back.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        back.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 backActionPerformed(evt);
             }
         });
-        getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 503, -1, -1));
+        getContentPane().add(back, new AbsoluteConstraints(20, 503, -1, -1));
 
         jLabel2.setText("Inserisci Area");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(51, 67, -1, -1));
-        getContentPane().add(ric1, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 89, 93, -1));
-        getContentPane().add(ric2, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 117, 93, -1));
+        getContentPane().add(jLabel2, new AbsoluteConstraints(51, 67, -1, -1));
+        getContentPane().add(ric1, new AbsoluteConstraints(38, 89, 93, -1));
+        getContentPane().add(ric2, new AbsoluteConstraints(38, 117, 93, -1));
 
         cerca.setText("Cerca");
-        cerca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        cerca.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 cercaActionPerformed(evt);
             }
         });
-        getContentPane().add(cerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 145, 93, -1));
+        getContentPane().add(cerca, new AbsoluteConstraints(38, 145, 93, -1));
 
-        tabella1.setModel(new javax.swing.table.DefaultTableModel(
+        tabella1.setModel(new DefaultTableModel(
             new Object [][] {
 
             },
@@ -108,9 +114,9 @@ public class StampaParametri extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tabella1);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 67, 818, 303));
+        getContentPane().add(jScrollPane1, new AbsoluteConstraints(176, 67, 818, 303));
 
-        tabella2.setModel(new javax.swing.table.DefaultTableModel(
+        tabella2.setModel(new DefaultTableModel(
             new Object [][] {
 
             },
@@ -120,9 +126,9 @@ public class StampaParametri extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(tabella2);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 382, 818, 52));
+        getContentPane().add(jScrollPane2, new AbsoluteConstraints(176, 382, 818, 52));
 
-        tabella3.setModel(new javax.swing.table.DefaultTableModel(
+        tabella3.setModel(new DefaultTableModel(
             new Object [][] {
 
             },
@@ -132,121 +138,126 @@ public class StampaParametri extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(tabella3);
 
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 446, 818, 49));
-        getContentPane().add(out, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 200, 136, 25));
+        getContentPane().add(jScrollPane3, new AbsoluteConstraints(176, 446, 818, 49));
+        getContentPane().add(out, new AbsoluteConstraints(28, 200, 136, 25));
 
-        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel1.setBackground(new Color(204, 255, 204));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGap(0, 1020, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGap(0, 540, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 540));
+        getContentPane().add(jPanel1, new AbsoluteConstraints(0, 0, 1020, 540));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
+    private void backActionPerformed(ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         Cittadino cit = new Cittadino();
         cit.setLocation(this.getX(), this.getY());
         this.setVisible(false);
         cit.setVisible(true);
     }//GEN-LAST:event_backActionPerformed
 
-    private void cercaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cercaActionPerformed
-        ResultSet set = null;
-        ArrayList<Misurazione> parametri;
+    private void cercaActionPerformed(ActionEvent evt) {//GEN-FIRST:event_cercaActionPerformed
         out.setText("");
-        String nome = ric1.getText();
-        String codice = ric2.getText();
+        
+        Misurazione[] elencoMisurazioni = null;
+        String nomePuntoInteresse = ric1.getText();
+        String codiceNazione = ric2.getText();
         PuntoInteresse puntoInteresse = null;
         PuntoInteresse[] elencoPuntiInteresse = null;
+        Object[] medie = new Object[7];
+        Object[] mode = new Object[7];
 
         //TODO rmi client
         try {
-            elencoPuntiInteresse = ricercaPuntiInteresse.ricercaPerNomeENazione(nome, codice);
+            elencoPuntiInteresse = ricercaPuntiInteresse.ricercaPerNomeENazione(nomePuntoInteresse, codiceNazione);
         } catch(RemoteException ex) {
             System.err.println("Errore RMI");
             System.exit(1);
         }
+        
         if(elencoPuntiInteresse == null)
             out.setText("Non sono stati trovati punti di interesse corrispondenti alla ricerca");
         for(PuntoInteresse puntoInteresseTemp : elencoPuntiInteresse)
-            if(puntoInteresseTemp.getNomePuntoInteresseASCII().equalsIgnoreCase(nome) && puntoInteresseTemp.getCodiceNazione().equalsIgnoreCase(codice))
+            if(puntoInteresseTemp.getNomePuntoInteresseASCII().equalsIgnoreCase(nomePuntoInteresse) && puntoInteresseTemp.getCodiceNazione().equalsIgnoreCase(codiceNazione))
                 puntoInteresse = puntoInteresseTemp;
         if(puntoInteresse == null) {
             out.setText("Nessun paese trovato");
             return;
         }
 
-        parametri = gParam.ottieniMisurazioniSuPuntoInteresse(puntoInteresse);
-        if(parametri.isEmpty())
+        //TODO rmi client
+        try {
+            elencoMisurazioni = gestioneMisurazioni.ottieniMisurazioniSuPuntoInteresse(puntoInteresse.getIdPuntoInteresse());
+        } catch(RemoteException ex) {
+            System.err.println("Errore RMI");
+            System.exit(1);
+        }
+        
+        //TODO ATTENZIONE!!! vedere se può funzionare
+        if(elencoMisurazioni == null) {
             out.setText("Nessuna rilevazione");
-        double[] media;
-        media = gParam.ottieniMediaMisurazioni();
-        int[] moda;
-        moda = gParam.ottieniModaMisurazioni();
+            return;
+        }
 
-        //ar = ricercaPOI.ottieniMisurazioniSuPuntoInteresse(nome, codice);
         model1.setRowCount(0);
         model2.setRowCount(0);
         model3.setRowCount(0);
 
-        Object dati[] = new Object[20];
-        for(int i=0; i<parametri.size(); i++){
-            dati[0] = parametri.get(i).getNomeCentro();
-            dati[1] = parametri.get(i).getTimestampMisurazione();
-            dati[2] = parametri.get(i).getTimestampMisurazione();
-            dati[3] = parametri.get(i).getValutazioneVento();
-            dati[4] = parametri.get(i).getValutazioneUmidita();
-            dati[5] = parametri.get(i).getValutazionePressione();
-            dati[6] = parametri.get(i).getValutazioneTemperatura();
-            dati[7] = parametri.get(i).getValutazionePrecipitazioni();
-            dati[8] = parametri.get(i).getValutazioneAltitudineGhiacciai();
-            dati[9]= parametri.get(i).getValutazioneMassaGhiacciai();
-            dati[10] = parametri.get(i).getCommentoVento();
-            dati[11] = parametri.get(i).getCommentoUmidita();
-            dati[12] = parametri.get(i).getCommentoPressione();
-            dati[13] = parametri.get(i).getCommentoTemperatura();
-            dati[14] = parametri.get(i).getCommentoPrecipitazioni();
-            dati[15] = parametri.get(i).getCommentoAltitudineGhiacciai();
-            dati[16] = parametri.get(i).getCommentoMassaGhiacciai();
-
-            model1.addRow(dati);
+        for(Misurazione misurazione : elencoMisurazioni) {
+            model1.addRow(estraiMisurazione(misurazione));
         }
 
-        Object dati1[] = new Object[7];
-        dati1[0] = media[0];
-        dati1[1] = media[1];
-        dati1[2] = media[2];
-        dati1[3] = media[3];
-        dati1[4] = media[4];
-        dati1[5] = media[5];
-        dati1[6] = media[6];
+        for(int i = 0; i < medie.length; i++) {
+            medie[i] = calcolaMedia();
+            mode[i] = calcolaModa();
+        }
 
-        if(!parametri.isEmpty())
-            model2.addRow(dati1);
+        model2.addRow(medie);
+        model3.addRow(mode);
 
-        Object dati2[] = new Object[7];
-        dati2[0] = moda[0];
-        dati2[1] = moda[1];
-        dati2[2] = moda[2];
-        dati2[3] = moda[3];
-        dati2[4] = moda[4];
-        dati2[5] = moda[5];
-        dati2[6] = moda[6];
-
-        if(!parametri.isEmpty())
-            model3.addRow(dati1);
-        
     }//GEN-LAST:event_cercaActionPerformed
+
+    private Object[] estraiMisurazione(Misurazione misurazione) {
+        Object[] datiMisurazione = new Object[20];
+        datiMisurazione[0] = misurazione.getNomeCentro();
+        datiMisurazione[1] = misurazione.getTimestampMisurazione();
+        datiMisurazione[2] = misurazione.getTimestampMisurazione();
+        datiMisurazione[3] = misurazione.getValutazioneVento();
+        datiMisurazione[4] = misurazione.getValutazioneUmidita();
+        datiMisurazione[5] = misurazione.getValutazionePressione();
+        datiMisurazione[6] = misurazione.getValutazioneTemperatura();
+        datiMisurazione[7] = misurazione.getValutazionePrecipitazioni();
+        datiMisurazione[8] = misurazione.getValutazioneAltitudineGhiacciai();
+        datiMisurazione[9]= misurazione.getValutazioneMassaGhiacciai();
+        datiMisurazione[10] = misurazione.getCommentoVento();
+        datiMisurazione[11] = misurazione.getCommentoUmidita();
+        datiMisurazione[12] = misurazione.getCommentoPressione();
+        datiMisurazione[13] = misurazione.getCommentoTemperatura();
+        datiMisurazione[14] = misurazione.getCommentoPrecipitazioni();
+        datiMisurazione[15] = misurazione.getCommentoAltitudineGhiacciai();
+        datiMisurazione[16] = misurazione.getCommentoMassaGhiacciai();
+        return datiMisurazione;
+    }
+
+    private double calcolaMedia() {
+        //TODO IMPLEMENTARE CALCOLO MEDIA
+        return 0.0;
+    }
+
+    private int calcolaModa() {
+        //TODO IMPLEMENTARE CALCOLO MODA
+        return 0;
+    }
 
     /**
      * @param args the command line arguments
@@ -258,25 +269,25 @@ public class StampaParametri extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(StampaParametri.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(StampaParametri.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(StampaParametri.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(StampaParametri.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(StampaParametri.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(StampaParametri.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(StampaParametri.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(StampaParametri.class.getName()).log(Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new StampaParametri().setVisible(true);
             }
@@ -284,21 +295,21 @@ public class StampaParametri extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton back;
-    private javax.swing.JButton cerca;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JLabel out;
-    private javax.swing.JTextField ric1;
-    private javax.swing.JTextField ric2;
-    private javax.swing.JTable tabella1;
-    private javax.swing.JTable tabella2;
-    private javax.swing.JTable tabella3;
+    private JButton back;
+    private JButton cerca;
+    private JLabel jLabel1;
+    private JLabel jLabel2;
+    private JPanel jPanel1;
+    private JScrollPane jScrollPane1;
+    private JScrollPane jScrollPane2;
+    private JScrollPane jScrollPane3;
+    private JScrollPane jScrollPane4;
+    private JTextArea jTextArea1;
+    private JLabel out;
+    private JTextField ric1;
+    private JTextField ric2;
+    private JTable tabella1;
+    private JTable tabella2;
+    private JTable tabella3;
     // End of variables declaration//GEN-END:variables
 }
