@@ -8,11 +8,13 @@ import client.registraeventi.Chiusura;
 import commons.oggetti.PuntoInteresse;
 import commons.oggetti.Misurazione;
 
+import java.rmi.RemoteException;
 import java.sql.*;
 import java.util.*;
 import javax.swing.table.DefaultTableModel;
 
-import server.servizio.GestisciCentri;
+import commons.servizio.RicercaPuntiInteresse;
+import server.servizio.GestoreCentriMonitoraggio;
 import server.servizio.ricercapoi.RepositoryPuntiInteresse;
 import server.servizio.GestisciParametri;
 
@@ -22,9 +24,9 @@ import server.servizio.GestisciParametri;
  */
 public class StampaParametri extends javax.swing.JFrame {
 
-    GestisciCentri gc = new GestisciCentri();
+    GestoreCentriMonitoraggio gc = new GestoreCentriMonitoraggio();
     GestisciParametri gParam = new GestisciParametri();
-    RepositoryPuntiInteresse gPaesi = new RepositoryPuntiInteresse();
+    RicercaPuntiInteresse ricercaPuntiInteresse = new RepositoryPuntiInteresse();
     DefaultTableModel model1, model2, model3;
     
     public StampaParametri() {
@@ -164,70 +166,85 @@ public class StampaParametri extends javax.swing.JFrame {
         out.setText("");
         String nome = ric1.getText();
         String codice = ric2.getText();
+        PuntoInteresse puntoInteresse = null;
+        PuntoInteresse[] elencoPuntiInteresse = null;
 
-        PuntoInteresse paese = gc.ricercaPuntiInteresseAssociati(nome, codice);
-        if(paese != null){
-            parametri = gParam.ottieniMisurazioniSuPuntoInteresse(paese);
-            if(parametri.isEmpty())
-                out.setText("Nessuna rilevazione");
-            double[] media;
-            media = gParam.ottieniMediaMisurazioni();
-            int[] moda;
-            moda = gParam.ottieniModaMisurazioni();
-
-            //ar = ricercaPOI.ottieniMisurazioniSuPuntoInteresse(nome, codice);
-            model1.setRowCount(0);
-            model2.setRowCount(0);
-            model3.setRowCount(0);
-
-            Object dati[] = new Object[20];
-            for(int i=0; i<parametri.size(); i++){
-                dati[0] = parametri.get(i).getNomeCentro();
-                dati[1] = parametri.get(i).getTimestampMisurazione();
-                dati[2] = parametri.get(i).getTimestampMisurazione();
-                dati[3] = parametri.get(i).getValutazioneVento();
-                dati[4] = parametri.get(i).getValutazioneUmidita();
-                dati[5] = parametri.get(i).getValutazionePressione();
-                dati[6] = parametri.get(i).getValutazioneTemperatura();
-                dati[7] = parametri.get(i).getValutazionePrecipitazioni();
-                dati[8] = parametri.get(i).getValutazioneAltitudineGhiacciai();
-                dati[9]= parametri.get(i).getValutazioneMassaGhiacciai();
-                dati[10] = parametri.get(i).getCommentoVento();
-                dati[11] = parametri.get(i).getCommentoUmidita();
-                dati[12] = parametri.get(i).getCommentoPressione();
-                dati[13] = parametri.get(i).getCommentoTemperatura();
-                dati[14] = parametri.get(i).getCommentoPrecipitazioni();
-                dati[15] = parametri.get(i).getCommentoAltitudineGhiacciai();
-                dati[16] = parametri.get(i).getCommentoMassaGhiacciai();
-
-                model1.addRow(dati);
-            }
-
-            Object dati1[] = new Object[7];
-            dati1[0] = media[0];
-            dati1[1] = media[1];
-            dati1[2] = media[2];
-            dati1[3] = media[3];
-            dati1[4] = media[4];
-            dati1[5] = media[5];
-            dati1[6] = media[6];
-
-            if(!parametri.isEmpty())
-                model2.addRow(dati1);
-
-            Object dati2[] = new Object[7];
-            dati2[0] = moda[0];
-            dati2[1] = moda[1];
-            dati2[2] = moda[2];
-            dati2[3] = moda[3];
-            dati2[4] = moda[4];
-            dati2[5] = moda[5];
-            dati2[6] = moda[6]; 
-
-            if(!parametri.isEmpty())
-                model3.addRow(dati1);
-        }else
+        //TODO rmi client
+        try {
+            elencoPuntiInteresse = ricercaPuntiInteresse.ricercaPerNomeENazione(nome, codice);
+        } catch(RemoteException ex) {
+            System.err.println("Errore RMI");
+            System.exit(1);
+        }
+        if(elencoPuntiInteresse == null)
+            out.setText("Non sono stati trovati punti di interesse corrispondenti alla ricerca");
+        for(PuntoInteresse puntoInteresseTemp : elencoPuntiInteresse)
+            if(puntoInteresseTemp.getNomePuntoInteresseASCII().equalsIgnoreCase(nome) && puntoInteresseTemp.getCodiceNazione().equalsIgnoreCase(codice))
+                puntoInteresse = puntoInteresseTemp;
+        if(puntoInteresse == null) {
             out.setText("Nessun paese trovato");
+            return;
+        }
+
+        parametri = gParam.ottieniMisurazioniSuPuntoInteresse(puntoInteresse);
+        if(parametri.isEmpty())
+            out.setText("Nessuna rilevazione");
+        double[] media;
+        media = gParam.ottieniMediaMisurazioni();
+        int[] moda;
+        moda = gParam.ottieniModaMisurazioni();
+
+        //ar = ricercaPOI.ottieniMisurazioniSuPuntoInteresse(nome, codice);
+        model1.setRowCount(0);
+        model2.setRowCount(0);
+        model3.setRowCount(0);
+
+        Object dati[] = new Object[20];
+        for(int i=0; i<parametri.size(); i++){
+            dati[0] = parametri.get(i).getNomeCentro();
+            dati[1] = parametri.get(i).getTimestampMisurazione();
+            dati[2] = parametri.get(i).getTimestampMisurazione();
+            dati[3] = parametri.get(i).getValutazioneVento();
+            dati[4] = parametri.get(i).getValutazioneUmidita();
+            dati[5] = parametri.get(i).getValutazionePressione();
+            dati[6] = parametri.get(i).getValutazioneTemperatura();
+            dati[7] = parametri.get(i).getValutazionePrecipitazioni();
+            dati[8] = parametri.get(i).getValutazioneAltitudineGhiacciai();
+            dati[9]= parametri.get(i).getValutazioneMassaGhiacciai();
+            dati[10] = parametri.get(i).getCommentoVento();
+            dati[11] = parametri.get(i).getCommentoUmidita();
+            dati[12] = parametri.get(i).getCommentoPressione();
+            dati[13] = parametri.get(i).getCommentoTemperatura();
+            dati[14] = parametri.get(i).getCommentoPrecipitazioni();
+            dati[15] = parametri.get(i).getCommentoAltitudineGhiacciai();
+            dati[16] = parametri.get(i).getCommentoMassaGhiacciai();
+
+            model1.addRow(dati);
+        }
+
+        Object dati1[] = new Object[7];
+        dati1[0] = media[0];
+        dati1[1] = media[1];
+        dati1[2] = media[2];
+        dati1[3] = media[3];
+        dati1[4] = media[4];
+        dati1[5] = media[5];
+        dati1[6] = media[6];
+
+        if(!parametri.isEmpty())
+            model2.addRow(dati1);
+
+        Object dati2[] = new Object[7];
+        dati2[0] = moda[0];
+        dati2[1] = moda[1];
+        dati2[2] = moda[2];
+        dati2[3] = moda[3];
+        dati2[4] = moda[4];
+        dati2[5] = moda[5];
+        dati2[6] = moda[6];
+
+        if(!parametri.isEmpty())
+            model3.addRow(dati1);
         
     }//GEN-LAST:event_cercaActionPerformed
 

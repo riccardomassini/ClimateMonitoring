@@ -22,18 +22,22 @@ public class RepositoryPuntiInteresse implements RicercaPuntiInteresse {
         this.puntiInteresseDAO = new ImplPuntiInteresseDAO();
     }
 
+    @Override
     public PuntoInteresse[] ottieniElencoPuntiInteresse() throws RemoteException {
         return puntiInteresseDAO.ottieniElencoPuntiInteresse();
     }
 
+    @Override
     public PuntoInteresse[] ricercaPerNome(String nome) throws RemoteException {
         return puntiInteresseDAO.ottieniPuntiInteressePerNome(nome);
     }
 
+    @Override
     public PuntoInteresse[] ricercaPerNazione(String codiceNazione) throws RemoteException {
         return puntiInteresseDAO.ottieniPuntiInteressePerCodiceNazione(codiceNazione);
     }
 
+    @Override
     public PuntoInteresse[] ricercaPerCoordinate(double latitudine, double longitudine) throws RemoteException {
         PuntoInteresse[] elencoPuntiInteresse = puntiInteresseDAO.ottieniElencoPuntiInteresse();
         TreeMap<Double, PuntoInteresse> distanze = new TreeMap<>();
@@ -49,4 +53,9 @@ public class RepositoryPuntiInteresse implements RicercaPuntiInteresse {
         return elencoPuntiInteresse;
     }
 
-}
+     @Override
+     public PuntoInteresse[] ricercaPerNomeENazione(String nomePuntoInteresse, String codiceNazione) throws RemoteException {
+         return puntiInteresseDAO.ottieniPuntiInteressePerNomeECodiceNazione(nomePuntoInteresse, codiceNazione);
+     }
+
+ }

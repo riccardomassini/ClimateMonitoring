@@ -10,4 +10,5 @@ public interface RicercaPuntiInteresse extends Remote {
     PuntoInteresse[] ricercaPerNome(String nome) throws RemoteException;
     PuntoInteresse[] ricercaPerNazione(String codiceNazione) throws RemoteException;
     PuntoInteresse[] ricercaPerCoordinate(double latitudine, double longitudine) throws RemoteException;
+    PuntoInteresse[] ricercaPerNomeENazione(String nomePuntoInteresse, String codiceNazione) throws RemoteException;
 }

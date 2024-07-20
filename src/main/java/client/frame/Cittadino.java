@@ -8,7 +8,6 @@ import client.registraeventi.Chiusura;
 import commons.oggetti.PuntoInteresse;
 import commons.servizio.RicercaPuntiInteresse;
 import server.servizio.ricercapoi.RepositoryPuntiInteresse;
-import server.servizio.GestisciParametri;
 
 import javax.swing.table.DefaultTableModel;
 import java.rmi.RemoteException;
@@ -18,9 +17,7 @@ import java.rmi.RemoteException;
  * @author hew15bc502nl
  */
 public class Cittadino extends javax.swing.JFrame {
-
     RicercaPuntiInteresse ricercaPOI = new RepositoryPuntiInteresse();
-    GestisciParametri gParam = new GestisciParametri();
     DefaultTableModel model;
     
     public Cittadino(){
@@ -221,86 +218,73 @@ public class Cittadino extends javax.swing.JFrame {
     private void cerca2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerca2ActionPerformed
         out.setText("");
         try {
-            /*try{
-            Paese p = new Paese();
-            double lat = Double.parseDouble(ric2.getText());
-            double lon = Double.parseDouble(ric3.getText());
-            try {
-            p = ricercaPOI.ricercaCoo(lat, lon);
-            } catch (FileNotFoundException ex) {
-            Logger.getLogger(Cittadino.class.getNomePuntoInteresse()).log(Level.SEVERE, null, ex);
-            }
-            model.setRowCount(0);
+            double latitudine = Double.parseDouble(ric2.getText());
+            double longitudine = Double.parseDouble(ric3.getText());
 
-            Object data[] = {p.getNomePuntoInteresseASCII(), p.getCodiceNazione(), p.getLatitudine(), p.getLongitudine()};
-            model.addRow(data);
-            }catch(NumberFormatException ex){
-            
-            }*/
-            double lat = Double.parseDouble(ric2.getText());
-            double lon = Double.parseDouble(ric3.getText());
-            if(lat>-90 && lat<90 && lon>-180 && lon<180){
-                PuntoInteresse[] elencoPuntiInteresse = null;
-
-                //TODO rmi client
-                try {
-                    elencoPuntiInteresse = ricercaPOI.ricercaPerCoordinate(lat, lon);
-                } catch(RemoteException ex) {
-                    System.err.println("Errore RMI");
-                    System.exit(1);
-                }
-
-                model.setRowCount(0);
-                Object[] dati = new Object[7];
-
-                for(PuntoInteresse puntoInteresse : elencoPuntiInteresse){
-                    dati[0] = puntoInteresse.getIdPuntoInteresse();
-                    dati[1] = puntoInteresse.getNomePuntoInteresse();
-                    dati[2] = puntoInteresse.getNomePuntoInteresseASCII();
-                    dati[3] = puntoInteresse.getCodiceNazione();
-                    dati[4] = puntoInteresse.getNomeNazione();
-                    dati[5] = puntoInteresse.getLatitudine();
-                    dati[6] = puntoInteresse.getLongitudine();
-
-                    model.addRow(dati);
-                }
-
-            } else
+            if(!PuntoInteresse.coordinateValide(latitudine, longitudine)) {
                 out.setText("valori inesistenti");
-        }catch(NumberFormatException ex){
+                return;
+            }
+
+            PuntoInteresse[] elencoPuntiInteresse = null;
+
+            //TODO rmi client
+            try {
+                elencoPuntiInteresse = ricercaPOI.ricercaPerCoordinate(latitudine, longitudine);
+            } catch(RemoteException ex) {
+                System.err.println("Errore RMI");
+                System.exit(1);
+            }
+
+            model.setRowCount(0);
+            Object[] dati = new Object[7];
+
+            for(PuntoInteresse puntoInteresse : elencoPuntiInteresse){
+                dati[0] = puntoInteresse.getIdPuntoInteresse();
+                dati[1] = puntoInteresse.getNomePuntoInteresse();
+                dati[2] = puntoInteresse.getNomePuntoInteresseASCII();
+                dati[3] = puntoInteresse.getCodiceNazione();
+                dati[4] = puntoInteresse.getNomeNazione();
+                dati[5] = puntoInteresse.getLatitudine();
+                dati[6] = puntoInteresse.getLongitudine();
+
+                model.addRow(dati);
+            }
+
+        } catch(NumberFormatException ex) {
             out.setText("Valori non validi");
         }
 
     }//GEN-LAST:event_cerca2ActionPerformed
 
     private void comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboActionPerformed
-        String valore = (String) combo.getSelectedItem();
+        String parametroSelezione = (String) combo.getSelectedItem();
 
-        ric1.setVisible(valore.equals("nome"));
-        ric2.setVisible(valore.equals("coordinate"));
-        ric3.setVisible(valore.equals("coordinate"));
-        ric4.setVisible(valore.equals("stato"));
-        cerca1.setVisible(valore.equals("nome"));
-        cerca2.setVisible(valore.equals("coordinate"));
-        cerca3.setVisible(valore.equals("stato"));
-        jLabel2.setVisible(valore.equals("stato"));
-        jLabel3.setVisible(valore.equals("nome"));
-        jLabel4.setVisible(valore.equals("coordinate"));
-        jLabel5.setVisible(valore.equals("coordinate"));
+        ric1.setVisible(parametroSelezione.equals("nome"));
+        ric2.setVisible(parametroSelezione.equals("coordinate"));
+        ric3.setVisible(parametroSelezione.equals("coordinate"));
+        ric4.setVisible(parametroSelezione.equals("stato"));
+        cerca1.setVisible(parametroSelezione.equals("nome"));
+        cerca2.setVisible(parametroSelezione.equals("coordinate"));
+        cerca3.setVisible(parametroSelezione.equals("stato"));
+        jLabel2.setVisible(parametroSelezione.equals("stato"));
+        jLabel3.setVisible(parametroSelezione.equals("nome"));
+        jLabel4.setVisible(parametroSelezione.equals("coordinate"));
+        jLabel5.setVisible(parametroSelezione.equals("coordinate"));
 
-        if (valore.equals("parametri")) {
+        if (parametroSelezione.equals("parametri")) {
             StampaParametri sp = new StampaParametri();
             sp.setLocation(this.getX(), this.getY());
             this.setVisible(false);
             sp.setVisible(true);
-        }else if(valore.equals("scelta")){
+        }else if(parametroSelezione.equals("scelta")){
             inizializza();
 
-        }else if(valore.equals("nome")){
+        }else if(parametroSelezione.equals("nome")){
             ric2.setText("");
             ric3.setText("");
             ric4.setText("");
-        }else if(valore.equals("coordinate")){
+        }else if(parametroSelezione.equals("coordinate")){
             ric1.setText("");
             ric4.setText("");
         }else{

@@ -18,28 +18,28 @@ import java.rmi.RemoteException;
  */
 public class Autenticatore implements Autenticazione {
     private OperatoriDAO operatoriDAO;
-    LoggerEventi logger = LoggerEventi.getInstance();
     private Sessione sessione;
 
     public Autenticatore() {
+        this.sessione = Sessione.ottieniSessione();
         operatoriDAO = new ImplOperatoriDAO();
     }
     
-    //TODO rmi
+    @Override
     public boolean registrazione(Operatore operatore) throws RemoteException {
         return operatoriDAO.inserisciNuovoOperatore(operatore);
     }
 
-    //TODO rmi
+    @Override
     public boolean login(int username, String password) throws RemoteException {
         Operatore operatore = operatoriDAO.ottieniOperatoreDaUsername(username);
         if(operatore == null || !password.equals(operatore.getPassword()))
             return false;
-        this.sessione = new Sessione(operatore);
+        this.sessione.setOperatore(operatore);
         return true;
     }
 
-    //TODO rmi
+    @Override
     public Operatore ottieniOperatoreAutenticato() throws RemoteException {
         return sessione.getOperatore();
     }

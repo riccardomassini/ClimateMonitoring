@@ -105,5 +105,9 @@ public class PuntoInteresse implements Serializable {
                this.codiceNazione.equals(other.codiceNazione);
     }
 
+    public static boolean coordinateValide(double latitudine, double longitudine) {
+        return latitudine >-90 && latitudine <90 && longitudine >-180 && longitudine <180;
+    }
+
     
 }

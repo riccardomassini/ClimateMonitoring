@@ -6,11 +6,10 @@ package client.frame;
 
 import client.registraeventi.Chiusura;
 import client.registraeventi.LoggerEventi;
-import commons.oggetti.Operatore;
 
 import java.rmi.RemoteException;
-import java.util.*;
 
+import commons.oggetti.Operatore;
 import commons.servizio.Autenticazione;
 import server.servizio.autenticazione.Autenticatore;
 
@@ -19,10 +18,7 @@ import server.servizio.autenticazione.Autenticatore;
  * @author hew15bc502nl
  */
 public class Login extends javax.swing.JFrame {
-
     Autenticazione autenticazione = new Autenticatore();
-    ArrayList<Operatore> op = new ArrayList<>();
-    AreaOperatore ao = new AreaOperatore();
     LoggerEventi logger = LoggerEventi.getInstance();
     
     public Login() {
@@ -119,7 +115,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_passwordActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-        client.frame.Operatore op = new client.frame.Operatore();
+        FrameOperatore op = new FrameOperatore();
         op.setLocation(this.getX(), this.getY());
         this.setVisible(false);
         op.setVisible(true); 
@@ -130,16 +126,17 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_identActionPerformed
 
     private void okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okActionPerformed
-                                
         out.setText("");
-        int id = 0;
+
+        int usernameOperatore = 0;
 
         try{
-            id = Integer.parseInt(ident.getText());
-        }catch(NumberFormatException e){}
+            usernameOperatore = Integer.parseInt(ident.getText());
+        } catch(NumberFormatException e) {
+            e.printStackTrace();
+        }
 
-        String pass = password.getText();
-        commons.oggetti.Operatore operatore = new commons.oggetti.Operatore(id, pass);
+        Operatore operatore = new Operatore(usernameOperatore, String.copyValueOf(password.getPassword()));
 
         //TODO rmi client
         try {
@@ -148,9 +145,9 @@ public class Login extends javax.swing.JFrame {
                 ao.setLocation(this.getX(), this.getY());
                 this.setVisible(false);
                 ao.setVisible(true);
-                logger.log("Operatore " + id + " ha effettuato il login.");
+                logger.log("Operatore " + usernameOperatore + " ha effettuato il login.");
             } else {
-                if (id == 0)
+                if (usernameOperatore == 0)
                     out.setText("ID non valido");
                 else
                     out.setText("Utente non registrato");

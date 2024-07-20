@@ -13,7 +13,6 @@ import server.database.InserisciCSV;
  * @author hew15bc502nl
  */
 public class GestioneScelta extends javax.swing.JFrame {
-
     static LoggerEventi logger = LoggerEventi.getInstance();
     
     /**
@@ -36,13 +35,6 @@ public class GestioneScelta extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
-        jColorChooser1 = new javax.swing.JColorChooser();
-        jColorChooser2 = new javax.swing.JColorChooser();
-        jColorChooser3 = new javax.swing.JColorChooser();
-        jOptionPane1 = new javax.swing.JOptionPane();
-        jColorChooser4 = new javax.swing.JColorChooser();
-        jColorChooser5 = new javax.swing.JColorChooser();
         cittadino = new javax.swing.JButton();
         operatore = new javax.swing.JButton();
         scelta = new javax.swing.JLabel();
@@ -99,7 +91,7 @@ public class GestioneScelta extends javax.swing.JFrame {
     }//GEN-LAST:event_cittadinoActionPerformed
 
     private void operatoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_operatoreActionPerformed
-        Operatore op = new Operatore();
+        FrameOperatore op = new FrameOperatore();
         op.setLocation(this.getX(), this.getY());
         this.setVisible(false);
         op.setVisible(true);
@@ -144,12 +136,6 @@ public class GestioneScelta extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cittadino;
-    private javax.swing.JColorChooser jColorChooser1;
-    private javax.swing.JColorChooser jColorChooser2;
-    private javax.swing.JColorChooser jColorChooser3;
-    private javax.swing.JColorChooser jColorChooser4;
-    private javax.swing.JColorChooser jColorChooser5;
-    private javax.swing.JOptionPane jOptionPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton operatore;
     private javax.swing.JLabel scelta;

@@ -10,24 +10,19 @@ import commons.oggetti.CentroMonitoraggio;
 import commons.oggetti.Operatore;
 import commons.oggetti.PuntoInteresse;
 
-import java.sql.SQLException;
+import java.rmi.RemoteException;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import server.servizio.GestisciCentri;
-import server.servizio.autenticazione.Autenticatore;
+import commons.servizio.GestioneCentriMonitoraggio;
+import commons.servizio.RicercaPuntiInteresse;
+import server.servizio.GestoreCentriMonitoraggio;
 import server.servizio.ricercapoi.RepositoryPuntiInteresse;
 
 public class RegistraCentro extends javax.swing.JFrame {
-
-    GestisciCentri gc = new GestisciCentri();
-    Autenticatore go = new Autenticatore();
-    RepositoryPuntiInteresse gp = new RepositoryPuntiInteresse();
-    ArrayList<PuntoInteresse> aree = new ArrayList<>();
-    ArrayList<Operatore> op = new ArrayList<>();
-    LoggerEventi logger = LoggerEventi.getInstance();
-    Operatore passato;
+    GestioneCentriMonitoraggio gestioneCentriMonitoraggio = new GestoreCentriMonitoraggio();
+    RicercaPuntiInteresse ricercaPuntiInteresse = new RepositoryPuntiInteresse();
+    ArrayList<PuntoInteresse> puntiInteresseMonitorati = new ArrayList<>();
+    Operatore operatorePassato;
     int count;
     
     public RegistraCentro() {
@@ -37,7 +32,7 @@ public class RegistraCentro extends javax.swing.JFrame {
     public RegistraCentro(int id, String pass){
         initComponents();
         addWindowListener(new Chiusura());
-        passato = new Operatore(id, pass);
+        operatorePassato = new Operatore(id, pass);
         areeLabel.setVisible(false);
         nomepReg.setVisible(false);
         codiceReg.setVisible(false);
@@ -121,7 +116,7 @@ public class RegistraCentro extends javax.swing.JFrame {
         jLabel7.setText("Provincia");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 208, 78, 22));
 
-        jLabel8.setText("Numero aree");
+        jLabel8.setText("Numero puntiInteresseMonitorati");
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 240, 78, 22));
 
         back.setText("Indietro");
@@ -140,7 +135,7 @@ public class RegistraCentro extends javax.swing.JFrame {
         });
         getContentPane().add(cliccaReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 268, 96, -1));
 
-        areeLabel.setText("Inserisci aree");
+        areeLabel.setText("Inserisci puntiInteresseMonitorati");
         getContentPane().add(areeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(401, 67, 86, 22));
         getContentPane().add(nomepReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(401, 95, 86, -1));
         getContentPane().add(codiceReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(401, 123, 86, -1));
@@ -193,7 +188,7 @@ public class RegistraCentro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-        AreaOperatore ao = new AreaOperatore(passato.getUsername(), passato.getPassword());
+        AreaOperatore ao = new AreaOperatore(operatorePassato.getUsername(), operatorePassato.getPassword());
         ao.setLocation(this.getX(), this.getY());
         this.setVisible(false);
         ao.setVisible(true);
@@ -233,14 +228,14 @@ public class RegistraCentro extends javax.swing.JFrame {
             out1.setText("Troppo corto");
         if(indirizzo.length()<=0)
             out2.setText("Troppo corto");
-        if(!gc.controlloCap(cap))
+        if(!controlloCap(cap))
             out4.setText("CAP invalido");
         if(comune.length()<=0)
             out5.setText("Troppo corto");
         if(provincia.length()!=2)
             out6.setText("inserire 2 lettere");
             
-        if(nome.length()>0 && indirizzo.length()>0 && numCivico != -1 && gc.controlloCap(cap) && comune.length()>0 && provincia.length()==2 && numAree>0){
+        if(!nome.isEmpty() && !indirizzo.isEmpty() && numCivico != -1 && controlloCap(cap) && !comune.isEmpty() && provincia.length()==2 && numAree>0){
             areeLabel.setVisible(true);
             nomepReg.setVisible(true);
             codiceReg.setVisible(true);
@@ -255,27 +250,22 @@ public class RegistraCentro extends javax.swing.JFrame {
     }//GEN-LAST:event_cliccaRegActionPerformed
 
     private void centroRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_centroRegActionPerformed
-        String nome = nomeReg.getText();
-        String indirizzo = indReg.getText();
-        int numCivico = Integer.parseInt(numcReg.getText());
-        String cap = capReg.getText();
-        String comune = comReg.getText();
-        String provincia = proReg.getText();
-        int numAree = Integer.parseInt(numaReg.getText());
+        CentroMonitoraggio nuovoCentro = new CentroMonitoraggio(nomeReg.getText(), indReg.getText(), Integer.parseInt(numcReg.getText()), capReg.getText(), comReg.getText(), proReg.getText());
 
-            
-        gc.registraCentroMonitoraggio(new CentroMonitoraggio(nome, indirizzo, numCivico, cap, comune, provincia), aree);
-        logger.log("Nuovo centro registrato: " +aree.toString()+ " " +nome+ " " +indirizzo+ " " +numCivico+ " " +cap+ " " +comune+ " " +provincia+ " " +numAree);
-     
+        //TODO rmi client
         try {
-            gc.associaCentroMonitoraggio(passato, nome);
-        } catch (SQLException ex) {
-            Logger.getLogger(RegistraCentro.class.getName()).log(Level.SEVERE, null, ex);
+            gestioneCentriMonitoraggio.registraCentroMonitoraggio(new CentroMonitoraggio(nuovoCentro.getNomeCentro(), nuovoCentro.getIndirizzo(), nuovoCentro.getNumeroCivico(), nuovoCentro.getCAP(), nuovoCentro.getComune(), nuovoCentro.getProvincia()));
+            gestioneCentriMonitoraggio.associaPuntiInteresseCentroMonitoraggio(nuovoCentro.getNomeCentro(), puntiInteresseMonitorati.toArray(new PuntoInteresse[puntiInteresseMonitorati.size()]));
+            gestioneCentriMonitoraggio.associaCentroMonitoraggioOperatore(operatorePassato.getUsername(), nuovoCentro.getNomeCentro());
+        } catch(RemoteException ex) {
+            System.err.println("Errore RMI");
+            System.exit(1);
         }
-        AreaOperatore ao = new AreaOperatore(passato.getUsername(), passato.getPassword());
-        ao.setLocation(this.getX(), this.getY());
+
+        AreaOperatore areaOperatore = new AreaOperatore(operatorePassato.getUsername(), operatorePassato.getPassword());
+        areaOperatore.setLocation(this.getX(), this.getY());
         this.setVisible(false);
-        ao.setVisible(true);
+        areaOperatore.setVisible(true);
     }//GEN-LAST:event_centroRegActionPerformed
 
     private void insAreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insAreeActionPerformed
@@ -284,17 +274,32 @@ public class RegistraCentro extends javax.swing.JFrame {
         String asname = nomepReg.getText();
         String cc = codiceReg.getText();
         int numAree = Integer.parseInt(numaReg.getText());
-        PuntoInteresse p;
+        PuntoInteresse puntoInteresse = null;
+        PuntoInteresse[] elencoPuntiInteresse = null;
 
-        p = gc.ricercaPuntiInteresseAssociati(asname, cc);
-        
-        if(aree.contains(p)){
-            out8.setText("Paese già inserito");
-        }else if(p!=null){
-            aree.add(p);
-            count++;
-        }else
-            out8.setText("Il paese non esiste");
+        //TODO rmi client
+        try {
+            elencoPuntiInteresse = ricercaPuntiInteresse.ricercaPerNomeENazione(asname, cc);
+        } catch(RemoteException ex) {
+            System.err.println("Errore RMI");
+            System.exit(1);
+        }
+
+        if(elencoPuntiInteresse == null) {
+            out8.setText("Non ci sono punti di interesse corrispondenti alla ricerca");
+        } else {
+            for(PuntoInteresse puntoInteresseTemp : elencoPuntiInteresse)
+                if(puntoInteresseTemp.getNomePuntoInteresseASCII().equalsIgnoreCase(asname) && puntoInteresseTemp.getCodiceNazione().equals(cc))
+                    puntoInteresse = puntoInteresseTemp;
+            if(puntoInteresse == null)
+                out8.setText("Il paese non esiste");
+            else if(puntiInteresseMonitorati.contains(puntoInteresse))
+                out8.setText("Paese già inserito");
+            else {
+                puntiInteresseMonitorati.add(puntoInteresse);
+                count++;
+            }
+        }
 
         if(count==numAree){
             areeLabel.setVisible(false);
@@ -303,7 +308,25 @@ public class RegistraCentro extends javax.swing.JFrame {
             insAree.setVisible(false);
             centroReg.setVisible(true);
         }
+
     }//GEN-LAST:event_insAreeActionPerformed
+
+    /**
+     * Metodo controlla se il cap inserito dall'utente è valido
+     * @param cap cap del paese/città del nostro centro di monitoraggio
+     * @return un valore boolean, true se il cap è valido, false altrimenti
+     */
+    private boolean controlloCap(String cap){
+        if(cap.length() != 5)
+            return false;
+
+        for(int i=0; i<cap.length(); i++){
+            char c = cap.charAt(i);
+            if(c<48 || c>57)
+                return false;
+        }
+        return true;
+    }
 
     /**
      * @param args the command line arguments

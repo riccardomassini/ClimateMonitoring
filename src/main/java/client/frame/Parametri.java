@@ -20,12 +20,11 @@ import server.servizio.GestisciParametri;
  * @author hew15bc502nl
  */
 public class Parametri extends javax.swing.JFrame {
-
     GestisciParametri gp = new GestisciParametri();
     LoggerEventi logger = LoggerEventi.getInstance();
-    Operatore passato;
+    Operatore operatorePassato;
     String nomeCentroPassato;
-    PuntoInteresse paesePassato;
+    PuntoInteresse puntoInteressePassato;
     
     
     public Parametri(){
@@ -35,9 +34,9 @@ public class Parametri extends javax.swing.JFrame {
     public Parametri(int id, String pass, String nomeCentro, PuntoInteresse paese){
         initComponents();
         addWindowListener(new Chiusura());
-        passato = new Operatore(id, pass);
+        operatorePassato = new Operatore(id, pass);
         this.nomeCentroPassato = nomeCentro;
-        this.paesePassato = paese;
+        this.puntoInteressePassato = paese;
     }
 
     /**
@@ -49,8 +48,6 @@ public class Parametri extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
-        buttonGroup2 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -196,7 +193,7 @@ public class Parametri extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-        AreaOperatore ao = new AreaOperatore(passato.getUsername(), passato.getPassword());
+        AreaOperatore ao = new AreaOperatore(operatorePassato.getUsername(), operatorePassato.getPassword());
         ao.setLocation(this.getX(), this.getY());
         this.setVisible(false); 
         ao.setVisible(true);
@@ -230,11 +227,11 @@ public class Parametri extends javax.swing.JFrame {
             Date dataOggi = new Date();
             Timestamp tempo = new Timestamp(dataOggi.getTime());
 
-            gp.inserisciNuovaMisurazione(new Misurazione(paesePassato.getIdPuntoInteresse(), nomeCentroPassato, tempo, vento, noteV, umidita, noteU, pressione, notePres, temperatura, noteT, precipitazioni, notePrec, altitudine, noteA, massa, noteM));
+            gp.inserisciNuovaMisurazione(new Misurazione(puntoInteressePassato.getIdPuntoInteresse(), nomeCentroPassato, tempo, vento, noteV, umidita, noteU, pressione, notePres, temperatura, noteT, precipitazioni, notePrec, altitudine, noteA, massa, noteM));
 
-            logger.log("Nuovi parametri inseriti per " +paesePassato+ " " +nomeCentroPassato+ " " +vento+ " " +umidita+ " " +pressione+ " " +temperatura+ " " +precipitazioni+ " " +altitudine+ " " +massa+ " " +noteV+ " " +noteU+ " " +notePres+ " " +noteT+ " " +notePrec+ " " +noteA+ " " +noteM );
+            logger.log("Nuovi parametri inseriti per " + puntoInteressePassato + " " +nomeCentroPassato+ " " +vento+ " " +umidita+ " " +pressione+ " " +temperatura+ " " +precipitazioni+ " " +altitudine+ " " +massa+ " " +noteV+ " " +noteU+ " " +notePres+ " " +noteT+ " " +notePrec+ " " +noteA+ " " +noteM );
         }
-        AreaOperatore ao = new AreaOperatore(passato.getUsername(), passato.getPassword());
+        AreaOperatore ao = new AreaOperatore(operatorePassato.getUsername(), operatorePassato.getPassword());
         ao.setLocation(this.getX(), this.getY());
         this.setVisible(false);
         ao.setVisible(true);
@@ -280,8 +277,6 @@ public class Parametri extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> altReg;
     private javax.swing.JTextField altRegN;
     private javax.swing.JButton back;
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton inserisciParam;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

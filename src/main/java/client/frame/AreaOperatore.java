@@ -5,32 +5,21 @@
 package client.frame;
 
 import client.registraeventi.Chiusura;
-import client.registraeventi.LoggerEventi;
-import commons.oggetti.CentroMonitoraggio;
 import commons.oggetti.Operatore;
 import commons.oggetti.PuntoInteresse;
-import commons.oggetti.Misurazione;
 
 import java.rmi.RemoteException;
-import java.sql.*;
-import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import commons.servizio.Autenticazione;
-import server.servizio.GestisciCentri;
+import commons.servizio.GestioneCentriMonitoraggio;
+import server.servizio.GestoreCentriMonitoraggio;
 import server.servizio.autenticazione.Autenticatore;
 
 public class AreaOperatore extends javax.swing.JFrame {
-
     Autenticazione autenticazione = new Autenticatore();
-    GestisciCentri gc = new GestisciCentri();
-    ArrayList<Operatore> op = new ArrayList<>();
-    ArrayList<CentroMonitoraggio> cm = new ArrayList<>();
-    ArrayList<Misurazione> pm = new ArrayList<>();
-    String centroOp;
-    Operatore passato;
-    LoggerEventi logger = LoggerEventi.getInstance();
+    GestioneCentriMonitoraggio gestioneCentriMonitoraggio = new GestoreCentriMonitoraggio();
+    String nomeCentroMonitoraggioOperatore;
+    Operatore operatorePassato;
     
     public AreaOperatore(){
         initComponents();
@@ -39,36 +28,34 @@ public class AreaOperatore extends javax.swing.JFrame {
     public AreaOperatore(int id, String password){
         initComponents();
         addWindowListener(new Chiusura());
-        passato = new Operatore(id, password);
+        operatorePassato = new Operatore(id, password);
 
         //TODO rmi client
         try {
-            if (autenticazione.login(passato.getUsername(), passato.getPassword())) {
-                passato = autenticazione.ottieniOperatoreAutenticato();
-                Operatore operatore = autenticazione.ottieniOperatoreAutenticato();
-                jLabel2.setText("OPERATORE " + passato.getUsername());
-                try {
-                    if (gc.centroMonitoraggioAssociato(passato)) {
-                        titReg.setVisible(false);
-                        centro.setVisible(false);
-                        out1.setText("Centro " + passato.getIdCentroMonitoraggio());
-                        centroOp = passato.getIdCentroMonitoraggio();
-                        out2.setVisible(true);
-                    } else {
-                        titReg.setVisible(true);
-                        centro.setVisible(true);
-                        jLabel1.setVisible(false);
-                        jLabel3.setVisible(false);
-                        jLabel4.setVisible(false);
-                        CCPP.setVisible(false);
-                        nomePP.setVisible(false);
-                        cercaParam.setVisible(false);
-                        out1.setVisible(false);
-                        out2.setVisible(false);
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(AreaOperatore.class.getName()).log(Level.SEVERE, null, ex);
+            if (autenticazione.login(operatorePassato.getUsername(), operatorePassato.getPassword()) == true) {
+                operatorePassato = autenticazione.ottieniOperatoreAutenticato();
+                jLabel2.setText("OPERATORE " + operatorePassato.getUsername());
+
+                if (operatorePassato.getIdCentroMonitoraggio() == null ) {
+                    titReg.setVisible(true);
+                    centro.setVisible(true);
+                    jLabel1.setVisible(false);
+                    jLabel3.setVisible(false);
+                    jLabel4.setVisible(false);
+                    CCPP.setVisible(false);
+                    nomePP.setVisible(false);
+                    cercaParam.setVisible(false);
+                    out1.setVisible(false);
+                    out2.setVisible(false);
+
+                } else {
+                    titReg.setVisible(false);
+                    centro.setVisible(false);
+                    out1.setText("Centro " + operatorePassato.getIdCentroMonitoraggio());
+                    nomeCentroMonitoraggioOperatore = operatorePassato.getIdCentroMonitoraggio();
+                    out2.setVisible(true);
                 }
+
             }
         } catch(RemoteException ex) {
             System.err.println("Errore RMI");
@@ -205,7 +192,7 @@ public class AreaOperatore extends javax.swing.JFrame {
     }//GEN-LAST:event_backActionPerformed
 
     private void centroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_centroActionPerformed
-        RegistraCentro rc = new RegistraCentro(passato.getUsername(), passato.getPassword());
+        RegistraCentro rc = new RegistraCentro(operatorePassato.getUsername(), operatorePassato.getPassword());
         rc.setLocation(this.getX(), this.getY());
         this.setVisible(false);
         rc.setVisible(true);
@@ -213,19 +200,37 @@ public class AreaOperatore extends javax.swing.JFrame {
 
     private void cercaParamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cercaParamActionPerformed
         out2.setText("");
-        String nome = nomePP.getText();
-        String codice = CCPP.getText();
-        PuntoInteresse p;
 
-        p = gc.trovaAreaAssociata(nome, codice, centroOp);
+        PuntoInteresse puntoInteresse = null;
+        PuntoInteresse[] elencoPuntiInteresse = null;
 
-        if(p!=null){
-            Parametri pa = new Parametri(passato.getUsername(), passato.getPassword(), centroOp, p);
-            pa.setLocation(this.getX(), this.getY());
-            this.setVisible(false); 
-            pa.setVisible(true);
-        }else
-            out2.setText("Paese non trovato");
+        //TODO rmi client
+        try {
+            elencoPuntiInteresse = gestioneCentriMonitoraggio.ottieniAreeAssociate(nomeCentroMonitoraggioOperatore);
+        } catch(RemoteException ex) {
+            System.err.println("Errore RMI");
+            System.exit(1);
+        }
+
+        if(elencoPuntiInteresse == null) {
+            out2.setText("Non ci sono punti di interesse associati al centro");
+            return;
+        }
+
+        for(PuntoInteresse puntoInteresseTemp : elencoPuntiInteresse)
+            if(puntoInteresseTemp.getNomePuntoInteresseASCII().equalsIgnoreCase(nomePP.getText()) && puntoInteresseTemp.getCodiceNazione().equalsIgnoreCase(CCPP.getText()))
+                puntoInteresse = puntoInteresseTemp;
+
+        if(puntoInteresse == null) {
+            out2.setText("Punto di interesse non trovato");
+            return;
+        }
+
+        Parametri pa = new Parametri(operatorePassato.getUsername(), operatorePassato.getPassword(), nomeCentroMonitoraggioOperatore, puntoInteresse);
+        pa.setLocation(this.getX(), this.getY());
+        this.setVisible(false);
+        pa.setVisible(true);
+
     }//GEN-LAST:event_cercaParamActionPerformed
 
     private void CCPPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CCPPActionPerformed

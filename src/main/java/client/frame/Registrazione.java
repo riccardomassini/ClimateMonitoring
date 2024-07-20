@@ -20,7 +20,6 @@ public class Registrazione extends javax.swing.JFrame {
 
     Autenticazione autenticazione = new Autenticatore();
     LoggerEventi logger = LoggerEventi.getInstance();
-    Operatore passato;
     
     public Registrazione() {
         initComponents();
@@ -143,7 +142,7 @@ public class Registrazione extends javax.swing.JFrame {
     }//GEN-LAST:event_mailRegActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-        client.frame.Operatore op = new client.frame.Operatore();
+        FrameOperatore op = new FrameOperatore();
         op.setLocation(this.getX(), this.getY());
         this.setVisible(false);
         op.setVisible(true); 
