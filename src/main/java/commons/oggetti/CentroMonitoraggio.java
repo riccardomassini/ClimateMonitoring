@@ -1,11 +1,13 @@
 package commons.oggetti;
 
+import java.io.Serializable;
+
 /**
  * Classe che contiene tutti gli attributi che formano l'oggetto CentroMonitoraggio
  * @author Nome: Riccardo Massini   Matricola: 753291   Sede: CO
  * @version 1.0
  */
-public class CentroMonitoraggio{
+public class CentroMonitoraggio implements Serializable {
     private String nomeCentro;
     private String indirizzo;
     private int numeroCivico;

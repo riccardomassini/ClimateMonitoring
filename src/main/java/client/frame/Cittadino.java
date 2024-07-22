@@ -4,10 +4,10 @@
  */
 package client.frame;
 
+import client.clientrmi.ClientRMI;
 import client.registraeventi.Chiusura;
 import commons.oggetti.PuntoInteresse;
 import commons.servizio.RicercaPuntiInteresse;
-import server.servizio.ricercapoi.RepositoryPuntiInteresse;
 
 import javax.swing.table.DefaultTableModel;
 import java.rmi.RemoteException;
@@ -17,7 +17,7 @@ import java.rmi.RemoteException;
  * @author hew15bc502nl
  */
 public class Cittadino extends javax.swing.JFrame {
-    RicercaPuntiInteresse ricercaPOI = new RepositoryPuntiInteresse();
+    RicercaPuntiInteresse ricercaPuntiInteresse = ClientRMI.ottieniClientRMI().ottieniStubRicercaPuntiInteresse();
     DefaultTableModel model;
     
     public Cittadino(){
@@ -48,9 +48,10 @@ public class Cittadino extends javax.swing.JFrame {
 
         //TODO rmi client
         try {
-            elencoPuntiInteresse = ricercaPOI.ottieniElencoPuntiInteresse();
+            elencoPuntiInteresse = ricercaPuntiInteresse.ottieniElencoPuntiInteresse();
         } catch(RemoteException ex) {
             System.err.println("Errore RMI");
+            ex.printStackTrace();
             System.exit(1);
         }
 
@@ -230,9 +231,10 @@ public class Cittadino extends javax.swing.JFrame {
 
             //TODO rmi client
             try {
-                elencoPuntiInteresse = ricercaPOI.ricercaPerCoordinate(latitudine, longitudine);
+                elencoPuntiInteresse = ricercaPuntiInteresse.ricercaPerCoordinate(latitudine, longitudine);
             } catch(RemoteException ex) {
                 System.err.println("Errore RMI");
+                ex.printStackTrace();
                 System.exit(1);
             }
 
@@ -304,9 +306,10 @@ public class Cittadino extends javax.swing.JFrame {
 
         //TODO rmi client
         try {
-            elencoPuntiInteresse = ricercaPOI.ricercaPerNome(nome);
+            elencoPuntiInteresse = ricercaPuntiInteresse.ricercaPerNome(nome);
         } catch(RemoteException ex) {
             System.err.println("Errore RMI");
+            ex.printStackTrace();
             System.exit(1);
         }
 
@@ -344,9 +347,10 @@ public class Cittadino extends javax.swing.JFrame {
 
         //TODO rmi client
         try {
-            elencoPuntiInteresse = ricercaPOI.ricercaPerNazione(codice);
+            elencoPuntiInteresse = ricercaPuntiInteresse.ricercaPerNazione(codice);
         } catch(RemoteException ex) {
             System.err.println("Errore RMI");
+            ex.printStackTrace();
             System.exit(1);
         }
 

@@ -1,12 +1,14 @@
 package commons.oggetti;
 
+import java.io.Serializable;
+
 /**
  * Classe che contiene tutti gli attributi che formano l'oggetto Operatore
  * @author Nome: Riccardo Massini   Matricola: 753291   Sede: CO
  * @author Nome: Massimiliano De Lorenzo    Matricola: 754160   Sede: CO
  * @version 1.0
  */
-public class Operatore {
+public class Operatore implements Serializable {
     private String nome;
     private String cognome;
     private String codiceFiscale;

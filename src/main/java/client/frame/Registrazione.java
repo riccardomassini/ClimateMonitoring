@@ -4,22 +4,15 @@
  */
 package client.frame;
 
+import client.clientrmi.ClientRMI;
 import client.registraeventi.Chiusura;
-import client.registraeventi.LoggerEventi;
 import commons.oggetti.Operatore;
 import commons.servizio.Autenticazione;
-import server.servizio.autenticazione.Autenticatore;
 
 import java.rmi.RemoteException;
 
-/**
- *
- * @author hew15bc502nl
- */
 public class Registrazione extends javax.swing.JFrame {
-
-    Autenticazione autenticazione = new Autenticatore();
-    LoggerEventi logger = LoggerEventi.getInstance();
+    Autenticazione autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();;
     
     public Registrazione() {
         initComponents();
@@ -138,7 +131,7 @@ public class Registrazione extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mailRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mailRegActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_mailRegActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
@@ -187,12 +180,12 @@ public class Registrazione extends javax.swing.JFrame {
             try {
                 if (autenticazione.registrazione(operatore)) {
                     out1.setText("Utente registrato");
-                    logger.log("Nuovo operatore registrato: " + nome + " " + cf + " " + mail + " " + id + " " + pass);
                     backActionPerformed(evt);
                 } else
                     out5.setText("ID già presente");
             } catch(RemoteException ex) {
                 System.err.println("Errore RMI");
+                ex.printStackTrace();
                 System.exit(1);
             }
 

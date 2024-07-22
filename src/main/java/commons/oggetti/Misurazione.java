@@ -1,5 +1,6 @@
 package commons.oggetti;
 
+import java.io.Serializable;
 import java.sql.*;
 
 /**
@@ -9,7 +10,7 @@ import java.sql.*;
  * @author Nome: Massimiliano De Lorenzo    Matricola: 754160   Sede: CO
  * @version 1.0
  */
-public class Misurazione {
+public class Misurazione implements Serializable {
     private int idPuntoInteresse;
     private String nomeCentro;
     private Timestamp timestampMisurazione;

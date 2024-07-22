@@ -4,22 +4,20 @@
  */
 package client.frame;
 
+import client.clientrmi.ClientRMI;
 import client.registraeventi.Chiusura;
-import client.registraeventi.LoggerEventi;
 
 import java.rmi.RemoteException;
 
 import commons.oggetti.Operatore;
 import commons.servizio.Autenticazione;
-import server.servizio.autenticazione.Autenticatore;
 
 /**
  *
  * @author hew15bc502nl
  */
 public class Login extends javax.swing.JFrame {
-    Autenticazione autenticazione = new Autenticatore();
-    LoggerEventi logger = LoggerEventi.getInstance();
+    Autenticazione autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
     
     public Login() {
         initComponents();
@@ -111,7 +109,7 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_passwordActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
@@ -122,7 +120,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_backActionPerformed
 
     private void identActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_identActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_identActionPerformed
 
     private void okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okActionPerformed
@@ -145,7 +143,6 @@ public class Login extends javax.swing.JFrame {
                 ao.setLocation(this.getX(), this.getY());
                 this.setVisible(false);
                 ao.setVisible(true);
-                logger.log("Operatore " + usernameOperatore + " ha effettuato il login.");
             } else {
                 if (usernameOperatore == 0)
                     out.setText("ID non valido");
@@ -154,6 +151,7 @@ public class Login extends javax.swing.JFrame {
             }
         } catch(RemoteException ex) {
             System.err.println("Errore RMI");
+            ex.printStackTrace();
             System.exit(1);
         }
             

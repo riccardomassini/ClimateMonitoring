@@ -4,6 +4,7 @@
  */
 package client.frame;
 
+import client.clientrmi.ClientRMI;
 import client.registraeventi.Chiusura;
 import commons.oggetti.PuntoInteresse;
 import commons.oggetti.Misurazione;
@@ -17,22 +18,18 @@ import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import commons.servizio.GestioneCentriMonitoraggio;
 import commons.servizio.GestioneMisurazioni;
 import commons.servizio.RicercaPuntiInteresse;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 import org.netbeans.lib.awtextra.AbsoluteLayout;
-import server.servizio.GestoreMisurazioni;
-import server.servizio.centrimonitoraggio.GestoreCentriMonitoraggio;
-import server.servizio.ricercapoi.RepositoryPuntiInteresse;
 
 /**
  *
  * @author hew15bc502nl
  */
 public class StampaParametri extends JFrame {
-    GestioneMisurazioni gestioneMisurazioni = new GestoreMisurazioni();
-    RicercaPuntiInteresse ricercaPuntiInteresse = new RepositoryPuntiInteresse();
+    GestioneMisurazioni gestioneMisurazioni = ClientRMI.ottieniClientRMI().ottieniStubGestioneMisurazioni();
+    RicercaPuntiInteresse ricercaPuntiInteresse = ClientRMI.ottieniClientRMI().ottieniStubRicercaPuntiInteresse();;
     DefaultTableModel model1, model2, model3;
     
     public StampaParametri() {
@@ -182,6 +179,7 @@ public class StampaParametri extends JFrame {
             elencoPuntiInteresse = ricercaPuntiInteresse.ricercaPerNomeENazione(nomePuntoInteresse, codiceNazione);
         } catch(RemoteException ex) {
             System.err.println("Errore RMI");
+            ex.printStackTrace();
             System.exit(1);
         }
         
@@ -200,6 +198,7 @@ public class StampaParametri extends JFrame {
             elencoMisurazioni = gestioneMisurazioni.ottieniMisurazioniSuPuntoInteresse(puntoInteresse.getIdPuntoInteresse());
         } catch(RemoteException ex) {
             System.err.println("Errore RMI");
+            ex.printStackTrace();
             System.exit(1);
         }
         

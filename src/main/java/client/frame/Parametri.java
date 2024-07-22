@@ -4,20 +4,20 @@
  */
 package client.frame;
 
+import client.clientrmi.ClientRMI;
 import client.registraeventi.Chiusura;
 import commons.oggetti.Operatore;
 import commons.oggetti.PuntoInteresse;
 import commons.oggetti.Misurazione;
 
 import java.rmi.RemoteException;
-import java.sql.*;
+import java.sql.Timestamp;
 import java.util.Date;
 
 import commons.servizio.GestioneMisurazioni;
-import server.servizio.GestoreMisurazioni;
 
 public class Parametri extends javax.swing.JFrame {
-    GestioneMisurazioni gestioneMisurazioni = new GestoreMisurazioni();
+    GestioneMisurazioni gestioneMisurazioni = ClientRMI.ottieniClientRMI().ottieniStubGestioneMisurazioni();
     Operatore operatorePassato;
     String nomeCentroPassato;
     PuntoInteresse puntoInteressePassato;
@@ -228,6 +228,7 @@ public class Parametri extends javax.swing.JFrame {
                 gestioneMisurazioni.inserisciNuovaMisurazione(new Misurazione(puntoInteressePassato.getIdPuntoInteresse(), nomeCentroPassato, tempo, vento, noteV, umidita, noteU, pressione, notePres, temperatura, noteT, precipitazioni, notePrec, altitudine, noteA, massa, noteM));
             } catch(RemoteException ex) {
                 System.err.println("Errore RMI");
+                ex.printStackTrace();
                 System.exit(1);
             }
 

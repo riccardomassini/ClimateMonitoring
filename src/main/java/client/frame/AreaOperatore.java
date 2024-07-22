@@ -4,6 +4,7 @@
  */
 package client.frame;
 
+import client.clientrmi.ClientRMI;
 import client.registraeventi.Chiusura;
 import commons.oggetti.Operatore;
 import commons.oggetti.PuntoInteresse;
@@ -12,12 +13,10 @@ import java.rmi.RemoteException;
 
 import commons.servizio.Autenticazione;
 import commons.servizio.GestioneCentriMonitoraggio;
-import server.servizio.centrimonitoraggio.GestoreCentriMonitoraggio;
-import server.servizio.autenticazione.Autenticatore;
 
 public class AreaOperatore extends javax.swing.JFrame {
-    Autenticazione autenticazione = new Autenticatore();
-    GestioneCentriMonitoraggio gestioneCentriMonitoraggio = new GestoreCentriMonitoraggio();
+    Autenticazione autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
+    GestioneCentriMonitoraggio gestioneCentriMonitoraggio = ClientRMI.ottieniClientRMI().ottieniStubGestioneCentriMonitoraggio();
     String nomeCentroMonitoraggioOperatore;
     Operatore operatorePassato;
     
@@ -59,6 +58,7 @@ public class AreaOperatore extends javax.swing.JFrame {
             }
         } catch(RemoteException ex) {
             System.err.println("Errore RMI");
+            ex.printStackTrace();
             System.exit(1);
         }
     }
@@ -209,6 +209,7 @@ public class AreaOperatore extends javax.swing.JFrame {
             elencoPuntiInteresse = gestioneCentriMonitoraggio.ottieniAreeAssociate(nomeCentroMonitoraggioOperatore);
         } catch(RemoteException ex) {
             System.err.println("Errore RMI");
+            ex.printStackTrace();
             System.exit(1);
         }
 
@@ -234,7 +235,7 @@ public class AreaOperatore extends javax.swing.JFrame {
     }//GEN-LAST:event_cercaParamActionPerformed
 
     private void CCPPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CCPPActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_CCPPActionPerformed
 
     /**

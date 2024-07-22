@@ -4,22 +4,21 @@
  */
 package client.frame;
 
+import client.clientrmi.ClientRMI;
 import client.registraeventi.Chiusura;
 import commons.oggetti.CentroMonitoraggio;
 import commons.oggetti.Operatore;
 import commons.oggetti.PuntoInteresse;
 
 import java.rmi.RemoteException;
-import java.util.*;
+import java.util.ArrayList;
 
 import commons.servizio.GestioneCentriMonitoraggio;
 import commons.servizio.RicercaPuntiInteresse;
-import server.servizio.centrimonitoraggio.GestoreCentriMonitoraggio;
-import server.servizio.ricercapoi.RepositoryPuntiInteresse;
 
 public class RegistraCentro extends javax.swing.JFrame {
-    GestioneCentriMonitoraggio gestioneCentriMonitoraggio = new GestoreCentriMonitoraggio();
-    RicercaPuntiInteresse ricercaPuntiInteresse = new RepositoryPuntiInteresse();
+    GestioneCentriMonitoraggio gestioneCentriMonitoraggio = ClientRMI.ottieniClientRMI().ottieniStubGestioneCentriMonitoraggio();
+    RicercaPuntiInteresse ricercaPuntiInteresse = ClientRMI.ottieniClientRMI().ottieniStubRicercaPuntiInteresse();
     ArrayList<PuntoInteresse> puntiInteresseMonitorati = new ArrayList<>();
     Operatore operatorePassato;
     int count;
@@ -258,6 +257,7 @@ public class RegistraCentro extends javax.swing.JFrame {
             gestioneCentriMonitoraggio.associaCentroMonitoraggioOperatore(operatorePassato.getUsername(), nuovoCentro.getNomeCentro());
         } catch(RemoteException ex) {
             System.err.println("Errore RMI");
+            ex.printStackTrace();
             System.exit(1);
         }
 
@@ -281,6 +281,7 @@ public class RegistraCentro extends javax.swing.JFrame {
             elencoPuntiInteresse = ricercaPuntiInteresse.ricercaPerNomeENazione(asname, cc);
         } catch(RemoteException ex) {
             System.err.println("Errore RMI");
+            ex.printStackTrace();
             System.exit(1);
         }
 

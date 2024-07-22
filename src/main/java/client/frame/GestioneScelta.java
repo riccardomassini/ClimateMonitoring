@@ -5,26 +5,16 @@
 package client.frame;
 
 import client.registraeventi.Chiusura;
-import client.registraeventi.LoggerEventi;
-import server.database.InserisciCSV;
 
-/**
- *
- * @author hew15bc502nl
- */
 public class GestioneScelta extends javax.swing.JFrame {
-    static LoggerEventi logger = LoggerEventi.getInstance();
-    
-    /**
-     * Creates new form GestioneScelta
-     */
+
     public GestioneScelta() {
         initComponents();
         addWindowListener(new Chiusura());
-        String nomeTabella = "CoordinateMonitoraggio";
-        String filePath = "data/CoordinateMonitoraggio.dati.csv";
+        //String nomeTabella = "CoordinateMonitoraggio";
+        //String filePath = "data" + File.separator + "CoordinateMonitoraggio.dati.csv";
 
-        InserisciCSV.inserisciDaCSV(nomeTabella, filePath);
+        //InserisciCSV.inserisciDaCSV(nomeTabella, filePath);
     }
 
     /**
@@ -129,7 +119,6 @@ public class GestioneScelta extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run(){
                 new GestioneScelta().setVisible(true);
-                logger.log("Avvio applicazione.");
             }
         });
     }

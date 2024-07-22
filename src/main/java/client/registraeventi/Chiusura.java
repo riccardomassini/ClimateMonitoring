@@ -9,8 +9,6 @@ import javax.swing.*;
 
 public class Chiusura extends WindowAdapter{
     
-    LoggerEventi logger = LoggerEventi.getInstance();
-    
     @Override
     public void windowClosing(WindowEvent e) {
         int result = JOptionPane.showConfirmDialog(
@@ -20,9 +18,6 @@ public class Chiusura extends WindowAdapter{
                 JOptionPane.YES_NO_OPTION
         );
         if (result == JOptionPane.YES_OPTION) {
-            // Aggiorna il logger prima di chiudere l'applicazione
-            logger.log("Applicazione chiusa.");
-            logger.close();
 
             // Chiudi l'applicazione
             System.exit(0);
