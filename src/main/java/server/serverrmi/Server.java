@@ -5,7 +5,7 @@ import commons.servizio.Autenticazione;
 import commons.servizio.GestioneCentriMonitoraggio;
 import commons.servizio.GestioneMisurazioni;
 import commons.servizio.RicercaPuntiInteresse;
-import server.servizio.GestoreMisurazioni;
+import server.servizio.misurazioni.GestoreMisurazioni;
 import server.servizio.autenticazione.Autenticatore;
 import server.servizio.centrimonitoraggio.GestoreCentriMonitoraggio;
 import server.servizio.ricercapoi.RepositoryPuntiInteresse;

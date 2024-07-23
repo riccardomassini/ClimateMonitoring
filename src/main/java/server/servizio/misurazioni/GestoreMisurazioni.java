@@ -1,6 +1,6 @@
-package server.servizio;
+package server.servizio.misurazioni;
 
-import commons.oggetti.Misurazione;
+import commons.oggetti.misurazioni.Misurazione;
 import commons.servizio.GestioneMisurazioni;
 import server.database.dao.MisurazioniDAO;
 import server.database.servizio.ImplMisurazioniDAO;

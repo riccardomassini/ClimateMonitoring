@@ -1,7 +1,6 @@
 package server.database.servizio;
 
 import commons.oggetti.Operatore;
-import commons.oggetti.PuntoInteresse;
 import org.postgresql.util.PSQLException;
 import server.database.ConnettoreDatabase;
 import server.database.dao.OperatoriDAO;

@@ -6,8 +6,9 @@ package client.frame;
 
 import client.clientrmi.ClientRMI;
 import client.registraeventi.Chiusura;
+import commons.oggetti.misurazioni.CategorieParametriClimatici;
 import commons.oggetti.PuntoInteresse;
-import commons.oggetti.Misurazione;
+import commons.oggetti.misurazioni.Misurazione;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,6 +19,7 @@ import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+import commons.oggetti.misurazioni.PunteggioParametroClimatico;
 import commons.servizio.GestioneMisurazioni;
 import commons.servizio.RicercaPuntiInteresse;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
@@ -171,14 +173,13 @@ public class StampaParametri extends JFrame {
         String codiceNazione = ric2.getText();
         PuntoInteresse puntoInteresse = null;
         PuntoInteresse[] elencoPuntiInteresse = null;
-        Object[] medie = new Object[7];
-        Object[] mode = new Object[7];
+        Object[] medie = new Object[CategorieParametriClimatici.values().length];
+        Object[] mode = new Object[CategorieParametriClimatici.values().length];
 
-        //TODO rmi client
         try {
             elencoPuntiInteresse = ricercaPuntiInteresse.ricercaPerNomeENazione(nomePuntoInteresse, codiceNazione);
         } catch(RemoteException ex) {
-            System.err.println("Errore RMI");
+            System.err.println("Errore RMI: ricerca del punto di interesse associato fallita");
             ex.printStackTrace();
             System.exit(1);
         }
@@ -193,11 +194,10 @@ public class StampaParametri extends JFrame {
             return;
         }
 
-        //TODO rmi client
         try {
             elencoMisurazioni = gestioneMisurazioni.ottieniMisurazioniSuPuntoInteresse(puntoInteresse.getIdPuntoInteresse());
         } catch(RemoteException ex) {
-            System.err.println("Errore RMI");
+            System.err.println("Errore RMI: recupero delle misurazioni sul punto di interesse fallita");
             ex.printStackTrace();
             System.exit(1);
         }
@@ -216,9 +216,9 @@ public class StampaParametri extends JFrame {
             model1.addRow(estraiMisurazione(misurazione));
         }
 
-        for(int i = 0; i < medie.length; i++) {
-            medie[i] = calcolaMedia();
-            mode[i] = calcolaModa();
+        for(CategorieParametriClimatici categoria : CategorieParametriClimatici.values()) {
+            medie[categoria.ordinal()] = calcolaMedia(elencoMisurazioni, categoria);
+            mode[categoria.ordinal()] = calcolaModa(elencoMisurazioni, categoria);
         }
 
         model2.addRow(medie);
@@ -228,34 +228,49 @@ public class StampaParametri extends JFrame {
 
     private Object[] estraiMisurazione(Misurazione misurazione) {
         Object[] datiMisurazione = new Object[20];
-        datiMisurazione[0] = misurazione.getNomeCentro();
-        datiMisurazione[1] = misurazione.getTimestampMisurazione();
-        datiMisurazione[2] = misurazione.getTimestampMisurazione();
-        datiMisurazione[3] = misurazione.getValutazioneVento();
-        datiMisurazione[4] = misurazione.getValutazioneUmidita();
-        datiMisurazione[5] = misurazione.getValutazionePressione();
-        datiMisurazione[6] = misurazione.getValutazioneTemperatura();
-        datiMisurazione[7] = misurazione.getValutazionePrecipitazioni();
-        datiMisurazione[8] = misurazione.getValutazioneAltitudineGhiacciai();
-        datiMisurazione[9]= misurazione.getValutazioneMassaGhiacciai();
-        datiMisurazione[10] = misurazione.getCommentoVento();
-        datiMisurazione[11] = misurazione.getCommentoUmidita();
-        datiMisurazione[12] = misurazione.getCommentoPressione();
-        datiMisurazione[13] = misurazione.getCommentoTemperatura();
-        datiMisurazione[14] = misurazione.getCommentoPrecipitazioni();
-        datiMisurazione[15] = misurazione.getCommentoAltitudineGhiacciai();
-        datiMisurazione[16] = misurazione.getCommentoMassaGhiacciai();
+        int i = 0;
+        datiMisurazione[i++] = misurazione.getNomeCentro();
+        datiMisurazione[i++] = misurazione.getTimestampMisurazione();
+        datiMisurazione[i++] = misurazione.getTimestampMisurazione();
+        for(CategorieParametriClimatici categoria : CategorieParametriClimatici.values()) {
+            datiMisurazione[i] = misurazione.getValutazioneParametroConCategoria(categoria);
+            datiMisurazione[i + CategorieParametriClimatici.values().length] = misurazione.getCommentoParametroConCategoria(categoria);
+            i++;
+        }
         return datiMisurazione;
     }
 
-    private double calcolaMedia() {
-        //TODO IMPLEMENTARE CALCOLO MEDIA
-        return 0.0;
+    private double calcolaMedia(Misurazione[] elencoMisurazioni, CategorieParametriClimatici categoria) {
+        int somma = 0;
+        int nValutazioni = 0;
+        for(Misurazione misurazione : elencoMisurazioni) {
+            if(misurazione.getValutazioneParametroConCategoria(categoria) != PunteggioParametroClimatico.NULLO.getPunteggio()) {
+                somma += misurazione.getValutazioneParametroConCategoria(categoria);
+                nValutazioni++;
+            }
+        }
+        return (double) somma / nValutazioni;
     }
 
-    private int calcolaModa() {
-        //TODO IMPLEMENTARE CALCOLO MODA
-        return 0;
+    //TODO trattare caso in cui tutti punteggi hanno una sola presenza
+    private Object calcolaModa(Misurazione[] elencoMisurazioni, CategorieParametriClimatici categoria) {
+        int[] conteggioPunteggi = new int[PunteggioParametroClimatico.values().length - 1];
+        for(Misurazione misurazione : elencoMisurazioni) {
+            if (misurazione.getValutazioneParametroConCategoria(categoria) != PunteggioParametroClimatico.NULLO.getPunteggio()) {
+                conteggioPunteggi[misurazione.getValutazioneParametroConCategoria(categoria) - 1]++;
+            }
+        }
+
+        int max = 0;
+        int maxPunteggio = 1;
+        for(int i = 0; i < conteggioPunteggi.length; i++) {
+            if(conteggioPunteggi[i] > max) {
+                max = conteggioPunteggi[i];
+                maxPunteggio = i + 1;
+            }
+        }
+        return PunteggioParametroClimatico.values()[maxPunteggio].getPunteggio();
+
     }
 
     /**

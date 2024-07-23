@@ -5,7 +5,6 @@ import commons.oggetti.PuntoInteresse;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 
 public interface GestioneCentriMonitoraggio extends Remote {
     void registraCentroMonitoraggio(CentroMonitoraggio nuovoCentro) throws RemoteException;

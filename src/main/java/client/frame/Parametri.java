@@ -6,14 +6,15 @@ package client.frame;
 
 import client.clientrmi.ClientRMI;
 import client.registraeventi.Chiusura;
-import commons.oggetti.Operatore;
-import commons.oggetti.PuntoInteresse;
-import commons.oggetti.Misurazione;
+import commons.oggetti.*;
 
 import java.rmi.RemoteException;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import commons.oggetti.misurazioni.CategorieParametriClimatici;
+import commons.oggetti.misurazioni.Misurazione;
+import commons.oggetti.misurazioni.ValutazioneParametro;
 import commons.servizio.GestioneMisurazioni;
 
 public class Parametri extends javax.swing.JFrame {
@@ -196,49 +197,44 @@ public class Parametri extends javax.swing.JFrame {
     }//GEN-LAST:event_backActionPerformed
 
     private void inserisciParamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserisciParamActionPerformed
-        Object vento = ventoReg.getSelectedItem();
-        Object umidita = umReg.getSelectedItem();
-        Object pressione = presReg.getSelectedItem();
-        Object temperatura = teReg.getSelectedItem();
-        Object precipitazioni = precReg.getSelectedItem();
-        Object altitudine = altReg.getSelectedItem();
-        Object massa = massaReg.getSelectedItem();
-        String noteV = ventoRegN.getText();
-        String noteU = umRegN.getText();
-        String notePres = presRegN.getText();
-        String noteT = teRegN.getText();
-        String notePrec = precRegN.getText();
-        String noteA = altRegN.getText();
-        String noteM = massaRegN.getText();
+        Misurazione nuovaMisurazione = new Misurazione();
 
-        if(noteV.length()<256 && noteU.length()<256 && notePres.length()<256 && noteT.length()<256 && notePrec.length()<256 && noteA.length()<256 && noteM.length()<256){
-            noteV = noteV.equals("") ? "/" : noteV;
-            noteU = noteU.equals("") ? "/" : noteU;
-            notePres = notePres.equals("") ? "/" : notePres;
-            noteT = noteT.equals("") ? "/" : noteT;
-            notePrec = notePrec.equals("") ? "/" : notePrec;
-            noteA = noteA.equals("") ? "/" : noteA;
-            noteM = noteM.equals("") ? "/" : noteM;
-            
-            Date dataOggi = new Date();
-            Timestamp tempo = new Timestamp(dataOggi.getTime());
+        nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.VENTO, new ValutazioneParametro(Integer.parseInt((String) ventoReg.getSelectedItem()), formatCommento(ventoRegN.getText())));
+        nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.TEMPERATURA, new ValutazioneParametro(Integer.parseInt((String)   teReg.getSelectedItem()), formatCommento(teRegN.getText())));
+        nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.PRECIPITAZIONI, new ValutazioneParametro(Integer.parseInt((String) precReg.getSelectedItem()), formatCommento(precRegN.getText())));
+        nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.PRESSIONE,new ValutazioneParametro(Integer.parseInt((String) presReg.getSelectedItem()), formatCommento(presRegN.getText())));
+        nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.UMIDITA, new ValutazioneParametro(Integer.parseInt((String) umReg.getSelectedItem()), formatCommento(umRegN.getText())));
+        nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.ALTITUDINE_GHIACCIAI, new ValutazioneParametro(Integer.parseInt((String) altReg.getSelectedItem()), formatCommento(altRegN.getText())));
+        nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.MASSA_GHIACCIAI, new ValutazioneParametro(Integer.parseInt((String) massaReg.getSelectedItem()), formatCommento(massaRegN.getText())));
 
-            //TODO rmi client
-            try {
-                gestioneMisurazioni.inserisciNuovaMisurazione(new Misurazione(puntoInteressePassato.getIdPuntoInteresse(), nomeCentroPassato, tempo, vento, noteV, umidita, noteU, pressione, notePres, temperatura, noteT, precipitazioni, notePrec, altitudine, noteA, massa, noteM));
-            } catch(RemoteException ex) {
-                System.err.println("Errore RMI");
-                ex.printStackTrace();
-                System.exit(1);
+        for(CategorieParametriClimatici categoria : CategorieParametriClimatici.values())
+            if(!ValutazioneParametro.lunghezzaCommentoValida(nuovaMisurazione.getCommentoParametroConCategoria(categoria))) {
+                System.err.println("Lunghezza commento per " + categoria.name() + " non valida");
+                return;
             }
 
+        nuovaMisurazione.setTimestampMisurazione(new Timestamp(new Date().getTime()));
+        nuovaMisurazione.setIdPuntoInteresse(puntoInteressePassato.getIdPuntoInteresse());
+        nuovaMisurazione.setNomeCentro(nomeCentroPassato);
+
+        try {
+            gestioneMisurazioni.inserisciNuovaMisurazione(nuovaMisurazione);
+        } catch(RemoteException ex) {
+            System.err.println("Errore RMI: registrazione di una nuova misurazione fallita");
+            ex.printStackTrace();
+            System.exit(1);
         }
+
         AreaOperatore ao = new AreaOperatore(operatorePassato.getUsername(), operatorePassato.getPassword());
         ao.setLocation(this.getX(), this.getY());
         this.setVisible(false);
         ao.setVisible(true);
             
     }//GEN-LAST:event_inserisciParamActionPerformed
+
+    private String formatCommento(String commento) {
+        return commento.isEmpty() ? "/" : commento;
+    }
 
     /**
      * @param args the command line arguments

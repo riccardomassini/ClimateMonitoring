@@ -1,6 +1,6 @@
 package commons.servizio;
 
-import commons.oggetti.Misurazione;
+import commons.oggetti.misurazioni.Misurazione;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
