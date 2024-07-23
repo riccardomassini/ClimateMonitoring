@@ -133,7 +133,7 @@
           <appendAssemblyId>false</appendAssemblyId>
           <archive>
             <manifest>
-              <Main-Class>frame.GestioneScelta</Main-Class>
+              <Main-Class>client.frame.GestioneScelta</Main-Class>
             </manifest>
           </archive>
           <descriptorRefs>
