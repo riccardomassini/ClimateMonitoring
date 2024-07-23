@@ -128,26 +128,48 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
         <version>3.3.0</version>
-        <configuration>
-          <finalName>ClimateMonitor</finalName> <!-- Imposta il nome del file JAR -->
-          <appendAssemblyId>false</appendAssemblyId>
-          <archive>
-            <manifest>
-              <Main-Class>client.frame.GestioneScelta</Main-Class>
-            </manifest>
-          </archive>
-          <descriptorRefs>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs>
-          <outputDirectory>${project.basedir}/jar</outputDirectory>
-        </configuration>
         <executions>
+          <!-- Configurazione per il client -->
           <execution>
-            <id>make-assembly</id>
+            <id>make-client-assembly</id>
             <phase>package</phase>
             <goals>
               <goal>single</goal>
             </goals>
+            <configuration>
+              <finalName>clientCM</finalName> <!-- Imposta il nome del file JAR -->
+              <appendAssemblyId>false</appendAssemblyId>
+              <archive>
+                <manifest>
+                  <mainClass>client.frame.GestioneScelta</mainClass>
+                </manifest>
+              </archive>
+              <descriptorRefs>
+                <descriptorRef>jar-with-dependencies</descriptorRef>
+              </descriptorRefs>
+              <outputDirectory>${project.basedir}/jar</outputDirectory>
+            </configuration>
+          </execution>
+          <!-- Configurazione per il server -->
+          <execution>
+            <id>make-server-assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <configuration>
+              <finalName>serverCM</finalName> <!-- Imposta il nome del file JAR -->
+              <appendAssemblyId>false</appendAssemblyId>
+              <archive>
+                <manifest>
+                  <mainClass>server.serverrmi.ServerFrame</mainClass>
+                </manifest>
+              </archive>
+              <descriptorRefs>
+                <descriptorRef>jar-with-dependencies</descriptorRef>
+              </descriptorRefs>
+              <outputDirectory>${project.basedir}/jar</outputDirectory>
+            </configuration>
           </execution>
         </executions>
       </plugin>

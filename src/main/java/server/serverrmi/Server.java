@@ -27,16 +27,8 @@ public class Server implements  Runnable {
         inizializzaServer();
     }
 
-    public static void main(String[] args) {
-        Server server = new Server();
-        server.start();
-    }
-
     @Override
-    public void run() {
-        System.out.println("Server è partito!");
-
-    }
+    public void run() {}
 
     public void start() {
         threadServer.start();
