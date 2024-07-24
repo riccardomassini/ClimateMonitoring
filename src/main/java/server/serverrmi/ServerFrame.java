@@ -10,8 +10,10 @@ import static commons.connessione.ImpostazioniConnessione.*;
 
 public class ServerFrame extends javax.swing.JFrame {
 
-    private static final String USERNAME = "admin";
-    private static final String PASSWORD = "s3cur3";
+    private static final String USERNAME = "";
+    private static final String PASSWORD = "";
+    private boolean serverRunning = false;
+    private Server server;
     
     public ServerFrame() {
         initComponents();
@@ -124,14 +126,27 @@ public class ServerFrame extends javax.swing.JFrame {
         String usernameInserito = username.getText();
         String passwordInserita = password.getText();
         String hostInserito = host.getText();
-        
-        if(usernameInserito.equals(USERNAME) && passwordInserita.equals(PASSWORD) && hostInserito.equals(HOST)){
-            Server server = new Server();
-            server.start();
-            out.setText("Partito...");
-        }else{
-            out.setText("Dati invalidi");
-        }  
+
+        if (serverRunning) {
+            // Spegni il server
+            if (server != null) {
+                server.stop();
+            }
+            avvia.setText("Avvia");
+            out.setText("Server spento");
+            serverRunning = false;
+        } else {
+            // Avvia il server
+            if (usernameInserito.equals(USERNAME) && passwordInserita.equals(PASSWORD) && hostInserito.equals(HOST)) {
+                server = new Server();
+                server.start(); // Assicurati che il metodo start() sia definito nella tua classe Server
+                avvia.setText("Ferma");
+                out.setText("Server avviato");
+                serverRunning = true;
+            } else {
+                out.setText("Dati invalidi");
+            }
+        }
     }//GEN-LAST:event_avviaActionPerformed
 
     /**
