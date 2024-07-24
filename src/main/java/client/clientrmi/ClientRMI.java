@@ -27,20 +27,22 @@ public class ClientRMI {
             stubRicercaPuntiInteresse = (RicercaPuntiInteresse) registroRMI.lookup(RMI_RicercaPuntiInteresse);
         } catch (RemoteException e) {
             System.err.println("Errore di connessione al servizio RMI");
-            e.printStackTrace();
         } catch (NotBoundException e) {
             System.err.println("Errore nel recupero degli oggetti remoti dal registro RMI");
-            e.printStackTrace();
         }
     }
+    
+    public static ClientRMI ottieniClientRMI() {
+        return new ClientRMI();
+    }
 
-    private static class ContenitoreSingletClientRMI {
+    /*private static class ContenitoreSingletClientRMI {
         private static final ClientRMI singleton = new ClientRMI();
     }
 
     public static ClientRMI ottieniClientRMI() {
         return ContenitoreSingletClientRMI.singleton;
-    }
+    }*/
 
     public Autenticazione ottieniStubAutenticazione() {
         return stubAutenticazione;
@@ -57,5 +59,4 @@ public class ClientRMI {
     public GestioneCentriMonitoraggio ottieniStubGestioneCentriMonitoraggio() {
         return stubGestioneCentriMonitoraggio;
     }
-
 }

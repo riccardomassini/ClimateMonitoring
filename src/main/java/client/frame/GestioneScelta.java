@@ -4,13 +4,54 @@
  */
 package client.frame;
 
+import client.clientrmi.ClientRMI;
+import client.clientrmi.ControllaAccensioneServer;
 import client.registraeventi.Chiusura;
+import commons.servizio.Autenticazione;
 
 public class GestioneScelta extends javax.swing.JFrame {
+    
+    private static final int POLLING_INTERVAL_MS = 2000;
+    private volatile boolean running = true;
+    Autenticazione autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
+    ControllaAccensioneServer controllaServer;
+    boolean lastStateWasNull = false;
 
     public GestioneScelta() {
         initComponents();
         addWindowListener(new Chiusura());
+        if (autenticazione == null) {
+            cittadino.setVisible(false);
+            operatore.setVisible(false);
+            out.setVisible(true);
+            lastStateWasNull = true;
+        } else {
+            cittadino.setVisible(true);
+            operatore.setVisible(true);
+            out.setVisible(false);
+            lastStateWasNull = false;
+        }
+        controllaServer = new ControllaAccensioneServer(this);
+        updateUI(autenticazione);
+    }
+
+    public void updateUI(Autenticazione autenticazione) {
+        this.autenticazione = autenticazione;
+        if (autenticazione == null) {
+            if(!lastStateWasNull){
+                cittadino.setVisible(false);
+                operatore.setVisible(false);
+                out.setVisible(true);
+                lastStateWasNull = true;
+            }
+        } else {
+            if (lastStateWasNull) {
+                cittadino.setVisible(true);
+                operatore.setVisible(true);
+                out.setVisible(false);
+                lastStateWasNull = false;
+            }
+        }
     }
 
     /**
@@ -21,10 +62,18 @@ public class GestioneScelta extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
+        jColorChooser1 = new javax.swing.JColorChooser();
+        jColorChooser2 = new javax.swing.JColorChooser();
+        jColorChooser3 = new javax.swing.JColorChooser();
+        jOptionPane1 = new javax.swing.JOptionPane();
+        jColorChooser4 = new javax.swing.JColorChooser();
+        jColorChooser5 = new javax.swing.JColorChooser();
         cittadino = new javax.swing.JButton();
         operatore = new javax.swing.JButton();
         scelta = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        out = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -51,15 +100,24 @@ public class GestioneScelta extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
 
+        out.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        out.setText("Server non acceso...");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(127, Short.MAX_VALUE)
+                .addComponent(out)
+                .addGap(118, 118, 118))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(135, Short.MAX_VALUE)
+                .addComponent(out, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(120, 120, 120))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 300));
@@ -121,8 +179,16 @@ public class GestioneScelta extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cittadino;
+    private javax.swing.JColorChooser jColorChooser1;
+    private javax.swing.JColorChooser jColorChooser2;
+    private javax.swing.JColorChooser jColorChooser3;
+    private javax.swing.JColorChooser jColorChooser4;
+    private javax.swing.JColorChooser jColorChooser5;
+    private javax.swing.JOptionPane jOptionPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton operatore;
+    private javax.swing.JLabel out;
     private javax.swing.JLabel scelta;
     // End of variables declaration//GEN-END:variables
+
 }
