@@ -161,25 +161,20 @@ public class ServerFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_usernameActionPerformed
 
     private void avviaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avviaActionPerformed
-        String usernameInserito = username.getText();
-        String passwordInserita = new String(password.getPassword());
-        String hostInserito = host.getText();
-        int portaInserita = 0;
-        try{
-            portaInserita = Integer.parseInt(port.getText());
-        }catch(NumberFormatException e){}
-
         if (serverRunning) {
-            if (server != null) {
+            // Spegni il server
+            if (server != null)
                 server.stop();
-            }
             avvia.setText("Avvia");
             out.setText("Server spento");
             serverRunning = false;
         } else {
-            if (usernameInserito.equals(USERNAME) && passwordInserita.equals(PASSWORD) && hostInserito.equals(HOST) && portaInserita == PORTA) {
+            // Avvia il server
+            if (ImpostazioneServer.USERNAME.equals(username.getText()) && ImpostazioneServer.PASSWORD.equals(password.getText())) {
+                if(ValidatoreIndirizzoIP.indirizzoIpValido(host.getText()))
+                    ImpostazioniConnessione.HOST = host.getText();
                 server = new Server();
-                server.start();
+                server.start(); // Assicurati che il metodo start() sia definito nella tua classe Server
                 avvia.setText("Ferma");
                 out.setText("Server avviato");
                 serverRunning = true;

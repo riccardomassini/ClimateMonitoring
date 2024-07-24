@@ -25,6 +25,12 @@
       <version>4.13.2</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.jetbrains</groupId>
+      <artifactId>annotations</artifactId>
+      <version>13.0</version>
+      <scope>compile</scope>
+    </dependency>
 
   </dependencies>
 
@@ -61,7 +67,7 @@
               <autocommit>true</autocommit>
               <driver>org.postgresql.Driver</driver>
               <username>postgres</username>
-              <password>root</password>
+              <password>1234</password>
               <sqlCommand>drop database if exists climate</sqlCommand>
             </configuration>
           </execution>
@@ -77,7 +83,7 @@
               <autocommit>true</autocommit>
               <driver>org.postgresql.Driver</driver>
               <username>postgres</username>
-              <password>root</password>
+              <password>1234</password>
               <sqlCommand>create database climate</sqlCommand>
             </configuration>
           </execution>
@@ -93,7 +99,7 @@
               <autocommit>true</autocommit>
               <driver>org.postgresql.Driver</driver>
               <username>postgres</username>
-              <password>root</password>
+              <password>1234</password>
               <srcFiles>
                 <srcFile>data/sql_commands.sql</srcFile>
               </srcFiles>
