@@ -5,10 +5,8 @@
 package client.frame;
 
 import client.clientrmi.ClientRMI;
-import client.clientrmi.ControllaAccensioneServer;
 import client.registraeventi.Chiusura;
 import commons.oggetti.PuntoInteresse;
-import commons.servizio.Autenticazione;
 import commons.servizio.RicercaPuntiInteresse;
 
 import javax.swing.table.DefaultTableModel;
@@ -429,5 +427,4 @@ public class Cittadino extends javax.swing.JFrame {
     private javax.swing.JTextField ric4;
     private javax.swing.JTable tabella;
     // End of variables declaration//GEN-END:variables
-
 }

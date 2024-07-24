@@ -23,6 +23,7 @@ public class Server implements Runnable {
     private GestoreMisurazioni gestoreMisurazioni;
     private RepositoryPuntiInteresse repositoryPuntiInteresse;
 
+    // Aggiungi un flag per indicare se il server è in esecuzione
     private volatile boolean running = false;
 
     public Server() {
@@ -33,8 +34,9 @@ public class Server implements Runnable {
     public void run() {
         running = true;
         while (running) {
+            // Logica del server (può essere vuota se non c'è altro lavoro da fare nel thread)
             try {
-                Thread.sleep(1000);
+                Thread.sleep(1000); // Sleep per evitare che il thread consumi eccessive risorse CPU
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
@@ -42,8 +44,9 @@ public class Server implements Runnable {
     }
 
     public void start() {
-        threadServer = new Thread(this);
+        threadServer = new Thread(this); //inizializzazione thread per il server
         threadServer.start();
+        System.out.println("Start...");
     }
 
     public void stop() {
@@ -67,19 +70,23 @@ public class Server implements Runnable {
     }
 
     private void inizializzaServer() {
+        //inizializzare oggetti rmi
         autenticatore = new Autenticatore();
         gestoreMisurazioni = new GestoreMisurazioni();
         gestoreCentriMonitoraggio = new GestoreCentriMonitoraggio();
         repositoryPuntiInteresse = new RepositoryPuntiInteresse();
 
+        //ottenere stub oggetti remoti
         try {
             RicercaPuntiInteresse stubRicercaPuntiInteresse = (RicercaPuntiInteresse) UnicastRemoteObject.exportObject(repositoryPuntiInteresse, PORTA);
             Autenticazione stubAutenticazione = (Autenticazione) UnicastRemoteObject.exportObject(autenticatore, PORTA);
             GestioneMisurazioni stubGestioneMisurazioni = (GestioneMisurazioni) UnicastRemoteObject.exportObject(gestoreMisurazioni, PORTA);
             GestioneCentriMonitoraggio stubGestioneCentriMonitoraggio = (GestioneCentriMonitoraggio) UnicastRemoteObject.exportObject(gestoreCentriMonitoraggio, PORTA);
 
+            //creare registro rmi
             registroRMI = LocateRegistry.createRegistry(PORTA);
 
+            //fare binding oggetti remoti a registro RMI
             registroRMI.rebind(RMI_GestioneCentriMonitoraggio, stubGestioneCentriMonitoraggio);
             registroRMI.rebind(RMI_RicercaPuntiInteresse, stubRicercaPuntiInteresse);
             registroRMI.rebind(RMI_GestioneMisurazioni, stubGestioneMisurazioni);
