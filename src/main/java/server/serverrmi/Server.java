@@ -25,8 +25,18 @@ public class Server implements Runnable {
 
     private volatile boolean running = false;
 
-    public Server() {
+    private Server() {
         inizializzaServer();
+    }
+
+    private static class ContenitoreSingletonServer{
+        // Static to ensure one instance and final to ensure that it cannot be reassigned
+        private static final Server singleton = new Server();
+    }
+
+    // Public method to provide access to the instance
+    public static Server ottieniIstanzaServer() {
+        return ContenitoreSingletonServer.singleton;
     }
 
     @Override
@@ -41,9 +51,47 @@ public class Server implements Runnable {
         }
     }
 
+    private void inizializzaServer() {
+        //creare registro rmi
+        try {
+            registroRMI = LocateRegistry.createRegistry(PORTA);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+
+        //inizializzare servizi remoti
+        autenticatore = new Autenticatore();
+        gestoreMisurazioni = new GestoreMisurazioni();
+        gestoreCentriMonitoraggio = new GestoreCentriMonitoraggio();
+        repositoryPuntiInteresse = new RepositoryPuntiInteresse();
+
+    }
+
     public void start() {
-        threadServer = new Thread(this);
+        //ottenere stub oggetti remoti
+        try {
+            RicercaPuntiInteresse stubRicercaPuntiInteresse = (RicercaPuntiInteresse) UnicastRemoteObject.exportObject(repositoryPuntiInteresse, PORTA);
+            Autenticazione stubAutenticazione = (Autenticazione) UnicastRemoteObject.exportObject(autenticatore, PORTA);
+            GestioneMisurazioni stubGestioneMisurazioni = (GestioneMisurazioni) UnicastRemoteObject.exportObject(gestoreMisurazioni, PORTA);
+            GestioneCentriMonitoraggio stubGestioneCentriMonitoraggio = (GestioneCentriMonitoraggio) UnicastRemoteObject.exportObject(gestoreCentriMonitoraggio, PORTA);
+
+
+
+            //fare binding oggetti remoti a registro RMI
+            registroRMI.rebind(RMI_GestioneCentriMonitoraggio, stubGestioneCentriMonitoraggio);
+            registroRMI.rebind(RMI_RicercaPuntiInteresse, stubRicercaPuntiInteresse);
+            registroRMI.rebind(RMI_GestioneMisurazioni, stubGestioneMisurazioni);
+            registroRMI.rebind(RMI_Autenticazione, stubAutenticazione);
+        } catch (RemoteException e) {
+            System.err.println("Errore nell'inizializzazione del server RMI");
+            e.printStackTrace();
+        }
+
+
+
+        threadServer = new Thread(this); //inizializzazione thread per il server
         threadServer.start();
+        System.out.println("Start...");
     }
 
     public void stop() {
@@ -66,27 +114,4 @@ public class Server implements Runnable {
         }
     }
 
-    private void inizializzaServer() {
-        autenticatore = new Autenticatore();
-        gestoreMisurazioni = new GestoreMisurazioni();
-        gestoreCentriMonitoraggio = new GestoreCentriMonitoraggio();
-        repositoryPuntiInteresse = new RepositoryPuntiInteresse();
-
-        try {
-            RicercaPuntiInteresse stubRicercaPuntiInteresse = (RicercaPuntiInteresse) UnicastRemoteObject.exportObject(repositoryPuntiInteresse, PORTA);
-            Autenticazione stubAutenticazione = (Autenticazione) UnicastRemoteObject.exportObject(autenticatore, PORTA);
-            GestioneMisurazioni stubGestioneMisurazioni = (GestioneMisurazioni) UnicastRemoteObject.exportObject(gestoreMisurazioni, PORTA);
-            GestioneCentriMonitoraggio stubGestioneCentriMonitoraggio = (GestioneCentriMonitoraggio) UnicastRemoteObject.exportObject(gestoreCentriMonitoraggio, PORTA);
-
-            registroRMI = LocateRegistry.createRegistry(PORTA);
-
-            registroRMI.rebind(RMI_GestioneCentriMonitoraggio, stubGestioneCentriMonitoraggio);
-            registroRMI.rebind(RMI_RicercaPuntiInteresse, stubRicercaPuntiInteresse);
-            registroRMI.rebind(RMI_GestioneMisurazioni, stubGestioneMisurazioni);
-            registroRMI.rebind(RMI_Autenticazione, stubAutenticazione);
-        } catch (RemoteException e) {
-            System.err.println("Errore nell'inizializzazione del server RMI");
-            e.printStackTrace();
-        }
-    }
 }

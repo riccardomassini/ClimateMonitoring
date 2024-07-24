@@ -173,7 +173,7 @@ public class ServerFrame extends javax.swing.JFrame {
             if (ImpostazioneServer.USERNAME.equals(username.getText()) && ImpostazioneServer.PASSWORD.equals(password.getText())) {
                 if(ValidatoreIndirizzoIP.indirizzoIpValido(host.getText()))
                     ImpostazioniConnessione.HOST = host.getText();
-                server = new Server();
+                server = Server.ottieniIstanzaServer();
                 server.start(); // Assicurati che il metodo start() sia definito nella tua classe Server
                 avvia.setText("Ferma");
                 out.setText("Server avviato");
