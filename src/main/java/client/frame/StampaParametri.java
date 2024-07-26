@@ -5,6 +5,7 @@
 package client.frame;
 
 import client.clientrmi.ClientRMI;
+import client.clientrmi.ResetClient;
 import client.registraeventi.Chiusura;
 import commons.oggetti.misurazioni.CategorieParametriClimatici;
 import commons.oggetti.PuntoInteresse;
@@ -30,8 +31,8 @@ import org.netbeans.lib.awtextra.AbsoluteLayout;
  * @author hew15bc502nl
  */
 public class StampaParametri extends JFrame {
-    GestioneMisurazioni gestioneMisurazioni = ClientRMI.ottieniClientRMI().ottieniStubGestioneMisurazioni();
-    RicercaPuntiInteresse ricercaPuntiInteresse = ClientRMI.ottieniClientRMI().ottieniStubRicercaPuntiInteresse();;
+    GestioneMisurazioni gestioneMisurazioni;
+    RicercaPuntiInteresse ricercaPuntiInteresse = ClientRMI.ottieniClientRMI().ottieniStubRicercaPuntiInteresse();
     DefaultTableModel model1, model2, model3;
     
     public StampaParametri() {
@@ -159,70 +160,80 @@ public class StampaParametri extends JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backActionPerformed(ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-        Cittadino cit = new Cittadino();
-        cit.setLocation(this.getX(), this.getY());
-        this.setVisible(false);
-        cit.setVisible(true);
+        gestioneMisurazioni = ClientRMI.ottieniClientRMI().ottieniStubGestioneMisurazioni();
+        
+        if(gestioneMisurazioni != null){
+            Cittadino cit = new Cittadino();
+            cit.setLocation(this.getX(), this.getY());
+            this.dispose();
+            cit.setVisible(true);
+        }else{
+            ResetClient.spegniClient(this);
+        }
     }//GEN-LAST:event_backActionPerformed
 
     private void cercaActionPerformed(ActionEvent evt) {//GEN-FIRST:event_cercaActionPerformed
-        out.setText("");
+        gestioneMisurazioni = ClientRMI.ottieniClientRMI().ottieniStubGestioneMisurazioni();
         
-        Misurazione[] elencoMisurazioni = null;
-        String nomePuntoInteresse = ric1.getText();
-        String codiceNazione = ric2.getText();
-        PuntoInteresse puntoInteresse = null;
-        PuntoInteresse[] elencoPuntiInteresse = null;
-        Object[] medie = new Object[CategorieParametriClimatici.values().length];
-        Object[] mode = new Object[CategorieParametriClimatici.values().length];
+        if(gestioneMisurazioni != null){
+            out.setText("");
 
-        try {
-            elencoPuntiInteresse = ricercaPuntiInteresse.ricercaPerNomeENazione(nomePuntoInteresse, codiceNazione);
-        } catch(RemoteException ex) {
-            System.err.println("Errore RMI: ricerca del punto di interesse associato fallita");
-            ex.printStackTrace();
-            System.exit(1);
-        }
-        
-        if(elencoPuntiInteresse == null)
-            out.setText("Non sono stati trovati punti di interesse corrispondenti alla ricerca");
-        for(PuntoInteresse puntoInteresseTemp : elencoPuntiInteresse)
-            if(puntoInteresseTemp.getNomePuntoInteresseASCII().equalsIgnoreCase(nomePuntoInteresse) && puntoInteresseTemp.getCodiceNazione().equalsIgnoreCase(codiceNazione))
-                puntoInteresse = puntoInteresseTemp;
-        if(puntoInteresse == null) {
-            out.setText("Nessun paese trovato");
-            return;
-        }
+            Misurazione[] elencoMisurazioni = null;
+            String nomePuntoInteresse = ric1.getText();
+            String codiceNazione = ric2.getText();
+            PuntoInteresse puntoInteresse = null;
+            PuntoInteresse[] elencoPuntiInteresse = null;
+            Object[] medie = new Object[CategorieParametriClimatici.values().length];
+            Object[] mode = new Object[CategorieParametriClimatici.values().length];
 
-        try {
-            elencoMisurazioni = gestioneMisurazioni.ottieniMisurazioniSuPuntoInteresse(puntoInteresse.getIdPuntoInteresse());
-        } catch(RemoteException ex) {
-            System.err.println("Errore RMI: recupero delle misurazioni sul punto di interesse fallita");
-            ex.printStackTrace();
-            System.exit(1);
-        }
-        
-        //TODO ATTENZIONE!!! vedere se può funzionare
-        if(elencoMisurazioni == null) {
-            out.setText("Nessuna rilevazione");
-            return;
-        }
+            try {
+                puntoInteresse = ricercaPuntiInteresse.ricercaPerNomeENazione(nomePuntoInteresse, codiceNazione);
+            } catch(RemoteException ex) {
+                System.err.println("Errore RMI: ricerca del punto di interesse associato fallita");
+                ex.printStackTrace();
+                System.exit(1);
+            }
 
-        model1.setRowCount(0);
-        model2.setRowCount(0);
-        model3.setRowCount(0);
+            /*for(PuntoInteresse puntoInteresseTemp : elencoPuntiInteresse)
+                if(puntoInteresseTemp.getNomePuntoInteresseASCII().equalsIgnoreCase(nomePuntoInteresse) && puntoInteresseTemp.getCodiceNazione().equalsIgnoreCase(codiceNazione))
+                    puntoInteresse = puntoInteresseTemp;*/
+            if(puntoInteresse == null) {
+                out.setText("Nessun paese trovato");
+                return;
+            }
 
-        for(Misurazione misurazione : elencoMisurazioni) {
-            model1.addRow(estraiMisurazione(misurazione));
+            try {
+                elencoMisurazioni = gestioneMisurazioni.ottieniMisurazioniSuPuntoInteresse(puntoInteresse.getIdPuntoInteresse());
+            } catch(RemoteException ex) {
+                System.err.println("Errore RMI: recupero delle misurazioni sul punto di interesse fallita");
+                ex.printStackTrace();
+                System.exit(1);
+            }
+
+            //TODO ATTENZIONE!!! vedere se può funzionare
+            if(elencoMisurazioni == null) {
+                out.setText("Nessuna rilevazione");
+                return;
+            }
+
+            model1.setRowCount(0);
+            model2.setRowCount(0);
+            model3.setRowCount(0);
+
+            for(Misurazione misurazione : elencoMisurazioni) {
+                model1.addRow(estraiMisurazione(misurazione));
+            }
+
+            for(CategorieParametriClimatici categoria : CategorieParametriClimatici.values()) {
+                medie[categoria.ordinal()] = calcolaMedia(elencoMisurazioni, categoria);
+                mode[categoria.ordinal()] = calcolaModa(elencoMisurazioni, categoria);
+            }
+
+            model2.addRow(medie);
+            model3.addRow(mode);
+        }else{
+            ResetClient.spegniClient(this);
         }
-
-        for(CategorieParametriClimatici categoria : CategorieParametriClimatici.values()) {
-            medie[categoria.ordinal()] = calcolaMedia(elencoMisurazioni, categoria);
-            mode[categoria.ordinal()] = calcolaModa(elencoMisurazioni, categoria);
-        }
-
-        model2.addRow(medie);
-        model3.addRow(mode);
 
     }//GEN-LAST:event_cercaActionPerformed
 
@@ -270,7 +281,6 @@ public class StampaParametri extends JFrame {
             }
         }
         return PunteggioParametroClimatico.values()[maxPunteggio].getPunteggio();
-
     }
 
     /**

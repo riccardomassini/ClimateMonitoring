@@ -5,6 +5,7 @@
 package client.frame;
 
 import client.clientrmi.ClientRMI;
+import client.clientrmi.ResetClient;
 import client.registraeventi.Chiusura;
 import commons.oggetti.*;
 
@@ -18,7 +19,7 @@ import commons.oggetti.misurazioni.ValutazioneParametro;
 import commons.servizio.GestioneMisurazioni;
 
 public class Parametri extends javax.swing.JFrame {
-    GestioneMisurazioni gestioneMisurazioni = ClientRMI.ottieniClientRMI().ottieniStubGestioneMisurazioni();
+    GestioneMisurazioni gestioneMisurazioni;
     Operatore operatorePassato;
     String nomeCentroPassato;
     PuntoInteresse puntoInteressePassato;
@@ -190,45 +191,55 @@ public class Parametri extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-        AreaOperatore ao = new AreaOperatore(operatorePassato.getUsername(), operatorePassato.getPassword());
-        ao.setLocation(this.getX(), this.getY());
-        this.setVisible(false); 
-        ao.setVisible(true);
+        gestioneMisurazioni = ClientRMI.ottieniClientRMI().ottieniStubGestioneMisurazioni();
+        if(gestioneMisurazioni != null){
+            AreaOperatore ao = new AreaOperatore(operatorePassato.getUsername(), operatorePassato.getPassword());
+            ao.setLocation(this.getX(), this.getY());
+            this.dispose();
+            ao.setVisible(true);
+        }else{
+            ResetClient.spegniClient(this);
+        }
     }//GEN-LAST:event_backActionPerformed
 
     private void inserisciParamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserisciParamActionPerformed
-        Misurazione nuovaMisurazione = new Misurazione();
+        gestioneMisurazioni = ClientRMI.ottieniClientRMI().ottieniStubGestioneMisurazioni();
+        if(gestioneMisurazioni != null){
+        
+            Misurazione nuovaMisurazione = new Misurazione();
+            nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.VENTO, new ValutazioneParametro(Integer.parseInt((String) ventoReg.getSelectedItem()), formatCommento(ventoRegN.getText())));
+            nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.TEMPERATURA, new ValutazioneParametro(Integer.parseInt((String)   teReg.getSelectedItem()), formatCommento(teRegN.getText())));
+            nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.PRECIPITAZIONI, new ValutazioneParametro(Integer.parseInt((String) precReg.getSelectedItem()), formatCommento(precRegN.getText())));
+            nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.PRESSIONE,new ValutazioneParametro(Integer.parseInt((String) presReg.getSelectedItem()), formatCommento(presRegN.getText())));
+            nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.UMIDITA, new ValutazioneParametro(Integer.parseInt((String) umReg.getSelectedItem()), formatCommento(umRegN.getText())));
+            nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.ALTITUDINE_GHIACCIAI, new ValutazioneParametro(Integer.parseInt((String) altReg.getSelectedItem()), formatCommento(altRegN.getText())));
+            nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.MASSA_GHIACCIAI, new ValutazioneParametro(Integer.parseInt((String) massaReg.getSelectedItem()), formatCommento(massaRegN.getText())));
 
-        nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.VENTO, new ValutazioneParametro(Integer.parseInt((String) ventoReg.getSelectedItem()), formatCommento(ventoRegN.getText())));
-        nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.TEMPERATURA, new ValutazioneParametro(Integer.parseInt((String)   teReg.getSelectedItem()), formatCommento(teRegN.getText())));
-        nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.PRECIPITAZIONI, new ValutazioneParametro(Integer.parseInt((String) precReg.getSelectedItem()), formatCommento(precRegN.getText())));
-        nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.PRESSIONE,new ValutazioneParametro(Integer.parseInt((String) presReg.getSelectedItem()), formatCommento(presRegN.getText())));
-        nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.UMIDITA, new ValutazioneParametro(Integer.parseInt((String) umReg.getSelectedItem()), formatCommento(umRegN.getText())));
-        nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.ALTITUDINE_GHIACCIAI, new ValutazioneParametro(Integer.parseInt((String) altReg.getSelectedItem()), formatCommento(altRegN.getText())));
-        nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.MASSA_GHIACCIAI, new ValutazioneParametro(Integer.parseInt((String) massaReg.getSelectedItem()), formatCommento(massaRegN.getText())));
+            for(CategorieParametriClimatici categoria : CategorieParametriClimatici.values())
+                if(!ValutazioneParametro.lunghezzaCommentoValida(nuovaMisurazione.getCommentoParametroConCategoria(categoria))) {
+                    System.err.println("Lunghezza commento per " + categoria.name() + " non valida");
+                    return;
+                }
 
-        for(CategorieParametriClimatici categoria : CategorieParametriClimatici.values())
-            if(!ValutazioneParametro.lunghezzaCommentoValida(nuovaMisurazione.getCommentoParametroConCategoria(categoria))) {
-                System.err.println("Lunghezza commento per " + categoria.name() + " non valida");
-                return;
+            nuovaMisurazione.setTimestampMisurazione(new Timestamp(new Date().getTime()));
+            nuovaMisurazione.setIdPuntoInteresse(puntoInteressePassato.getIdPuntoInteresse());
+            nuovaMisurazione.setNomeCentro(nomeCentroPassato);
+
+            try {
+                gestioneMisurazioni.inserisciNuovaMisurazione(nuovaMisurazione);
+            } catch(RemoteException ex) {
+                System.err.println("Errore RMI: registrazione di una nuova misurazione fallita");
+                ex.printStackTrace();
+                System.exit(1);
             }
 
-        nuovaMisurazione.setTimestampMisurazione(new Timestamp(new Date().getTime()));
-        nuovaMisurazione.setIdPuntoInteresse(puntoInteressePassato.getIdPuntoInteresse());
-        nuovaMisurazione.setNomeCentro(nomeCentroPassato);
-
-        try {
-            gestioneMisurazioni.inserisciNuovaMisurazione(nuovaMisurazione);
-        } catch(RemoteException ex) {
-            System.err.println("Errore RMI: registrazione di una nuova misurazione fallita");
-            ex.printStackTrace();
-            System.exit(1);
+            AreaOperatore ao = new AreaOperatore(operatorePassato.getUsername(), operatorePassato.getPassword());
+            ao.setLocation(this.getX(), this.getY());
+            this.dispose();
+            ao.setVisible(true);
+        }else{
+            ResetClient.spegniClient(this);
         }
-
-        AreaOperatore ao = new AreaOperatore(operatorePassato.getUsername(), operatorePassato.getPassword());
-        ao.setLocation(this.getX(), this.getY());
-        this.setVisible(false);
-        ao.setVisible(true);
             
     }//GEN-LAST:event_inserisciParamActionPerformed
 

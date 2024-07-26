@@ -5,6 +5,7 @@
 package client.frame;
 
 import client.clientrmi.ClientRMI;
+import client.clientrmi.ResetClient;
 import client.registraeventi.Chiusura;
 import commons.oggetti.Operatore;
 import commons.servizio.Autenticazione;
@@ -12,7 +13,7 @@ import commons.servizio.Autenticazione;
 import java.rmi.RemoteException;
 
 public class Registrazione extends javax.swing.JFrame {
-    Autenticazione autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();;
+    Autenticazione autenticazione;
     
     public Registrazione() {
         initComponents();
@@ -135,60 +136,71 @@ public class Registrazione extends javax.swing.JFrame {
     }//GEN-LAST:event_mailRegActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-        FrameOperatore op = new FrameOperatore();
-        op.setLocation(this.getX(), this.getY());
-        this.setVisible(false);
-        op.setVisible(true); 
+        autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
+        
+        if(autenticazione != null){
+            FrameOperatore op = new FrameOperatore();
+            op.setLocation(this.getX(), this.getY());
+            this.dispose();
+            op.setVisible(true); 
+        }else{
+            ResetClient.spegniClient(this);
+        }
     }//GEN-LAST:event_backActionPerformed
 
     private void regActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regActionPerformed
-        out1.setText("");
-        out2.setText("");
-        out3.setText("");
-        out4.setText("");
-        out5.setText("");
-        out6.setText("");
+        autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
         
-        int id = 0;
-        String nome = nomeReg.getText();
-        String cognome = cognomeReg.getText();
-        String cf = cfReg.getText();
-        String mail = mailReg.getText();
-        try{
-            id = Integer.parseInt(idReg.getText());
-        }catch(NumberFormatException e){
-            out5.setText("Numero non valido");
-        }
-        String pass = passReg.getText();
+        if(autenticazione != null){   
+            out1.setText("");
+            out2.setText("");
+            out3.setText("");
+            out4.setText("");
+            out5.setText("");
+            out6.setText("");
 
-        if(nome.length() <= 0)
-            out1.setText("Nome troppo corto");
-        if(cognome.length() <= 0)
-            out2.setText("Cognome troppo corto");
-        if(!checkCodiceFiscale(cf))
-            out3.setText("CF non valido");
-        if(!controlloMail(mail))
-            out4.setText("mail non valida");
-        if(id <= 0)
-            out5.setText("Scegli un id maggiore di 0");
-        if(pass.length() <= 0)
-            out6.setText("Password troppo corta");
-        if(nome.length()>0 && cognome.length()>0 && checkCodiceFiscale(cf) && controlloMail(mail) && id>0 && pass.length()>0){
-            Operatore operatore = new Operatore(nome, cognome, cf, mail, id, pass);
-
-            //TODO rmi client
-            try {
-                if (autenticazione.registrazione(operatore)) {
-                    out1.setText("Utente registrato");
-                    backActionPerformed(evt);
-                } else
-                    out5.setText("ID già presente");
-            } catch(RemoteException ex) {
-                System.err.println("Errore RMI");
-                ex.printStackTrace();
-                System.exit(1);
+            int id = 0;
+            String nome = nomeReg.getText();
+            String cognome = cognomeReg.getText();
+            String cf = cfReg.getText();
+            String mail = mailReg.getText();
+            try{
+                id = Integer.parseInt(idReg.getText());
+            }catch(NumberFormatException e){
+                out5.setText("Numero non valido");
             }
+            String pass = passReg.getText();
 
+            if(nome.length() <= 0)
+                out1.setText("Nome troppo corto");
+            if(cognome.length() <= 0)
+                out2.setText("Cognome troppo corto");
+            if(!checkCodiceFiscale(cf))
+                out3.setText("CF non valido");
+            if(!controlloMail(mail))
+                out4.setText("mail non valida");
+            if(id <= 0)
+                out5.setText("Scegli un id maggiore di 0");
+            if(pass.length() <= 0)
+                out6.setText("Password troppo corta");
+            if(nome.length()>0 && cognome.length()>0 && checkCodiceFiscale(cf) && controlloMail(mail) && id>0 && pass.length()>0){
+                Operatore operatore = new Operatore(nome, cognome, cf, mail, id, pass);
+
+                //TODO rmi client
+                try {
+                    if (autenticazione.registrazione(operatore)) {
+                        out1.setText("Utente registrato");
+                        backActionPerformed(evt);
+                    } else
+                        out5.setText("ID già presente");
+                } catch(RemoteException ex) {
+                    System.err.println("Errore RMI");
+                    ex.printStackTrace();
+                    System.exit(1);
+                }
+            }
+        }else{
+            ResetClient.spegniClient(this);
         }
     }//GEN-LAST:event_regActionPerformed
 

@@ -98,6 +98,11 @@
                   <Component id="out" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="118" max="-2" attributes="0"/>
               </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="159" max="-2" attributes="0"/>
+                  <Component id="riprova" min="-2" pref="83" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -105,7 +110,9 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace pref="135" max="32767" attributes="0"/>
                   <Component id="out" min="-2" pref="45" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="120" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+                  <Component id="riprova" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -118,6 +125,14 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Server non acceso..."/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="riprova">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Riprova"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="riprovaActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

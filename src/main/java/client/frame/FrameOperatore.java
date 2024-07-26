@@ -4,7 +4,10 @@
  */
 package client.frame;
 
+import client.clientrmi.ClientRMI;
+import client.clientrmi.ResetClient;
 import client.registraeventi.Chiusura;
+import commons.servizio.Autenticazione;
 
 /**
  *
@@ -12,9 +15,8 @@ import client.registraeventi.Chiusura;
  */
 public class FrameOperatore extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Operatore
-     */
+     Autenticazione autenticazione;
+    
     public FrameOperatore() {
         initComponents();
         addWindowListener(new Chiusura());
@@ -85,26 +87,41 @@ public class FrameOperatore extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-        GestioneScelta gs = new GestioneScelta();
-        gs.setLocation(this.getX(), this.getY());
-        this.setVisible(false);
-        gs.setVisible(true);  
+        autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
+        if(autenticazione != null) {
+            GestioneScelta gs = new GestioneScelta();
+            gs.setLocation(this.getX(), this.getY());
+            this.dispose();
+            gs.setVisible(true);  
+        }else{
+            ResetClient.spegniClient(this);
+        }
     }//GEN-LAST:event_backActionPerformed
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
-        Login l = new Login();
-        l.setLocation(this.getX(), this.getY());
-        this.setVisible(false);
-        l.setVisible(true);
+        autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
+        if(autenticazione != null) {
+            Login l = new Login();
+            l.setLocation(this.getX(), this.getY());
+            this.dispose();
+            l.setVisible(true);
+        }else{
+            ResetClient.spegniClient(this);
+        }
     }//GEN-LAST:event_loginActionPerformed
 
     private void regActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regActionPerformed
-        Registrazione r = new Registrazione();
-        r.setLocation(this.getX(), this.getY());
-        this.setVisible(false);
-        r.setVisible(true);
+        autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
+        if(autenticazione != null) {
+            Registrazione r = new Registrazione();
+            r.setLocation(this.getX(), this.getY());
+            this.dispose();
+            r.setVisible(true);
+        }else{
+            ResetClient.spegniClient(this);
+        }
     }//GEN-LAST:event_regActionPerformed
-
+      
     /**
      * @param args the command line arguments
      */

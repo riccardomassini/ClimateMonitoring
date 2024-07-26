@@ -14,7 +14,7 @@ import static server.database.DizionarioDatabase.*;
 
 public class ImplOperatoriDAO implements OperatoriDAO {
     private static final String QUERY_INSERIMENTO_NUOVO_OPERATORE = "INSERT INTO " + OPERATORI_RELAZIONE + " VALUES (?, ?, ?, ?, ?, ?, ?)";
-    private static final String QUERY_OPERATORE_DA_USERNAME = "SELECT * FROM " + OPERATORI_RELAZIONE + " WHERE " + OPERATORI_ATTRIBUTO_USERNAME + " = ?";
+    private static final String QUERY_OPERATORE_DA_USERNAME = "SELECT " + OPERATORI_RELAZIONE + ".* FROM " + OPERATORI_RELAZIONE + " WHERE " + OPERATORI_ATTRIBUTO_USERNAME + " = ?";
 
     @Override
     public boolean inserisciNuovoOperatore(Operatore nuovoOperatore) {

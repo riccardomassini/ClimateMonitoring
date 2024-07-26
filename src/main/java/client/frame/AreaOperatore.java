@@ -5,6 +5,7 @@
 package client.frame;
 
 import client.clientrmi.ClientRMI;
+import client.clientrmi.ResetClient;
 import client.registraeventi.Chiusura;
 import commons.oggetti.Operatore;
 import commons.oggetti.PuntoInteresse;
@@ -48,11 +49,11 @@ public class AreaOperatore extends javax.swing.JFrame {
                     cercaParam.setVisible(false);
                     out1.setVisible(false);
                     out2.setVisible(false);
-
                 } else {
                     titReg.setVisible(false);
                     registraCentro.setVisible(false);
                     scegliCentro.setVisible(false);
+                    scelta.setVisible(true);
                     out1.setText("Centro " + operatorePassato.getIdCentroMonitoraggio());
                     nomeCentroMonitoraggioOperatore = operatorePassato.getIdCentroMonitoraggio();
                     out2.setVisible(true);
@@ -165,51 +166,76 @@ public class AreaOperatore extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-        Login l = new Login();
-        l.setLocation(this.getX(), this.getY());
-        this.setVisible(false);
-        l.setVisible(true); 
+        autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
+        if(autenticazione != null){
+            Login l = new Login();
+            l.setLocation(this.getX(), this.getY());
+            this.dispose();
+            l.setVisible(true); 
+        }else{
+            ResetClient.spegniClient(this);
+        }
     }//GEN-LAST:event_backActionPerformed
 
     private void registraCentroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registraCentroActionPerformed
-        RegistraCentro rc = new RegistraCentro(operatorePassato.getUsername(), operatorePassato.getPassword());
-        rc.setLocation(this.getX(), this.getY());
-        this.setVisible(false);
-        rc.setVisible(true);
+        autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
+        if(autenticazione != null){
+            RegistraCentro rc = new RegistraCentro(operatorePassato.getUsername(), operatorePassato.getPassword());
+            rc.setLocation(this.getX(), this.getY());
+            this.dispose();
+            rc.setVisible(true);
+        }else{
+            ResetClient.spegniClient(this);
+        }
     }//GEN-LAST:event_registraCentroActionPerformed
 
     private void cercaParamActionPerformed(java.awt.event.ActionEvent evt){//GEN-FIRST:event_cercaParamActionPerformed
-        out2.setText("");
-        PuntoInteresse p;
-        
-        if(sceltaPaese != null && sceltaPaese != "nessun paese"){
-            try {
-                p = gestioneCentriMonitoraggio.ottieniPaese(nomePaese, cc, nomeCentroMonitoraggioOperatore);
-            } catch (RemoteException e) {
-                throw new RuntimeException(e);
-            }
-            Parametri pa = new Parametri(operatorePassato.getUsername(), operatorePassato.getPassword(), nomeCentroMonitoraggioOperatore, p);
-            pa.setLocation(this.getX(), this.getY());
-            this.setVisible(false); 
-            pa.setVisible(true);
-        }else
-            out2.setText("Invalido");
+        autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
+        if(autenticazione != null){
+            out2.setText("");
+            PuntoInteresse p;
+
+            if(sceltaPaese != null && sceltaPaese != "nessun paese"){
+                try {
+                    p = gestioneCentriMonitoraggio.ottieniPaese(nomePaese, cc, nomeCentroMonitoraggioOperatore);
+                } catch (RemoteException e) {
+                    throw new RuntimeException(e);
+                }
+                Parametri pa = new Parametri(operatorePassato.getUsername(), operatorePassato.getPassword(), nomeCentroMonitoraggioOperatore, p);
+                pa.setLocation(this.getX(), this.getY());
+                this.dispose();
+                pa.setVisible(true);
+            }else
+                out2.setText("Invalido");
+        }else{
+            ResetClient.spegniClient(this);
+        }
     }//GEN-LAST:event_cercaParamActionPerformed
 
     private void scegliCentroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scegliCentroActionPerformed
-        ScegliCentro sc = new ScegliCentro(operatorePassato.getUsername(), operatorePassato.getPassword());
-        sc.setLocation(this.getX(), this.getY());
-        this.setVisible(false);
-        sc.setVisible(true);
+        autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
+        if(autenticazione != null){
+            ScegliCentro sc = new ScegliCentro(operatorePassato.getUsername(), operatorePassato.getPassword());
+            sc.setLocation(this.getX(), this.getY());
+            this.dispose();
+            sc.setVisible(true);
+        }else{
+            ResetClient.spegniClient(this);
+        }
     }//GEN-LAST:event_scegliCentroActionPerformed
 
     private void sceltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sceltaActionPerformed
-        sceltaPaese = (String) scelta.getSelectedItem();
-        String[] parts = sceltaPaese.split(" ");
-        nomePaese = parts[0];
-        cc = parts[1];
+        autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
+        if(autenticazione != null){
+            sceltaPaese = (String) scelta.getSelectedItem();
+            String[] parts = sceltaPaese.split(" ");
+            nomePaese = parts[0];
+            cc = parts[1];
+        }else{
+            ResetClient.spegniClient(this);
+        }
     }//GEN-LAST:event_sceltaActionPerformed
-
+ 
     /**
      * @param args the command line arguments
      */

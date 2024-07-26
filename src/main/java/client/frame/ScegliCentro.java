@@ -5,6 +5,7 @@
 package client.frame;
 
 import client.clientrmi.ClientRMI;
+import client.clientrmi.ResetClient;
 import client.registraeventi.Chiusura;
 import commons.oggetti.CentroMonitoraggio;
 import commons.oggetti.Operatore;
@@ -24,7 +25,7 @@ import javax.swing.*;
  */
 public class ScegliCentro extends javax.swing.JFrame {
 
-    Autenticazione autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
+    Autenticazione autenticazione;
     GestioneCentriMonitoraggio gestioneCentriMonitoraggio = ClientRMI.ottieniClientRMI().ottieniStubGestioneCentriMonitoraggio();
     Operatore operatorePassato;
     String sceltaCentro = null;
@@ -129,35 +130,53 @@ public class ScegliCentro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-        AreaOperatore ao = new AreaOperatore(operatorePassato.getUsername(), operatorePassato.getPassword());
-        ao.setLocation(this.getX(), this.getY());
-        this.setVisible(false);
-        ao.setVisible(true);
+        autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
+        
+        if(autenticazione != null){
+            AreaOperatore ao = new AreaOperatore(operatorePassato.getUsername(), operatorePassato.getPassword());
+            ao.setLocation(this.getX(), this.getY());
+            this.dispose();
+            ao.setVisible(true);
+        }else{
+            ResetClient.spegniClient(this);
+        }
     }//GEN-LAST:event_backActionPerformed
 
     private void sceltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sceltaActionPerformed
-        out.setText("");
-        sceltaCentro = (String) scelta.getSelectedItem();
+        autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
+        
+        if(autenticazione != null){
+            out.setText("");
+            sceltaCentro = (String) scelta.getSelectedItem();
+        }else{
+            ResetClient.spegniClient(this);
+        }
     }//GEN-LAST:event_sceltaActionPerformed
 
     private void scegliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scegliActionPerformed
-        if(sceltaCentro != null){
-            if(!sceltaCentro.equals("nessun centro")){
-                try {
-                    gestioneCentriMonitoraggio.associaCentroMonitoraggioOperatore(operatorePassato.getUsername(), sceltaCentro);
-                    AreaOperatore ao = new AreaOperatore(operatorePassato.getUsername(), operatorePassato.getPassword());
-                    ao.setLocation(this.getX(), this.getY());
-                    this.setVisible(false);
-                    ao.setVisible(true);
-                } catch (RemoteException ex) {
-                    Logger.getLogger(ScegliCentro.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
+        
+        if(autenticazione != null){
+            if(sceltaCentro != null){
+                if(!sceltaCentro.equals("nessun centro")){
+                    try {
+                        gestioneCentriMonitoraggio.associaCentroMonitoraggioOperatore(operatorePassato.getUsername(), sceltaCentro);
+                        AreaOperatore ao = new AreaOperatore(operatorePassato.getUsername(), operatorePassato.getPassword());
+                        ao.setLocation(this.getX(), this.getY());
+                        this.dispose();
+                        ao.setVisible(true);
+                    } catch (RemoteException ex) {
+                        Logger.getLogger(ScegliCentro.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }else
+                    out.setText("Invalido");
             }else
                 out.setText("Invalido");
-        }else
-            out.setText("Invalido");
+        }else{
+            ResetClient.spegniClient(this);
+        }
     }//GEN-LAST:event_scegliActionPerformed
-
+    
     /**
      * @param args the command line arguments
      */

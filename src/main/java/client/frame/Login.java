@@ -5,6 +5,7 @@
 package client.frame;
 
 import client.clientrmi.ClientRMI;
+import client.clientrmi.ResetClient;
 import client.registraeventi.Chiusura;
 
 import java.rmi.RemoteException;
@@ -17,7 +18,7 @@ import commons.servizio.Autenticazione;
  * @author hew15bc502nl
  */
 public class Login extends javax.swing.JFrame {
-    Autenticazione autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
+    Autenticazione autenticazione;
     
     public Login() {
         initComponents();
@@ -113,10 +114,15 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_passwordActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-        FrameOperatore op = new FrameOperatore();
-        op.setLocation(this.getX(), this.getY());
-        this.setVisible(false);
-        op.setVisible(true); 
+        autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
+        if(autenticazione != null){
+            FrameOperatore op = new FrameOperatore();
+            op.setLocation(this.getX(), this.getY());
+            this.dispose();
+            op.setVisible(true); 
+        }else{
+            ResetClient.spegniClient(this);
+        }
     }//GEN-LAST:event_backActionPerformed
 
     private void identActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_identActionPerformed
@@ -124,39 +130,43 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_identActionPerformed
 
     private void okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okActionPerformed
-        out.setText("");
+        autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
+        if(autenticazione != null){
+        
+            out.setText("");
 
-        int usernameOperatore = 0;
+            int usernameOperatore = 0;
 
-        try{
-            usernameOperatore = Integer.parseInt(ident.getText());
-        } catch(NumberFormatException e) {
-            e.printStackTrace();
-        }
+            try{
+                usernameOperatore = Integer.parseInt(ident.getText());
+            } catch(NumberFormatException e) {}
 
-        Operatore operatore = new Operatore(usernameOperatore, String.copyValueOf(password.getPassword()));
+            Operatore operatore = new Operatore(usernameOperatore, String.copyValueOf(password.getPassword()));
 
-        //TODO rmi client
-        try {
-            if (autenticazione.login(operatore.getUsername(), operatore.getPassword())) {
-                AreaOperatore ao = new AreaOperatore(operatore.getUsername(), operatore.getPassword());
-                ao.setLocation(this.getX(), this.getY());
-                this.setVisible(false);
-                ao.setVisible(true);
-            } else {
-                if (usernameOperatore == 0)
-                    out.setText("ID non valido");
-                else
-                    out.setText("Utente non registrato");
+            //TODO rmi client
+            try {
+                if (autenticazione.login(operatore.getUsername(), operatore.getPassword())) {
+                    AreaOperatore ao = new AreaOperatore(operatore.getUsername(), operatore.getPassword());
+                    ao.setLocation(this.getX(), this.getY());
+                    this.dispose();
+                    ao.setVisible(true);
+                } else {
+                    if (usernameOperatore == 0)
+                        out.setText("ID non valido");
+                    else
+                        out.setText("Utente non registrato");
+                }
+            } catch(RemoteException ex) {
+                System.err.println("Errore RMI");
+                ex.printStackTrace();
+                System.exit(1);
             }
-        } catch(RemoteException ex) {
-            System.err.println("Errore RMI");
-            ex.printStackTrace();
-            System.exit(1);
+        }else{
+            ResetClient.spegniClient(this);
         }
             
     }//GEN-LAST:event_okActionPerformed
-
+    
     /**
      * @param args the command line arguments
      */

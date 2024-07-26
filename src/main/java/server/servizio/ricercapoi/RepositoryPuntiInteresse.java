@@ -54,7 +54,7 @@ public class RepositoryPuntiInteresse implements RicercaPuntiInteresse {
     }
 
      @Override
-     public synchronized PuntoInteresse[] ricercaPerNomeENazione(String nomePuntoInteresse, String codiceNazione) throws RemoteException {
+     public synchronized PuntoInteresse ricercaPerNomeENazione(String nomePuntoInteresse, String codiceNazione) throws RemoteException {
          return puntiInteresseDAO.ottieniPuntiInteressePerNomeECodiceNazione(nomePuntoInteresse, codiceNazione);
      }
 

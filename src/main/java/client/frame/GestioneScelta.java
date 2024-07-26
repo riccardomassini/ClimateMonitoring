@@ -5,53 +5,32 @@
 package client.frame;
 
 import client.clientrmi.ClientRMI;
-import client.clientrmi.ControllaAccensioneServer;
 import client.registraeventi.Chiusura;
 import commons.servizio.Autenticazione;
 
 public class GestioneScelta extends javax.swing.JFrame {
     
     private static final int POLLING_INTERVAL_MS = 2000;
-    private volatile boolean running = true;
-    Autenticazione autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
-    ControllaAccensioneServer controllaServer;
-    boolean lastStateWasNull = false;
+    Autenticazione autenticazione;
 
     public GestioneScelta() {
         initComponents();
         addWindowListener(new Chiusura());
-        if (autenticazione == null) {
-            cittadino.setVisible(false);
-            operatore.setVisible(false);
-            out.setVisible(true);
-            lastStateWasNull = true;
-        } else {
-            cittadino.setVisible(true);
-            operatore.setVisible(true);
-            out.setVisible(false);
-            lastStateWasNull = false;
-        }
-        controllaServer = new ControllaAccensioneServer(this);
-        updateUI(autenticazione);
-    }
 
-    public void updateUI(Autenticazione autenticazione) {
-        this.autenticazione = autenticazione;
-        if (autenticazione == null) {
-            if(!lastStateWasNull){
-                cittadino.setVisible(false);
-                operatore.setVisible(false);
-                out.setVisible(true);
-                lastStateWasNull = true;
-            }
-        } else {
-            if (lastStateWasNull) {
-                cittadino.setVisible(true);
-                operatore.setVisible(true);
-                out.setVisible(false);
-                lastStateWasNull = false;
-            }
-        }
+        cittadino.setVisible(true);
+        operatore.setVisible(true);
+        out.setVisible(false);
+        riprova.setVisible(false);
+    }
+    
+    public GestioneScelta(String flag){
+        initComponents();
+        addWindowListener(new Chiusura());
+
+        cittadino.setVisible(false);
+        operatore.setVisible(false);
+        out.setVisible(true);
+        riprova.setVisible(true);
     }
 
     /**
@@ -74,6 +53,7 @@ public class GestioneScelta extends javax.swing.JFrame {
         scelta = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         out = new javax.swing.JLabel();
+        riprova = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -103,6 +83,13 @@ public class GestioneScelta extends javax.swing.JFrame {
         out.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         out.setText("Server non acceso...");
 
+        riprova.setText("Riprova");
+        riprova.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                riprovaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -111,13 +98,19 @@ public class GestioneScelta extends javax.swing.JFrame {
                 .addContainerGap(127, Short.MAX_VALUE)
                 .addComponent(out)
                 .addGap(118, 118, 118))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(159, 159, 159)
+                .addComponent(riprova, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(135, Short.MAX_VALUE)
                 .addComponent(out, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(120, 120, 120))
+                .addGap(60, 60, 60)
+                .addComponent(riprova)
+                .addGap(37, 37, 37))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 300));
@@ -126,20 +119,41 @@ public class GestioneScelta extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cittadinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cittadinoActionPerformed
-
-        Cittadino cit = new Cittadino();
-
-        cit.setLocation(this.getX(), this.getY());
-        this.setVisible(false);
-        cit.setVisible(true);
+        autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
+        if(autenticazione != null) {
+            Cittadino cit = new Cittadino();
+            cit.setLocation(this.getX(), this.getY());
+            this.dispose();
+            cit.setVisible(true);
+        }else{
+            cittadino.setVisible(false);
+            operatore.setVisible(false);
+            out.setVisible(true);
+            riprova.setVisible(true);
+        }
     }//GEN-LAST:event_cittadinoActionPerformed
 
     private void operatoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_operatoreActionPerformed
-        FrameOperatore op = new FrameOperatore();
-        op.setLocation(this.getX(), this.getY());
-        this.setVisible(false);
-        op.setVisible(true);
+        autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
+        if(autenticazione != null) {
+            FrameOperatore op = new FrameOperatore();
+            op.setLocation(this.getX(), this.getY());
+            this.dispose();
+            op.setVisible(true);
+        }else{
+            cittadino.setVisible(false);
+            operatore.setVisible(false);
+            out.setVisible(true);
+            riprova.setVisible(true);
+        }
     }//GEN-LAST:event_operatoreActionPerformed
+
+    private void riprovaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_riprovaActionPerformed
+        cittadino.setVisible(true);
+        operatore.setVisible(true);
+        out.setVisible(false);
+        riprova.setVisible(false);
+    }//GEN-LAST:event_riprovaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -188,6 +202,7 @@ public class GestioneScelta extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton operatore;
     private javax.swing.JLabel out;
+    private javax.swing.JButton riprova;
     private javax.swing.JLabel scelta;
     // End of variables declaration//GEN-END:variables
 

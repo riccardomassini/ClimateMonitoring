@@ -5,10 +5,9 @@
 package client.frame;
 
 import client.clientrmi.ClientRMI;
-import client.clientrmi.ControllaAccensioneServer;
+import client.clientrmi.ResetClient;
 import client.registraeventi.Chiusura;
 import commons.oggetti.PuntoInteresse;
-import commons.servizio.Autenticazione;
 import commons.servizio.RicercaPuntiInteresse;
 
 import javax.swing.table.DefaultTableModel;
@@ -19,7 +18,7 @@ import java.rmi.RemoteException;
  * @author hew15bc502nl
  */
 public class Cittadino extends javax.swing.JFrame {
-    RicercaPuntiInteresse ricercaPuntiInteresse = ClientRMI.ottieniClientRMI().ottieniStubRicercaPuntiInteresse();
+    RicercaPuntiInteresse ricercaPuntiInteresse = ClientRMI.ottieniClientRMI().ottieniStubRicercaPuntiInteresse();;
     DefaultTableModel model;
     
     public Cittadino(){
@@ -53,7 +52,6 @@ public class Cittadino extends javax.swing.JFrame {
             elencoPuntiInteresse = ricercaPuntiInteresse.ottieniElencoPuntiInteresse();
         } catch(RemoteException ex) {
             System.err.println("Errore RMI");
-            ex.printStackTrace();
             System.exit(1);
         }
 
@@ -219,21 +217,110 @@ public class Cittadino extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cerca2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerca2ActionPerformed
-        out.setText("");
-        try {
-            double latitudine = Double.parseDouble(ric2.getText());
-            double longitudine = Double.parseDouble(ric3.getText());
+        ricercaPuntiInteresse = ClientRMI.ottieniClientRMI().ottieniStubRicercaPuntiInteresse();
+        if(ricercaPuntiInteresse != null){
+            out.setText("");
+            try {
+                double latitudine = Double.parseDouble(ric2.getText());
+                double longitudine = Double.parseDouble(ric3.getText());
 
-            if(!PuntoInteresse.coordinateValide(latitudine, longitudine)) {
-                out.setText("valori inesistenti");
-                return;
+                if(!PuntoInteresse.coordinateValide(latitudine, longitudine)) {
+                    out.setText("valori inesistenti");
+                    return;
+                }
+
+                PuntoInteresse[] elencoPuntiInteresse = null;
+
+                //TODO rmi client
+                try {
+                    elencoPuntiInteresse = ricercaPuntiInteresse.ricercaPerCoordinate(latitudine, longitudine);
+                } catch(RemoteException ex) {
+                    System.err.println("Errore RMI");
+                    ex.printStackTrace();
+                    System.exit(1);
+                }
+
+                model.setRowCount(0);
+                Object[] dati = new Object[7];
+
+                for(PuntoInteresse puntoInteresse : elencoPuntiInteresse){
+                    dati[0] = puntoInteresse.getIdPuntoInteresse();
+                    dati[1] = puntoInteresse.getNomePuntoInteresse();
+                    dati[2] = puntoInteresse.getNomePuntoInteresseASCII();
+                    dati[3] = puntoInteresse.getCodiceNazione();
+                    dati[4] = puntoInteresse.getNomeNazione();
+                    dati[5] = puntoInteresse.getLatitudine();
+                    dati[6] = puntoInteresse.getLongitudine();
+
+                    model.addRow(dati);
+                }
+
+            } catch(NumberFormatException ex) {
+                out.setText("Valori non validi");
             }
+        }else{
+            ResetClient.spegniClient(this);
+        }
 
+    }//GEN-LAST:event_cerca2ActionPerformed
+
+    private void comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboActionPerformed
+        
+        ricercaPuntiInteresse = ClientRMI.ottieniClientRMI().ottieniStubRicercaPuntiInteresse();
+        if(ricercaPuntiInteresse != null){
+            String parametroSelezione = (String) combo.getSelectedItem();
+
+            ric1.setVisible(parametroSelezione.equals("nome"));
+            ric2.setVisible(parametroSelezione.equals("coordinate"));
+            ric3.setVisible(parametroSelezione.equals("coordinate"));
+            ric4.setVisible(parametroSelezione.equals("stato"));
+            cerca1.setVisible(parametroSelezione.equals("nome"));
+            cerca2.setVisible(parametroSelezione.equals("coordinate"));
+            cerca3.setVisible(parametroSelezione.equals("stato"));
+            jLabel2.setVisible(parametroSelezione.equals("stato"));
+            jLabel3.setVisible(parametroSelezione.equals("nome"));
+            jLabel4.setVisible(parametroSelezione.equals("coordinate"));
+            jLabel5.setVisible(parametroSelezione.equals("coordinate"));
+
+            if (parametroSelezione.equals("parametri")) {
+                StampaParametri sp = new StampaParametri();
+                sp.setLocation(this.getX(), this.getY());
+                this.dispose();
+                sp.setVisible(true);
+            }else if(parametroSelezione.equals("scelta")){
+                inizializza();
+
+            }else if(parametroSelezione.equals("nome")){
+                ric2.setText("");
+                ric3.setText("");
+                ric4.setText("");
+            }else if(parametroSelezione.equals("coordinate")){
+                ric1.setText("");
+                ric4.setText("");
+            }else{
+                ric1.setText("");
+                ric2.setText("");
+                ric3.setText("");
+            }
+        }else{
+            ResetClient.spegniClient(this);
+        }
+    }//GEN-LAST:event_comboActionPerformed
+
+    private void cerca1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerca1ActionPerformed
+        
+        ricercaPuntiInteresse = ClientRMI.ottieniClientRMI().ottieniStubRicercaPuntiInteresse();
+        if(ricercaPuntiInteresse != null){
+            ric2.setText("");
+            ric3.setText("");
+            ric4.setText("");
+
+            String nome = ric1.getText();
             PuntoInteresse[] elencoPuntiInteresse = null;
 
             //TODO rmi client
             try {
-                elencoPuntiInteresse = ricercaPuntiInteresse.ricercaPerCoordinate(latitudine, longitudine);
+                elencoPuntiInteresse = ricercaPuntiInteresse.ricercaPerNome(nome);
             } catch(RemoteException ex) {
                 System.err.println("Errore RMI");
                 ex.printStackTrace();
@@ -254,121 +341,60 @@ public class Cittadino extends javax.swing.JFrame {
 
                 model.addRow(dati);
             }
-
-        } catch(NumberFormatException ex) {
-            out.setText("Valori non validi");
-        }
-
-    }//GEN-LAST:event_cerca2ActionPerformed
-
-    private void comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboActionPerformed
-        String parametroSelezione = (String) combo.getSelectedItem();
-
-        ric1.setVisible(parametroSelezione.equals("nome"));
-        ric2.setVisible(parametroSelezione.equals("coordinate"));
-        ric3.setVisible(parametroSelezione.equals("coordinate"));
-        ric4.setVisible(parametroSelezione.equals("stato"));
-        cerca1.setVisible(parametroSelezione.equals("nome"));
-        cerca2.setVisible(parametroSelezione.equals("coordinate"));
-        cerca3.setVisible(parametroSelezione.equals("stato"));
-        jLabel2.setVisible(parametroSelezione.equals("stato"));
-        jLabel3.setVisible(parametroSelezione.equals("nome"));
-        jLabel4.setVisible(parametroSelezione.equals("coordinate"));
-        jLabel5.setVisible(parametroSelezione.equals("coordinate"));
-
-        if (parametroSelezione.equals("parametri")) {
-            StampaParametri sp = new StampaParametri();
-            sp.setLocation(this.getX(), this.getY());
-            this.setVisible(false);
-            sp.setVisible(true);
-        }else if(parametroSelezione.equals("scelta")){
-            inizializza();
-
-        }else if(parametroSelezione.equals("nome")){
-            ric2.setText("");
-            ric3.setText("");
-            ric4.setText("");
-        }else if(parametroSelezione.equals("coordinate")){
-            ric1.setText("");
-            ric4.setText("");
         }else{
-            ric1.setText("");
-            ric2.setText("");
-            ric3.setText("");
-        }
-    }//GEN-LAST:event_comboActionPerformed
-
-    private void cerca1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerca1ActionPerformed
-        ric2.setText("");
-        ric3.setText("");
-        ric4.setText("");
-        
-        String nome = ric1.getText();
-        PuntoInteresse[] elencoPuntiInteresse = null;
-
-        //TODO rmi client
-        try {
-            elencoPuntiInteresse = ricercaPuntiInteresse.ricercaPerNome(nome);
-        } catch(RemoteException ex) {
-            System.err.println("Errore RMI");
-            ex.printStackTrace();
-            System.exit(1);
-        }
-
-        model.setRowCount(0);
-        Object[] dati = new Object[7];
-            
-        for(PuntoInteresse puntoInteresse : elencoPuntiInteresse){
-            dati[0] = puntoInteresse.getIdPuntoInteresse();
-            dati[1] = puntoInteresse.getNomePuntoInteresse();
-            dati[2] = puntoInteresse.getNomePuntoInteresseASCII();
-            dati[3] = puntoInteresse.getCodiceNazione();
-            dati[4] = puntoInteresse.getNomeNazione();
-            dati[5] = puntoInteresse.getLatitudine();
-            dati[6] = puntoInteresse.getLongitudine();
-
-            model.addRow(dati);
+            ResetClient.spegniClient(this);
         }
 
     }//GEN-LAST:event_cerca1ActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-        GestioneScelta gs = new GestioneScelta();
-        gs.setLocation(this.getX(), this.getY());
-        this.setVisible(false);
-        gs.setVisible(true);
+        ricercaPuntiInteresse = ClientRMI.ottieniClientRMI().ottieniStubRicercaPuntiInteresse();
+        if(ricercaPuntiInteresse != null){
+            GestioneScelta gs = new GestioneScelta();
+            gs.setLocation(this.getX(), this.getY());
+            this.dispose();
+            gs.setVisible(true);
+        }else{
+            ResetClient.spegniClient(this);
+        }
     }//GEN-LAST:event_backActionPerformed
 
     private void cerca3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerca3ActionPerformed
-        ric1.setText("");
-        ric2.setText("");
-        ric3.setText("");
-        
-        String codice = ric4.getText();
-        PuntoInteresse[] elencoPuntiInteresse = null;
+         
+        ricercaPuntiInteresse = ClientRMI.ottieniClientRMI().ottieniStubRicercaPuntiInteresse();
+        if(ricercaPuntiInteresse != null){
+            ric1.setText("");
+            ric2.setText("");
+            ric3.setText("");
 
-        //TODO rmi client
-        try {
-            elencoPuntiInteresse = ricercaPuntiInteresse.ricercaPerNazione(codice);
-        } catch(RemoteException ex) {
-            System.err.println("Errore RMI");
-            ex.printStackTrace();
-            System.exit(1);
-        }
+            String codice = ric4.getText();
+            PuntoInteresse[] elencoPuntiInteresse = null;
 
-        model.setRowCount(0);
-        Object[] dati = new Object[7];
+            //TODO rmi client
+            try {
+                elencoPuntiInteresse = ricercaPuntiInteresse.ricercaPerNazione(codice);
+            } catch(RemoteException ex) {
+                System.err.println("Errore RMI");
+                ex.printStackTrace();
+                System.exit(1);
+            }
 
-        for(PuntoInteresse puntoInteresse : elencoPuntiInteresse){
-            dati[0] = puntoInteresse.getIdPuntoInteresse();
-            dati[1] = puntoInteresse.getNomePuntoInteresse();
-            dati[2] = puntoInteresse.getNomePuntoInteresseASCII();
-            dati[3] = puntoInteresse.getCodiceNazione();
-            dati[4] = puntoInteresse.getNomeNazione();
-            dati[5] = puntoInteresse.getLatitudine();
-            dati[6] = puntoInteresse.getLongitudine();
+            model.setRowCount(0);
+            Object[] dati = new Object[7];
 
-            model.addRow(dati);
+            for(PuntoInteresse puntoInteresse : elencoPuntiInteresse){
+                dati[0] = puntoInteresse.getIdPuntoInteresse();
+                dati[1] = puntoInteresse.getNomePuntoInteresse();
+                dati[2] = puntoInteresse.getNomePuntoInteresseASCII();
+                dati[3] = puntoInteresse.getCodiceNazione();
+                dati[4] = puntoInteresse.getNomeNazione();
+                dati[5] = puntoInteresse.getLatitudine();
+                dati[6] = puntoInteresse.getLongitudine();
+
+                model.addRow(dati);
+            }
+        }else{
+            ResetClient.spegniClient(this);
         }
     }//GEN-LAST:event_cerca3ActionPerformed
 

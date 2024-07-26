@@ -5,6 +5,7 @@
 package client.frame;
 
 import client.clientrmi.ClientRMI;
+import client.clientrmi.ResetClient;
 import client.registraeventi.Chiusura;
 import commons.oggetti.CentroMonitoraggio;
 import commons.oggetti.Operatore;
@@ -17,7 +18,7 @@ import commons.servizio.GestioneCentriMonitoraggio;
 import commons.servizio.RicercaPuntiInteresse;
 
 public class RegistraCentro extends javax.swing.JFrame {
-    GestioneCentriMonitoraggio gestioneCentriMonitoraggio = ClientRMI.ottieniClientRMI().ottieniStubGestioneCentriMonitoraggio();
+    GestioneCentriMonitoraggio gestioneCentriMonitoraggio;
     RicercaPuntiInteresse ricercaPuntiInteresse = ClientRMI.ottieniClientRMI().ottieniStubRicercaPuntiInteresse();
     ArrayList<PuntoInteresse> puntiInteresseMonitorati = new ArrayList<>();
     Operatore operatorePassato;
@@ -186,111 +187,129 @@ public class RegistraCentro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-        AreaOperatore ao = new AreaOperatore(operatorePassato.getUsername(), operatorePassato.getPassword());
-        ao.setLocation(this.getX(), this.getY());
-        this.setVisible(false);
-        ao.setVisible(true);
+        gestioneCentriMonitoraggio = ClientRMI.ottieniClientRMI().ottieniStubGestioneCentriMonitoraggio();
+        
+        if(gestioneCentriMonitoraggio != null){
+            AreaOperatore ao = new AreaOperatore(operatorePassato.getUsername(), operatorePassato.getPassword());
+            ao.setLocation(this.getX(), this.getY());
+            this.dispose();
+            ao.setVisible(true);
+        }else{
+            ResetClient.spegniClient(this);
+        }
     }//GEN-LAST:event_backActionPerformed
 
     private void cliccaRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cliccaRegActionPerformed
-        out1.setText("");
-        out2.setText("");
-        out3.setText("");
-        out4.setText("");
-        out5.setText("");
-        out6.setText("");
-        out7.setText("");
+        gestioneCentriMonitoraggio = ClientRMI.ottieniClientRMI().ottieniStubGestioneCentriMonitoraggio();
         
-        count = 0;
-        String nome = nomeReg.getText();
-        String indirizzo = indReg.getText();
-        int numCivico = -1;
-        try{
-            numCivico = Integer.parseInt(numcReg.getText());
-        }catch(NumberFormatException ex){
-            out3.setText("Formato non valido");
-        }
-        String cap = capReg.getText();
-        String comune = comReg.getText();
-        String provincia = proReg.getText();
-        int numAree = 0;
-        try{
-            numAree = Integer.parseInt(numaReg.getText());
-            if(numAree <= 0)
-                out7.setText("Troppo corto");
-        }catch(NumberFormatException ex){
-            out7.setText("Formato non valido");
-        }
+        if(gestioneCentriMonitoraggio != null){     
+            out1.setText("");
+            out2.setText("");
+            out3.setText("");
+            out4.setText("");
+            out5.setText("");
+            out6.setText("");
+            out7.setText("");
 
-        if(nome.length()<=0)
-            out1.setText("Troppo corto");
-        if(indirizzo.length()<=0)
-            out2.setText("Troppo corto");
-        if(!controlloCap(cap))
-            out4.setText("CAP invalido");
-        if(comune.length()<=0)
-            out5.setText("Troppo corto");
-        if(provincia.length()!=2)
-            out6.setText("inserire 2 lettere");
-            
-        if(!nome.isEmpty() && !indirizzo.isEmpty() && numCivico != -1 && controlloCap(cap) && !comune.isEmpty() && provincia.length()==2 && numAree>0){
-            areeLabel.setVisible(true);
-            nomepReg.setVisible(true);
-            codiceReg.setVisible(true);
-            insAree.setVisible(true);
+            count = 0;
+            String nome = nomeReg.getText();
+            String indirizzo = indReg.getText();
+            int numCivico = -1;
+            try{
+                numCivico = Integer.parseInt(numcReg.getText());
+            }catch(NumberFormatException ex){
+                out3.setText("Formato non valido");
+            }
+            String cap = capReg.getText();
+            String comune = comReg.getText();
+            String provincia = proReg.getText();
+            int numAree = 0;
+            try{
+                numAree = Integer.parseInt(numaReg.getText());
+                if(numAree <= 0)
+                    out7.setText("Troppo corto");
+            }catch(NumberFormatException ex){
+                out7.setText("Formato non valido");
+            }
+
+            if(nome.length()<=0)
+                out1.setText("Troppo corto");
+            if(indirizzo.length()<=0)
+                out2.setText("Troppo corto");
+            if(!controlloCap(cap))
+                out4.setText("CAP invalido");
+            if(comune.length()<=0)
+                out5.setText("Troppo corto");
+            if(provincia.length()!=2)
+                out6.setText("inserire 2 lettere");
+
+            if(!nome.isEmpty() && !indirizzo.isEmpty() && numCivico != -1 && controlloCap(cap) && !comune.isEmpty() && provincia.length()==2 && numAree>0){
+                areeLabel.setVisible(true);
+                nomepReg.setVisible(true);
+                codiceReg.setVisible(true);
+                insAree.setVisible(true);
+            }else{
+                areeLabel.setVisible(false);
+                nomepReg.setVisible(false);
+                codiceReg.setVisible(false);
+                insAree.setVisible(false);
+            }
         }else{
-            areeLabel.setVisible(false);
-            nomepReg.setVisible(false);
-            codiceReg.setVisible(false);
-            insAree.setVisible(false);
+            ResetClient.spegniClient(this);
         }
-
     }//GEN-LAST:event_cliccaRegActionPerformed
 
     private void centroRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_centroRegActionPerformed
-        CentroMonitoraggio nuovoCentro = new CentroMonitoraggio(nomeReg.getText(), indReg.getText(), Integer.parseInt(numcReg.getText()), capReg.getText(), comReg.getText(), proReg.getText());
+        gestioneCentriMonitoraggio = ClientRMI.ottieniClientRMI().ottieniStubGestioneCentriMonitoraggio();
+        
+        if(gestioneCentriMonitoraggio != null){ 
+            CentroMonitoraggio nuovoCentro = new CentroMonitoraggio(nomeReg.getText(), indReg.getText(), Integer.parseInt(numcReg.getText()), capReg.getText(), comReg.getText(), proReg.getText());
 
-        //TODO rmi client
-        try {
-            gestioneCentriMonitoraggio.registraCentroMonitoraggio(new CentroMonitoraggio(nuovoCentro.getNomeCentro(), nuovoCentro.getIndirizzo(), nuovoCentro.getNumeroCivico(), nuovoCentro.getCAP(), nuovoCentro.getComune(), nuovoCentro.getProvincia()));
-            gestioneCentriMonitoraggio.associaPuntiInteresseCentroMonitoraggio(nuovoCentro.getNomeCentro(), puntiInteresseMonitorati.toArray(new PuntoInteresse[puntiInteresseMonitorati.size()]));
-            gestioneCentriMonitoraggio.associaCentroMonitoraggioOperatore(operatorePassato.getUsername(), nuovoCentro.getNomeCentro());
-        } catch(RemoteException ex) {
-            System.err.println("Errore RMI");
-            ex.printStackTrace();
-            System.exit(1);
+            //TODO rmi client
+            try {
+                gestioneCentriMonitoraggio.registraCentroMonitoraggio(new CentroMonitoraggio(nuovoCentro.getNomeCentro(), nuovoCentro.getIndirizzo(), nuovoCentro.getNumeroCivico(), nuovoCentro.getCAP(), nuovoCentro.getComune(), nuovoCentro.getProvincia()));
+                gestioneCentriMonitoraggio.associaPuntiInteresseCentroMonitoraggio(nuovoCentro.getNomeCentro(), puntiInteresseMonitorati.toArray(new PuntoInteresse[puntiInteresseMonitorati.size()]));
+                gestioneCentriMonitoraggio.associaCentroMonitoraggioOperatore(operatorePassato.getUsername(), nuovoCentro.getNomeCentro());
+            } catch(RemoteException ex) {
+                System.err.println("Errore RMI");
+                ex.printStackTrace();
+                System.exit(1);
+            }
+
+            AreaOperatore areaOperatore = new AreaOperatore(operatorePassato.getUsername(), operatorePassato.getPassword());
+            areaOperatore.setLocation(this.getX(), this.getY());
+            this.dispose();
+            areaOperatore.setVisible(true);
+        }else{
+            ResetClient.spegniClient(this);
         }
-
-        AreaOperatore areaOperatore = new AreaOperatore(operatorePassato.getUsername(), operatorePassato.getPassword());
-        areaOperatore.setLocation(this.getX(), this.getY());
-        this.setVisible(false);
-        areaOperatore.setVisible(true);
     }//GEN-LAST:event_centroRegActionPerformed
 
     private void insAreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insAreeActionPerformed
-        out8.setText("");
+        gestioneCentriMonitoraggio = ClientRMI.ottieniClientRMI().ottieniStubGestioneCentriMonitoraggio();
         
-        String asname = nomepReg.getText();
-        String cc = codiceReg.getText();
-        int numAree = Integer.parseInt(numaReg.getText());
-        PuntoInteresse puntoInteresse = null;
-        PuntoInteresse[] elencoPuntiInteresse = null;
+        if(gestioneCentriMonitoraggio != null){ 
+            out8.setText("");
+            String asname = nomepReg.getText();
+            String cc = codiceReg.getText();
+            int numAree = Integer.parseInt(numaReg.getText());
+            PuntoInteresse puntoInteresse = null;
 
-        //TODO rmi client
-        try {
-            elencoPuntiInteresse = ricercaPuntiInteresse.ricercaPerNomeENazione(asname, cc);
-        } catch(RemoteException ex) {
-            System.err.println("Errore RMI");
-            ex.printStackTrace();
-            System.exit(1);
-        }
-
-        if(elencoPuntiInteresse == null) {
-            out8.setText("Non ci sono punti di interesse corrispondenti alla ricerca");
-        } else {
-            for(PuntoInteresse puntoInteresseTemp : elencoPuntiInteresse)
-                if(puntoInteresseTemp.getNomePuntoInteresseASCII().equalsIgnoreCase(asname) && puntoInteresseTemp.getCodiceNazione().equals(cc))
-                    puntoInteresse = puntoInteresseTemp;
+            //TODO rmi client
+            try {
+                puntoInteresse = ricercaPuntiInteresse.ricercaPerNomeENazione(asname, cc);
+            } catch(RemoteException ex) {
+                System.err.println("Errore RMI");
+                ex.printStackTrace();
+                System.exit(1);
+            }
+            
+                /*for(PuntoInteresse puntoInteresseTemp : elencoPuntiInteresse){
+                    if(puntoInteresseTemp.getNomePuntoInteresseASCII().equalsIgnoreCase(asname) && puntoInteresseTemp.getCodiceNazione().equals(cc)){
+                        puntoInteresse = puntoInteresseTemp;
+                    }
+                }*/
+            
             if(puntoInteresse == null)
                 out8.setText("Il paese non esiste");
             else if(puntiInteresseMonitorati.contains(puntoInteresse))
@@ -298,15 +317,20 @@ public class RegistraCentro extends javax.swing.JFrame {
             else {
                 puntiInteresseMonitorati.add(puntoInteresse);
                 count++;
+                System.out.println(puntoInteresse.toString());
+                out8.setText("Paese inserito");
             }
-        }
+           
 
-        if(count==numAree){
-            areeLabel.setVisible(false);
-            nomepReg.setVisible(false);
-            codiceReg.setVisible(false);
-            insAree.setVisible(false);
-            centroReg.setVisible(true);
+            if(count==numAree){
+                areeLabel.setVisible(false);
+                nomepReg.setVisible(false);
+                codiceReg.setVisible(false);
+                insAree.setVisible(false);
+                centroReg.setVisible(true);
+            }
+        }else{
+            ResetClient.spegniClient(this);
         }
 
     }//GEN-LAST:event_insAreeActionPerformed
