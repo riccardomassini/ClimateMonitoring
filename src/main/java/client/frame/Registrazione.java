@@ -161,31 +161,44 @@ public class Registrazione extends javax.swing.JFrame {
             out5.setText("");
             out6.setText("");
 
+            boolean valido = true;
             String nome = nomeReg.getText();
             String cognome = cognomeReg.getText();
             String cf = cfReg.getText();
             String email = mailReg.getText();
             String password = passReg.getText();
             int id = 0;
+
             try {
                 id = Integer.parseInt(idReg.getText());
             } catch(NumberFormatException e) {
                 out5.setText("l'ID inserito non è un numero valido");
+                valido = false;
             }
 
             if(nome == null || nome.isEmpty()) {
                 out1.setText("Il nome inserito non è valido");
-                return;
+                valido = false;
             }
             if(cognome == null || cognome.isEmpty()) {
                 out2.setText("Il cognome inserito non è valido");
-                return;
+                valido = false;
             }
             if(id < 0) {
                 out5.setText("L'ID utente deve essere un intero positivo");
-                return;
+                valido = false;
             }
-            if(!codiceFiscaleValido(cf) || !emailValida(email) || !passwordValida(password))
+
+            if(!emailValida(email))
+                valido = false;
+
+            if(!codiceFiscaleValido(cf))
+                valido = false;
+
+            if(!passwordValida(password))
+                valido = false;
+
+            if(!valido)
                 return;
 
             Operatore operatore = new Operatore(nome, cognome, cf, email, id, password);
@@ -242,7 +255,7 @@ public class Registrazione extends javax.swing.JFrame {
      * @return valore booleano, true se la email è valida, false altrimenti
      */
     private boolean emailValida(String email) {
-        String REGEX_EMAIL = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        String REGEX_EMAIL = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
         if (email == null) {
             out4.setText("Inserire una email valida");
             return false;
@@ -260,7 +273,7 @@ public class Registrazione extends javax.swing.JFrame {
      * @return valore booleano, true se il codice fiscale è valido, false altrimenti
      */
     private boolean codiceFiscaleValido(String codiceFiscale){
-        String REGEX_CODICEFISCALE = "^[A-Z]{6}\\d{2}[A-EH-LM-PR-T][0-9][A-Z]{3}\\d{4}$";
+        String REGEX_CODICEFISCALE = "/^(?:[A-Z][AEIOU][AEIOUX]|[AEIOU]X{2}|[B-DF-HJ-NP-TV-Z]{2}[A-Z]){2}(?:[\\dLMNP-V]{2}(?:[A-EHLMPR-T](?:[04LQ][1-9MNP-V]|[15MR][\\dLMNP-V]|[26NS][0-8LMNP-U])|[DHPS][37PT][0L]|[ACELMRT][37PT][01LM]|[AC-EHLMPR-T][26NS][9V])|(?:[02468LNQSU][048LQU]|[13579MPRTV][26NS])B[26NS][9V])(?:[A-MZ][1-9MNP-V][\\dLMNP-V]{2}|[A-M][0L](?:[1-9MNP-V][\\dLMNP-V]|[0L][1-9MNP-V]))[A-Z]$/i";
         int LUNGHEZZA_CF = 16;
 
         if (codiceFiscale == null) {
@@ -271,10 +284,24 @@ public class Registrazione extends javax.swing.JFrame {
             out3.setText("La stringa inserita deve contenere " + LUNGHEZZA_CF + " caratteri");
             return false;
         }
-        if (!Pattern.compile(REGEX_CODICEFISCALE).matcher(codiceFiscale.toUpperCase()).matches()) {
-            out4.setText("La stringa inserita non corrisponde ad un CF valido");
+        if(!(Character.isLetter(codiceFiscale.charAt(0)) && //COGNOME
+                Character.isLetter(codiceFiscale.charAt(1)) && //COGNOME
+                Character.isLetter(codiceFiscale.charAt(2)) && //COGNOME
+                Character.isLetter(codiceFiscale.charAt(3)) && //NOME
+                Character.isLetter(codiceFiscale.charAt(4)) && //NOME
+                Character.isLetter(codiceFiscale.charAt(5)) && //NOME
+                Character.isDigit(codiceFiscale.charAt(6)) && //ANNO DI NASCITA
+                Character.isDigit(codiceFiscale.charAt(7)) && //ANNO DI NASCITA
+                Character.isLetter(codiceFiscale.charAt(8)) && //MESE DI NASCITA
+                Character.isDigit(codiceFiscale.charAt(9)) && //GIORNO DI NASCITA / SESSO
+                Character.isDigit(codiceFiscale.charAt(10)) && //GIORNO DI NASCITA / SESSO
+                Character.isLetter(codiceFiscale.charAt(11)) && //COMUNE / STATO DI NASCITA
+                Character.isDigit(codiceFiscale.charAt(12)) && //COMUNE / STATO DI NASCITA
+                Character.isDigit(codiceFiscale.charAt(13)) && //COMUNE / STATO DI NASCITA
+                Character.isDigit(codiceFiscale.charAt(14)) && //COMUNE / STATO DI NASCITA
+                Character.isLetter(codiceFiscale.charAt(15)))) //CARATTERE DI CONTROLLO
             return false;
-        }
+
         return true;
     }
 

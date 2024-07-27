@@ -143,7 +143,6 @@ public class Login extends javax.swing.JFrame {
 
             Operatore operatore = new Operatore(usernameOperatore, String.copyValueOf(password.getPassword()));
 
-            //TODO rmi client
             try {
                 if (autenticazione.login(operatore.getUsername(), operatore.getPassword())) {
                     AreaOperatore ao = new AreaOperatore(operatore.getUsername(), operatore.getPassword());
@@ -154,13 +153,14 @@ public class Login extends javax.swing.JFrame {
                     if (usernameOperatore == 0)
                         out.setText("ID non valido");
                     else
-                        out.setText("Utente non registrato");
+                        out.setText("Credenziali errate");
                 }
             } catch(RemoteException ex) {
-                System.err.println("Errore RMI");
+                System.err.println("Errore RMI: impossibile effettuare il login");
                 ex.printStackTrace();
                 System.exit(1);
             }
+
         }else{
             ResetClient.spegniClient(this);
         }

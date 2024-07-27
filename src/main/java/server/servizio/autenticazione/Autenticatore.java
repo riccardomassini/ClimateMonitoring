@@ -35,7 +35,7 @@ public class Autenticatore implements Autenticazione {
     @Override
     public synchronized boolean login(int username, String password) throws RemoteException {
         Operatore operatore = operatoriDAO.ottieniOperatoreDaUsername(username);
-        if(operatore == null || ValidatorePassword.passwordHashCorretto(operatore.getPassword(), password))
+        if(operatore == null || !ValidatorePassword.passwordHashCorretto(operatore.getPassword(), password))
             return false;
         this.sessione.setOperatore(operatore);
         return true;
