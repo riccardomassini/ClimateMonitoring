@@ -32,6 +32,7 @@ public class ImplOperatoriDAO implements OperatoriDAO {
 
             stmt.executeUpdate();
         } catch(PSQLException e){
+            e.printStackTrace();
             return false; //operatore già presente
         }catch (SQLException ex) {
             Logger.getLogger(Autenticatore.class.getName()).log(Level.SEVERE, null, ex);

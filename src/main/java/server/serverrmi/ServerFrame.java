@@ -11,6 +11,7 @@ public class ServerFrame extends javax.swing.JFrame {
     private Server server;
     
     public ServerFrame() {
+        ImpostazioniServer.impostaCredenziali("Admin", "1234"); //credenziali default
         initComponents();
         addWindowListener(new Chiusura());
     }
@@ -165,7 +166,7 @@ public class ServerFrame extends javax.swing.JFrame {
             serverRunning = false;
         } else {
             // Avvia il server
-            if (ImpostazioniServer.USERNAME.equals(username.getText()) && ImpostazioniServer.PASSWORD.equals(new String(password.getPassword()))) {
+            if (ImpostazioniServer.controlloCredenziali(username.getText(), new String(password.getPassword()))) {
                 if(ValidatoreIndirizzo.indirizzoIpValido(host.getText()))
                     HOST = host.getText();
                 try {

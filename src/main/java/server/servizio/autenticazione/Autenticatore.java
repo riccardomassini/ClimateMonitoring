@@ -3,7 +3,9 @@ package server.servizio.autenticazione;
 
 import commons.oggetti.Operatore;
 
+import commons.oggetti.ValidatorePassword;
 import commons.servizio.Autenticazione;
+import org.mindrot.jbcrypt.BCrypt;
 import server.database.dao.OperatoriDAO;
 import server.database.servizio.ImplOperatoriDAO;
 
@@ -16,6 +18,7 @@ import java.rmi.RemoteException;
  * @version 1.0
  */
 public class Autenticatore implements Autenticazione {
+
     private OperatoriDAO operatoriDAO;
     private Sessione sessione;
 
@@ -26,13 +29,14 @@ public class Autenticatore implements Autenticazione {
     
     @Override
     public synchronized boolean registrazione(Operatore operatore) throws RemoteException {
+        operatore.setPassword(ValidatorePassword.ottieniHashPassword(operatore.getPassword()));
         return operatoriDAO.inserisciNuovoOperatore(operatore);
     }
 
     @Override
     public synchronized boolean login(int username, String password) throws RemoteException {
         Operatore operatore = operatoriDAO.ottieniOperatoreDaUsername(username);
-        if(operatore == null || !password.equals(operatore.getPassword()))
+        if(operatore == null || ValidatorePassword.passwordCorretta(operatore.getPassword(), password))
             return false;
         this.sessione.setOperatore(operatore);
         return true;
