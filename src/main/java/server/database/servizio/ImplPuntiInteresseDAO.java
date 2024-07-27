@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static server.database.DizionarioDatabase.*;
+import static server.database.servizio.DizionarioDatabase.*;
 
 public class ImplPuntiInteresseDAO implements PuntiInteresseDAO {
     private static final String QUERY_ELENCO_POI = "SELECT * FROM " + PUNTIINTERESSE_RELAZIONE;

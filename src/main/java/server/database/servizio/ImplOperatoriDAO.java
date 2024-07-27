@@ -10,7 +10,7 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static server.database.DizionarioDatabase.*;
+import static server.database.servizio.DizionarioDatabase.*;
 
 public class ImplOperatoriDAO implements OperatoriDAO {
     private static final String QUERY_INSERIMENTO_NUOVO_OPERATORE = "INSERT INTO " + OPERATORI_RELAZIONE + " VALUES (?, ?, ?, ?, ?, ?, ?)";

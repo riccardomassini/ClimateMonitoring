@@ -6,16 +6,12 @@ package server.database;
 
 import java.sql.*;
 
+import static server.database.ImpostazioniDatabase.*;
+
 /**
  * Questa classe fornisce connessioni con il database
  */
 public class ConnettoreDatabase {
-    private static final int PORTA_DEFAULT_POSTGRESQL = 5432;
-    private static final String DRIVER_JDBC = "org.postgresql.Driver";
-    private static final String NOME_DATABASE = "climate";
-    private static final String URL = "jdbc:postgresql://localhost:" + PORTA_DEFAULT_POSTGRESQL + "/" + NOME_DATABASE;
-    private static final String USERNAME = "postgres";
-    private static final String PASSWORD = "root";
 
     private ConnettoreDatabase() {
         try {

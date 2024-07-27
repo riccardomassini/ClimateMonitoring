@@ -9,7 +9,7 @@ import server.database.dao.MisurazioniDAO;
 import java.sql.*;
 import java.util.ArrayList;
 
-import static server.database.DizionarioDatabase.*;
+import static server.database.servizio.DizionarioDatabase.*;
 
 public class ImplMisurazioniDAO implements MisurazioniDAO {
     private static final String QUERY_INSERIMENTO_NUOVA_MISURAZIONE = "INSERT INTO " +  MISURAZIONI_RELAZIONE + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";

@@ -4,14 +4,13 @@ import commons.oggetti.CentroMonitoraggio;
 import commons.oggetti.PuntoInteresse;
 import server.database.ConnettoreDatabase;
 import server.database.dao.CentriMonitoraggioDAO;
+import static server.database.servizio.DizionarioDatabase.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import static server.database.DizionarioDatabase.*;
 
 public class ImplCentriMonitoraggioDAO  implements CentriMonitoraggioDAO {
     private static final String QUERY_INSERIMENTO_NUOVO_CENTRO = "INSERT INTO " + CENTRIMONITORAGGIO_RELAZIONE + " VALUES (?, ?, ?, ?, ?, ?)";
