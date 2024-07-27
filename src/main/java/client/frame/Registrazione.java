@@ -8,9 +8,11 @@ import client.clientrmi.ClientRMI;
 import client.clientrmi.ResetClient;
 import client.registraeventi.Chiusura;
 import commons.oggetti.Operatore;
+import commons.oggetti.ValidatorePassword;
 import commons.servizio.Autenticazione;
 
 import java.rmi.RemoteException;
+import java.util.regex.Pattern;
 
 public class Registrazione extends javax.swing.JFrame {
     Autenticazione autenticazione;
@@ -143,15 +145,15 @@ public class Registrazione extends javax.swing.JFrame {
             op.setLocation(this.getX(), this.getY());
             this.dispose();
             op.setVisible(true); 
-        }else{
-            ResetClient.spegniClient(this);
+        } else {
+             ResetClient.spegniClient(this);
         }
     }//GEN-LAST:event_backActionPerformed
 
     private void regActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regActionPerformed
         autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
         
-        if(autenticazione != null){   
+        if(autenticazione != null) {
             out1.setText("");
             out2.setText("");
             out3.setText("");
@@ -159,61 +161,97 @@ public class Registrazione extends javax.swing.JFrame {
             out5.setText("");
             out6.setText("");
 
-            int id = 0;
             String nome = nomeReg.getText();
             String cognome = cognomeReg.getText();
             String cf = cfReg.getText();
-            String mail = mailReg.getText();
-            try{
+            String email = mailReg.getText();
+            String password = passReg.getText();
+            int id = 0;
+            try {
                 id = Integer.parseInt(idReg.getText());
-            }catch(NumberFormatException e){
-                out5.setText("Numero non valido");
+            } catch(NumberFormatException e) {
+                out5.setText("l'ID inserito non è un numero valido");
             }
-            String pass = passReg.getText();
 
-            if(nome.length() <= 0)
-                out1.setText("Nome troppo corto");
-            if(cognome.length() <= 0)
-                out2.setText("Cognome troppo corto");
-            if(!checkCodiceFiscale(cf))
-                out3.setText("CF non valido");
-            if(!controlloMail(mail))
-                out4.setText("mail non valida");
-            if(id <= 0)
-                out5.setText("Scegli un id maggiore di 0");
-            if(pass.length() <= 0)
-                out6.setText("Password troppo corta");
-            if(nome.length()>0 && cognome.length()>0 && checkCodiceFiscale(cf) && controlloMail(mail) && id>0 && pass.length()>0){
-                Operatore operatore = new Operatore(nome, cognome, cf, mail, id, pass);
-
-                //TODO rmi client
-                try {
-                    if (autenticazione.registrazione(operatore)) {
-                        out1.setText("Utente registrato");
-                        backActionPerformed(evt);
-                    } else
-                        out5.setText("ID già presente");
-                } catch(RemoteException ex) {
-                    System.err.println("Errore RMI");
-                    ex.printStackTrace();
-                    System.exit(1);
-                }
+            if(nome == null || nome.isEmpty()) {
+                out1.setText("Il nome inserito non è valido");
+                return;
             }
-        }else{
+            if(cognome == null || cognome.isEmpty()) {
+                out2.setText("Il cognome inserito non è valido");
+                return;
+            }
+            if(id < 0) {
+                out5.setText("L'ID utente deve essere un intero positivo");
+                return;
+            }
+            if(!codiceFiscaleValido(cf) || !emailValida(email) || !passwordValida(password))
+                return;
+
+            Operatore operatore = new Operatore(nome, cognome, cf, email, id, password);
+
+            try {
+                if (autenticazione.registrazione(operatore)) {
+                    out1.setText("Operatore registrato con successo!");
+                    backActionPerformed(evt);
+                } else
+                    out5.setText("Un operatore con ID " + id + " è gia registrato");
+            } catch(RemoteException ex) {
+                System.err.println("Errore RMI: impossibile registrare un nuovo operatore");
+                ex.printStackTrace();
+                System.exit(1);
+            }
+
+        } else
             ResetClient.spegniClient(this);
-        }
     }//GEN-LAST:event_regActionPerformed
 
-    /**
-     * Metodo che controlla se la mail inserita durante la registrazione è valida
-     * @param mail mail dell'operatore
-     * @return valore booleano, true se la mail è valida, false altrimenti
-     */
-    private boolean controlloMail(String mail){
-        if(mail.contains("@") && mail.length()>0)
-            return true;
+    private boolean passwordValida(String password) {
+        if(password == null) {
+            out6.setText("Inserire una password valida");
+            return false;
+        }
+        if(!ValidatorePassword.rispettaLunghezzaMinima(password)) {
+            out6.setText("La password deve contenere un minimo di " + ValidatorePassword.LUNGHEZZA_MINIMA + " caratteri");
+            return false;
+        }
+        if(!ValidatorePassword.contieneCifra(password)) {
+            out6.setText("La password deve contenere almeno una cifra");
+            return false;
+        }
+        if(!ValidatorePassword.contieneLetteraMinuscola(password)) {
+            out6.setText("La password deve contenere almeno una lettera minuscola");
+            return false;
+        }
+        if(!ValidatorePassword.contieneLetteraMaiuscola(password)) {
+            out6.setText("La password deve contenere almeno una lettera maiuscola");
+            return false;
+        }
+        if(!ValidatorePassword.contieneCarattereSpeciale(password)) {
+            out6.setText("La password deve contenere almeno un carattere speciale:");
+            for(Character c : ValidatorePassword.caratteriSpecialiAmmessi)
+                out6.setText(out6.getText() + " " + c.toString() + ";");
+            return false;
+        }
+        return true;
+    }
 
-        return false;
+    /**
+     * Metodo che controlla se la email inserita durante la registrazione è valida
+     * @param email email dell'operatore
+     * @return valore booleano, true se la email è valida, false altrimenti
+     */
+    private boolean emailValida(String email) {
+        String REGEX_EMAIL = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        if (email == null) {
+            out4.setText("Inserire una email valida");
+            return false;
+        }
+        if (!Pattern.compile(REGEX_EMAIL).matcher(email).matches()) {
+            out4.setText("La stringa inserita non corrisponde ad una email valida");
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -221,24 +259,22 @@ public class Registrazione extends javax.swing.JFrame {
      * @param codiceFiscale codice fiscale da controllare
      * @return valore booleano, true se il codice fiscale è valido, false altrimenti
      */
-    private boolean checkCodiceFiscale(String codiceFiscale){
-        int limNum = 7, limChar = 9, contN = 0, contC = 0;
-        if (codiceFiscale == null || codiceFiscale.length() != 16)
+    private boolean codiceFiscaleValido(String codiceFiscale){
+        String REGEX_CODICEFISCALE = "^[A-Z]{6}\\d{2}[A-EH-LM-PR-T][0-9][A-Z]{3}\\d{4}$";
+        int LUNGHEZZA_CF = 16;
+
+        if (codiceFiscale == null) {
+            out3.setText("Inserire un CF valido");
             return false;
-
-        for (int i = 0; i < 16; i++){
-            char c = Character.toUpperCase(codiceFiscale.charAt(i));
-            if (!(c >= '0' && c <= '9') && !(c >= 'A' && c <= 'Z'))
-                return false;
-
-            if(c >= '0' && c <= '9')
-                contN++;
-            else
-                contC++;
         }
-        if(limNum!=contN || limChar!=contC)
+        if (codiceFiscale.length() != LUNGHEZZA_CF) {
+            out3.setText("La stringa inserita deve contenere " + LUNGHEZZA_CF + " caratteri");
             return false;
-
+        }
+        if (!Pattern.compile(REGEX_CODICEFISCALE).matcher(codiceFiscale.toUpperCase()).matches()) {
+            out4.setText("La stringa inserita non corrisponde ad un CF valido");
+            return false;
+        }
         return true;
     }
 

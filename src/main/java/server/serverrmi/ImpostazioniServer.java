@@ -28,7 +28,7 @@ class ImpostazioniServer {
     }
 
     static boolean controlloCredenziali(String username, String password) {
-        return ottieniUsername().equals(username) && ValidatorePassword.passwordCorretta(ottieniPassword(), password);
+        return ottieniUsername().equals(username) && ValidatorePassword.passwordHashCorretto(ottieniPassword(), password);
     }
 
 

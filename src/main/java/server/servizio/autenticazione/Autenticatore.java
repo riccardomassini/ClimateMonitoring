@@ -5,7 +5,6 @@ import commons.oggetti.Operatore;
 
 import commons.oggetti.ValidatorePassword;
 import commons.servizio.Autenticazione;
-import org.mindrot.jbcrypt.BCrypt;
 import server.database.dao.OperatoriDAO;
 import server.database.servizio.ImplOperatoriDAO;
 
@@ -36,7 +35,7 @@ public class Autenticatore implements Autenticazione {
     @Override
     public synchronized boolean login(int username, String password) throws RemoteException {
         Operatore operatore = operatoriDAO.ottieniOperatoreDaUsername(username);
-        if(operatore == null || ValidatorePassword.passwordCorretta(operatore.getPassword(), password))
+        if(operatore == null || ValidatorePassword.passwordHashCorretto(operatore.getPassword(), password))
             return false;
         this.sessione.setOperatore(operatore);
         return true;
