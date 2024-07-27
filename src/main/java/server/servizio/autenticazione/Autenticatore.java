@@ -42,8 +42,16 @@ public class Autenticatore implements Autenticazione {
     }
 
     @Override
+    public synchronized boolean loginSenzaBcrypt(int username, String password) throws RemoteException {
+        Operatore operatore = operatoriDAO.ottieniOperatoreDaUsername(username);
+        if(operatore == null)
+            return false;
+        this.sessione.setOperatore(operatore);
+        return true;
+    }
+
+    @Override
     public synchronized Operatore ottieniOperatoreAutenticato() throws RemoteException {
         return sessione.getOperatore();
     }
-
 }

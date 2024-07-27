@@ -37,6 +37,7 @@ public class RegistraCentro extends javax.swing.JFrame {
         codiceReg.setVisible(false);
         insAree.setVisible(false);
         centroReg.setVisible(false);
+        out9.setVisible(false);
     }
 
     /**
@@ -66,10 +67,8 @@ public class RegistraCentro extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         back = new javax.swing.JButton();
         cliccaReg = new javax.swing.JButton();
-        areeLabel = new javax.swing.JLabel();
         nomepReg = new javax.swing.JTextField();
         codiceReg = new javax.swing.JTextField();
-        centroReg = new javax.swing.JButton();
         out1 = new javax.swing.JLabel();
         insAree = new javax.swing.JButton();
         out2 = new javax.swing.JLabel();
@@ -80,6 +79,9 @@ public class RegistraCentro extends javax.swing.JFrame {
         out7 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         out8 = new javax.swing.JLabel();
+        areeLabel = new javax.swing.JLabel();
+        centroReg = new javax.swing.JButton();
+        out9 = new javax.swing.JLabel();
 
         jRadioButton1.setText("jRadioButton1");
 
@@ -115,7 +117,7 @@ public class RegistraCentro extends javax.swing.JFrame {
         jLabel7.setText("Provincia");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 208, 78, 22));
 
-        jLabel8.setText("Numero puntiInteresseMonitorati");
+        jLabel8.setText("Numero aree");
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 240, 78, 22));
 
         back.setText("Indietro");
@@ -133,19 +135,8 @@ public class RegistraCentro extends javax.swing.JFrame {
             }
         });
         getContentPane().add(cliccaReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 268, 96, -1));
-
-        areeLabel.setText("Inserisci puntiInteresseMonitorati");
-        getContentPane().add(areeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(401, 67, 86, 22));
         getContentPane().add(nomepReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(401, 95, 86, -1));
         getContentPane().add(codiceReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(401, 123, 86, -1));
-
-        centroReg.setText("Registra");
-        centroReg.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                centroRegActionPerformed(evt);
-            }
-        });
-        getContentPane().add(centroReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(401, 208, 86, -1));
         getContentPane().add(out1, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 67, 143, 22));
 
         insAree.setText("Inserisci");
@@ -163,23 +154,24 @@ public class RegistraCentro extends javax.swing.JFrame {
         getContentPane().add(out7, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 240, 143, 22));
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.add(out8, new org.netbeans.lib.awtextra.AbsoluteConstraints(409, 268, 115, 19));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(409, Short.MAX_VALUE)
-                .addComponent(out8, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(268, Short.MAX_VALUE)
-                .addComponent(out8, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43))
-        );
+        areeLabel.setText("Inserisci aree");
+        jPanel1.add(areeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(416, 70, 90, 22));
+
+        centroReg.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        centroReg.setText("Registra");
+        centroReg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                centroRegActionPerformed(evt);
+            }
+        });
+        jPanel1.add(centroReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 190, 90, 30));
+
+        out9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        out9.setText("Clicca per registrare il centro");
+        jPanel1.add(out9, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 193, 22));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -10, 530, 330));
 
@@ -190,6 +182,7 @@ public class RegistraCentro extends javax.swing.JFrame {
         gestioneCentriMonitoraggio = ClientRMI.ottieniClientRMI().ottieniStubGestioneCentriMonitoraggio();
         
         if(gestioneCentriMonitoraggio != null){
+            puntiInteresseMonitorati.clear();
             AreaOperatore ao = new AreaOperatore(operatorePassato.getUsername(), operatorePassato.getPassword());
             ao.setLocation(this.getX(), this.getY());
             this.dispose();
@@ -210,6 +203,9 @@ public class RegistraCentro extends javax.swing.JFrame {
             out5.setText("");
             out6.setText("");
             out7.setText("");
+            out8.setText("");
+            
+            puntiInteresseMonitorati.clear();
 
             count = 0;
             String nome = nomeReg.getText();
@@ -317,18 +313,11 @@ public class RegistraCentro extends javax.swing.JFrame {
             else {
                 puntiInteresseMonitorati.add(puntoInteresse);
                 count++;
-                System.out.println(puntoInteresse.toString());
                 out8.setText("Paese inserito");
-            }
-           
+            }     
 
-            if(count==numAree){
-                areeLabel.setVisible(false);
-                nomepReg.setVisible(false);
-                codiceReg.setVisible(false);
-                insAree.setVisible(false);
-                centroReg.setVisible(true);
-            }
+            if(count==numAree)
+                cambiaVisibilita();
         }else{
             ResetClient.spegniClient(this);
         }
@@ -350,6 +339,35 @@ public class RegistraCentro extends javax.swing.JFrame {
                 return false;
         }
         return true;
+    }
+    
+    private void cambiaVisibilita(){
+        areeLabel.setVisible(false);
+        nomepReg.setVisible(false);
+        codiceReg.setVisible(false);
+        insAree.setVisible(false);
+        out8.setVisible(false);
+        centroReg.setVisible(true);
+        nomepReg.setVisible(false);
+        capReg.setVisible(false);
+        cliccaReg.setVisible(false);
+        codiceReg.setVisible(false);
+        comReg.setVisible(false);
+        indReg.setVisible(false);
+        nomeReg.setVisible(false);
+        nomepReg.setVisible(false);
+        numaReg.setVisible(false);
+        numcReg.setVisible(false);
+        proReg.setVisible(false);
+        cliccaReg.setVisible(false);
+        jLabel2.setVisible(false);
+        jLabel3.setVisible(false);
+        jLabel4.setVisible(false);
+        jLabel5.setVisible(false);
+        jLabel6.setVisible(false);
+        jLabel7.setVisible(false);
+        jLabel8.setVisible(false);
+        out9.setVisible(true);
     }
 
     /**
@@ -419,6 +437,7 @@ public class RegistraCentro extends javax.swing.JFrame {
     private javax.swing.JLabel out6;
     private javax.swing.JLabel out7;
     private javax.swing.JLabel out8;
+    private javax.swing.JLabel out9;
     private javax.swing.JTextField proReg;
     // End of variables declaration//GEN-END:variables
 }

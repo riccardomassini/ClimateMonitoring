@@ -241,7 +241,7 @@ public class StampaParametri extends JFrame {
         Object[] datiMisurazione = new Object[20];
         int i = 0;
         datiMisurazione[i++] = misurazione.getNomeCentro();
-        datiMisurazione[i++] = misurazione.getTimestampMisurazione();
+        datiMisurazione[i++] = misurazione.getIdPuntoInteresse();
         datiMisurazione[i++] = misurazione.getTimestampMisurazione();
         for(CategorieParametriClimatici categoria : CategorieParametriClimatici.values()) {
             datiMisurazione[i] = misurazione.getValutazioneParametroConCategoria(categoria);
@@ -260,7 +260,11 @@ public class StampaParametri extends JFrame {
                 nValutazioni++;
             }
         }
-        return (double) somma / nValutazioni;
+        
+        if(nValutazioni == 0)
+            return 0;
+        
+        return somma / nValutazioni;
     }
 
     //TODO trattare caso in cui tutti punteggi hanno una sola presenza
@@ -280,8 +284,13 @@ public class StampaParametri extends JFrame {
                 maxPunteggio = i + 1;
             }
         }
+        
+        if(max==0)
+            return PunteggioParametroClimatico.NULLO.getPunteggio();
+        
         return PunteggioParametroClimatico.values()[maxPunteggio].getPunteggio();
     }
+
 
     /**
      * @param args the command line arguments

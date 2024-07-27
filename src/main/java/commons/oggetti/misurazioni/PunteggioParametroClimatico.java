@@ -2,7 +2,7 @@ package commons.oggetti.misurazioni;
 
 public enum PunteggioParametroClimatico {
     NULLO(0, "nullo"),
-    GRAVE(1, "buono"),
+    GRAVE(1, "grave"),
     PERICOLOSO(2, "pericoloso"),
     MODERATO(3, "moderato"),
     BUONO(4, "buono"),

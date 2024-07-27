@@ -15,8 +15,11 @@ import java.util.Date;
 
 import commons.oggetti.misurazioni.CategorieParametriClimatici;
 import commons.oggetti.misurazioni.Misurazione;
+import commons.oggetti.misurazioni.PunteggioParametroClimatico;
 import commons.oggetti.misurazioni.ValutazioneParametro;
 import commons.servizio.GestioneMisurazioni;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 
 public class Parametri extends javax.swing.JFrame {
     GestioneMisurazioni gestioneMisurazioni;
@@ -35,6 +38,29 @@ public class Parametri extends javax.swing.JFrame {
         operatorePassato = new Operatore(id, pass);
         this.nomeCentroPassato = nomeCentro;
         this.puntoInteressePassato = paese;
+        
+        ArrayList<String> punti = new ArrayList<>();
+
+        for (PunteggioParametroClimatico parametro : PunteggioParametroClimatico.values()) {
+            punti.add(String.valueOf(parametro.getPunteggio()) + " - " + parametro.getDescrizione());
+        }
+
+        String[] puntiArray = punti.toArray(new String[0]);
+        DefaultComboBoxModel<String> modelVento = new DefaultComboBoxModel<>(puntiArray);
+        DefaultComboBoxModel<String> modelUm = new DefaultComboBoxModel<>(puntiArray);
+        DefaultComboBoxModel<String> modelPres = new DefaultComboBoxModel<>(puntiArray);
+        DefaultComboBoxModel<String> modelTe = new DefaultComboBoxModel<>(puntiArray);
+        DefaultComboBoxModel<String> modelPrec = new DefaultComboBoxModel<>(puntiArray);
+        DefaultComboBoxModel<String> modelAlt = new DefaultComboBoxModel<>(puntiArray);
+        DefaultComboBoxModel<String> modelMassa = new DefaultComboBoxModel<>(puntiArray);
+
+        ventoReg.setModel(modelVento);
+        umReg.setModel(modelUm);
+        presReg.setModel(modelPres);
+        teReg.setModel(modelTe);
+        precReg.setModel(modelPrec);
+        altReg.setModel(modelAlt);
+        massaReg.setModel(modelMassa);
     }
 
     /**
@@ -46,6 +72,8 @@ public class Parametri extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -151,25 +179,23 @@ public class Parametri extends javax.swing.JFrame {
         });
         getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 295, -1, -1));
 
-        ventoReg.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5" }));
+        ventoReg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ventoRegActionPerformed(evt);
+            }
+        });
         getContentPane().add(ventoReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 65, -1, -1));
 
-        umReg.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5" }));
         getContentPane().add(umReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 93, -1, -1));
 
-        presReg.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5" }));
         getContentPane().add(presReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 121, -1, -1));
 
-        teReg.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5" }));
         getContentPane().add(teReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 149, -1, -1));
 
-        precReg.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5" }));
         getContentPane().add(precReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 177, -1, -1));
 
-        altReg.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5" }));
         getContentPane().add(altReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 205, -1, -1));
 
-        massaReg.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5" }));
         getContentPane().add(massaReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 233, -1, -1));
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
@@ -207,13 +233,13 @@ public class Parametri extends javax.swing.JFrame {
         if(gestioneMisurazioni != null){
         
             Misurazione nuovaMisurazione = new Misurazione();
-            nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.VENTO, new ValutazioneParametro(Integer.parseInt((String) ventoReg.getSelectedItem()), formatCommento(ventoRegN.getText())));
-            nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.TEMPERATURA, new ValutazioneParametro(Integer.parseInt((String)   teReg.getSelectedItem()), formatCommento(teRegN.getText())));
-            nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.PRECIPITAZIONI, new ValutazioneParametro(Integer.parseInt((String) precReg.getSelectedItem()), formatCommento(precRegN.getText())));
-            nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.PRESSIONE,new ValutazioneParametro(Integer.parseInt((String) presReg.getSelectedItem()), formatCommento(presRegN.getText())));
-            nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.UMIDITA, new ValutazioneParametro(Integer.parseInt((String) umReg.getSelectedItem()), formatCommento(umRegN.getText())));
-            nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.ALTITUDINE_GHIACCIAI, new ValutazioneParametro(Integer.parseInt((String) altReg.getSelectedItem()), formatCommento(altRegN.getText())));
-            nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.MASSA_GHIACCIAI, new ValutazioneParametro(Integer.parseInt((String) massaReg.getSelectedItem()), formatCommento(massaRegN.getText())));
+            nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.VENTO, new ValutazioneParametro(estraiNumero((String) ventoReg.getSelectedItem()), formatCommento(ventoRegN.getText())));
+            nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.TEMPERATURA, new ValutazioneParametro(estraiNumero((String)   teReg.getSelectedItem()), formatCommento(teRegN.getText())));
+            nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.PRECIPITAZIONI, new ValutazioneParametro(estraiNumero((String) precReg.getSelectedItem()), formatCommento(precRegN.getText())));
+            nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.PRESSIONE,new ValutazioneParametro(estraiNumero((String) presReg.getSelectedItem()), formatCommento(presRegN.getText())));
+            nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.UMIDITA, new ValutazioneParametro(estraiNumero((String) umReg.getSelectedItem()), formatCommento(umRegN.getText())));
+            nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.ALTITUDINE_GHIACCIAI, new ValutazioneParametro(estraiNumero((String) altReg.getSelectedItem()), formatCommento(altRegN.getText())));
+            nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.MASSA_GHIACCIAI, new ValutazioneParametro(estraiNumero((String) massaReg.getSelectedItem()), formatCommento(massaRegN.getText())));
 
             for(CategorieParametriClimatici categoria : CategorieParametriClimatici.values())
                 if(!ValutazioneParametro.lunghezzaCommentoValida(nuovaMisurazione.getCommentoParametroConCategoria(categoria))) {
@@ -243,8 +269,17 @@ public class Parametri extends javax.swing.JFrame {
             
     }//GEN-LAST:event_inserisciParamActionPerformed
 
+    private void ventoRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventoRegActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ventoRegActionPerformed
+
     private String formatCommento(String commento) {
         return commento.isEmpty() ? "/" : commento;
+    }
+    
+    private int estraiNumero(String valore) {
+        String[] parti = valore.split(" - ");
+        return Integer.parseInt(parti[0]);
     }
 
     /**
@@ -286,6 +321,8 @@ public class Parametri extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> altReg;
     private javax.swing.JTextField altRegN;
     private javax.swing.JButton back;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton inserisciParam;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

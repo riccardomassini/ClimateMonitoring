@@ -37,7 +37,7 @@ public class AreaOperatore extends javax.swing.JFrame {
 
         //TODO rmi client
         try {
-            if (autenticazione.login(operatorePassato.getUsername(), operatorePassato.getPassword()) == true) {
+            if (autenticazione.loginSenzaBcrypt(operatorePassato.getUsername(), operatorePassato.getPassword()) == true) {
                 operatorePassato = autenticazione.ottieniOperatoreAutenticato();
                 jLabel2.setText("OPERATORE " + operatorePassato.getUsername());
 

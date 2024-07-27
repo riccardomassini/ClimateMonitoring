@@ -102,18 +102,18 @@ public class Registrazione extends javax.swing.JFrame {
             }
         });
         getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 260, -1, -1));
-        getContentPane().add(out2, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 84, 163, 22));
+        getContentPane().add(out2, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 84, 210, 22));
         getContentPane().add(cognomeReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(111, 84, 85, -1));
 
         jLabel7.setText("Cognome");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 84, 67, 22));
-        getContentPane().add(out3, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 118, 163, 22));
-        getContentPane().add(out1, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 50, 163, 22));
+        getContentPane().add(out3, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 118, 270, 22));
+        getContentPane().add(out1, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 50, 250, 22));
 
         out4.setBackground(new java.awt.Color(204, 255, 204));
-        getContentPane().add(out4, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 152, 163, 22));
-        getContentPane().add(out5, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 186, 163, 22));
-        getContentPane().add(out6, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 220, 163, 22));
+        getContentPane().add(out4, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 152, 310, 22));
+        getContentPane().add(out5, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 186, 210, 22));
+        getContentPane().add(out6, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 220, 340, 22));
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
 
@@ -121,14 +121,14 @@ public class Registrazione extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 570, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 300, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 300));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 300));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

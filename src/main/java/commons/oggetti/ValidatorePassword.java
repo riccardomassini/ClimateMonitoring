@@ -63,5 +63,4 @@ public class ValidatorePassword {
     public static boolean formatValido(String password) {
         return contieneCifra(password) && contieneLetteraMaiuscola(password) && contieneLetteraMinuscola(password);
     }
-
 }
