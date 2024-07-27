@@ -1,17 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package server.serverrmi;
 
 import client.registraeventi.Chiusura;
+import commons.connessione.ValidatoreIndirizzo;
+
 import static commons.connessione.ImpostazioniConnessione.*;
 
 
 public class ServerFrame extends javax.swing.JFrame {
-
-    private static final String USERNAME = "";
-    private static final String PASSWORD = "";
     private boolean serverRunning = false;
     private Server server;
     
@@ -170,11 +165,17 @@ public class ServerFrame extends javax.swing.JFrame {
             serverRunning = false;
         } else {
             // Avvia il server
-            if (ImpostazioneServer.USERNAME.equals(username.getText()) && ImpostazioneServer.PASSWORD.equals(password.getText())) {
-                if(ValidatoreIndirizzoIP.indirizzoIpValido(host.getText()))
-                    ImpostazioniConnessione.HOST = host.getText();
+            if (ImpostazioniServer.USERNAME.equals(username.getText()) && ImpostazioniServer.PASSWORD.equals(new String(password.getPassword()))) {
+                if(ValidatoreIndirizzo.indirizzoIpValido(host.getText()))
+                    HOST = host.getText();
+                try {
+                    if(ValidatoreIndirizzo.portaValida(Integer.parseInt(port.getText())))
+                        PORTA = Integer.parseInt(port.getText());
+                } catch(NumberFormatException e) {
+                    //se il campo è vuoto, ignora
+                }
                 server = Server.ottieniIstanzaServer();
-                server.start(); // Assicurati che il metodo start() sia definito nella tua classe Server
+                server.start();
                 avvia.setText("Ferma");
                 out.setText("Server avviato");
                 serverRunning = true;

@@ -52,12 +52,6 @@ public class Server implements Runnable {
     }
 
     private void inizializzaServer() {
-        //creare registro rmi
-        try {
-            registroRMI = LocateRegistry.createRegistry(PORTA);
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
-        }
 
         //inizializzare servizi remoti
         autenticatore = new Autenticatore();
@@ -68,14 +62,19 @@ public class Server implements Runnable {
     }
 
     public void start() {
+        //creare registro rmi
+        try {
+            registroRMI = LocateRegistry.createRegistry(PORTA);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+
         //ottenere stub oggetti remoti
         try {
             RicercaPuntiInteresse stubRicercaPuntiInteresse = (RicercaPuntiInteresse) UnicastRemoteObject.exportObject(repositoryPuntiInteresse, PORTA);
             Autenticazione stubAutenticazione = (Autenticazione) UnicastRemoteObject.exportObject(autenticatore, PORTA);
             GestioneMisurazioni stubGestioneMisurazioni = (GestioneMisurazioni) UnicastRemoteObject.exportObject(gestoreMisurazioni, PORTA);
             GestioneCentriMonitoraggio stubGestioneCentriMonitoraggio = (GestioneCentriMonitoraggio) UnicastRemoteObject.exportObject(gestoreCentriMonitoraggio, PORTA);
-
-
 
             //fare binding oggetti remoti a registro RMI
             registroRMI.rebind(RMI_GestioneCentriMonitoraggio, stubGestioneCentriMonitoraggio);
@@ -86,8 +85,6 @@ public class Server implements Runnable {
             System.err.println("Errore nell'inizializzazione del server RMI");
             e.printStackTrace();
         }
-
-
 
         threadServer = new Thread(this); //inizializzazione thread per il server
         threadServer.start();
@@ -106,6 +103,12 @@ public class Server implements Runnable {
                 registroRMI.unbind(RMI_GestioneMisurazioni);
                 registroRMI.unbind(RMI_Autenticazione);
             }
+
+            UnicastRemoteObject.unexportObject(repositoryPuntiInteresse, true);
+            UnicastRemoteObject.unexportObject(autenticatore, true);
+            UnicastRemoteObject.unexportObject(gestoreMisurazioni, true);
+            UnicastRemoteObject.unexportObject(gestoreCentriMonitoraggio, true);
+
             UnicastRemoteObject.unexportObject(registroRMI, true);
             registroRMI = null;
         } catch (RemoteException | java.rmi.NotBoundException e) {

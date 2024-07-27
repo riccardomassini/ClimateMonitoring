@@ -1,6 +1,6 @@
 package server.serverrmi;
 
-class ImpostazioneServer {
+class ImpostazioniServer {
     public static String USERNAME = "Admin";
     public static String PASSWORD = "1234";
 }
