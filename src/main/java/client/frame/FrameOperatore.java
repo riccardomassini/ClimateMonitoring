@@ -20,6 +20,7 @@ public class FrameOperatore extends javax.swing.JFrame {
     public FrameOperatore() {
         initComponents();
         addWindowListener(new Chiusura());
+        this.setResizable(false);
     }
 
     /**

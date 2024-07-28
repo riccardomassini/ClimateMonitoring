@@ -37,6 +37,7 @@ public class ScegliCentro extends javax.swing.JFrame {
     public ScegliCentro(int id, String password){
         initComponents();
         addWindowListener(new Chiusura());
+        this.setResizable(false);
         operatorePassato = new Operatore(id, password);
         ArrayList<CentroMonitoraggio> centri = null;
         try {

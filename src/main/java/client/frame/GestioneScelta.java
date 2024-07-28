@@ -16,6 +16,7 @@ public class GestioneScelta extends javax.swing.JFrame {
     public GestioneScelta() {
         initComponents();
         addWindowListener(new Chiusura());
+        this.setResizable(false);
 
         cittadino.setVisible(true);
         operatore.setVisible(true);
@@ -26,6 +27,7 @@ public class GestioneScelta extends javax.swing.JFrame {
     public GestioneScelta(String flag){
         initComponents();
         addWindowListener(new Chiusura());
+        this.setResizable(false);
 
         cittadino.setVisible(false);
         operatore.setVisible(false);

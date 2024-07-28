@@ -33,6 +33,7 @@ public class AreaOperatore extends javax.swing.JFrame {
     public AreaOperatore(int id, String password){
         initComponents();
         addWindowListener(new Chiusura());
+        this.setResizable(false);
         operatorePassato = new Operatore(id, password);
 
         //TODO rmi client

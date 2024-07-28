@@ -35,6 +35,7 @@ public class Parametri extends javax.swing.JFrame {
     public Parametri(int id, String pass, String nomeCentro, PuntoInteresse paese){
         initComponents();
         addWindowListener(new Chiusura());
+        this.setResizable(false);
         operatorePassato = new Operatore(id, pass);
         this.nomeCentroPassato = nomeCentro;
         this.puntoInteressePassato = paese;

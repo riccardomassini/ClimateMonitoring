@@ -24,6 +24,7 @@ public class Cittadino extends javax.swing.JFrame {
     public Cittadino(){
         initComponents();
         addWindowListener(new Chiusura());
+        this.setResizable(false);
         inizializza();
     }
     

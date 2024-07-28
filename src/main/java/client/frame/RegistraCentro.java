@@ -31,6 +31,7 @@ public class RegistraCentro extends javax.swing.JFrame {
     public RegistraCentro(int id, String pass){
         initComponents();
         addWindowListener(new Chiusura());
+        this.setResizable(false);
         operatorePassato = new Operatore(id, pass);
         areeLabel.setVisible(false);
         nomepReg.setVisible(false);

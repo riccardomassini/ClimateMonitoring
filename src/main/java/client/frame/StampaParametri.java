@@ -38,6 +38,7 @@ public class StampaParametri extends JFrame {
     public StampaParametri() {
         initComponents();
         addWindowListener(new Chiusura());
+        this.setResizable(false);
         model1 = (DefaultTableModel) tabella1.getModel(); 
         model1.setRowCount(0);
         model2 = (DefaultTableModel) tabella2.getModel(); 

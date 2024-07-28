@@ -14,6 +14,7 @@ public class ServerFrame extends javax.swing.JFrame {
         ImpostazioniServer.impostaCredenziali("Admin", "1234"); //credenziali default
         initComponents();
         addWindowListener(new Chiusura());
+        this.setResizable(false);
     }
 
     /**

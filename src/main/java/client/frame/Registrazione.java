@@ -20,6 +20,7 @@ public class Registrazione extends javax.swing.JFrame {
     public Registrazione() {
         initComponents();
         addWindowListener(new Chiusura());
+        this.setResizable(false);
     }
 
     /**
@@ -176,11 +177,11 @@ public class Registrazione extends javax.swing.JFrame {
                 valido = false;
             }
 
-            if(nome == null || nome.isEmpty()) {
+            if(nome == null || nome.isEmpty() || nome.length()>30) {
                 out1.setText("Il nome inserito non è valido");
                 valido = false;
             }
-            if(cognome == null || cognome.isEmpty()) {
+            if(cognome == null || cognome.isEmpty() || cognome.length()>30) {
                 out2.setText("Il cognome inserito non è valido");
                 valido = false;
             }
@@ -246,6 +247,10 @@ public class Registrazione extends javax.swing.JFrame {
                 out6.setText(out6.getText() + " " + c.toString() + ";");
             return false;
         }
+        if(password.length() > 60){
+            out6.setText("La password è troppo lunga");
+            return false;
+        }
         return true;
     }
 
@@ -258,6 +263,10 @@ public class Registrazione extends javax.swing.JFrame {
         String REGEX_EMAIL = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
         if (email == null) {
             out4.setText("Inserire una email valida");
+            return false;
+        }
+        if(email.length()>30){
+            out4.setText("Email troppo lunga");
             return false;
         }
         if (!Pattern.compile(REGEX_EMAIL).matcher(email).matches()) {
