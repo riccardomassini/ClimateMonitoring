@@ -98,7 +98,6 @@ public class Parametri extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         teRegN = new javax.swing.JTextField();
         inserisciParam = new javax.swing.JButton();
-        back = new javax.swing.JButton();
         ventoReg = new javax.swing.JComboBox<>();
         umReg = new javax.swing.JComboBox<>();
         presReg = new javax.swing.JComboBox<>();
@@ -107,6 +106,8 @@ public class Parametri extends javax.swing.JFrame {
         altReg = new javax.swing.JComboBox<>();
         massaReg = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
+        back = new javax.swing.JButton();
+        out = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -172,14 +173,6 @@ public class Parametri extends javax.swing.JFrame {
         });
         getContentPane().add(inserisciParam, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 267, -1, -1));
 
-        back.setText("Indietro");
-        back.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backActionPerformed(evt);
-            }
-        });
-        getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 295, -1, -1));
-
         ventoReg.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ventoRegActionPerformed(evt);
@@ -201,18 +194,35 @@ public class Parametri extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
 
+        back.setText("Indietro");
+        back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 420, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(back)
+                .addGap(18, 18, 18)
+                .addComponent(out, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(8, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 350, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(331, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(out, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(back))
+                .addGap(16, 16, 16))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -10, 420, 350));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -10, 470, 370));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -244,7 +254,7 @@ public class Parametri extends javax.swing.JFrame {
 
             for(CategorieParametriClimatici categoria : CategorieParametriClimatici.values())
                 if(!ValutazioneParametro.lunghezzaCommentoValida(nuovaMisurazione.getCommentoParametroConCategoria(categoria))) {
-                    System.err.println("Lunghezza commento per " + categoria.name() + " non valida");
+                    out.setText("Lunghezza commento per " + categoria.name() + " non valida");
                     return;
                 }
 
@@ -343,6 +353,7 @@ public class Parametri extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JComboBox<String> massaReg;
     private javax.swing.JTextField massaRegN;
+    private javax.swing.JLabel out;
     private javax.swing.JComboBox<String> precReg;
     private javax.swing.JTextField precRegN;
     private javax.swing.JComboBox<String> presReg;
