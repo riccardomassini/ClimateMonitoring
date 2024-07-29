@@ -24,8 +24,9 @@ import javax.swing.table.DefaultTableModel;
 import commons.oggetti.misurazioni.PunteggioParametroClimatico;
 import commons.servizio.GestioneMisurazioni;
 import commons.servizio.RicercaPuntiInteresse;
-import org.netbeans.lib.awtextra.AbsoluteConstraints;
-import org.netbeans.lib.awtextra.AbsoluteLayout;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -38,6 +39,7 @@ public class StampaParametri extends JFrame {
     
     public StampaParametri() {
         initComponents();
+        setBackgroundImage("image/sfondo.jpg");
         addWindowListener(new Chiusura());
         this.setResizable(false);
         model1 = (DefaultTableModel) tabella1.getModel(); 
@@ -46,6 +48,22 @@ public class StampaParametri extends JFrame {
         model2.setRowCount(0);
         model3 = (DefaultTableModel) tabella3.getModel(); 
         model3.setRowCount(0);
+    }
+    
+    private void setBackgroundImage(String imagePath) {
+        try {
+            BufferedImage image = ImageIO.read(getClass().getClassLoader().getResource(imagePath));
+
+            if (image != null) {
+                sfondo.setIcon(new ImageIcon(image.getScaledInstance(
+                        sfondo.getWidth(), sfondo.getHeight(), Image.SCALE_SMOOTH
+                )));
+            } else {
+                System.err.println("Immagine non trovata: " + imagePath);
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -57,56 +75,56 @@ public class StampaParametri extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane4 = new JScrollPane();
-        jTextArea1 = new JTextArea();
-        jLabel1 = new JLabel();
-        back = new JButton();
-        jLabel2 = new JLabel();
-        ric1 = new JTextField();
-        ric2 = new JTextField();
-        cerca = new JButton();
-        jScrollPane1 = new JScrollPane();
-        tabella1 = new JTable();
-        jScrollPane2 = new JScrollPane();
-        tabella2 = new JTable();
-        jScrollPane3 = new JScrollPane();
-        tabella3 = new JTable();
-        out = new JLabel();
-        jPanel1 = new JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
+        back = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        ric1 = new javax.swing.JTextField();
+        ric2 = new javax.swing.JTextField();
+        cerca = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabella1 = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabella2 = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tabella3 = new javax.swing.JTable();
+        out = new javax.swing.JLabel();
+        sfondo = new javax.swing.JLabel();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane4.setViewportView(jTextArea1);
 
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new AbsoluteLayout());
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("STAMPA PARAMETRI");
-        getContentPane().add(jLabel1, new AbsoluteConstraints(211, 15, -1, 27));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(211, 15, -1, 27));
 
         back.setText("Indietro");
-        back.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backActionPerformed(evt);
             }
         });
-        getContentPane().add(back, new AbsoluteConstraints(20, 503, -1, -1));
+        getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 503, -1, -1));
 
         jLabel2.setText("Inserisci Area");
-        getContentPane().add(jLabel2, new AbsoluteConstraints(51, 67, -1, -1));
-        getContentPane().add(ric1, new AbsoluteConstraints(38, 89, 93, -1));
-        getContentPane().add(ric2, new AbsoluteConstraints(38, 117, 93, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(51, 67, -1, -1));
+        getContentPane().add(ric1, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 89, 93, -1));
+        getContentPane().add(ric2, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 117, 93, -1));
 
         cerca.setText("Cerca");
-        cerca.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        cerca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cercaActionPerformed(evt);
             }
         });
-        getContentPane().add(cerca, new AbsoluteConstraints(38, 145, 93, -1));
+        getContentPane().add(cerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 145, 93, -1));
 
-        tabella1.setModel(new DefaultTableModel(
+        tabella1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -116,9 +134,9 @@ public class StampaParametri extends JFrame {
         ));
         jScrollPane1.setViewportView(tabella1);
 
-        getContentPane().add(jScrollPane1, new AbsoluteConstraints(176, 67, 818, 303));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 67, 818, 303));
 
-        tabella2.setModel(new DefaultTableModel(
+        tabella2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -128,9 +146,9 @@ public class StampaParametri extends JFrame {
         ));
         jScrollPane2.setViewportView(tabella2);
 
-        getContentPane().add(jScrollPane2, new AbsoluteConstraints(176, 382, 818, 52));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 382, 818, 52));
 
-        tabella3.setModel(new DefaultTableModel(
+        tabella3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -140,23 +158,9 @@ public class StampaParametri extends JFrame {
         ));
         jScrollPane3.setViewportView(tabella3);
 
-        getContentPane().add(jScrollPane3, new AbsoluteConstraints(176, 446, 818, 49));
-        getContentPane().add(out, new AbsoluteConstraints(28, 200, 136, 25));
-
-        jPanel1.setBackground(new Color(204, 255, 204));
-
-        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 1020, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 540, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(jPanel1, new AbsoluteConstraints(0, 0, 1020, 540));
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 446, 818, 49));
+        getContentPane().add(out, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 200, 136, 25));
+        getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 550));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -335,21 +339,21 @@ public class StampaParametri extends JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JButton back;
-    private JButton cerca;
-    private JLabel jLabel1;
-    private JLabel jLabel2;
-    private JPanel jPanel1;
-    private JScrollPane jScrollPane1;
-    private JScrollPane jScrollPane2;
-    private JScrollPane jScrollPane3;
-    private JScrollPane jScrollPane4;
-    private JTextArea jTextArea1;
-    private JLabel out;
-    private JTextField ric1;
-    private JTextField ric2;
-    private JTable tabella1;
-    private JTable tabella2;
-    private JTable tabella3;
+    private javax.swing.JButton back;
+    private javax.swing.JButton cerca;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JLabel out;
+    private javax.swing.JTextField ric1;
+    private javax.swing.JTextField ric2;
+    private javax.swing.JLabel sfondo;
+    private javax.swing.JTable tabella1;
+    private javax.swing.JTable tabella2;
+    private javax.swing.JTable tabella3;
     // End of variables declaration//GEN-END:variables
 }

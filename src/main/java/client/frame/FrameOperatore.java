@@ -8,6 +8,11 @@ import client.clientrmi.ClientRMI;
 import client.clientrmi.ResetClient;
 import client.registraeventi.Chiusura;
 import commons.servizio.Autenticazione;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -19,8 +24,25 @@ public class FrameOperatore extends javax.swing.JFrame {
     
     public FrameOperatore() {
         initComponents();
+        setBackgroundImage("image/sfondo.jpg");
         addWindowListener(new Chiusura());
         this.setResizable(false);
+    }
+    
+    private void setBackgroundImage(String imagePath) {
+        try {
+            BufferedImage image = ImageIO.read(getClass().getClassLoader().getResource(imagePath));
+
+            if (image != null) {
+                sfondo.setIcon(new ImageIcon(image.getScaledInstance(
+                        sfondo.getWidth(), sfondo.getHeight(), Image.SCALE_SMOOTH
+                )));
+            } else {
+                System.err.println("Immagine non trovata: " + imagePath);
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -36,7 +58,7 @@ public class FrameOperatore extends javax.swing.JFrame {
         back = new javax.swing.JButton();
         login = new javax.swing.JButton();
         reg = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        sfondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -68,21 +90,7 @@ public class FrameOperatore extends javax.swing.JFrame {
             }
         });
         getContentPane().add(reg, new org.netbeans.lib.awtextra.AbsoluteConstraints(152, 162, -1, -1));
-
-        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 300));
+        getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, 310));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -161,8 +169,8 @@ public class FrameOperatore extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JButton login;
     private javax.swing.JButton reg;
+    private javax.swing.JLabel sfondo;
     // End of variables declaration//GEN-END:variables
 }

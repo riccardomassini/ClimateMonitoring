@@ -16,6 +16,11 @@ import java.util.ArrayList;
 
 import commons.servizio.GestioneCentriMonitoraggio;
 import commons.servizio.RicercaPuntiInteresse;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 public class RegistraCentro extends javax.swing.JFrame {
     GestioneCentriMonitoraggio gestioneCentriMonitoraggio;
@@ -26,10 +31,20 @@ public class RegistraCentro extends javax.swing.JFrame {
     
     public RegistraCentro() {
         initComponents();
+        setBackgroundImage("image/sfondo.jpg");
+        addWindowListener(new Chiusura());
+        this.setResizable(false);
+        areeLabel.setVisible(false);
+        nomepReg.setVisible(false);
+        codiceReg.setVisible(false);
+        insAree.setVisible(false);
+        centroReg.setVisible(false);
+        out9.setVisible(false);
     }
     
     public RegistraCentro(int id, String pass){
         initComponents();
+        setBackgroundImage("image/sfondo.jpg");
         addWindowListener(new Chiusura());
         this.setResizable(false);
         operatorePassato = new Operatore(id, pass);
@@ -39,6 +54,22 @@ public class RegistraCentro extends javax.swing.JFrame {
         insAree.setVisible(false);
         centroReg.setVisible(false);
         out9.setVisible(false);
+    }
+    
+    private void setBackgroundImage(String imagePath) {
+        try {
+            BufferedImage image = ImageIO.read(getClass().getClassLoader().getResource(imagePath));
+
+            if (image != null) {
+                sfondo.setIcon(new ImageIcon(image.getScaledInstance(
+                        sfondo.getWidth(), sfondo.getHeight(), Image.SCALE_SMOOTH
+                )));
+            } else {
+                System.err.println("Immagine non trovata: " + imagePath);
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -78,11 +109,11 @@ public class RegistraCentro extends javax.swing.JFrame {
         out5 = new javax.swing.JLabel();
         out6 = new javax.swing.JLabel();
         out7 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        out8 = new javax.swing.JLabel();
-        areeLabel = new javax.swing.JLabel();
-        centroReg = new javax.swing.JButton();
         out9 = new javax.swing.JLabel();
+        centroReg = new javax.swing.JButton();
+        areeLabel = new javax.swing.JLabel();
+        out8 = new javax.swing.JLabel();
+        sfondo = new javax.swing.JLabel();
 
         jRadioButton1.setText("jRadioButton1");
 
@@ -91,7 +122,7 @@ public class RegistraCentro extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("REGISTRA CENTRO");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 6, -1, 43));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, -1, 43));
         getContentPane().add(nomeReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 67, 96, -1));
         getContentPane().add(indReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 95, 96, -1));
         getContentPane().add(numcReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 123, 96, -1));
@@ -154,12 +185,9 @@ public class RegistraCentro extends javax.swing.JFrame {
         getContentPane().add(out6, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 208, 143, 26));
         getContentPane().add(out7, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 240, 143, 22));
 
-        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(out8, new org.netbeans.lib.awtextra.AbsoluteConstraints(409, 268, 115, 19));
-
-        areeLabel.setText("Inserisci aree");
-        jPanel1.add(areeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(416, 70, 90, 22));
+        out9.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        out9.setText("Clicca per registrare il centro");
+        getContentPane().add(out9, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, 210, 22));
 
         centroReg.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         centroReg.setText("Registra");
@@ -168,13 +196,12 @@ public class RegistraCentro extends javax.swing.JFrame {
                 centroRegActionPerformed(evt);
             }
         });
-        jPanel1.add(centroReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 190, 90, 30));
+        getContentPane().add(centroReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 90, 30));
 
-        out9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        out9.setText("Clicca per registrare il centro");
-        jPanel1.add(out9, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 193, 22));
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -10, 530, 330));
+        areeLabel.setText("Inserisci aree");
+        getContentPane().add(areeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 70, 90, 22));
+        getContentPane().add(out8, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 240, 120, 19));
+        getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 310));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -262,32 +289,6 @@ public class RegistraCentro extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cliccaRegActionPerformed
 
-    private void centroRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_centroRegActionPerformed
-        gestioneCentriMonitoraggio = ClientRMI.ottieniClientRMI().ottieniStubGestioneCentriMonitoraggio();
-        
-        if(gestioneCentriMonitoraggio != null){ 
-            CentroMonitoraggio nuovoCentro = new CentroMonitoraggio(nomeReg.getText(), indReg.getText(), Integer.parseInt(numcReg.getText()), capReg.getText(), comReg.getText(), proReg.getText());
-
-            //TODO rmi client
-            try {
-                gestioneCentriMonitoraggio.registraCentroMonitoraggio(new CentroMonitoraggio(nuovoCentro.getNomeCentro(), nuovoCentro.getIndirizzo(), nuovoCentro.getNumeroCivico(), nuovoCentro.getCAP(), nuovoCentro.getComune(), nuovoCentro.getProvincia()));
-                gestioneCentriMonitoraggio.associaPuntiInteresseCentroMonitoraggio(nuovoCentro.getNomeCentro(), puntiInteresseMonitorati.toArray(new PuntoInteresse[puntiInteresseMonitorati.size()]));
-                gestioneCentriMonitoraggio.associaCentroMonitoraggioOperatore(operatorePassato.getUsername(), nuovoCentro.getNomeCentro());
-            } catch(RemoteException ex) {
-                System.err.println("Errore RMI");
-                ex.printStackTrace();
-                System.exit(1);
-            }
-
-            AreaOperatore areaOperatore = new AreaOperatore(operatorePassato.getUsername(), operatorePassato.getPassword());
-            areaOperatore.setLocation(this.getX(), this.getY());
-            this.dispose();
-            areaOperatore.setVisible(true);
-        }else{
-            ResetClient.spegniClient(this);
-        }
-    }//GEN-LAST:event_centroRegActionPerformed
-
     private void insAreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insAreeActionPerformed
         gestioneCentriMonitoraggio = ClientRMI.ottieniClientRMI().ottieniStubGestioneCentriMonitoraggio();
         
@@ -330,6 +331,32 @@ public class RegistraCentro extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_insAreeActionPerformed
+
+    private void centroRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_centroRegActionPerformed
+        gestioneCentriMonitoraggio = ClientRMI.ottieniClientRMI().ottieniStubGestioneCentriMonitoraggio();
+
+        if(gestioneCentriMonitoraggio != null){
+            CentroMonitoraggio nuovoCentro = new CentroMonitoraggio(nomeReg.getText(), indReg.getText(), Integer.parseInt(numcReg.getText()), capReg.getText(), comReg.getText(), proReg.getText());
+
+            //TODO rmi client
+            try {
+                gestioneCentriMonitoraggio.registraCentroMonitoraggio(new CentroMonitoraggio(nuovoCentro.getNomeCentro(), nuovoCentro.getIndirizzo(), nuovoCentro.getNumeroCivico(), nuovoCentro.getCAP(), nuovoCentro.getComune(), nuovoCentro.getProvincia()));
+                gestioneCentriMonitoraggio.associaPuntiInteresseCentroMonitoraggio(nuovoCentro.getNomeCentro(), puntiInteresseMonitorati.toArray(new PuntoInteresse[puntiInteresseMonitorati.size()]));
+                gestioneCentriMonitoraggio.associaCentroMonitoraggioOperatore(operatorePassato.getUsername(), nuovoCentro.getNomeCentro());
+            } catch(RemoteException ex) {
+                System.err.println("Errore RMI");
+                ex.printStackTrace();
+                System.exit(1);
+            }
+
+            AreaOperatore areaOperatore = new AreaOperatore(operatorePassato.getUsername(), operatorePassato.getPassword());
+            areaOperatore.setLocation(this.getX(), this.getY());
+            this.dispose();
+            areaOperatore.setVisible(true);
+        }else{
+            ResetClient.spegniClient(this);
+        }
+    }//GEN-LAST:event_centroRegActionPerformed
 
     /**
      * Metodo controlla se il cap inserito dall'utente è valido
@@ -430,7 +457,6 @@ public class RegistraCentro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JTextField nomeReg;
     private javax.swing.JTextField nomepReg;
@@ -446,5 +472,6 @@ public class RegistraCentro extends javax.swing.JFrame {
     private javax.swing.JLabel out8;
     private javax.swing.JLabel out9;
     private javax.swing.JTextField proReg;
+    private javax.swing.JLabel sfondo;
     // End of variables declaration//GEN-END:variables
 }

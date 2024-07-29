@@ -9,9 +9,14 @@ import client.clientrmi.ResetClient;
 import client.registraeventi.Chiusura;
 import commons.oggetti.PuntoInteresse;
 import commons.servizio.RicercaPuntiInteresse;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import javax.swing.table.DefaultTableModel;
 import java.rmi.RemoteException;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -23,11 +28,28 @@ public class Cittadino extends javax.swing.JFrame {
     
     public Cittadino(){
         initComponents();
+        setBackgroundImage("image/sfondo.jpg");
         addWindowListener(new Chiusura());
         this.setResizable(false);
         inizializza();
     }
     
+    private void setBackgroundImage(String imagePath) {
+        try {
+            BufferedImage image = ImageIO.read(getClass().getClassLoader().getResource(imagePath));
+
+            if (image != null) {
+                sfondo.setIcon(new ImageIcon(image.getScaledInstance(
+                        sfondo.getWidth(), sfondo.getHeight(), Image.SCALE_SMOOTH
+                )));
+            } else {
+                System.err.println("Immagine non trovata: " + imagePath);
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public void inizializza(){
         ric1.setVisible(false);
         ric2.setVisible(false);
@@ -95,12 +117,12 @@ public class Cittadino extends javax.swing.JFrame {
         back = new javax.swing.JButton();
         ric4 = new javax.swing.JTextField();
         cerca3 = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        out = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        out = new javax.swing.JLabel();
+        sfondo = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -190,29 +212,26 @@ public class Cittadino extends javax.swing.JFrame {
         });
         getContentPane().add(cerca3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 92, -1));
 
-        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        out.setBackground(new java.awt.Color(255, 255, 255));
+        out.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        getContentPane().add(out, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 300, 120, 30));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel4.setText("Longitudine");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, 22));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel3.setText("Nome");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 66, 22));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 66, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel5.setText("Latitudine");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 80, 22));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 80, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel2.setText("Stato");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 66, -1));
-
-        out.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jPanel1.add(out, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, 120, 30));
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 430));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 66, -1));
+        getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 430));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -445,7 +464,6 @@ public class Cittadino extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
@@ -454,6 +472,7 @@ public class Cittadino extends javax.swing.JFrame {
     private javax.swing.JTextField ric2;
     private javax.swing.JTextField ric3;
     private javax.swing.JTextField ric4;
+    private javax.swing.JLabel sfondo;
     private javax.swing.JTable tabella;
     // End of variables declaration//GEN-END:variables
 
