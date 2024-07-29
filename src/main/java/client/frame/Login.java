@@ -12,11 +12,6 @@ import java.rmi.RemoteException;
 
 import commons.oggetti.Operatore;
 import commons.servizio.Autenticazione;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 
 /**
  *
@@ -27,25 +22,8 @@ public class Login extends javax.swing.JFrame {
     
     public Login() {
         initComponents();
-        setBackgroundImage("image/sfondo.jpg");
         addWindowListener(new Chiusura());
         this.setResizable(false);
-    }
-    
-    private void setBackgroundImage(String imagePath) {
-        try {
-            BufferedImage image = ImageIO.read(getClass().getClassLoader().getResource(imagePath));
-
-            if (image != null) {
-                sfondo.setIcon(new ImageIcon(image.getScaledInstance(
-                        sfondo.getWidth(), sfondo.getHeight(), Image.SCALE_SMOOTH
-                )));
-            } else {
-                System.err.println("Immagine non trovata: " + imagePath);
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
     }
 
     /**
@@ -65,7 +43,7 @@ public class Login extends javax.swing.JFrame {
         back = new javax.swing.JButton();
         ok = new javax.swing.JButton();
         out = new javax.swing.JLabel();
-        sfondo = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -113,7 +91,21 @@ public class Login extends javax.swing.JFrame {
 
         out.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         getContentPane().add(out, new org.netbeans.lib.awtextra.AbsoluteConstraints(95, 251, 168, 23));
-        getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 310));
+
+        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 270, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 300));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -216,10 +208,10 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JTextField ident;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel log;
     private javax.swing.JButton ok;
     private javax.swing.JLabel out;
     private javax.swing.JPasswordField password;
-    private javax.swing.JLabel sfondo;
     // End of variables declaration//GEN-END:variables
 }

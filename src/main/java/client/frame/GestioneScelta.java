@@ -7,13 +7,6 @@ package client.frame;
 import client.clientrmi.ClientRMI;
 import client.registraeventi.Chiusura;
 import commons.servizio.Autenticazione;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 public class GestioneScelta extends javax.swing.JFrame {
     
@@ -22,7 +15,6 @@ public class GestioneScelta extends javax.swing.JFrame {
 
     public GestioneScelta() {
         initComponents();
-        setBackgroundImage("image/sfondo.jpg");
         addWindowListener(new Chiusura());
         this.setResizable(false);
 
@@ -34,7 +26,6 @@ public class GestioneScelta extends javax.swing.JFrame {
     
     public GestioneScelta(String flag){
         initComponents();
-        setBackgroundImage("image/sfondo.jpg");
         addWindowListener(new Chiusura());
         this.setResizable(false);
 
@@ -42,22 +33,6 @@ public class GestioneScelta extends javax.swing.JFrame {
         operatore.setVisible(false);
         out.setVisible(true);
         riprova.setVisible(true);
-    }
-    
-    private void setBackgroundImage(String imagePath) {
-        try {
-            BufferedImage image = ImageIO.read(getClass().getClassLoader().getResource(imagePath));
-
-            if (image != null) {
-                sfondo.setIcon(new ImageIcon(image.getScaledInstance(
-                        sfondo.getWidth(), sfondo.getHeight(), Image.SCALE_SMOOTH
-                )));
-            } else {
-                System.err.println("Immagine non trovata: " + imagePath);
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
     }
 
     /**
@@ -77,10 +52,10 @@ public class GestioneScelta extends javax.swing.JFrame {
         jColorChooser5 = new javax.swing.JColorChooser();
         cittadino = new javax.swing.JButton();
         operatore = new javax.swing.JButton();
-        riprova = new javax.swing.JButton();
-        out = new javax.swing.JLabel();
         scelta = new javax.swing.JLabel();
-        sfondo = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        out = new javax.swing.JLabel();
+        riprova = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -101,22 +76,46 @@ public class GestioneScelta extends javax.swing.JFrame {
         });
         getContentPane().add(operatore, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 197, -1, -1));
 
+        scelta.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        scelta.setText("CLIMATE MONITOR");
+        getContentPane().add(scelta, new org.netbeans.lib.awtextra.AbsoluteConstraints(97, 32, -1, 61));
+
+        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
+
+        out.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        out.setText("Server non acceso...");
+
         riprova.setText("Riprova");
         riprova.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 riprovaActionPerformed(evt);
             }
         });
-        getContentPane().add(riprova, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 83, -1));
 
-        out.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        out.setText("Server non acceso...");
-        getContentPane().add(out, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, -1, 45));
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(127, Short.MAX_VALUE)
+                .addComponent(out)
+                .addGap(118, 118, 118))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(159, 159, 159)
+                .addComponent(riprova, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(135, Short.MAX_VALUE)
+                .addComponent(out, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60)
+                .addComponent(riprova)
+                .addGap(37, 37, 37))
+        );
 
-        scelta.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        scelta.setText("CLIMATE MONITOR");
-        getContentPane().add(scelta, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, -1, 61));
-        getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 300));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 300));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -202,11 +201,11 @@ public class GestioneScelta extends javax.swing.JFrame {
     private javax.swing.JColorChooser jColorChooser4;
     private javax.swing.JColorChooser jColorChooser5;
     private javax.swing.JOptionPane jOptionPane1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JButton operatore;
     private javax.swing.JLabel out;
     private javax.swing.JButton riprova;
     private javax.swing.JLabel scelta;
-    private javax.swing.JLabel sfondo;
     // End of variables declaration//GEN-END:variables
 
 }
