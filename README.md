@@ -1,28 +1,27 @@
 # ClimateMonitoring
-
-ClimateMonitoring è un applicazione per la gestione e la rilevazioni di parametri climatici su determinate aree di interesse
+ClimateMonitoring è un applicazione per la gestione e la rilevazioni di parametri climatici su determinate aree di interesse.
 
 ## Descrizione
-
-MyProject ti permette di creare, gestire e collaborare su progetti con facilità. Include funzionalità per la gestione delle attività, la pianificazione e la condivisione di documenti. È progettato per essere facile da usare e altamente personalizzabile.
+Puoi utilizzare ClimateMonitoring come operatore oppure come cittadino. I primi possono registrarsi all'applicazione e successivamente effettuare il log-in avendo la possibilità di registrare o scegliere un centro di monitoraggio dove è possibile effettuare delle operazioni di rilevazione su determinate aree di interesse. I cittadini possono invece osservare le rilevazioni fatte dagli operatori e cercare tramite un interfaccia apposita tutti i paesi del mondo per nome, codice stato oppure per coordinate.
 
 ## Prerequisiti
 Elenco prerequisiti...
 
 ## Installazione
-
 Per installare e configurare ClimateMonitoring sul tuo ambiente locale, segui questi passaggi:
 
-1. Clona il repository:
+1. Clona la repository tramite il seguente comando:
     ```bash
     git clone https://github.com/riccardomassini/ClimateMonitoring.git
     ```
-    oppure tramite Download zip
-2. Vai nella directory del progetto:
+    oppure cliccando su Code -> Download zip.
+   
+3. Vai nella directory del progetto:
     ```bash
     cd myproject
     ```
-3. Installa le dipendenze:
+    
+4. Installa le dipendenze:
     ```bash
     npm install
     ```
