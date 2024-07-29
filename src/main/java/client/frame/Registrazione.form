@@ -155,7 +155,7 @@
     <Component class="javax.swing.JLabel" name="out2">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="231" y="84" width="210" height="22"/>
+          <AbsoluteConstraints x="231" y="84" width="230" height="22"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -205,7 +205,7 @@
     <Component class="javax.swing.JLabel" name="out5">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="231" y="186" width="210" height="22"/>
+          <AbsoluteConstraints x="231" y="186" width="330" height="22"/>
         </Constraint>
       </Constraints>
     </Component>

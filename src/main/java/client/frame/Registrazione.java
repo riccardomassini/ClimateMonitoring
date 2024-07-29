@@ -103,7 +103,7 @@ public class Registrazione extends javax.swing.JFrame {
             }
         });
         getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 260, -1, -1));
-        getContentPane().add(out2, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 84, 210, 22));
+        getContentPane().add(out2, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 84, 230, 22));
         getContentPane().add(cognomeReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(111, 84, 85, -1));
 
         jLabel7.setText("Cognome");
@@ -113,7 +113,7 @@ public class Registrazione extends javax.swing.JFrame {
 
         out4.setBackground(new java.awt.Color(204, 255, 204));
         getContentPane().add(out4, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 152, 310, 22));
-        getContentPane().add(out5, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 186, 210, 22));
+        getContentPane().add(out5, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 186, 330, 22));
         getContentPane().add(out6, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 220, 340, 22));
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
@@ -177,12 +177,20 @@ public class Registrazione extends javax.swing.JFrame {
                 valido = false;
             }
 
-            if(nome == null || nome.isEmpty() || nome.length()>30) {
+            if(nome == null || nome.isEmpty()) {
                 out1.setText("Il nome inserito non è valido");
+                valido = false;
+            }
+            if(nome.length()>30){
+                out1.setText("Il nome è troppo lungo");
                 valido = false;
             }
             if(cognome == null || cognome.isEmpty() || cognome.length()>30) {
                 out2.setText("Il cognome inserito non è valido");
+                valido = false;
+            }
+            if(cognome.length()>30){
+                out2.setText("Il cognome è troppo lungo");
                 valido = false;
             }
             if(id < 0) {
