@@ -16,10 +16,13 @@ Per installare e configurare ClimateMonitoring sul tuo ambiente locale, segui qu
     ```
     oppure cliccando su Code -> Download zip.
    
-3. Vai nella directory del progetto:
+2. Se hai usato il comando ```git``` per scaricare il progetto allora puoi accederci direttamente con:
     ```bash
-    cd myproject
+    cd ClimateMonitoring
     ```
+    Se invece hai scaricato il file zip:
+    * estrai la cartella
+    * accedi come mostrato precedentemente
     
 4. Installa le dipendenze:
     ```bash
