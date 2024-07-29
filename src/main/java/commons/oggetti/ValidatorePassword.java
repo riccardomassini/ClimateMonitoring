@@ -7,8 +7,7 @@ import java.util.regex.Pattern;
 public class ValidatorePassword {
     private static final int FATTORE_COSTO_HASH_BCRYPT = 15;
     public static final int LUNGHEZZA_MINIMA = 8;
-    public static final char[] caratteriSpecialiAmmessi = {'!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '-', '=', '[', ']', '{', '}', ';', ':', '\'', '\"', '\\', '|', ',', '.', '<', '>', '/', '?'};
-    private static final String caratteriSpecialiConEscape = "\\.^$|()[]*+?{}";
+    private static final String REGEX_CARATTERI_SPECIALI = "[!@#$%^&*()_+\\-=\\[\\]\\{\\};:'\"\\\\/|,.<>?]";
     private static final String REGEX_LETTERE_MAIUSCOLE = ".*[A-Z].*";
     private static final String REGEX_LETTERE_MINUSCOLE = ".*[a-z].*";
     private static final String REGEX_CIFRE = ".*\\d.*";
@@ -21,16 +20,6 @@ public class ValidatorePassword {
         return BCrypt.checkpw(password, hash);
     }
 
-    private static String costruttoreRegexCaratteriSpeciali() {
-        StringBuilder regex = new StringBuilder("[");
-        for (char c : caratteriSpecialiAmmessi) {
-            if (caratteriSpecialiConEscape.indexOf(c) != -1)
-                regex.append("\\");
-            regex.append(c);
-        }
-        regex.append("]");
-        return regex.toString();
-    }
 
     public static boolean rispettaLunghezzaMinima(String password) {
         return password.length() >= LUNGHEZZA_MINIMA;
@@ -39,7 +28,7 @@ public class ValidatorePassword {
     public static boolean contieneCarattereSpeciale(String password) {
         if (password == null || password.isEmpty())
             return false;
-        return Pattern.compile(costruttoreRegexCaratteriSpeciali()).matcher(password).find();
+        return Pattern.compile(REGEX_CARATTERI_SPECIALI).matcher(password).find();
     }
 
     public static boolean contieneCifra(String password) {
@@ -60,7 +49,4 @@ public class ValidatorePassword {
         return Pattern.compile(REGEX_LETTERE_MINUSCOLE).matcher(password).find();
     }
 
-    public static boolean formatValido(String password) {
-        return contieneCifra(password) && contieneLetteraMaiuscola(password) && contieneLetteraMinuscola(password);
-    }
 }

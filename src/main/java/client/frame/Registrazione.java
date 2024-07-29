@@ -251,9 +251,7 @@ public class Registrazione extends javax.swing.JFrame {
             return false;
         }
         if(!ValidatorePassword.contieneCarattereSpeciale(password)) {
-            out6.setText("deve contenere almeno un carattere speciale:");
-            for(Character c : ValidatorePassword.caratteriSpecialiAmmessi)
-                out6.setText(out6.getText() + " " + c.toString() + ";");
+            out6.setText("deve contenere almeno un carattere speciale");
             return false;
         }
         if(password.length() > 60){
