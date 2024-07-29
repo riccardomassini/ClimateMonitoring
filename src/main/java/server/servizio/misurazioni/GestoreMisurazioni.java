@@ -29,5 +29,4 @@ public class GestoreMisurazioni implements GestioneMisurazioni {
     public synchronized Misurazione[] ottieniMisurazioniSuPuntoInteresse(int idPuntoInteresse) throws RemoteException {
         return misurazioniDAO.ottieniMisurazioniPuntoInteresse(idPuntoInteresse);
     }
-
 }

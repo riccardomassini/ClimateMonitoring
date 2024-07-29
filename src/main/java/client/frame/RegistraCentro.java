@@ -231,12 +231,18 @@ public class RegistraCentro extends javax.swing.JFrame {
 
             if(nome.length()<=0)
                 out1.setText("Troppo corto");
+            if(nome.length()>20)
+                out1.setText("Troppo lungo");
             if(indirizzo.length()<=0)
                 out2.setText("Troppo corto");
+            if(indirizzo.length()>50)
+                out1.setText("Troppo lungo");
             if(!controlloCap(cap))
                 out4.setText("CAP invalido");
             if(comune.length()<=0)
                 out5.setText("Troppo corto");
+            if(comune.length()>50)
+                out5.setText("Troppo lungo");
             if(provincia.length()!=2)
                 out6.setText("inserire 2 lettere");
 

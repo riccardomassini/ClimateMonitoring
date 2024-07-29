@@ -15,6 +15,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
@@ -211,8 +212,7 @@ public class StampaParametri extends JFrame {
                 System.exit(1);
             }
 
-            //TODO ATTENZIONE!!! vedere se può funzionare
-            if(elencoMisurazioni == null) {
+            if(elencoMisurazioni.length == 0) {
                 out.setText("Nessuna rilevazione");
                 return;
             }
