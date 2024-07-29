@@ -21,15 +21,17 @@ Per installare e configurare ClimateMonitoring sul tuo ambiente locale, segui qu
     cd ClimateMonitoring
     ```
     Se invece hai scaricato il file zip:
-        * estrai la cartella
-        * accedi come mostrato precedentemente
+    * estrai la cartella
+    * accedi come mostrato precedentemente
 
 ## Inizializzazione del progetto
-
+1. Una volta entrati nella cartella principale del progetto occorre creare e inizializzare il database utilizzando 2 comandi da terminale, è fondamentale trovarsi nella stessa directory del file pom.xml:
+   * ```mvn clean```
+   * ```mvn install```
+2. Una volta eseguiti questi due comandi il progetto sarà perfettamente configurato ed eseguibili, infatti sarà stata creata una cartella ```jar``` contenente 2 file eseguibili nel formato ```.jar```.
 
 ## Utilizzo
-
-Dopo aver installato le dipendenze, puoi avviare l'applicazione con il comando:
-
-```bash
-npm start
+Per utilizzare l'applicazione è necessario eseguire entrambi i file ```.jar```, sia il server che il client.
+Si può fare in due modi:
+* accedendo alla cartella ```jar``` e facendo doppio click su i due file.
+* accedendo alla cartella ```jar``` da terminale e digitando i seguenti comandi: ```java -jar serverCM.jar``` e ```java -jar clientCM.jar```, un alternativa a questo è eseguire direttamente i processi ```./serverCM``` e ```./clientCM```
