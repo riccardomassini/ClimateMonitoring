@@ -21,8 +21,8 @@ Per installare e configurare ClimateMonitoring sul tuo ambiente locale, segui qu
     cd ClimateMonitoring
     ```
     Se invece hai scaricato il file zip:
-        *estrai la cartella
-        *accedi come mostrato precedentemente
+        * estrai la cartella
+        * accedi come mostrato precedentemente
 
 ## Inizializzazione del progetto
 
