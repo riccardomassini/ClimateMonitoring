@@ -5,7 +5,9 @@ ClimateMonitoring è un applicazione per la gestione e la rilevazioni di paramet
 Puoi utilizzare ClimateMonitoring come operatore oppure come cittadino. I primi possono registrarsi all'applicazione e successivamente effettuare il log-in avendo la possibilità di registrare o scegliere un centro di monitoraggio dove è possibile effettuare delle operazioni di rilevazione su determinate aree di interesse. I cittadini possono invece osservare le rilevazioni fatte dagli operatori e cercare tramite un interfaccia apposita tutti i paesi del mondo per nome, codice stato oppure per coordinate.
 
 ## Prerequisiti
-Elenco prerequisiti...
+* java 17 o versioni più rceneti
+* PostgreSQL versione 16
+* l'applicazione utilizza username e password default di postgres -> username: ```postgres``` e password: ```root```
 
 ## Installazione
 Per installare e configurare ClimateMonitoring sul tuo ambiente locale, segui questi passaggi:
@@ -20,7 +22,7 @@ Per installare e configurare ClimateMonitoring sul tuo ambiente locale, segui qu
     ```bash
     cd ClimateMonitoring
     ```
-    Se invece hai scaricato il file zip:
+    Se invece hai scaricato il file ```.zip```:
     * estrai la cartella
     * accedi come mostrato precedentemente
 
@@ -28,7 +30,7 @@ Per installare e configurare ClimateMonitoring sul tuo ambiente locale, segui qu
 1. Una volta entrati nella cartella principale del progetto occorre creare e inizializzare il database utilizzando 2 comandi da terminale, è fondamentale trovarsi nella stessa directory del file pom.xml:
    * ```mvn clean```
    * ```mvn install```
-2. Una volta eseguiti questi due comandi il progetto sarà perfettamente configurato ed eseguibili, infatti sarà stata creata una cartella ```jar``` contenente 2 file eseguibili nel formato ```.jar```.
+2. Una volta eseguiti questi due comandi il progetto sarà perfettamente configurato ed eseguibile, infatti sarà stata creata una cartella ```jar``` contenente 2 file eseguibili nel formato ```.jar```.
 
 ## Utilizzo
 Per utilizzare l'applicazione è necessario eseguire entrambi i file ```.jar```, sia il server che il client.
