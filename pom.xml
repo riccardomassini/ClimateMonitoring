@@ -73,7 +73,7 @@
               <autocommit>true</autocommit>
               <driver>org.postgresql.Driver</driver>
               <username>postgres</username>
-              <password>root</password>
+              <password>1234</password>
               <sqlCommand>drop database if exists climate</sqlCommand>
             </configuration>
           </execution>
@@ -89,7 +89,7 @@
               <autocommit>true</autocommit>
               <driver>org.postgresql.Driver</driver>
               <username>postgres</username>
-              <password>root</password>
+              <password>1234</password>
               <sqlCommand>create database climate</sqlCommand>
             </configuration>
           </execution>
@@ -105,7 +105,7 @@
               <autocommit>true</autocommit>
               <driver>org.postgresql.Driver</driver>
               <username>postgres</username>
-              <password>root</password>
+              <password>1234</password>
               <srcFiles>
                 <srcFile>data/sql_commands.sql</srcFile>
               </srcFiles>
