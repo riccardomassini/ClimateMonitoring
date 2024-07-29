@@ -173,28 +173,28 @@ public class Registrazione extends javax.swing.JFrame {
             try {
                 id = Integer.parseInt(idReg.getText());
             } catch(NumberFormatException e) {
-                out5.setText("non è un numero valido");
+                out5.setText("l'ID inserito non è un numero valido");
                 valido = false;
             }
 
             if(nome == null || nome.isEmpty()) {
-                out1.setText("nome non valido");
+                out1.setText("Il nome inserito non è valido");
                 valido = false;
             }
             if(nome.length()>30){
-                out1.setText("nome troppo lungo");
+                out1.setText("Il nome è troppo lungo");
                 valido = false;
             }
             if(cognome == null || cognome.isEmpty() || cognome.length()>30) {
-                out2.setText("cognome non valido");
+                out2.setText("Il cognome inserito non è valido");
                 valido = false;
             }
             if(cognome.length()>30){
-                out2.setText("cognome troppo lungo");
+                out2.setText("Il cognome è troppo lungo");
                 valido = false;
             }
             if(id < 0) {
-                out5.setText("deve essere un intero positivo");
+                out5.setText("L'ID utente deve essere un intero positivo");
                 valido = false;
             }
 
@@ -217,7 +217,7 @@ public class Registrazione extends javax.swing.JFrame {
                     out1.setText("Operatore registrato con successo!");
                     backActionPerformed(evt);
                 } else
-                    out5.setText("ID " + id + " gia registrato");
+                    out5.setText("Un operatore con ID " + id + " è gia registrato");
             } catch(RemoteException ex) {
                 System.err.println("Errore RMI: impossibile registrare un nuovo operatore");
                 ex.printStackTrace();
@@ -234,29 +234,29 @@ public class Registrazione extends javax.swing.JFrame {
             return false;
         }
         if(!ValidatorePassword.rispettaLunghezzaMinima(password)) {
-            out6.setText("deve contenere un minimo di " + ValidatorePassword.LUNGHEZZA_MINIMA + " caratteri");
+            out6.setText("La password deve contenere un minimo di " + ValidatorePassword.LUNGHEZZA_MINIMA + " caratteri");
             return false;
         }
         if(!ValidatorePassword.contieneCifra(password)) {
-            out6.setText("deve contenere almeno una cifra");
+            out6.setText("La password deve contenere almeno una cifra");
             return false;
         }
         if(!ValidatorePassword.contieneLetteraMinuscola(password)) {
-            out6.setText("deve contenere almeno una lettera minuscola");
+            out6.setText("La password deve contenere almeno una lettera minuscola");
             return false;
         }
         if(!ValidatorePassword.contieneLetteraMaiuscola(password)) {
-            out6.setText("deve contenere almeno una lettera maiuscola");
+            out6.setText("La password deve contenere almeno una lettera maiuscola");
             return false;
         }
         if(!ValidatorePassword.contieneCarattereSpeciale(password)) {
-            out6.setText("deve contenere almeno un carattere speciale:");
+            out6.setText("La password deve contenere almeno un carattere speciale:");
             for(Character c : ValidatorePassword.caratteriSpecialiAmmessi)
                 out6.setText(out6.getText() + " " + c.toString() + ";");
             return false;
         }
         if(password.length() > 60){
-            out6.setText("troppo lunga");
+            out6.setText("La password è troppo lunga");
             return false;
         }
         return true;
@@ -278,7 +278,7 @@ public class Registrazione extends javax.swing.JFrame {
             return false;
         }
         if (!Pattern.compile(REGEX_EMAIL).matcher(email).matches()) {
-            out4.setText("email con formato non valido");
+            out4.setText("La stringa inserita non corrisponde ad una email valida");
             return false;
         }
         return true;
@@ -290,14 +290,15 @@ public class Registrazione extends javax.swing.JFrame {
      * @return valore booleano, true se il codice fiscale è valido, false altrimenti
      */
     private boolean codiceFiscaleValido(String codiceFiscale){
+        String REGEX_CODICEFISCALE = "/^(?:[A-Z][AEIOU][AEIOUX]|[AEIOU]X{2}|[B-DF-HJ-NP-TV-Z]{2}[A-Z]){2}(?:[\\dLMNP-V]{2}(?:[A-EHLMPR-T](?:[04LQ][1-9MNP-V]|[15MR][\\dLMNP-V]|[26NS][0-8LMNP-U])|[DHPS][37PT][0L]|[ACELMRT][37PT][01LM]|[AC-EHLMPR-T][26NS][9V])|(?:[02468LNQSU][048LQU]|[13579MPRTV][26NS])B[26NS][9V])(?:[A-MZ][1-9MNP-V][\\dLMNP-V]{2}|[A-M][0L](?:[1-9MNP-V][\\dLMNP-V]|[0L][1-9MNP-V]))[A-Z]$/i";
         int LUNGHEZZA_CF = 16;
 
         if (codiceFiscale == null) {
-            out3.setText("inserire un CF valido");
+            out3.setText("Inserire un CF valido");
             return false;
         }
         if (codiceFiscale.length() != LUNGHEZZA_CF) {
-            out3.setText("deve contenere " + LUNGHEZZA_CF + " caratteri");
+            out3.setText("La stringa inserita deve contenere " + LUNGHEZZA_CF + " caratteri");
             return false;
         }
         if(!(Character.isLetter(codiceFiscale.charAt(0)) && //COGNOME
@@ -316,10 +317,7 @@ public class Registrazione extends javax.swing.JFrame {
                 Character.isDigit(codiceFiscale.charAt(13)) && //COMUNE / STATO DI NASCITA
                 Character.isDigit(codiceFiscale.charAt(14)) && //COMUNE / STATO DI NASCITA
                 Character.isLetter(codiceFiscale.charAt(15)))) //CARATTERE DI CONTROLLO
-        {
-            out3.setText("non rispetta formato CF");
             return false;
-        }
 
         return true;
     }

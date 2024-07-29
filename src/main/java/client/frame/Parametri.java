@@ -26,8 +26,6 @@ public class Parametri extends javax.swing.JFrame {
     Operatore operatorePassato;
     String nomeCentroPassato;
     PuntoInteresse puntoInteressePassato;
-
-    private static final String FORMAT_COMMENTO_VUOTO = "/";
     
     
     public Parametri(){
@@ -246,55 +244,13 @@ public class Parametri extends javax.swing.JFrame {
         if(gestioneMisurazioni != null){
         
             Misurazione nuovaMisurazione = new Misurazione();
-            ValutazioneParametro valutazioneTemp = null;
-            int categorieValutate = CategorieParametriClimatici.values().length;
-
-            try {
-                valutazioneTemp = valutazioneValida(estraiNumero((String) ventoReg.getSelectedItem()), ventoRegN.getText());
-                valutazioneTemp.setCommento(formatCommento(valutazioneTemp.getCommento()));
-                nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.VENTO, valutazioneTemp);
-                categorieValutate = valutazioneNulla(nuovaMisurazione.getValutazioneParametroConCategoria(CategorieParametriClimatici.VENTO)) ? categorieValutate - 1 : categorieValutate;
-
-                valutazioneTemp = valutazioneValida(estraiNumero((String) teReg.getSelectedItem()), teRegN.getText());
-                valutazioneTemp.setCommento(formatCommento(valutazioneTemp.getCommento()));
-                nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.TEMPERATURA, valutazioneTemp);
-                categorieValutate = valutazioneNulla(nuovaMisurazione.getValutazioneParametroConCategoria(CategorieParametriClimatici.TEMPERATURA)) ? categorieValutate - 1 : categorieValutate;
-
-                valutazioneTemp = valutazioneValida(estraiNumero((String) precReg.getSelectedItem()), precRegN.getText());
-                valutazioneTemp.setCommento(formatCommento(valutazioneTemp.getCommento()));
-                nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.PRECIPITAZIONI, valutazioneTemp);
-                categorieValutate = valutazioneNulla(nuovaMisurazione.getValutazioneParametroConCategoria(CategorieParametriClimatici.PRECIPITAZIONI)) ? categorieValutate - 1 : categorieValutate;
-
-                valutazioneTemp = valutazioneValida(estraiNumero((String) presReg.getSelectedItem()), presRegN.getText());
-                valutazioneTemp.setCommento(formatCommento(valutazioneTemp.getCommento()));
-                nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.PRESSIONE,valutazioneTemp);
-                categorieValutate = valutazioneNulla(nuovaMisurazione.getValutazioneParametroConCategoria(CategorieParametriClimatici.PRESSIONE)) ? categorieValutate - 1 : categorieValutate;
-
-                valutazioneTemp = valutazioneValida(estraiNumero((String) umReg.getSelectedItem()), umRegN.getText());
-                valutazioneTemp.setCommento(formatCommento(valutazioneTemp.getCommento()));
-                nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.UMIDITA, valutazioneTemp);
-                categorieValutate = valutazioneNulla(nuovaMisurazione.getValutazioneParametroConCategoria(CategorieParametriClimatici.UMIDITA)) ? categorieValutate - 1 : categorieValutate;
-
-                valutazioneTemp = valutazioneValida(estraiNumero((String) altReg.getSelectedItem()), altRegN.getText());
-                valutazioneTemp.setCommento(formatCommento(valutazioneTemp.getCommento()));
-                nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.ALTITUDINE_GHIACCIAI, valutazioneTemp);
-                categorieValutate = valutazioneNulla(nuovaMisurazione.getValutazioneParametroConCategoria(CategorieParametriClimatici.ALTITUDINE_GHIACCIAI)) ? categorieValutate - 1 : categorieValutate;
-
-                valutazioneTemp = valutazioneValida(estraiNumero((String) massaReg.getSelectedItem()), massaRegN.getText());
-                valutazioneTemp.setCommento(formatCommento(valutazioneTemp.getCommento()));
-                nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.MASSA_GHIACCIAI, valutazioneTemp);
-                categorieValutate = valutazioneNulla(nuovaMisurazione.getValutazioneParametroConCategoria(CategorieParametriClimatici.MASSA_GHIACCIAI)) ? categorieValutate - 1 : categorieValutate;
-
-                if(categorieValutate == 0){
-                    out.setText("Deve essere valutata almeno una categoria di parametri climatici");
-                    return;
-                }
-
-            } catch(IllegalArgumentException ex) {
-                out.setText("Impossibile inserire commenti per categorie con valutazione nulla");
-                return;
-            }
-
+            nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.VENTO, new ValutazioneParametro(estraiNumero((String) ventoReg.getSelectedItem()), formatCommento(ventoRegN.getText())));
+            nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.TEMPERATURA, new ValutazioneParametro(estraiNumero((String)   teReg.getSelectedItem()), formatCommento(teRegN.getText())));
+            nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.PRECIPITAZIONI, new ValutazioneParametro(estraiNumero((String) precReg.getSelectedItem()), formatCommento(precRegN.getText())));
+            nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.PRESSIONE,new ValutazioneParametro(estraiNumero((String) presReg.getSelectedItem()), formatCommento(presRegN.getText())));
+            nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.UMIDITA, new ValutazioneParametro(estraiNumero((String) umReg.getSelectedItem()), formatCommento(umRegN.getText())));
+            nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.ALTITUDINE_GHIACCIAI, new ValutazioneParametro(estraiNumero((String) altReg.getSelectedItem()), formatCommento(altRegN.getText())));
+            nuovaMisurazione.setParametroConCategoria(CategorieParametriClimatici.MASSA_GHIACCIAI, new ValutazioneParametro(estraiNumero((String) massaReg.getSelectedItem()), formatCommento(massaRegN.getText())));
 
             for(CategorieParametriClimatici categoria : CategorieParametriClimatici.values())
                 if(!ValutazioneParametro.lunghezzaCommentoValida(nuovaMisurazione.getCommentoParametroConCategoria(categoria))) {
@@ -329,17 +285,7 @@ public class Parametri extends javax.swing.JFrame {
     }//GEN-LAST:event_ventoRegActionPerformed
 
     private String formatCommento(String commento) {
-        return commento.isEmpty() ? FORMAT_COMMENTO_VUOTO : commento;
-    }
-
-    private boolean valutazioneNulla(int punteggio) {
-        return punteggio == PunteggioParametroClimatico.NULLO.getPunteggio();
-    }
-
-    private ValutazioneParametro valutazioneValida(int punteggio, String commento) throws IllegalArgumentException {
-        if(valutazioneNulla(punteggio) && !commento.isEmpty())
-            throw new IllegalArgumentException("Impossibile inserire un commento in una valutazione con punteggio nullo");
-        return new ValutazioneParametro(punteggio, commento);
+        return commento.isEmpty() ? "/" : commento;
     }
     
     private int estraiNumero(String valore) {
