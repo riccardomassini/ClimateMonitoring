@@ -201,6 +201,7 @@ public class StampaParametri extends JFrame {
                     puntoInteresse = puntoInteresseTemp;*/
             if(puntoInteresse == null) {
                 out.setText("Nessun paese trovato");
+                resetTable();
                 return;
             }
 
@@ -214,12 +215,11 @@ public class StampaParametri extends JFrame {
 
             if(elencoMisurazioni.length == 0) {
                 out.setText("Nessuna rilevazione");
+                resetTable();
                 return;
             }
 
-            model1.setRowCount(0);
-            model2.setRowCount(0);
-            model3.setRowCount(0);
+            resetTable();
 
             for(Misurazione misurazione : elencoMisurazioni) {
                 model1.addRow(estraiMisurazione(misurazione));
@@ -290,6 +290,12 @@ public class StampaParametri extends JFrame {
             return PunteggioParametroClimatico.NULLO.getPunteggio();
         
         return PunteggioParametroClimatico.values()[maxPunteggio].getPunteggio();
+    }
+
+    private void resetTable(){
+        model1.setRowCount(0);
+        model2.setRowCount(0);
+        model3.setRowCount(0);
     }
 
 

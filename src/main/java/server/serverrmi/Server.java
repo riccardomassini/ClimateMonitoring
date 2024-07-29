@@ -82,13 +82,11 @@ public class Server implements Runnable {
             registroRMI.rebind(RMI_GestioneMisurazioni, stubGestioneMisurazioni);
             registroRMI.rebind(RMI_Autenticazione, stubAutenticazione);
         } catch (RemoteException e) {
-            System.err.println("Errore nell'inizializzazione del server RMI");
             e.printStackTrace();
         }
 
         threadServer = new Thread(this); //inizializzazione thread per il server
         threadServer.start();
-        System.out.println("Start...");
     }
 
     public void stop() {
