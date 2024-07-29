@@ -8,12 +8,10 @@ import client.clientrmi.ClientRMI;
 import client.registraeventi.Chiusura;
 import commons.servizio.Autenticazione;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 public class GestioneScelta extends javax.swing.JFrame {
     
@@ -46,15 +44,8 @@ public class GestioneScelta extends javax.swing.JFrame {
     
     private void setBackgroundImage(String imagePath) {
         try {
-            BufferedImage image = ImageIO.read(getClass().getClassLoader().getResource(imagePath));
-
-            if (image != null) {
-                sfondo.setIcon(new ImageIcon(image.getScaledInstance(
-                        sfondo.getWidth(), sfondo.getHeight(), Image.SCALE_SMOOTH
-                )));
-            } else {
-                System.err.println("Immagine non trovata: " + imagePath);
-            }
+            BufferedImage image = ImageIO.read(getClass().getClassLoader().getResource(imagePath));    
+            sfondo.setIcon(new ImageIcon(image.getScaledInstance(sfondo.getWidth(), sfondo.getHeight(), Image.SCALE_SMOOTH)));
         } catch (IOException ex) {
             ex.printStackTrace();
         }

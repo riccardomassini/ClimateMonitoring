@@ -3,8 +3,8 @@ package server.serverrmi;
 import commons.oggetti.ValidatorePassword;
 
 class ImpostazioniServer {
-    private static String USERNAME = "";
-    private static String PASSWORD = "";
+    private static String USERNAME;
+    private static String PASSWORD;
 
     static void impostaUsername(String username) {
         USERNAME = username;
@@ -30,7 +30,4 @@ class ImpostazioniServer {
     static boolean controlloCredenziali(String username, String password) {
         return ottieniUsername().equals(username) && ValidatorePassword.passwordHashCorretto(ottieniPassword(), password);
     }
-
-
-
 }

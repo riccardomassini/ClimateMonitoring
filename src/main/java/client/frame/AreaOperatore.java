@@ -88,15 +88,8 @@ public class AreaOperatore extends javax.swing.JFrame {
     
     private void setBackgroundImage(String imagePath) {
         try {
-            BufferedImage image = ImageIO.read(getClass().getClassLoader().getResource(imagePath));
-
-            if (image != null) {
-                sfondo.setIcon(new ImageIcon(image.getScaledInstance(
-                        sfondo.getWidth(), sfondo.getHeight(), Image.SCALE_SMOOTH
-                )));
-            } else {
-                System.err.println("Immagine non trovata: " + imagePath);
-            }
+            BufferedImage image = ImageIO.read(getClass().getClassLoader().getResource(imagePath));    
+            sfondo.setIcon(new ImageIcon(image.getScaledInstance(sfondo.getWidth(), sfondo.getHeight(), Image.SCALE_SMOOTH)));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -140,7 +133,7 @@ public class AreaOperatore extends javax.swing.JFrame {
                 registraCentroActionPerformed(evt);
             }
         });
-        getContentPane().add(registraCentro, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 180, -1, -1));
+        getContentPane().add(registraCentro, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, -1, -1));
 
         scegliCentro.setText("Scegli");
         scegliCentro.addActionListener(new java.awt.event.ActionListener() {
@@ -148,17 +141,17 @@ public class AreaOperatore extends javax.swing.JFrame {
                 scegliCentroActionPerformed(evt);
             }
         });
-        getContentPane().add(scegliCentro, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 180, 80, -1));
+        getContentPane().add(scegliCentro, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, 80, -1));
 
         scelta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sceltaActionPerformed(evt);
             }
         });
-        getContentPane().add(scelta, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 120, 30));
+        getContentPane().add(scelta, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 120, 30));
 
         titReg.setText("REGISTRA IL CENTRO");
-        getContentPane().add(titReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, -1, 18));
+        getContentPane().add(titReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, -1, 18));
 
         cercaParam.setText("Cerca");
         cercaParam.addActionListener(new java.awt.event.ActionListener() {

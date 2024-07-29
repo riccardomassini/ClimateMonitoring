@@ -10,17 +10,32 @@ import client.registraeventi.Chiusura;
 import commons.oggetti.Operatore;
 import commons.oggetti.ValidatorePassword;
 import commons.servizio.Autenticazione;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import java.rmi.RemoteException;
 import java.util.regex.Pattern;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 public class Registrazione extends javax.swing.JFrame {
     Autenticazione autenticazione;
     
     public Registrazione() {
         initComponents();
+        setBackgroundImage("image/sfondo.jpg");
         addWindowListener(new Chiusura());
         this.setResizable(false);
+    }
+    
+    private void setBackgroundImage(String imagePath) {
+        try {
+            BufferedImage image = ImageIO.read(getClass().getClassLoader().getResource(imagePath));    
+            sfondo.setIcon(new ImageIcon(image.getScaledInstance(sfondo.getWidth(), sfondo.getHeight(), Image.SCALE_SMOOTH)));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -53,7 +68,7 @@ public class Registrazione extends javax.swing.JFrame {
         out4 = new javax.swing.JLabel();
         out5 = new javax.swing.JLabel();
         out6 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        sfondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -103,33 +118,19 @@ public class Registrazione extends javax.swing.JFrame {
             }
         });
         getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 260, -1, -1));
-        getContentPane().add(out2, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 84, 230, 22));
+        getContentPane().add(out2, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 84, 260, 22));
         getContentPane().add(cognomeReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(111, 84, 85, -1));
 
         jLabel7.setText("Cognome");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 84, 67, 22));
-        getContentPane().add(out3, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 118, 270, 22));
-        getContentPane().add(out1, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 50, 250, 22));
+        getContentPane().add(out3, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 118, 260, 22));
+        getContentPane().add(out1, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 50, 260, 22));
 
         out4.setBackground(new java.awt.Color(204, 255, 204));
-        getContentPane().add(out4, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 152, 310, 22));
-        getContentPane().add(out5, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 186, 330, 22));
-        getContentPane().add(out6, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 220, 340, 22));
-
-        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 570, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 300));
+        getContentPane().add(out4, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 152, 260, 22));
+        getContentPane().add(out5, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 186, 260, 22));
+        getContentPane().add(out6, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 220, 260, 22));
+        getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 310));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -371,7 +372,6 @@ public class Registrazione extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField mailReg;
     private javax.swing.JTextField nomeReg;
     private javax.swing.JLabel out1;
@@ -382,5 +382,6 @@ public class Registrazione extends javax.swing.JFrame {
     private javax.swing.JLabel out6;
     private javax.swing.JTextField passReg;
     private javax.swing.JButton reg;
+    private javax.swing.JLabel sfondo;
     // End of variables declaration//GEN-END:variables
 }

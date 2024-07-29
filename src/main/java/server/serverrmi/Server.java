@@ -110,7 +110,6 @@ public class Server implements Runnable {
             UnicastRemoteObject.unexportObject(registroRMI, true);
             registroRMI = null;
         } catch (RemoteException | java.rmi.NotBoundException e) {
-            System.err.println("Errore durante lo stop del server RMI");
             e.printStackTrace();
         }
     }

@@ -36,15 +36,8 @@ public class Cittadino extends javax.swing.JFrame {
     
     private void setBackgroundImage(String imagePath) {
         try {
-            BufferedImage image = ImageIO.read(getClass().getClassLoader().getResource(imagePath));
-
-            if (image != null) {
-                sfondo.setIcon(new ImageIcon(image.getScaledInstance(
-                        sfondo.getWidth(), sfondo.getHeight(), Image.SCALE_SMOOTH
-                )));
-            } else {
-                System.err.println("Immagine non trovata: " + imagePath);
-            }
+            BufferedImage image = ImageIO.read(getClass().getClassLoader().getResource(imagePath));    
+            sfondo.setIcon(new ImageIcon(image.getScaledInstance(sfondo.getWidth(), sfondo.getHeight(), Image.SCALE_SMOOTH)));
         } catch (IOException ex) {
             ex.printStackTrace();
         }

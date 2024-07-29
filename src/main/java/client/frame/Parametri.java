@@ -18,8 +18,13 @@ import commons.oggetti.misurazioni.Misurazione;
 import commons.oggetti.misurazioni.PunteggioParametroClimatico;
 import commons.oggetti.misurazioni.ValutazioneParametro;
 import commons.servizio.GestioneMisurazioni;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 
 public class Parametri extends javax.swing.JFrame {
     GestioneMisurazioni gestioneMisurazioni;
@@ -36,6 +41,7 @@ public class Parametri extends javax.swing.JFrame {
     
     public Parametri(int id, String pass, String nomeCentro, PuntoInteresse paese){
         initComponents();
+        setBackgroundImage("image/sfondo.jpg");
         addWindowListener(new Chiusura());
         this.setResizable(false);
         operatorePassato = new Operatore(id, pass);
@@ -64,6 +70,15 @@ public class Parametri extends javax.swing.JFrame {
         precReg.setModel(modelPrec);
         altReg.setModel(modelAlt);
         massaReg.setModel(modelMassa);
+    }
+    
+    private void setBackgroundImage(String imagePath) {
+        try {
+            BufferedImage image = ImageIO.read(getClass().getClassLoader().getResource(imagePath));    
+            sfondo.setIcon(new ImageIcon(image.getScaledInstance(sfondo.getWidth(), sfondo.getHeight(), Image.SCALE_SMOOTH)));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -107,9 +122,9 @@ public class Parametri extends javax.swing.JFrame {
         precReg = new javax.swing.JComboBox<>();
         altReg = new javax.swing.JComboBox<>();
         massaReg = new javax.swing.JComboBox<>();
-        jPanel1 = new javax.swing.JPanel();
         back = new javax.swing.JButton();
         out = new javax.swing.JLabel();
+        sfondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -194,52 +209,18 @@ public class Parametri extends javax.swing.JFrame {
 
         getContentPane().add(massaReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 233, -1, -1));
 
-        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
-
         back.setText("Indietro");
         back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(back)
-                .addGap(18, 18, 18)
-                .addComponent(out, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(8, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(331, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(out, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(back))
-                .addGap(16, 16, 16))
-        );
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, -10, 470, 370));
+        getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, -1, -1));
+        getContentPane().add(out, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, 370, 23));
+        getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 470, 360));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-        gestioneMisurazioni = ClientRMI.ottieniClientRMI().ottieniStubGestioneMisurazioni();
-        if(gestioneMisurazioni != null){
-            AreaOperatore ao = new AreaOperatore(operatorePassato.getUsername(), operatorePassato.getPassword());
-            ao.setLocation(this.getX(), this.getY());
-            this.dispose();
-            ao.setVisible(true);
-        }else{
-            ResetClient.spegniClient(this);
-        }
-    }//GEN-LAST:event_backActionPerformed
 
     private void inserisciParamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserisciParamActionPerformed
         gestioneMisurazioni = ClientRMI.ottieniClientRMI().ottieniStubGestioneMisurazioni();
@@ -309,7 +290,6 @@ public class Parametri extends javax.swing.JFrame {
             try {
                 gestioneMisurazioni.inserisciNuovaMisurazione(nuovaMisurazione);
             } catch(RemoteException ex) {
-                System.err.println("Errore RMI: registrazione di una nuova misurazione fallita");
                 ex.printStackTrace();
                 System.exit(1);
             }
@@ -327,6 +307,18 @@ public class Parametri extends javax.swing.JFrame {
     private void ventoRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventoRegActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ventoRegActionPerformed
+
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
+        gestioneMisurazioni = ClientRMI.ottieniClientRMI().ottieniStubGestioneMisurazioni();
+        if(gestioneMisurazioni != null){
+            AreaOperatore ao = new AreaOperatore(operatorePassato.getUsername(), operatorePassato.getPassword());
+            ao.setLocation(this.getX(), this.getY());
+            this.dispose();
+            ao.setVisible(true);
+        }else{
+            ResetClient.spegniClient(this);
+        }
+    }//GEN-LAST:event_backActionPerformed
 
     private String formatCommento(String commento) {
         return commento.isEmpty() ? FORMAT_COMMENTO_VUOTO : commento;
@@ -404,7 +396,6 @@ public class Parametri extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JComboBox<String> massaReg;
     private javax.swing.JTextField massaRegN;
     private javax.swing.JLabel out;
@@ -412,6 +403,7 @@ public class Parametri extends javax.swing.JFrame {
     private javax.swing.JTextField precRegN;
     private javax.swing.JComboBox<String> presReg;
     private javax.swing.JTextField presRegN;
+    private javax.swing.JLabel sfondo;
     private javax.swing.JComboBox<String> teReg;
     private javax.swing.JTextField teRegN;
     private javax.swing.JComboBox<String> umReg;

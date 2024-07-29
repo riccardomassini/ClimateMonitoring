@@ -31,15 +31,6 @@ public class RegistraCentro extends javax.swing.JFrame {
     
     public RegistraCentro() {
         initComponents();
-        setBackgroundImage("image/sfondo.jpg");
-        addWindowListener(new Chiusura());
-        this.setResizable(false);
-        areeLabel.setVisible(false);
-        nomepReg.setVisible(false);
-        codiceReg.setVisible(false);
-        insAree.setVisible(false);
-        centroReg.setVisible(false);
-        out9.setVisible(false);
     }
     
     public RegistraCentro(int id, String pass){
@@ -58,15 +49,8 @@ public class RegistraCentro extends javax.swing.JFrame {
     
     private void setBackgroundImage(String imagePath) {
         try {
-            BufferedImage image = ImageIO.read(getClass().getClassLoader().getResource(imagePath));
-
-            if (image != null) {
-                sfondo.setIcon(new ImageIcon(image.getScaledInstance(
-                        sfondo.getWidth(), sfondo.getHeight(), Image.SCALE_SMOOTH
-                )));
-            } else {
-                System.err.println("Immagine non trovata: " + imagePath);
-            }
+            BufferedImage image = ImageIO.read(getClass().getClassLoader().getResource(imagePath));    
+            sfondo.setIcon(new ImageIcon(image.getScaledInstance(sfondo.getWidth(), sfondo.getHeight(), Image.SCALE_SMOOTH)));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
