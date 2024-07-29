@@ -16,7 +16,8 @@ Per installare e configurare ClimateMonitoring sul tuo ambiente locale, segui qu
 1. Clona il repository:
     ```bash
     git clone https://github.com/riccardomassini/ClimateMonitoring.git
-    ``` oppure tramite Download zip
+    ```
+    oppure tramite Download zip
 2. Vai nella directory del progetto:
     ```bash
     cd myproject
