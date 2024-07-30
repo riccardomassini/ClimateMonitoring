@@ -1,3 +1,11 @@
+/**************************************
+ * Matricola    Cognome     Nome
+ * 753291       Massini     Riccardo
+ * 753216       Abignano    Luca
+ * 754696       Artale      Lorenzo
+ * Sede: Como
+ ***************************************/
+
 package server.database.servizio;
 
 import commons.oggetti.misurazioni.CategorieParametriClimatici;
@@ -5,16 +13,73 @@ import commons.oggetti.misurazioni.Misurazione;
 import commons.oggetti.misurazioni.ValutazioneParametro;
 import server.database.ConnettoreDatabase;
 import server.database.dao.MisurazioniDAO;
+import server.database.dao.OperatoriDAO;
 
 import java.sql.*;
 import java.util.ArrayList;
 
 import static server.database.servizio.DizionarioDatabase.*;
 
+/**
+ * Classe {@code ImplMisurazioniDAO} che implementa l'interfaccia {@link MisurazioniDAO}
+ * per la gestione delle operazioni di accesso ai dati relativi alle misurazioni nel database.
+ * <p>
+ * Questa classe fornisce metodi per inserire nuove misurazioni e rilevazioni e per ottenere quest'ultime data un'area di interesse.
+ * Utilizza SQL per interagire con il database e gestisce
+ * le eccezioni SQL in modo appropriato.
+ * </p>
+ *
+ * <p>
+ * La classe è progettata per essere utilizzata come parte di un sistema di rilevazioni su aree di interesse,
+ * fornendo un'astrazione per le operazioni di database e facilitando l'integrazione con altre componenti
+ * del sistema.
+ * </p>
+ *
+ * @author Riccardo Massini
+ * @author Luca Abignano
+ * @author Lorenzo Artale
+ */
 public class ImplMisurazioniDAO implements MisurazioniDAO {
+
+    /**
+     * Query SQL per inserire una nuova misurazione nel database.
+     * La query utilizza i segnaposto per i seguenti valori:
+     * <ol>
+     *     <li>ID del punto di interesse</li>
+     *     <li>Nome del centro di monitoraggio</li>
+     *     <li>Timestamp della misurazione</li>
+     *     <li>Valutazione del parametro vento</li>
+     *     <li>Commento del parametro vento</li>
+     *     <li>Valutazione del parametro temperatura</li>
+     *     <li>Commento del parametro temperatura</li>
+     *     <li>Valutazione del parametro pressione</li>
+     *     <li>Commento del parametro pressione</li>
+     *     <li>Valutazione del parametro umidità</li>
+     *     <li>Commento del parametro umidità</li>
+     *     <li>Valutazione del parametro precipitazioni</li>
+     *     <li>Commento del parametro precipitazioni</li>
+     *     <li>Valutazione del parametro altitudine ghiacciai</li>
+     *     <li>Commento del parametro altitudine ghiacciai</li>
+     *     <li>Valutazione del parametro massa ghiacciai</li>
+     *     <li>Commento del parametro massa ghiacciai</li>
+     * </ol>
+     */
     private static final String QUERY_INSERIMENTO_NUOVA_MISURAZIONE = "INSERT INTO " +  MISURAZIONI_RELAZIONE + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    /**
+     * Query SQL per recuperare tutte le misurazioni associate a un punto di interesse specificato.
+     * La query utilizza un join naturale tra le tabelle delle misurazioni e dei punti di interesse associati,
+     * filtrando per l'ID del punto di interesse.
+     */
     private static final String QUERY_ELENCO_MISURAZIONI_PUNTO_INTERESSE = "SELECT * FROM " + MISURAZIONI_RELAZIONE + " NATURAL JOIN " + PUNTIINTERESSEASSOCIATI_RELAZIONE + " WHERE " + MISURAZIONI_ATTRIBUTO_IDPUNTOINTERESSE + " = ?";
 
+    /**
+     * <p>
+     * Questo metodo inserisce una nuova misurazione nel database.
+     * </p>
+     *
+     * @param nuovaMisurazione L'oggetto {@link Misurazione} che rappresenta la nuova misurazione da inserire.
+     */
     @Override
     public void inserisciNuovaMisurazione(Misurazione nuovaMisurazione) {
         int i = 1;
@@ -36,6 +101,14 @@ public class ImplMisurazioniDAO implements MisurazioniDAO {
         }
     }
 
+    /**
+     * <p>
+     * Questo metodo recupera tutte le misurazioni associate a un punto di interesse specificato.
+     * </p>
+     *
+     * @param idPuntoInteresse L'ID del punto di interesse di cui recuperare le misurazioni.
+     * @return Un array di oggetti {@link Misurazione} che rappresentano le misurazioni associate al punto di interesse specificato.
+     */
     @Override
     public Misurazione[] ottieniMisurazioniPuntoInteresse(int idPuntoInteresse) {
         ArrayList<Misurazione> elencoMisurazioni = new ArrayList<>();
@@ -66,8 +139,5 @@ public class ImplMisurazioniDAO implements MisurazioniDAO {
             ex.printStackTrace();
         }
         return elencoMisurazioni.toArray(new Misurazione[elencoMisurazioni.size()]);
-
     }
-
-
 }

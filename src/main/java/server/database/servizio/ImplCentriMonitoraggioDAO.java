@@ -1,3 +1,11 @@
+/**************************************
+ * Matricola    Cognome     Nome
+ * 753291       Massini     Riccardo
+ * 753216       Abignano    Luca
+ * 754696       Artale      Lorenzo
+ * Sede: Como
+ ***************************************/
+
 package server.database.servizio;
 
 import commons.oggetti.CentroMonitoraggio;
@@ -12,15 +20,73 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Classe {@code ImplCentriMonitoraggioDAO} che implementa l'interfaccia {@link CentriMonitoraggioDAO}
+ * per la gestione delle operazioni di accesso ai dati relativi ai centri di monitoraggio nel database.
+ * <p>
+ * Questa classe fornisce metodi per inserire nuovi centri di monitoraggio, associare punti di interesse
+ * a centri esistenti, ottenere informazioni sui punti di interesse associati a un centro, e altre
+ * operazioni di lettura e aggiornamento dei dati. Utilizza SQL per interagire con il database e gestisce
+ * le eccezioni SQL in modo appropriato.
+ * </p>
+ *
+ * <p>
+ * La classe è progettata per essere utilizzata come parte di un sistema di gestione di centri di monitoraggio,
+ * fornendo un'astrazione per le operazioni di database e facilitando l'integrazione con altre componenti
+ * del sistema.
+ * </p>
+ *
+ * @author Riccardo Massini
+ * @author Luca Abignano
+ * @author Lorenzo Artale
+ */
 public class ImplCentriMonitoraggioDAO  implements CentriMonitoraggioDAO {
+
+    /**
+     * Query SQL per inserire un nuovo centro di monitoraggio.
+     */
     private static final String QUERY_INSERIMENTO_NUOVO_CENTRO = "INSERT INTO " + CENTRIMONITORAGGIO_RELAZIONE + " VALUES (?, ?, ?, ?, ?, ?)";
+
+    /**
+     * Query SQL per inserire nuovi punti di interesse monitorati da un centro.
+     */
     private static final String QUERY_INSERIMENTO_NUOVI_PUNTI_INTERESSE_MONITORATI = "INSERT INTO " + PUNTIINTERESSEASSOCIATI_RELAZIONE+ " VALUES (?, ?)";
+
+    /**
+     * Query SQL per ottenere i punti di interesse associati a un centro di monitoraggio.
+     */
     private static final String QUERY_OTTIENI_PUNTI_INTERESSE_ASSOCIATI_A_CENTRO_MONITORAGGIO = "SELECT " + PUNTIINTERESSE_RELAZIONE + ".* FROM " + PUNTIINTERESSE_RELAZIONE + " NATURAL JOIN " + PUNTIINTERESSEASSOCIATI_RELAZIONE + " NATURAL JOIN " + CENTRIMONITORAGGIO_RELAZIONE + " WHERE " + CENTRIMONITORAGGIO_ATTRIBUTO_NOMECENTRO + " ILIKE ?";
+
+    /**
+     * Query SQL per aggiornare il centro di monitoraggio associato a un operatore.
+     */
     private static final String QUERY_AGGIORNA_OPERATORE_CENTRO_ASSOCIATO = "UPDATE " + OPERATORI_RELAZIONE + " SET " + OPERATORI_ATTRIBUTO_IDCENTROMONITORAGGIO + " = ? WHERE " + OPERATORI_ATTRIBUTO_USERNAME + " = ?";
+
+    /**
+     * Query SQL per ottenere il centro di monitoraggio associato a un operatore.
+     */
     private static final String QUERY_OTTENI_CENTRO_MONITORAGGIO_ASSOCIATO_A_OPERATORE = "SELECT * FROM " + CENTRIMONITORAGGIO_RELAZIONE + " NATURAL JOIN " + OPERATORI_RELAZIONE + " WHERE " + OPERATORI_ATTRIBUTO_USERNAME + " = ?";
+
+    /**
+     * Query SQL per ottenere un paese associato a un centro di monitoraggio.
+     */
     private static final String QUERY_OTTIENI_PAESE_ASSOCIATO_A_CENTRO = "SELECT " + PUNTIINTERESSE_RELAZIONE + ".* " + "FROM " + PUNTIINTERESSEASSOCIATI_RELAZIONE + " NATURAL JOIN " + PUNTIINTERESSE_RELAZIONE + " WHERE " + PUNTIINTERESSEASSOCIATI_RELAZIONE + "." + PUNTIINTERESSEASSOCIATI_ATTRIBUTO_IDCENTROMONITORAGGIO +" = ? AND UPPER(" + PUNTIINTERESSE_RELAZIONE + "." + PUNTIINTERESSE_ATTRIBUTO_NOMEASCII + ") = ? AND " + PUNTIINTERESSE_RELAZIONE + "." + PUNTIINTERESSE_ATTRIBUTO_CODICENAZIONE + " = ?";
+
+    /**
+     * Query SQL per leggere tutti i centri di monitoraggio.
+     */
     private static final String QUERY_LETTURA_CENTRI_DI_MONITORAGGIO = "SELECT " + CENTRIMONITORAGGIO_RELAZIONE + ".* FROM " + CENTRIMONITORAGGIO_RELAZIONE;
 
+    /**
+     * Inserisce un nuovo centro di monitoraggio nel database.
+     * <p>
+     * Questo metodo esegue una query SQL di tipo <code>INSERT</code> per aggiungere un nuovo centro
+     * di monitoraggio alla tabella specificata nel database. I dettagli del centro vengono ottenuti
+     * dall'oggetto {@link CentroMonitoraggio} passato come parametro.
+     * </p>
+     *
+     * @param nuovoCentro Il centro di monitoraggio da inserire. Deve essere un'istanza di {@link CentroMonitoraggio}.
+     */
     @Override
     public void inserisciCentroMonitoraggio(CentroMonitoraggio nuovoCentro) {
         try (
@@ -41,6 +107,17 @@ public class ImplCentriMonitoraggioDAO  implements CentriMonitoraggioDAO {
         }
     }
 
+    /**
+     * Inserisce punti di interesse associati a un centro di monitoraggio.
+     * <p>
+     * Questo metodo esegue una query SQL di tipo <code>INSERT</code> per associare uno o più
+     * punti di interesse a un centro di monitoraggio specificato. I punti di interesse sono forniti
+     * come un array di oggetti {@link PuntoInteresse}.
+     * </p>
+     *
+     * @param nomeCentro Il nome del centro di monitoraggio al quale associare i punti di interesse.
+     * @param elencoPuntiInteresse L'array di punti di interesse da associare. Ogni elemento deve essere un'istanza di {@link PuntoInteresse}.
+     */
     @Override
     public void inserisciPuntiInteresseMonitoratiDaCentro(String nomeCentro, PuntoInteresse[] elencoPuntiInteresse) {
         try (
@@ -57,7 +134,17 @@ public class ImplCentriMonitoraggioDAO  implements CentriMonitoraggioDAO {
             e.printStackTrace();
         }
     }
-    
+
+    /**
+     * <p>
+     * Questo metodo esegue una query SQL per ottenere le informazioni di un paese associato a un centro di monitoraggio.
+     * </p>
+     *
+     * @param nomePaese Il nome del paese da cercare.
+     * @param codice Il codice della nazione del paese da cercare.
+     * @param nomeCentro Il nome del centro di monitoraggio a cui il paese è associato.
+     * @return Un oggetto {@link PuntoInteresse} che rappresenta il paese trovato, o {@code null} se il paese non è trovato.
+     */
     @Override
     public PuntoInteresse ottieniPaeseDaCentro(String nomePaese, String codice, String nomeCentro){
         ResultSet rs = null;
@@ -87,6 +174,13 @@ public class ImplCentriMonitoraggioDAO  implements CentriMonitoraggioDAO {
         return puntoInteresse;
     }
 
+    /**
+     * <p>
+     * Questo metodo esegue una query SQL per ottenere tutti i centri di monitoraggio dal database.
+     * </p>
+     *
+     * @return Una lista di oggetti {@link CentroMonitoraggio} che rappresentano tutti i centri di monitoraggio.
+     */
     @Override
     public ArrayList<CentroMonitoraggio> leggiTuttiCentri() {
         ArrayList<CentroMonitoraggio> centri = new ArrayList<>();
@@ -111,6 +205,14 @@ public class ImplCentriMonitoraggioDAO  implements CentriMonitoraggioDAO {
         return centri;
     }
 
+    /**
+     * <p>
+     * Questo metodo esegue una query SQL per ottenere tutti i punti di interesse monitorati da un centro di monitoraggio specificato.
+     * </p>
+     *
+     * @param nomeCentro Il nome del centro di monitoraggio di cui ottenere i punti di interesse.
+     * @return Una lista di oggetti {@link PuntoInteresse} che rappresentano i punti di interesse monitorati dal centro specificato.
+     */
     @Override
     public ArrayList<PuntoInteresse> ottieniPuntiInteresseMonitoratiDaCentro(String nomeCentro) {
         ResultSet rs = null;
@@ -141,37 +243,14 @@ public class ImplCentriMonitoraggioDAO  implements CentriMonitoraggioDAO {
         return elencoPuntiInteresse;
     }
 
-    /*
-    @Override
-    public PuntoInteresse[] ottieniPuntiInteresseMonitoratiDaCentro(String nomeCentro) {
-        ArrayList<PuntoInteresse> elencoPuntiInteresse = new ArrayList<>();
-        PuntoInteresse puntoInteresse = null;
-
-        try (Connection connessione = ConnettoreDatabase.ottieniConnettore().ottieniConnessioneDatabase();
-             PreparedStatement stmt = connessione.prepareStatement(QUERY_OTTIENI_PUNTI_INTERESSE_ASSOCIATI_A_CENTRO_MONITORAGGIO);
-        ) {
-            stmt.setString(1, "%" + nomeCentro + "%");
-            try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    puntoInteresse = new PuntoInteresse();
-                    puntoInteresse.setIdPuntoInteresse(parseInt(rs.getString(PUNTIINTERESSE_ATTRIBUTO_ID)));
-                    puntoInteresse.setNomePuntoInteresse(rs.getString(PUNTIINTERESSE_ATTRIBUTO_NOME));
-                    puntoInteresse.setNomePuntoInteresseASCII(rs.getString(PUNTIINTERESSE_ATTRIBUTO_NOMEASCII));
-                    puntoInteresse.setCodiceNazione(rs.getString(PUNTIINTERESSE_ATTRIBUTO_CODICENAZIONE));
-                    puntoInteresse.setNomeNazione(rs.getString(PUNTIINTERESSE_ATTRIBUTO_NOMENAZIONE));
-                    puntoInteresse.setLatitudine(rs.getFloat(PUNTIINTERESSE_LATITUDINE));
-                    puntoInteresse.setLongitudine(rs.getFloat(PUNTIINTERESSE_LONGITUDINE));
-                    elencoPuntiInteresse.add(puntoInteresse);
-                }
-            }
-        } catch (SQLException ex) {
-            System.err.println("Impossibile recuperare i punti di interesse associati al centri");
-            ex.printStackTrace();
-        }
-        return elencoPuntiInteresse.toArray(new PuntoInteresse[elencoPuntiInteresse.size()]);
-    }
-    */
-
+    /**
+     * <p>
+     * Questo metodo esegue una query SQL per aggiornare il centro di monitoraggio associato a un operatore.
+     * </p>
+     *
+     * @param username L'username dell'operatore da aggiornare.
+     * @param nomeCentro Il nome del nuovo centro di monitoraggio da associare all'operatore.
+     */
     @Override
     public void aggiornaCentroMonitoraggioAssociatoOperatore(int username, String nomeCentro) {
         try (
@@ -187,32 +266,15 @@ public class ImplCentriMonitoraggioDAO  implements CentriMonitoraggioDAO {
         }
     }
 
-    /*
-    @Override
-    public CentroMonitoraggio otteniCentroMonitoraggioAssociatoOperatore(int username) {
-        CentroMonitoraggio centro = null;
-
-        try (Connection connessione = ConnettoreDatabase.ottieniConnettore().ottieniConnessioneDatabase();
-             PreparedStatement stmt = connessione.prepareStatement(QUERY_OTTENI_CENTRO_MONITORAGGIO_ASSOCIATO_A_OPERATORE);
-        ) {
-            stmt.setInt(1, username);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    centro = new CentroMonitoraggio();
-                    centro.setNomeCentro(rs.getString(CENTRIMONITORAGGIO_ATTRIBUTO_NOMECENTRO));
-                    centro.setIndirizzo(rs.getString(CENTRIMONITORAGGIO_ATTRIBUTO_INDIRIZZO));
-                    centro.setCAP(rs.getString(CENTRIMONITORAGGIO_ATTRIBUTO_CAP));
-                    centro.setComune(rs.getString(CENTRIMONITORAGGIO_ATTRIBUTO_COMUNE));
-                    centro.setNumeroCivico(rs.getInt(CENTRIMONITORAGGIO_ATTRIBUTO_NUMEROCIVICO));
-                    centro.setProvincia(rs.getString(CENTRIMONITORAGGIO_ATTRIBUTO_PROVINCIA));
-                }
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(ImplPuntiInteresseDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return centro;
-    }*/
-
+    /**
+     * Metodo di utilità per convertire una stringa in un intero, fermandosi al primo spazio.
+     * <p>
+     * Questo metodo prende una stringa e ritorna il suo valore intero, considerandolo fino al primo spazio.
+     * </p>
+     *
+     * @param str La stringa da convertire.
+     * @return L'intero risultante dalla conversione della stringa.
+     */
     private int parseInt(String str) {
         StringBuilder t = new StringBuilder();
         int i = 0;
@@ -220,6 +282,4 @@ public class ImplCentriMonitoraggioDAO  implements CentriMonitoraggioDAO {
             t.append(str.charAt(i++));
         return Integer.parseInt(t.toString());
     }
-
-
 }
