@@ -23,12 +23,9 @@ import java.sql.*;
  * <p>La classe include costruttori per l'inizializzazione con diversi livelli di dettaglio,
  * nonché metodi getter e setter per accedere e modificare i dati della misurazione.</p>
  *
- * <p><b>Autori:</b></p>
- * <ul>
- *     <li>@author Riccardo Massini
- *     <li>@autor Luca Abignano
- *     <li>@autor Lorenzo Artale
- * </ul>
+ * @author Riccardo Massini
+ * @author Luca Abignano
+ * @author Lorenzo Artale
  */
 public class Misurazione implements Serializable {
     private int idPuntoInteresse;
