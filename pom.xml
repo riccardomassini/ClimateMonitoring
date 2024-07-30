@@ -6,7 +6,6 @@
   <packaging>jar</packaging>
 
   <dependencies>
-    <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
@@ -141,7 +140,6 @@
         <artifactId>maven-assembly-plugin</artifactId>
         <version>3.3.0</version>
         <executions>
-          <!-- Configurazione per il client -->
           <execution>
             <id>make-client-assembly</id>
             <phase>package</phase>
@@ -149,7 +147,7 @@
               <goal>single</goal>
             </goals>
             <configuration>
-              <finalName>clientCM</finalName> <!-- Imposta il nome del file JAR -->
+              <finalName>clientCM</finalName>
               <appendAssemblyId>false</appendAssemblyId>
               <archive>
                 <manifest>
@@ -159,10 +157,10 @@
               <descriptorRefs>
                 <descriptorRef>jar-with-dependencies</descriptorRef>
               </descriptorRefs>
-              <outputDirectory>${project.basedir}/jar</outputDirectory>
+              <outputDirectory>${project.basedir}/Eseguibili</outputDirectory>
             </configuration>
           </execution>
-          <!-- Configurazione per il server -->
+
           <execution>
             <id>make-server-assembly</id>
             <phase>package</phase>
@@ -170,7 +168,7 @@
               <goal>single</goal>
             </goals>
             <configuration>
-              <finalName>serverCM</finalName> <!-- Imposta il nome del file JAR -->
+              <finalName>serverCM</finalName>
               <appendAssemblyId>false</appendAssemblyId>
               <archive>
                 <manifest>
@@ -180,7 +178,24 @@
               <descriptorRefs>
                 <descriptorRef>jar-with-dependencies</descriptorRef>
               </descriptorRefs>
-              <outputDirectory>${project.basedir}/jar</outputDirectory>
+              <outputDirectory>${project.basedir}/Eseguibili</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.8.0</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>javadoc</goal>
+            </goals>
+            <phase>install</phase>
+            <configuration>
+              <outputDirectory>${project.basedir}/doc</outputDirectory>
             </configuration>
           </execution>
         </executions>

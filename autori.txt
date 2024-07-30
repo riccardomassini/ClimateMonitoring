@@ -1,0 +1,6 @@
+Matricola   Cognome     Nome
+753291      Massini	Riccardo
+753216      Abignano    Luca
+753252      Artale      Lorenzo
+
+Sede: Como
