@@ -27,6 +27,11 @@ import java.util.regex.Pattern;
 public class ValidatorePassword {
 
     /**
+     * Costruttore vuoto
+     */
+    public ValidatorePassword(){}
+
+    /**
      * Il fattore di costo per l'algoritmo BCrypt.
      */
     private static final int FATTORE_COSTO_HASH_BCRYPT = 15;
