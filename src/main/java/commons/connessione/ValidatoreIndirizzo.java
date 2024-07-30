@@ -2,7 +2,7 @@
  * Matricola    Cognome     Nome
  * 753291       Massini     Riccardo
  * 753216       Abignano    Luca
- * 753252       Artale      Lorenzo
+ * 754696       Artale      Lorenzo
  * Sede: Como
  ***************************************/
 
@@ -17,6 +17,10 @@ import java.util.regex.Pattern;
  *
  * <p>La classe utilizza espressioni regolari per la validazione dell'indirizzo IP e valori predefiniti per l'intervallo
  * delle porte.</p>
+ *
+ * @author Riccardo Massini
+ * @author Luca Abignano
+ * @author Lorenzo Artale
  */
 public class ValidatoreIndirizzo {
 

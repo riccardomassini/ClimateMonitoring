@@ -2,7 +2,7 @@
  * Matricola    Cognome     Nome
  * 753291       Massini     Riccardo
  * 753216       Abignano    Luca
- * 753252       Artale      Lorenzo
+ * 754696       Artale      Lorenzo
  * Sede: Como
  ***************************************/
 
@@ -22,6 +22,10 @@ package commons.connessione;
  *     <li>{@link #RMI_RicercaPuntiInteresse}: Il nome di registrazione dell'oggetto remoto per il servizio di ricerca dei punti di interesse.</li>
  *     <li>{@link #RMI_GestioneMisurazioni}: Il nome di registrazione dell'oggetto remoto per la gestione delle misurazioni.</li>
  * </ul>
+ *
+ * @author Riccardo Massini
+ * @author Luca Abignano
+ * @author Lorenzo Artale
  */
 public class ImpostazioniConnessione {
 

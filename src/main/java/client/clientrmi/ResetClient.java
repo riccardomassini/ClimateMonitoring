@@ -2,7 +2,7 @@
  * Matricola    Cognome     Nome
  * 753291       Massini     Riccardo
  * 753216       Abignano    Luca
- * 753252       Artale      Lorenzo
+ * 754696       Artale      Lorenzo
  * Sede: Como
  ***************************************/
 package client.clientrmi;
@@ -28,6 +28,10 @@ public class ResetClient {
      *              verrà utilizzata per posizionare la nuova finestra di scelta.
      *
      * @see client.frame.GestioneScelta
+     *
+     * @author Riccardo Massini
+     * @author Luca Abignano
+     * @author Lorenzo Artale
      */
     public static void spegniClient(JFrame frame){
         //passo una stringa vuota perchè il costruttore vuoto esiste già

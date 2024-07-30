@@ -2,7 +2,7 @@
  * Matricola    Cognome     Nome
  * 753291       Massini     Riccardo
  * 753216       Abignano    Luca
- * 753252       Artale      Lorenzo
+ * 754696       Artale      Lorenzo
  * Sede: Como
  ***************************************/
 package client.registraeventi;
@@ -31,6 +31,10 @@ public class Chiusura extends WindowAdapter{
      *
      * @param e l'evento di chiusura della finestra {@link java.awt.event.WindowEvent}. Utilizzato per ottenere
      *          la finestra {@code JFrame} che sta tentando di chiudersi.
+     *
+     * @author Riccardo Massini
+     * @author Luca Abignano
+     * @author Lorenzo Artale
      */
     @Override
     public void windowClosing(WindowEvent e) {

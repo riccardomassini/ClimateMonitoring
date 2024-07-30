@@ -2,7 +2,7 @@
  * Matricola    Cognome     Nome
  * 753291       Massini     Riccardo
  * 753216       Abignano    Luca
- * 753252       Artale      Lorenzo
+ * 754696       Artale      Lorenzo
  * Sede: Como
  ***************************************/
 
@@ -33,8 +33,12 @@ import java.rmi.registry.Registry;
  *     <li>{@link commons.servizio.RicercaPuntiInteresse}: per la gestione delle operazioni di ricerca di punti di interesse</li>
  * </ul>
  *
- * <p>Il client si connette a un registro RMI specificato dai parametri {@code HOST} e {@code PORTA}
+ * <p>Il client si connette a un registro RMI specificato dai parametri <code>HOST</code> e {@code PORTA}
  * definiti nella classe {@code commons.connessione.ImpostazioniConnessione}.</p>
+ *
+ * @author Riccardo Massini
+ * @author Luca Abignano
+ * @author Lorenzo Artale
  */
 public class ClientRMI {
     private Autenticazione stubAutenticazione;
