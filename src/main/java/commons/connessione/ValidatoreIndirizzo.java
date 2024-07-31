@@ -24,6 +24,9 @@ import java.util.regex.Pattern;
  */
 public class ValidatoreIndirizzo {
 
+    /** Costruttore vuoto */
+    public ValidatoreIndirizzo(){}
+
     /**
      * Espressione regolare per il controllo di un indirizzo IPv4.
      * La regex verifica che l'indirizzo IP sia nel formato corretto di IPv4.

@@ -62,6 +62,9 @@ public class ImplOperatoriDAO implements OperatoriDAO {
      */
     private static final String QUERY_OPERATORE_DA_USERNAME = "SELECT " + OPERATORI_RELAZIONE + ".* FROM " + OPERATORI_RELAZIONE + " WHERE " + OPERATORI_ATTRIBUTO_USERNAME + " = ?";
 
+    /** Costruttore vuoto */
+    public ImplOperatoriDAO(){}
+
     /**
      * <p>
      * Questo metodo inserisce un nuovo operatore nel database.

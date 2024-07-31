@@ -68,6 +68,9 @@ public class ImplPuntiInteresseDAO implements PuntiInteresseDAO {
      */
     private static final String QUERY_POI_PER_NOME_E_CODICE_NAZIONE = "SELECT * FROM " + PUNTIINTERESSE_RELAZIONE + " WHERE UPPER(" + PUNTIINTERESSE_ATTRIBUTO_NOMEASCII + ") = ? AND " + PUNTIINTERESSE_ATTRIBUTO_CODICENAZIONE + " = ?";
 
+    /** Costruttore vuoto */
+    public ImplPuntiInteresseDAO(){}
+
     /**
      * Recupera l'elenco di tutti i punti di interesse dal database.
      *

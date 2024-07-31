@@ -73,6 +73,9 @@ public class ImplMisurazioniDAO implements MisurazioniDAO {
      */
     private static final String QUERY_ELENCO_MISURAZIONI_PUNTO_INTERESSE = "SELECT * FROM " + MISURAZIONI_RELAZIONE + " NATURAL JOIN " + PUNTIINTERESSEASSOCIATI_RELAZIONE + " WHERE " + MISURAZIONI_ATTRIBUTO_IDPUNTOINTERESSE + " = ?";
 
+    /** Costruttore vuoto */
+    public ImplMisurazioniDAO(){}
+
     /**
      * <p>
      * Questo metodo inserisce una nuova misurazione nel database.

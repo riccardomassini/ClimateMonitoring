@@ -21,6 +21,9 @@ import javax.swing.*;
  */
 public class Chiusura extends WindowAdapter{
 
+    /** Costruttore vuoto */
+    public Chiusura(){}
+
     /**
      * Gestisce l'evento di chiusura della finestra. Mostra un dialogo di conferma all'utente per chiedere
      * se desidera uscire dall'applicazione.

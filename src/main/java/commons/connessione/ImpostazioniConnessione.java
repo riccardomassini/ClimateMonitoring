@@ -29,6 +29,9 @@ package commons.connessione;
  */
 public class ImpostazioniConnessione {
 
+    /** Costruttore vuoto */
+    public ImpostazioniConnessione(){}
+
     /**
      * Porta predefinita su cui il server RMI ascolta le richieste.
      */

@@ -42,6 +42,9 @@ import java.util.ArrayList;
  */
 public class ImplCentriMonitoraggioDAO  implements CentriMonitoraggioDAO {
 
+    /** Costruttore vuoto */
+    public ImplCentriMonitoraggioDAO(){}
+
     /**
      * Query SQL per inserire un nuovo centro di monitoraggio.
      */

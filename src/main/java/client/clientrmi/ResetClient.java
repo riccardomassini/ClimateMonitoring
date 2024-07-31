@@ -17,6 +17,9 @@ import javax.swing.JFrame;
  */
 public class ResetClient {
 
+    /** Costruttore vuoto */
+    public ResetClient(){}
+
     /**
      * Chiude la finestra corrente e apre la finestra di scelta.
      *
