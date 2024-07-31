@@ -1,0 +1,15 @@
+client.clientrmi
+client.frame
+client.registraeventi
+commons.connessione
+commons.oggetti
+commons.oggetti.misurazioni
+commons.servizio
+server.database
+server.database.dao
+server.database.servizio
+server.serverrmi
+server.servizio.autenticazione
+server.servizio.centrimonitoraggio
+server.servizio.misurazioni
+server.servizio.ricercapoi
