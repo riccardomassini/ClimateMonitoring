@@ -23,7 +23,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 /**
- * La classe {@code Login} rappresenta il frame di login dell'applicazione, utilizzato per autenticare gli utenti.
+ * La classe {@code Login} rappresenta il frame di login dell'applicazione, utilizzato per autenticare gli operatori climatici.
  * <p>Gestisce l'interfaccia di login, inclusi i campi per l'identificatore dell'utente e la password.</p>
  *
  * @author Riccardo Massini

@@ -1,7 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+/**************************************
+ * Matricola    Cognome     Nome
+ * 753291       Massini     Riccardo
+ * 753216       Abignano    Luca
+ * 754696       Artale      Lorenzo
+ * Sede: Como
+ ***************************************/
+
 package client.frame;
 
 import client.clientrmi.ClientRMI;
@@ -24,8 +28,12 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 /**
+ * La classe {@code ScegliCentro} rappresenta il frame di scelta del centro dell'applicazione, utilizzato per scegliere un centro datone uno già esistente.
+ * <p>Permette di scegliere un centro tra quelli già esistenti tramite una combobox.</p>
  *
- * @author massi
+ * @author Riccardo Massini
+ * @author Luca Abignano
+ * @author Lorenzo Artale
  */
 public class ScegliCentro extends javax.swing.JFrame {
 
