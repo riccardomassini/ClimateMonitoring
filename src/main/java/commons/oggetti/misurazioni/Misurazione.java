@@ -28,9 +28,17 @@ import java.sql.*;
  * @author Lorenzo Artale
  */
 public class Misurazione implements Serializable {
+
+    /** Identificativo univoco del punto di interesse. */
     private int idPuntoInteresse;
-    private String nomeCentro;
+
+    /** Nome del centro di interesse. */
+     private String nomeCentro;
+
+    /** Timestamp della misurazione effettuata. Rappresenta la data e l'ora in cui sono stati raccolti i dati relativi ai parametri climatici. */
     private Timestamp timestampMisurazione;
+
+    /** Array di valutazioni dei parametri climatici misurati. Ogni elemento dell'array rappresenta una valutazione specifica di un parametro climatico. */
     private ValutazioneParametro[] parametriClimatici;
 
     /**
