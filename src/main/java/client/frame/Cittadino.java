@@ -412,7 +412,7 @@ public class Cittadino extends javax.swing.JFrame {
      * chiude la finestra corrente e rende visibile la nuova finestra di GestioneScelta.
      * </p>
      * <p>
-     * Se l'oggetto di autenticazione è nullo, il metodo chiama {@link ResetClient#spegniClient}
+     * Se l'oggetto di ricercaPuntiInteresse è nullo, il metodo chiama {@link ResetClient#spegniClient}
      * per spegnere il client.
      * </p>
      *
