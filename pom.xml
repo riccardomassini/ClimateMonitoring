@@ -1,52 +1,66 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <!-- La versione del modello POM -->
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.sample</groupId>
-  <artifactId>sample</artifactId>
-  <version>1.0-SNAPSHOT</version>
+
+  <!-- Identificatore unico del progetto -->
+  <groupId>com.sample</groupId> <!-- Gruppo o organizzazione a cui appartiene il progetto -->
+  <artifactId>sample</artifactId> <!-- Nome dell'artefatto (prodotto del build) -->
+  <version>1.0-SNAPSHOT</version> <!-- Versione del progetto -->
   <packaging>jar</packaging>
 
   <dependencies>
+
+    <!-- Dipendenza per il driver PostgreSQL -->
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
       <version>42.7.3</version>
     </dependency>
 
+    <!-- Dipendenza per l'AbsoluteLayout (una libreria esterna di NetBeans) -->
     <dependency>
       <groupId>org.netbeans.external</groupId>
       <artifactId>AbsoluteLayout</artifactId>
       <version>RELEASE210</version>
     </dependency>
 
+    <!-- Dipendenza per la libreria bcrypt (per la crittografia delle password) -->
     <dependency>
       <groupId>org.mindrot</groupId>
       <artifactId>jbcrypt</artifactId>
       <version>0.4</version>
     </dependency>
 
+    <!-- Dipendenza per JUnit (framework di testing) solo per la fase di test -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.13.2</version>
       <scope>test</scope>
     </dependency>
+
+    <!-- Dipendenza per le annotazioni di JetBrains -->
     <dependency>
       <groupId>org.jetbrains</groupId>
       <artifactId>annotations</artifactId>
       <version>13.0</version>
       <scope>compile</scope>
     </dependency>
-
   </dependencies>
 
   <build>
     <plugins>
+
+      <!-- Plugin per eseguire comandi SQL durante la build e inizializzare il database -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>sql-maven-plugin</artifactId>
         <version>1.5</version>
 
         <dependencies>
+
+          <!-- Dipendenza per il driver PostgreSQL per il plugin SQL -->
           <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
@@ -55,28 +69,31 @@
         </dependencies>
 
         <configuration>
-          <driver>org.postgresql.Driver</driver>
-          <url>jdbc:postgresql://localhost:5432/</url>
-          <settingsKey>sensibleKey</settingsKey>
+          <driver>org.postgresql.Driver</driver> <!-- Driver JDBC per PostgreSQL -->
+          <url>jdbc:postgresql://localhost:5432/</url> <!-- URL di connessione al database -->
+          <settingsKey>sensibleKey</settingsKey> <!-- Chiave per le impostazioni -->
         </configuration>
 
         <executions>
+
+          <!-- Esecuzione per eliminare il database esistente -->
           <execution>
             <id>drop database</id>
-            <phase>compile</phase>
+            <phase>compile</phase> <!-- Fase della build in cui eseguire il comando -->
             <goals>
-              <goal>execute</goal>
+              <goal>execute</goal> <!-- Obiettivo del plugin -->
             </goals>
             <configuration>
               <url>jdbc:postgresql://localhost:5432/</url>
-              <autocommit>true</autocommit>
+              <autocommit>true</autocommit> <!-- Abilita l'auto-commit per le operazioni -->
               <driver>org.postgresql.Driver</driver>
-              <username>postgres</username>
-              <password>root</password>
-              <sqlCommand>drop database if exists climate</sqlCommand>
+              <username>postgres</username> <!-- Nome utente per il database -->
+              <password>root</password> <!-- Password per il database -->
+              <sqlCommand>drop database if exists climate</sqlCommand> <!-- Comando SQL da eseguire -->
             </configuration>
           </execution>
 
+          <!-- Esecuzione per creare il database -->
           <execution>
             <id>create-database</id>
             <phase>compile</phase>
@@ -93,6 +110,7 @@
             </configuration>
           </execution>
 
+          <!-- Esecuzione per creare le tabelle nel database -->
           <execution>
             <id>create-tables</id>
             <phase>compile</phase>
@@ -106,13 +124,14 @@
               <username>postgres</username>
               <password>root</password>
               <srcFiles>
-                <srcFile>data/sql_commands.sql</srcFile>
+                <srcFile>data/sql_commands.sql</srcFile> <!-- File SQL con i comandi per creare le tabelle -->
               </srcFiles>
             </configuration>
           </execution>
         </executions>
       </plugin>
 
+      <!-- Plugin per compilare il codice sorgente -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -127,6 +146,7 @@
         </configuration>
       </plugin>
 
+      <!-- Plugin per gestire le risorse del progetto -->
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
         <version>3.2.0</version>
@@ -135,11 +155,14 @@
         </configuration>
       </plugin>
 
+      <!-- Plugin per creare pacchetti JAR con dipendenze incluse -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
         <version>3.3.0</version>
         <executions>
+
+          <!-- Creazione di un pacchetto JAR per il client -->
           <execution>
             <id>make-client-assembly</id>
             <phase>package</phase>
@@ -147,20 +170,21 @@
               <goal>single</goal>
             </goals>
             <configuration>
-              <finalName>clientCM</finalName>
+              <finalName>clientCM</finalName>  <!-- Nome finale del JAR del client -->
               <appendAssemblyId>false</appendAssemblyId>
               <archive>
                 <manifest>
-                  <mainClass>client.frame.GestioneScelta</mainClass>
+                  <mainClass>client.frame.GestioneScelta</mainClass> <!-- Classe principale dell'applicazione client -->
                 </manifest>
               </archive>
               <descriptorRefs>
                 <descriptorRef>jar-with-dependencies</descriptorRef>
               </descriptorRefs>
-              <outputDirectory>${project.basedir}/Eseguibili</outputDirectory>
+              <outputDirectory>${project.basedir}/Eseguibili</outputDirectory> <!-- Directory di destinazione del JAR del client -->
             </configuration>
           </execution>
 
+          <!-- Creazione di un pacchetto JAR per il client -->
           <execution>
             <id>make-server-assembly</id>
             <phase>package</phase>
@@ -168,22 +192,23 @@
               <goal>single</goal>
             </goals>
             <configuration>
-              <finalName>serverCM</finalName>
+              <finalName>serverCM</finalName> <!-- Nome finale del JAR del server -->
               <appendAssemblyId>false</appendAssemblyId>
               <archive>
                 <manifest>
-                  <mainClass>server.serverrmi.ServerFrame</mainClass>
+                  <mainClass>server.serverrmi.ServerFrame</mainClass> <!-- Classe principale dell'applicazione server -->
                 </manifest>
               </archive>
               <descriptorRefs>
                 <descriptorRef>jar-with-dependencies</descriptorRef>
               </descriptorRefs>
-              <outputDirectory>${project.basedir}/Eseguibili</outputDirectory>
+              <outputDirectory>${project.basedir}/Eseguibili</outputDirectory> <!-- Directory di destinazione del JAR del server -->
             </configuration>
           </execution>
         </executions>
       </plugin>
 
+      <!-- Plugin per generare la documentazione Javadoc -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
@@ -198,6 +223,7 @@
         </executions>
       </plugin>
 
+      <!-- Copia i file di Javadoc dalla directory di build alla directory specificata ed elimina la cartella target -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-antrun-plugin</artifactId>
