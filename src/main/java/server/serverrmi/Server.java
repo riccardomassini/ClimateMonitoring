@@ -1,3 +1,11 @@
+/**************************************
+ * Matricola    Cognome     Nome
+ * 753291       Massini     Riccardo
+ * 753216       Abignano    Luca
+ * 754696       Artale      Lorenzo
+ * Sede: Como
+ ***************************************/
+
 package server.serverrmi;
 
 import static commons.connessione.ImpostazioniConnessione.*;
@@ -15,30 +23,70 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
+/**
+ * La classe {@code Server} gestisce l'avvio, l'esecuzione e l'arresto di un server RMI.
+ * <p>
+ * Utilizza il pattern Singleton per garantire che esista una sola istanza del server
+ * e implementa l'interfaccia {@code Runnable} per gestire il thread del server.
+ * </p>
+ *
+ * @author Riccardo Massini
+ * @author Luca Abignano
+ * @author Lorenzo Artale
+ */
 public class Server implements Runnable {
+
+    /** Il thread in cui il server è in esecuzione. */
     private Thread threadServer;
+
+    /** Il registro RMI utilizzato per fare il binding degli oggetti remoti. */
     private Registry registroRMI;
+
+    /** Gestore per l'autenticazione degli utenti. */
     private Autenticatore autenticatore;
+
+    /** Gestore per i centri di monitoraggio. */
     private GestoreCentriMonitoraggio gestoreCentriMonitoraggio;
+
+    /** Gestore per le misurazioni. */
     private GestoreMisurazioni gestoreMisurazioni;
+
+    /** Repository per i punti di interesse. */
     private RepositoryPuntiInteresse repositoryPuntiInteresse;
 
+    /** Variabile di controllo per il ciclo di esecuzione del server. */
     private volatile boolean running = false;
 
+    /**
+     * Costruttore privato per impedire l'istanza diretta della classe.
+     * Inizializza i componenti del server.
+     */
     private Server() {
         inizializzaServer();
     }
 
+    /**
+     * Contenitore della classe Singleton. Garantisce la creazione di una sola istanza del server.
+     */
     private static class ContenitoreSingletonServer{
-        // Static to ensure one instance and final to ensure that it cannot be reassigned
         private static final Server singleton = new Server();
     }
 
-    // Public method to provide access to the instance
+    /**
+     * Restituisce l'istanza singleton del server.
+     *
+     * @return l'istanza singleton del server
+     */
     public static Server ottieniIstanzaServer() {
         return ContenitoreSingletonServer.singleton;
     }
 
+    /**
+     * Metodo eseguito quando il thread del server è avviato.
+     * <p>
+     * Mantiene il server in esecuzione fino a quando la variabile {@code running} non viene impostata su {@code false}.
+     * </p>
+     */
     @Override
     public void run() {
         running = true;
@@ -51,9 +99,10 @@ public class Server implements Runnable {
         }
     }
 
+    /**
+     * Inizializza i componenti del server, inclusi gli oggetti remoti.
+     */
     private void inizializzaServer() {
-
-        //inizializzare servizi remoti
         autenticatore = new Autenticatore();
         gestoreMisurazioni = new GestoreMisurazioni();
         gestoreCentriMonitoraggio = new GestoreCentriMonitoraggio();
@@ -61,22 +110,23 @@ public class Server implements Runnable {
 
     }
 
+    /**
+     * Avvia il server, crea il registro RMI e associa gli oggetti remoti a esso.
+     * Inoltre, avvia il thread del server.
+     */
     public void start() {
-        //creare registro rmi
         try {
             registroRMI = LocateRegistry.createRegistry(PORTA);
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
 
-        //ottenere stub oggetti remoti
         try {
             RicercaPuntiInteresse stubRicercaPuntiInteresse = (RicercaPuntiInteresse) UnicastRemoteObject.exportObject(repositoryPuntiInteresse, PORTA);
             Autenticazione stubAutenticazione = (Autenticazione) UnicastRemoteObject.exportObject(autenticatore, PORTA);
             GestioneMisurazioni stubGestioneMisurazioni = (GestioneMisurazioni) UnicastRemoteObject.exportObject(gestoreMisurazioni, PORTA);
             GestioneCentriMonitoraggio stubGestioneCentriMonitoraggio = (GestioneCentriMonitoraggio) UnicastRemoteObject.exportObject(gestoreCentriMonitoraggio, PORTA);
 
-            //fare binding oggetti remoti a registro RMI
             registroRMI.rebind(RMI_GestioneCentriMonitoraggio, stubGestioneCentriMonitoraggio);
             registroRMI.rebind(RMI_RicercaPuntiInteresse, stubRicercaPuntiInteresse);
             registroRMI.rebind(RMI_GestioneMisurazioni, stubGestioneMisurazioni);
@@ -85,10 +135,14 @@ public class Server implements Runnable {
             e.printStackTrace();
         }
 
-        threadServer = new Thread(this); //inizializzazione thread per il server
+        threadServer = new Thread(this);
         threadServer.start();
     }
 
+    /**
+     * Arresta il server interrompendo il thread e rimuovendo gli oggetti remoti dal registro RMI.
+     * Inoltre, esegue l'unexport degli oggetti remoti e rimuove il registro RMI.
+     */
     public void stop() {
         running = false;
         if (threadServer != null) {
@@ -113,5 +167,4 @@ public class Server implements Runnable {
             e.printStackTrace();
         }
     }
-
 }

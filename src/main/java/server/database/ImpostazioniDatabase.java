@@ -14,6 +14,10 @@ package server.database;
  * Questa classe definisce costanti che rappresentano le impostazioni necessarie per stabilire una connessione
  * al database, inclusi il driver JDBC, l'URL del database, il nome utente e la password.
  * </p>
+ *
+ * @author Riccardo Massini
+ * @author Luca Abignano
+ * @author Lorenzo Artale
  */
 class ImpostazioniDatabase {
 
