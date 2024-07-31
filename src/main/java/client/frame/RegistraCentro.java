@@ -456,11 +456,11 @@ public class RegistraCentro extends javax.swing.JFrame {
     }
 
     /**
-     * Metodo principale che avvia l'applicazione.
-     * <p>Imposta il look and feel su Nimbus se disponibile, altrimenti utilizza
-     * il look and feel predefinito. Crea e visualizza il modulo di registrazione.</p>
+     * Metodo principale che avvia il frame {@code RegistraCentro}.
+     * <p>Crea e visualizza l'istanza di {@code RegistraCentro}.</p>
+     * {@link javax.swing.UIManager#setLookAndFeel(String)}
      *
-     * @param args Gli argomenti della linea di comando (non utilizzati).
+     * @param args gli argomenti della riga di comando.
      */
     public static void main(String args[]) {
         try {

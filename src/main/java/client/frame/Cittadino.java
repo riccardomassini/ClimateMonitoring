@@ -476,8 +476,8 @@ public class Cittadino extends javax.swing.JFrame {
     }
 
     /**
-     * Metodo principale che avvia l'applicazione {@code Cittadino}.
-     * <p>Imposta il look and feel Nimbus e crea e visualizza la finestra principale.</p>
+     * Metodo principale che avvia il frame {@code Cittadino}.
+     * <p>Crea e visualizza l'istanza di {@code Cittadino}.</p>
      * {@link javax.swing.UIManager#setLookAndFeel(String)}
      *
      * @param args gli argomenti della riga di comando.
@@ -548,7 +548,6 @@ public class Cittadino extends javax.swing.JFrame {
 
     /** Etichetta per visualizzare messaggi di output */
     private javax.swing.JLabel out;
-
 
     /** Campo di testo per inserire il nome del punto di interesse */
     private javax.swing.JTextField ric1;

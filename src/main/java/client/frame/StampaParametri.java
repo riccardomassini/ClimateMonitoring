@@ -377,12 +377,11 @@ public class StampaParametri extends JFrame {
     }
 
     /**
-     * Metodo principale di {@code StampaParametri}.
-     * <p>
-     * Configura l'aspetto dell'interfaccia utente e avvia il frame {@code StampaParametri}.
-     * </p>
+     * Metodo principale che avvia il frame {@code StampaParametri}.
+     * <p>Crea e visualizza l'istanza di {@code StampaParametri}.</p>
+     * {@link javax.swing.UIManager#setLookAndFeel(String)}
      *
-     * @param args Argomenti della linea di comando.
+     * @param args gli argomenti della riga di comando.
      */
     public static void main(String args[]) {
         try {

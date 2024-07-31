@@ -368,8 +368,8 @@ public class Registrazione extends javax.swing.JFrame {
     }
 
     /**
-     * Metodo principale che avvia la registrazione.
-     * <p>Crea e visualizza il frame di registrazione.</p>
+     * Metodo principale che avvia il frame {@code Registrazione}.
+     * <p>Crea e visualizza l'istanza di {@code Registrazione}.</p>
      * {@link javax.swing.UIManager#setLookAndFeel(String)}
      *
      * @param args gli argomenti della riga di comando.

@@ -191,8 +191,8 @@ public class GestioneScelta extends javax.swing.JFrame {
     }
 
     /**
-     * Metodo principale che avvia l'applicazione {@code GestioneScelta}.
-     * <p>Imposta il look and feel Nimbus e crea e visualizza il frame principale.</p>
+     * Metodo principale che avvia il frame {@code GestioneScelta}.
+     * <p>Crea e visualizza l'istanza di {@code GestioneScelta}.</p>
      * {@link javax.swing.UIManager#setLookAndFeel(String)}
      *
      * @param args gli argomenti della riga di comando.

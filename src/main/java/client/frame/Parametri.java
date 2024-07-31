@@ -419,8 +419,8 @@ public class Parametri extends javax.swing.JFrame {
     }
 
     /**
-     * Metodo principale che avvia l'applicazione di login.
-     * <p>Crea e visualizza il frame Parametri.</p>
+     * Metodo principale che avvia il frame {@code Parametri}.
+     * <p>Crea e visualizza l'istanza di {@code Parametri}.</p>
      * {@link javax.swing.UIManager#setLookAndFeel(String)}
      *
      * @param args gli argomenti della riga di comando.

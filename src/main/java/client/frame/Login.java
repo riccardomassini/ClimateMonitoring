@@ -188,8 +188,8 @@ public class Login extends javax.swing.JFrame {
     }
 
     /**
-     * Metodo principale che avvia l'applicazione di login.
-     * <p>Crea e visualizza il frame di login.</p>
+     * Metodo principale che avvia il frame {@code Login}.
+     * <p>Crea e visualizza l'istanza di {@code Login}.</p>
      * {@link javax.swing.UIManager#setLookAndFeel(String)}
      *
      * @param args gli argomenti della riga di comando.
