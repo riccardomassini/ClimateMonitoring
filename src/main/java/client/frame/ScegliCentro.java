@@ -272,10 +272,10 @@ public class ScegliCentro extends javax.swing.JFrame {
         });
     }
 
-    /** Pulsante per tornare alla schermata precedente. */
+    /** Bottone per tornare alla schermata precedente. */
     private javax.swing.JButton back;
 
-    /** Pulsante per confermare la selezione del centro di monitoraggio. */
+    /** Bottone per confermare la selezione del centro di monitoraggio. */
     private javax.swing.JButton jButton1;
 
     /** Etichetta per visualizzare messaggi di stato o errori. */
