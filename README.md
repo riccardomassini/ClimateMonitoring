@@ -40,7 +40,7 @@ Per installare e configurare ClimateMonitoring sul tuo ambiente locale, segui qu
    * ```./mvnw install```
    * oppure tutto attaccato ```./mvnw clean install```
   
-3. Se avete installato maven sia suWindows sia su Unix/MacOS potete semplicemente digitare:
+3. Se avete installato maven sia su Windows sia su Unix/MacOS potete semplicemente digitare:
    * ```mvn clean```
    * ```mvn install```
    * oppure tutto attaccato ```mvn clean install```
@@ -49,6 +49,10 @@ Per installare e configurare ClimateMonitoring sul tuo ambiente locale, segui qu
 
 ## Utilizzo
 Per utilizzare l'applicazione è necessario eseguire entrambi i file ```.jar```, sia il server che il client.
-Si può fare in due modi:
+Si può fare in diversi modi.
+
+Su Windows:
 * accedendo alla cartella ```jar``` e facendo doppio click su i due file.
+
+Su Windows e Unix/MacOS:
 * accedendo alla cartella ```jar``` da terminale e digitando i seguenti comandi: ```java -jar serverCM.jar``` e ```java -jar clientCM.jar```, un alternativa a questo è eseguire direttamente i processi ```./serverCM``` e ```./clientCM```.
