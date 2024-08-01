@@ -42,7 +42,6 @@ public class GestioneScelta extends javax.swing.JFrame {
         initComponents();
         setBackgroundImage("image/sfondo.jpg");
         addWindowListener(new Chiusura());
-        this.setSize(415, 335);
         this.setResizable(false);
 
         cittadino.setVisible(true);
