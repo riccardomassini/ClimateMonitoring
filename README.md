@@ -48,7 +48,7 @@ Per installare e configurare ClimateMonitoring sul tuo ambiente locale, segui qu
 4. Una volta eseguiti questi comandi il progetto sarà perfettamente configurato ed eseguibile, infatti sarà stata creata una cartella ```jar``` contenente 2 file eseguibili nel formato ```.jar```.
 
 ## Utilizzo
-Per utilizzare l'applicazione è necessario eseguire entrambi i file ```.jar```, sia il server che il client.
+Per utilizzare l'applicazione è necessario eseguire entrambi i file ```"Eseguibili"```, sia il server che il client.
 Si può fare in diversi modi.
 
 Su Windows:
