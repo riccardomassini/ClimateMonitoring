@@ -42,6 +42,7 @@ public class GestioneScelta extends javax.swing.JFrame {
         initComponents();
         setBackgroundImage("image/sfondo.jpg");
         addWindowListener(new Chiusura());
+        this.setSize(415, 335);
         this.setResizable(false);
 
         cittadino.setVisible(true);
@@ -200,7 +201,7 @@ public class GestioneScelta extends javax.swing.JFrame {
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
