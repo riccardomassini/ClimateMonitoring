@@ -72,7 +72,7 @@ public class GestioneScelta extends javax.swing.JFrame {
      */
     private void setBackgroundImage(String imagePath) {
         try {
-            BufferedImage image = ImageIO.read(getClass().getClassLoader().getResource(imagePath));    
+            BufferedImage image = ImageIO.read(getClass().getClassLoader().getResource(imagePath));
             sfondo.setIcon(new ImageIcon(image.getScaledInstance(sfondo.getWidth(), sfondo.getHeight(), Image.SCALE_SMOOTH)));
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -85,7 +85,16 @@ public class GestioneScelta extends javax.swing.JFrame {
      * Questo metodo è generato automaticamente dal Form Editor e non dovrebbe essere modificato manualmente.
      * </p>
      */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
+
+        jColorChooser1 = new javax.swing.JColorChooser();
+        jColorChooser2 = new javax.swing.JColorChooser();
+        jColorChooser3 = new javax.swing.JColorChooser();
+        jOptionPane1 = new javax.swing.JOptionPane();
+        jColorChooser4 = new javax.swing.JColorChooser();
+        jColorChooser5 = new javax.swing.JColorChooser();
         cittadino = new javax.swing.JButton();
         operatore = new javax.swing.JButton();
         riprova = new javax.swing.JButton();
@@ -102,7 +111,7 @@ public class GestioneScelta extends javax.swing.JFrame {
                 cittadinoActionPerformed(evt);
             }
         });
-        getContentPane().add(cittadino, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 141, 83, -1));
+        getContentPane().add(cittadino, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 141, -1, -1));
 
         operatore.setText("Operatore");
         operatore.addActionListener(new java.awt.event.ActionListener() {
@@ -127,10 +136,12 @@ public class GestioneScelta extends javax.swing.JFrame {
         scelta.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         scelta.setText("CLIMATE MONITOR");
         getContentPane().add(scelta, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, -1, 61));
+
+        sfondo.setIcon(new javax.swing.ImageIcon("C:\\Users\\massi\\OneDrive\\Documenti\\NetBeansProjects\\ClimateMonitorOriginal_LUCA\\src\\image\\sfondo.jpg")); // NOI18N
         getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 300));
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>
 
     /**
      * Gestisce l'evento di azione del pulsante {@code cittadino}.
@@ -180,7 +191,7 @@ public class GestioneScelta extends javax.swing.JFrame {
      *
      * @param evt l'evento di azione generato dal pulsante {@code riprova}.
      */
-    private void riprovaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_riprovaActionPerformed
+    private void riprovaActionPerformed(java.awt.event.ActionEvent evt) {
         cittadino.setVisible(true);
         operatore.setVisible(true);
         out.setVisible(false);
@@ -195,6 +206,11 @@ public class GestioneScelta extends javax.swing.JFrame {
      * @param args gli argomenti della riga di comando.
      */
     public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -211,7 +227,10 @@ public class GestioneScelta extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(GestioneScelta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
 
+
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run(){
                 new GestioneScelta().setVisible(true);
@@ -219,21 +238,18 @@ public class GestioneScelta extends javax.swing.JFrame {
         });
     }
 
-    /** Bottone per la scelta dell'opzione cittadino */
+    // Variables declaration - do not modify
     private javax.swing.JButton cittadino;
-
-    /** Bottone per la scelta dell'opzione operatore */
+    private javax.swing.JColorChooser jColorChooser1;
+    private javax.swing.JColorChooser jColorChooser2;
+    private javax.swing.JColorChooser jColorChooser3;
+    private javax.swing.JColorChooser jColorChooser4;
+    private javax.swing.JColorChooser jColorChooser5;
+    private javax.swing.JOptionPane jOptionPane1;
     private javax.swing.JButton operatore;
-
-    /** Etichetta per il messaggio di errore */
     private javax.swing.JLabel out;
-
-    /** Bottone per riprovare la selezione */
     private javax.swing.JButton riprova;
-
-    /** Etichetta per la scelta dell'opzione */
     private javax.swing.JLabel scelta;
-
-    /** Etichetta per l'immagine di sfondo */
     private javax.swing.JLabel sfondo;
+    // End of variables declaration
 }
