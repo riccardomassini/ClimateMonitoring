@@ -105,39 +105,38 @@ public class GestioneScelta extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        cittadino.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         cittadino.setText("Cittadino");
-        cittadino.setMaximumSize(new java.awt.Dimension(83, 23));
-        cittadino.setMinimumSize(new java.awt.Dimension(83, 23));
-        cittadino.setPreferredSize(new java.awt.Dimension(83, 23));
         cittadino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cittadinoActionPerformed(evt);
             }
         });
-        getContentPane().add(cittadino, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 141, -1, 27));
+        getContentPane().add(cittadino, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 141, 90, -1));
 
+        operatore.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         operatore.setText("Operatore");
         operatore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 operatoreActionPerformed(evt);
             }
         });
-        getContentPane().add(operatore, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 197, -1, -1));
+        getContentPane().add(operatore, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 197, 90, -1));
 
+        riprova.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         riprova.setText("Riprova");
-        riprova.setPreferredSize(new java.awt.Dimension(83, 23));
         riprova.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 riprovaActionPerformed(evt);
             }
         });
-        getContentPane().add(riprova, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 220, -1, -1));
+        getContentPane().add(riprova, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 220, 90, -1));
 
-        out.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        out.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         out.setText("Server non acceso...");
         getContentPane().add(out, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, -1, 45));
 
-        scelta.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        scelta.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         scelta.setText("CLIMATE MONITOR");
         getContentPane().add(scelta, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, -1, 61));
         getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 300));
