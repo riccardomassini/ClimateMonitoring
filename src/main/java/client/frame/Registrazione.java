@@ -17,7 +17,6 @@ import commons.servizio.Autenticazione;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-
 import java.rmi.RemoteException;
 import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
@@ -33,7 +32,6 @@ import javax.swing.ImageIcon;
  * @author Lorenzo Artale
  */
 public class Registrazione extends javax.swing.JFrame {
-
     /** Oggetto per gestire l'autenticazione tramite RMI. */
     Autenticazione autenticazione;
 
@@ -69,6 +67,8 @@ public class Registrazione extends javax.swing.JFrame {
      * Questo metodo è generato automaticamente dal Form Editor e non dovrebbe essere modificato manualmente.
      * </p>
      */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
@@ -103,6 +103,11 @@ public class Registrazione extends javax.swing.JFrame {
         getContentPane().add(nomeReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(111, 50, 85, -1));
         getContentPane().add(cfReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(111, 118, 85, -1));
 
+        mailReg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mailRegActionPerformed(evt);
+            }
+        });
         getContentPane().add(mailReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(111, 152, 85, -1));
         getContentPane().add(idReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(111, 186, 85, -1));
         getContentPane().add(passReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(111, 220, 85, -1));
@@ -152,7 +157,11 @@ public class Registrazione extends javax.swing.JFrame {
         getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 310));
 
         pack();
-    }
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void mailRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mailRegActionPerformed
+
+    }//GEN-LAST:event_mailRegActionPerformed
 
     /**
      * Gestisce l'azione del pulsante "Indietro".
@@ -168,7 +177,7 @@ public class Registrazione extends javax.swing.JFrame {
      *
      * @param evt l'evento di azione generato dal clic sul pulsante
      */
-    private void backActionPerformed(java.awt.event.ActionEvent evt) {
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
         
         if(autenticazione != null){
@@ -179,7 +188,7 @@ public class Registrazione extends javax.swing.JFrame {
         } else {
              ResetClient.spegniClient(this);
         }
-    }
+    }//GEN-LAST:event_backActionPerformed
 
     /**
      * Metodo chiamato quando l'utente clicca sul pulsante di registrazione.
@@ -188,7 +197,7 @@ public class Registrazione extends javax.swing.JFrame {
      *
      * @param evt L'evento di azione scatenato dal clic sul pulsante di registrazione.
      */
-    private void regActionPerformed(java.awt.event.ActionEvent evt) {
+    private void regActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regActionPerformed
         autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
         
         if(autenticazione != null) {
@@ -263,7 +272,7 @@ public class Registrazione extends javax.swing.JFrame {
 
         } else
             ResetClient.spegniClient(this);
-    }
+    }//GEN-LAST:event_regActionPerformed
 
     /**
      * Verifica se la password inserita rispetta i requisiti di validità.
@@ -375,6 +384,11 @@ public class Registrazione extends javax.swing.JFrame {
      * @param args gli argomenti della riga di comando.
      */
     public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -391,7 +405,9 @@ public class Registrazione extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Registrazione.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
 
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Registrazione().setVisible(true);
@@ -399,69 +415,28 @@ public class Registrazione extends javax.swing.JFrame {
         });
     }
 
-    /** Pulsante per tornare alla schermata precedente. */
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
-
-    /** Campo di testo per inserire il codice fiscale dell'operatore. */
     private javax.swing.JTextField cfReg;
-
-    /** Campo di testo per inserire il cognome dell'operatore. */
     private javax.swing.JTextField cognomeReg;
-
-    /** Campo di testo per inserire l'ID dell'operatore. */
     private javax.swing.JTextField idReg;
-
-    /** Etichetta per la visualizzazione del testo o delle informazioni. */
     private javax.swing.JLabel jLabel1;
-
-    /** Etichetta per la visualizzazione del testo o delle informazioni. */
     private javax.swing.JLabel jLabel2;
-
-    /** Etichetta per la visualizzazione del testo o delle informazioni. */
     private javax.swing.JLabel jLabel3;
-
-    /** Etichetta per la visualizzazione del testo o delle informazioni. */
     private javax.swing.JLabel jLabel4;
-
-    /** Etichetta per la visualizzazione del testo o delle informazioni. */
     private javax.swing.JLabel jLabel5;
-
-    /** Etichetta per la visualizzazione del testo o delle informazioni. */
     private javax.swing.JLabel jLabel6;
-
-    /** Etichetta per la visualizzazione del testo o delle informazioni. */
     private javax.swing.JLabel jLabel7;
-
-    /** Campo di testo per inserire l'indirizzo email dell'operatore. */
     private javax.swing.JTextField mailReg;
-
-    /** Campo di testo per inserire il nome dell'operatore. */
     private javax.swing.JTextField nomeReg;
-
-    /** Etichetta per i messaggi di errore o conferma. */
     private javax.swing.JLabel out1;
-
-    /** Etichetta per i messaggi di errore o conferma. */
     private javax.swing.JLabel out2;
-
-    /** Etichetta per i messaggi di errore o conferma. */
     private javax.swing.JLabel out3;
-
-    /** Etichetta per i messaggi di errore o conferma. */
     private javax.swing.JLabel out4;
-
-    /** Etichetta per i messaggi di errore o conferma. */
     private javax.swing.JLabel out5;
-
-    /** Etichetta per i messaggi di errore o conferma. */
     private javax.swing.JLabel out6;
-
-    /** Campo di testo per inserire la password dell'operatore. */
     private javax.swing.JTextField passReg;
-
-    /** Pulsante per confermare la registrazione dell'operatore. */
     private javax.swing.JButton reg;
-
-    /** Etichetta per lo sfondo dell'interfaccia. */
     private javax.swing.JLabel sfondo;
+    // End of variables declaration//GEN-END:variables
 }

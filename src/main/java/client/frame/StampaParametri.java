@@ -14,7 +14,6 @@ import client.registraeventi.Chiusura;
 import commons.oggetti.misurazioni.CategorieParametriClimatici;
 import commons.oggetti.PuntoInteresse;
 import commons.oggetti.misurazioni.Misurazione;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.rmi.RemoteException;
@@ -22,7 +21,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-
 import commons.oggetti.misurazioni.PunteggioParametroClimatico;
 import commons.servizio.GestioneMisurazioni;
 import commons.servizio.RicercaPuntiInteresse;
@@ -93,6 +91,8 @@ public class StampaParametri extends JFrame {
      * Questo metodo è generato automaticamente dal Form Editor e non dovrebbe essere modificato manualmente.
      * </p>
      */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -183,7 +183,7 @@ public class StampaParametri extends JFrame {
         getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 550));
 
         pack();
-    }
+    }// </editor-fold>//GEN-END:initComponents
 
     /**
      * Gestisce l'azione del pulsante "Indietro".
@@ -199,7 +199,7 @@ public class StampaParametri extends JFrame {
      *
      * @param evt l'evento di azione generato dal clic sul pulsante
      */
-    private void backActionPerformed(ActionEvent evt) {
+    private void backActionPerformed(ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         gestioneMisurazioni = ClientRMI.ottieniClientRMI().ottieniStubGestioneMisurazioni();
         
         if(gestioneMisurazioni != null){
@@ -210,7 +210,7 @@ public class StampaParametri extends JFrame {
         }else{
             ResetClient.spegniClient(this);
         }
-    }
+    }//GEN-LAST:event_backActionPerformed
 
     /**
      * Metodo chiamato quando viene eseguita l'azione di ricerca.
@@ -221,7 +221,7 @@ public class StampaParametri extends JFrame {
      *
      * @param evt Evento generato dall'azione.
      */
-    private void cercaActionPerformed(ActionEvent evt) {
+    private void cercaActionPerformed(ActionEvent evt) {//GEN-FIRST:event_cercaActionPerformed
         gestioneMisurazioni = ClientRMI.ottieniClientRMI().ottieniStubGestioneMisurazioni();
         
         if(gestioneMisurazioni != null){
@@ -280,7 +280,7 @@ public class StampaParametri extends JFrame {
             ResetClient.spegniClient(this);
         }
 
-    }
+    }//GEN-LAST:event_cercaActionPerformed
 
     /**
      * Estrae i dati da una misurazione e li restituisce come array di oggetti.
@@ -328,7 +328,7 @@ public class StampaParametri extends JFrame {
         if(nValutazioni == 0)
             return 0;
         
-        return (double) somma / nValutazioni;
+        return somma / nValutazioni;
     }
 
     /**
@@ -376,6 +376,7 @@ public class StampaParametri extends JFrame {
         model3.setRowCount(0);
     }
 
+
     /**
      * Metodo principale che avvia il frame {@code StampaParametri}.
      * <p>Crea e visualizza l'istanza di {@code StampaParametri}.</p>
@@ -384,6 +385,11 @@ public class StampaParametri extends JFrame {
      * @param args gli argomenti della riga di comando.
      */
     public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
         try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -400,7 +406,9 @@ public class StampaParametri extends JFrame {
         } catch (UnsupportedLookAndFeelException ex) {
             Logger.getLogger(StampaParametri.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //</editor-fold>
 
+        /* Create and display the form */
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new StampaParametri().setVisible(true);
@@ -408,51 +416,22 @@ public class StampaParametri extends JFrame {
         });
     }
 
-    /** Bottone per tornare alla schermata precedente. */
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
-
-    /** Bottone per avviare la ricerca. */
     private javax.swing.JButton cerca;
-
-    /** Etichetta per il primo campo di testo. */
     private javax.swing.JLabel jLabel1;
-
-    /** Etichetta per il secondo campo di testo. */
     private javax.swing.JLabel jLabel2;
-
-    /** Panello di scorrimento 1 */
     private javax.swing.JScrollPane jScrollPane1;
-
-    /** Panello di scorrimento 2 */
     private javax.swing.JScrollPane jScrollPane2;
-
-    /** Panello di scorrimento 3 */
     private javax.swing.JScrollPane jScrollPane3;
-
-    /** Panello di scorrimento 4 */
     private javax.swing.JScrollPane jScrollPane4;
-
-    /** Area di testo per l'inserimento o visualizzazione di dati multipli. */
     private javax.swing.JTextArea jTextArea1;
-
-    /** Etichetta per visualizzare messaggi o errori. */
     private javax.swing.JLabel out;
-
-    /** Campo di testo per inserire il nome del punto di interesse. */
     private javax.swing.JTextField ric1;
-
-    /** Campo di testo per inserire il codice della nazione. */
     private javax.swing.JTextField ric2;
-
-    /** Etichetta per lo sfondo dell'interfaccia. */
     private javax.swing.JLabel sfondo;
-
-    /** Tabella per visualizzare il primo set di dati. */
     private javax.swing.JTable tabella1;
-
-    /** Tabella per visualizzare il secondo set di dati. */
     private javax.swing.JTable tabella2;
-
-    /** Tabella per visualizzare il terzo set di dati. */
     private javax.swing.JTable tabella3;
+    // End of variables declaration//GEN-END:variables
 }

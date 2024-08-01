@@ -13,9 +13,7 @@ import client.clientrmi.ResetClient;
 import client.registraeventi.Chiusura;
 import commons.oggetti.Operatore;
 import commons.oggetti.PuntoInteresse;
-
 import java.rmi.RemoteException;
-
 import commons.servizio.Autenticazione;
 import commons.servizio.GestioneCentriMonitoraggio;
 import java.awt.Image;
@@ -38,7 +36,6 @@ import javax.swing.*;
  * @author Lorenzo Artale
  */
 public class AreaOperatore extends javax.swing.JFrame {
-
     /** L'oggetto per l'autenticazione dell'operatore. */
     Autenticazione autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
 
@@ -59,7 +56,7 @@ public class AreaOperatore extends javax.swing.JFrame {
 
     /** Il codice del paese selezionato. */
     String cc = null;
-
+    
     /**
      * Costruttore predefinito della classe {@code AreaOperatore}.
      * <p>
@@ -143,13 +140,15 @@ public class AreaOperatore extends javax.swing.JFrame {
             ex.printStackTrace();
         }
     }
-
+    
     /**
-     * Inizializza i componenti dell'interfaccia utente.
+     * Costruttore predefinito della classe {@code AreaOperatore}.
      * <p>
-     * Questo metodo è generato automaticamente dal Form Editor e non dovrebbe essere modificato manualmente.
+     * Inizializza l'interfaccia grafica e imposta lo sfondo.
      * </p>
      */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         back = new javax.swing.JButton();
@@ -250,7 +249,7 @@ public class AreaOperatore extends javax.swing.JFrame {
         }else{
             ResetClient.spegniClient(this);
         }
-    }
+    }//GEN-LAST:event_backActionPerformed
 
     /**
      * Gestisce l'azione del pulsante "Registra".
@@ -276,7 +275,7 @@ public class AreaOperatore extends javax.swing.JFrame {
         }else{
             ResetClient.spegniClient(this);
         }
-    }
+    }//GEN-LAST:event_registraCentroActionPerformed
 
     /**
      * Gestisce l'azione del pulsante "Cerca".
@@ -311,7 +310,7 @@ public class AreaOperatore extends javax.swing.JFrame {
         }else{
             ResetClient.spegniClient(this);
         }
-    }
+    }//GEN-LAST:event_cercaParamActionPerformed
 
     /**
      * Gestisce l'azione della selezione di un elemento nella {@link JComboBox}.
@@ -332,7 +331,7 @@ public class AreaOperatore extends javax.swing.JFrame {
         }else{
             ResetClient.spegniClient(this);
         }
-    }
+    }//GEN-LAST:event_sceltaActionPerformed
 
     /**
      * Gestisce l'azione del pulsante "Scegli".
@@ -358,8 +357,8 @@ public class AreaOperatore extends javax.swing.JFrame {
         }else{
             ResetClient.spegniClient(this);
         }
-    }
-
+    }//GEN-LAST:event_scegliCentroActionPerformed
+ 
     /**
      * Metodo principale per avviare il frame {@code AreaOperatore}.
      * <p>Crea e visualizza l'istanza di {@code AreaOperatore}.</p>
@@ -367,6 +366,11 @@ public class AreaOperatore extends javax.swing.JFrame {
      * @param args gli argomenti della riga di comando
      */
     public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -383,43 +387,28 @@ public class AreaOperatore extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(AreaOperatore.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new AreaOperatore().setVisible(true);
+
             }
         });
     }
 
-    /** Pulsante per tornare alla schermata di login. */
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
-
-    /** Pulsante per cercare parametri associati al punto di interesse selezionato. */
     private javax.swing.JButton cercaParam;
-
-    /** Etichetta per visualizzare informazioni relative all'operatore. */
     private javax.swing.JLabel out1;
-
-    /** Etichetta per visualizzare informazioni sul centro di monitoraggio. */
     private javax.swing.JLabel out2;
-
-    /** Etichetta per visualizzare messaggi di errore o stati di sistema. */
     private javax.swing.JLabel out3;
-
-    /** Pulsante per avviare il processo di registrazione di un nuovo centro di monitoraggio. */
     private javax.swing.JButton registraCentro;
-
-    /** Pulsante per selezionare un centro di monitoraggio. */
     private javax.swing.JButton scegliCentro;
-
-    /** ComboBox per la selezione di un punto di interesse. */
     private javax.swing.JComboBox<String> scelta;
-
-    /** Etichetta per visualizzare l'immagine di sfondo. */
     private javax.swing.JLabel sfondo;
-
-    /** Etichetta per il titolo della sezione di registrazione del centro di monitoraggio. */
     private javax.swing.JLabel titReg;
-
-    /** Etichetta per visualizzare il titolo della finestra. */
     private javax.swing.JLabel titolo;
+    // End of variables declaration//GEN-END:variables
 }

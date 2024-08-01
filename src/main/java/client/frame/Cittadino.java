@@ -16,7 +16,6 @@ import commons.servizio.RicercaPuntiInteresse;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-
 import javax.swing.table.DefaultTableModel;
 import java.rmi.RemoteException;
 import javax.imageio.ImageIO;
@@ -32,7 +31,6 @@ import javax.swing.ImageIcon;
  * @author Lorenzo Artale
  */
 public class Cittadino extends javax.swing.JFrame {
-
     /** Oggetto per la ricerca dei punti di interesse tramite RMI. */
     RicercaPuntiInteresse ricercaPuntiInteresse = ClientRMI.ottieniClientRMI().ottieniStubRicercaPuntiInteresse();;
 
@@ -118,6 +116,8 @@ public class Cittadino extends javax.swing.JFrame {
      * Questo metodo è generato automaticamente dal Form Editor e non dovrebbe essere modificato manualmente.
      * </p>
      */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -251,7 +251,7 @@ public class Cittadino extends javax.swing.JFrame {
         getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 430));
 
         pack();
-    }
+    }// </editor-fold>//GEN-END:initComponents
 
     /**
      * Gestisce l'evento di azione del pulsante {@code cerca2}.
@@ -306,7 +306,7 @@ public class Cittadino extends javax.swing.JFrame {
             ResetClient.spegniClient(this);
         }
 
-    }
+    }//GEN-LAST:event_cerca2ActionPerformed
 
     /**
      * Gestisce l'evento di azione del componente {@code combo}.
@@ -356,7 +356,7 @@ public class Cittadino extends javax.swing.JFrame {
         }else{
             ResetClient.spegniClient(this);
         }
-    }
+    }//GEN-LAST:event_comboActionPerformed
 
     /**
      * Gestisce l'evento di azione del pulsante {@code cerca1}.
@@ -376,6 +376,7 @@ public class Cittadino extends javax.swing.JFrame {
             String nome = ric1.getText();
             PuntoInteresse[] elencoPuntiInteresse = null;
 
+            //TODO rmi client
             try {
                 elencoPuntiInteresse = ricercaPuntiInteresse.ricercaPerNome(nome);
             } catch(RemoteException ex) {
@@ -402,7 +403,7 @@ public class Cittadino extends javax.swing.JFrame {
             ResetClient.spegniClient(this);
         }
 
-    }
+    }//GEN-LAST:event_cerca1ActionPerformed
 
     /**
      * Gestisce l'azione del pulsante "Indietro".
@@ -428,7 +429,7 @@ public class Cittadino extends javax.swing.JFrame {
         }else{
             ResetClient.spegniClient(this);
         }
-    }
+    }//GEN-LAST:event_backActionPerformed
 
     /**
      * Gestisce l'evento di azione del pulsante {@code cerca3}.
@@ -438,7 +439,8 @@ public class Cittadino extends javax.swing.JFrame {
      *
      * @param evt l'evento di azione generato dal pulsante {@code cerca3}.
      */
-    private void cerca3ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void cerca3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerca3ActionPerformed
+         
         ricercaPuntiInteresse = ClientRMI.ottieniClientRMI().ottieniStubRicercaPuntiInteresse();
         if(ricercaPuntiInteresse != null){
             ric1.setText("");
@@ -473,7 +475,7 @@ public class Cittadino extends javax.swing.JFrame {
         }else{
             ResetClient.spegniClient(this);
         }
-    }
+    }//GEN-LAST:event_cerca3ActionPerformed
 
     /**
      * Metodo principale che avvia il frame {@code Cittadino}.
@@ -483,6 +485,11 @@ public class Cittadino extends javax.swing.JFrame {
      * @param args gli argomenti della riga di comando.
      */
     public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -499,7 +506,9 @@ public class Cittadino extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Cittadino.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
 
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Cittadino().setVisible(true);
@@ -507,63 +516,27 @@ public class Cittadino extends javax.swing.JFrame {
         });
     }
 
-    /** Bottone per tornare alla schermata precedente */
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
-
-    /** Bottone per cercare punti di interesse per nome */
     private javax.swing.JButton cerca1;
-
-    /** Bottone per cercare punti di interesse per coordinate */
     private javax.swing.JButton cerca2;
-
-    /** Bottone per cercare punti di interesse per codice nazione */
     private javax.swing.JButton cerca3;
-
-    /** ComboBox per selezionare il tipo di ricerca */
     private javax.swing.JComboBox<String> combo;
-
-    /** Etichetta per il campo di ricerca per nome */
     private javax.swing.JLabel jLabel1;
-
-    /** Etichetta per il campo di ricerca per coordinate */
     private javax.swing.JLabel jLabel2;
-
-    /** Etichetta per il campo di ricerca per coordinate */
     private javax.swing.JLabel jLabel3;
-
-    /** Etichetta per il campo di ricerca per coordinate */
     private javax.swing.JLabel jLabel4;
-
-    /** Etichetta per il campo di ricerca per stato */
     private javax.swing.JLabel jLabel5;
-
-    /** ScrollPane per la tabella dei risultati */
     private javax.swing.JScrollPane jScrollPane2;
-
-    /** ScrollPane per la tabella dei risultati */
     private javax.swing.JScrollPane jScrollPane3;
-
-    /** Tabella per visualizzare i risultati della ricerca */
     private javax.swing.JTable jTable1;
-
-    /** Etichetta per visualizzare messaggi di output */
     private javax.swing.JLabel out;
-
-    /** Campo di testo per inserire il nome del punto di interesse */
     private javax.swing.JTextField ric1;
-
-    /** Campo di testo per inserire la latitudine */
     private javax.swing.JTextField ric2;
-
-    /** Campo di testo per inserire la longitudine */
     private javax.swing.JTextField ric3;
-
-    /** Campo di testo per inserire il codice della nazione */
     private javax.swing.JTextField ric4;
-
-    /** Etichetta per lo sfondo */
     private javax.swing.JLabel sfondo;
-
-    /** Tabella per visualizzare i punti di interesse */
     private javax.swing.JTable tabella;
+    // End of variables declaration//GEN-END:variables
+
 }

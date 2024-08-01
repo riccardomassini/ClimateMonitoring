@@ -126,6 +126,8 @@ public class Parametri extends javax.swing.JFrame {
      * Questo metodo è generato automaticamente dal Form Editor e non dovrebbe essere modificato manualmente.
      * </p>
      */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
@@ -228,6 +230,11 @@ public class Parametri extends javax.swing.JFrame {
         });
         getContentPane().add(inserisciParam, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 267, -1, -1));
 
+        ventoReg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ventoRegActionPerformed(evt);
+            }
+        });
         getContentPane().add(ventoReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 65, -1, -1));
 
         getContentPane().add(umReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 93, -1, -1));
@@ -253,7 +260,7 @@ public class Parametri extends javax.swing.JFrame {
         getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 470, 360));
 
         pack();
-    }
+    }// </editor-fold>//GEN-END:initComponents
 
     /**
      * Gestisce l'evento di azione del pulsante {@code inserisciParam}.
@@ -262,7 +269,7 @@ public class Parametri extends javax.swing.JFrame {
      *
      * @param evt l'evento di azione generato dal pulsante {@code inserisciParam}.
      */
-    private void inserisciParamActionPerformed(java.awt.event.ActionEvent evt) {
+    private void inserisciParamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserisciParamActionPerformed
         gestioneMisurazioni = ClientRMI.ottieniClientRMI().ottieniStubGestioneMisurazioni();
         if(gestioneMisurazioni != null){
         
@@ -341,7 +348,12 @@ public class Parametri extends javax.swing.JFrame {
         }else{
             ResetClient.spegniClient(this);
         }
-    }
+            
+    }//GEN-LAST:event_inserisciParamActionPerformed
+
+    private void ventoRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventoRegActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ventoRegActionPerformed
 
     /**
      * Gestisce l'azione del pulsante "Indietro".
@@ -357,7 +369,7 @@ public class Parametri extends javax.swing.JFrame {
      *
      * @param evt l'evento di azione generato dal clic sul pulsante
      */
-    private void backActionPerformed(java.awt.event.ActionEvent evt) {
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         gestioneMisurazioni = ClientRMI.ottieniClientRMI().ottieniStubGestioneMisurazioni();
         if(gestioneMisurazioni != null){
             AreaOperatore ao = new AreaOperatore(operatorePassato.getUsername(), operatorePassato.getPassword());
@@ -367,7 +379,7 @@ public class Parametri extends javax.swing.JFrame {
         }else{
             ResetClient.spegniClient(this);
         }
-    }
+    }//GEN-LAST:event_backActionPerformed
 
     /**
      * Formatta il commento per una valutazione parametrica.
@@ -405,7 +417,7 @@ public class Parametri extends javax.swing.JFrame {
             throw new IllegalArgumentException("Impossibile inserire un commento in una valutazione con punteggio nullo");
         return new ValutazioneParametro(punteggio, commento);
     }
-
+    
     /**
      * Estrae il numero intero dal valore di una stringa formattata.
      * <p>La stringa è suddivisa utilizzando " - " come separatore. Il numero è la parte prima del separatore.</p>
@@ -426,6 +438,11 @@ public class Parametri extends javax.swing.JFrame {
      * @param args gli argomenti della riga di comando.
      */
     public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -442,6 +459,9 @@ public class Parametri extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Parametri.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Parametri().setVisible(true);
@@ -449,108 +469,41 @@ public class Parametri extends javax.swing.JFrame {
         });
     }
 
-    /** ComboBox per la selezione del parametro altitudine ghiacciai. */
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> altReg;
-
-    /** Campo di testo per l'inserimento del commento sull'altitudine ghiacciai. */
     private javax.swing.JTextField altRegN;
-
-    /** Pulsante per tornare alla schermata precedente. */
     private javax.swing.JButton back;
-
-    /** Gruppo di pulsanti per la gestione di opzioni. */
     private javax.swing.ButtonGroup buttonGroup1;
-
-    /** Gruppo di pulsanti per la gestione di opzioni. */
     private javax.swing.ButtonGroup buttonGroup2;
-
-    /** Pulsante per inserire i parametri climatici. */
     private javax.swing.JButton inserisciParam;
-
-    /** Etichetta per la visualizzazione del testo o delle informazioni. */
     private javax.swing.JLabel jLabel1;
-
-    /** Etichetta per la visualizzazione del testo o delle informazioni. */
     private javax.swing.JLabel jLabel10;
-
-    /** Etichetta per la visualizzazione del testo o delle informazioni. */
     private javax.swing.JLabel jLabel11;
-
-    /** Etichetta per la visualizzazione del testo o delle informazioni. */
     private javax.swing.JLabel jLabel12;
-
-    /** Etichetta per la visualizzazione del testo o delle informazioni. */
     private javax.swing.JLabel jLabel13;
-
-    /** Etichetta per la visualizzazione del testo o delle informazioni. */
     private javax.swing.JLabel jLabel14;
-
-    /** Etichetta per la visualizzazione del testo o delle informazioni. */
     private javax.swing.JLabel jLabel15;
-
-    /** Etichetta per la visualizzazione del testo o delle informazioni. */
     private javax.swing.JLabel jLabel2;
-
-    /** Etichetta per la visualizzazione del testo o delle informazioni. */
     private javax.swing.JLabel jLabel3;
-
-    /** Etichetta per la visualizzazione del testo o delle informazioni. */
     private javax.swing.JLabel jLabel4;
-
-    /** Etichetta per la visualizzazione del testo o delle informazioni. */
     private javax.swing.JLabel jLabel5;
-
-    /** Etichetta per la visualizzazione del testo o delle informazioni. */
     private javax.swing.JLabel jLabel6;
-
-    /** Etichetta per la visualizzazione del testo o delle informazioni. */
     private javax.swing.JLabel jLabel7;
-
-    /** Etichetta per la visualizzazione del testo o delle informazioni. */
     private javax.swing.JLabel jLabel8;
-
-    /** Etichetta per la visualizzazione del testo o delle informazioni. */
     private javax.swing.JLabel jLabel9;
-
-    /** ComboBox per la selezione del parametro massa ghiacciai. */
     private javax.swing.JComboBox<String> massaReg;
-
-    /** Campo di testo per l'inserimento del commento sulla massa ghiacciai. */
     private javax.swing.JTextField massaRegN;
-
-    /** Etichetta per la visualizzazione di messaggi di output o errori. */
     private javax.swing.JLabel out;
-
-    /** ComboBox per la selezione del parametro precipitazioni. */
     private javax.swing.JComboBox<String> precReg;
-
-    /** Campo di testo per l'inserimento del commento sulle precipitazioni. */
     private javax.swing.JTextField precRegN;
-
-    /** ComboBox per la selezione del parametro pressione. */
     private javax.swing.JComboBox<String> presReg;
-
-    /** Campo di testo per l'inserimento del commento sulla pressione. */
     private javax.swing.JTextField presRegN;
-
-    /** Etichetta per lo sfondo dell'interfaccia. */
     private javax.swing.JLabel sfondo;
-
-    /** ComboBox per la selezione del parametro temperatura. */
     private javax.swing.JComboBox<String> teReg;
-
-    /** Campo di testo per l'inserimento del commento sulla temperatura. */
     private javax.swing.JTextField teRegN;
-
-    /** ComboBox per la selezione del parametro umidità. */
     private javax.swing.JComboBox<String> umReg;
-
-    /** Campo di testo per l'inserimento del commento sull'umidità. */
     private javax.swing.JTextField umRegN;
-
-    /** ComboBox per la selezione del parametro vento. */
     private javax.swing.JComboBox<String> ventoReg;
-
-    /** Campo di testo per l'inserimento del commento sul vento. */
     private javax.swing.JTextField ventoRegN;
+    // End of variables declaration//GEN-END:variables
 }

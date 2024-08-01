@@ -85,7 +85,16 @@ public class GestioneScelta extends javax.swing.JFrame {
      * Questo metodo è generato automaticamente dal Form Editor e non dovrebbe essere modificato manualmente.
      * </p>
      */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
+        jColorChooser1 = new javax.swing.JColorChooser();
+        jColorChooser2 = new javax.swing.JColorChooser();
+        jColorChooser3 = new javax.swing.JColorChooser();
+        jOptionPane1 = new javax.swing.JOptionPane();
+        jColorChooser4 = new javax.swing.JColorChooser();
+        jColorChooser5 = new javax.swing.JColorChooser();
         cittadino = new javax.swing.JButton();
         operatore = new javax.swing.JButton();
         riprova = new javax.swing.JButton();
@@ -102,7 +111,7 @@ public class GestioneScelta extends javax.swing.JFrame {
                 cittadinoActionPerformed(evt);
             }
         });
-        getContentPane().add(cittadino, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 141, 83, -1));
+        getContentPane().add(cittadino, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 141, 86, -1));
 
         operatore.setText("Operatore");
         operatore.addActionListener(new java.awt.event.ActionListener() {
@@ -110,7 +119,7 @@ public class GestioneScelta extends javax.swing.JFrame {
                 operatoreActionPerformed(evt);
             }
         });
-        getContentPane().add(operatore, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 197, -1, -1));
+        getContentPane().add(operatore, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 197, 86, -1));
 
         riprova.setText("Riprova");
         riprova.addActionListener(new java.awt.event.ActionListener() {
@@ -138,7 +147,7 @@ public class GestioneScelta extends javax.swing.JFrame {
      *
      * @param evt l'evento di azione generato dal pulsante {@code cittadino}.
      */
-    private void cittadinoActionPerformed(java.awt.event.ActionEvent evt) {
+    private void cittadinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cittadinoActionPerformed
         autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
         if(autenticazione != null) {
             Cittadino cit = new Cittadino();
@@ -151,7 +160,7 @@ public class GestioneScelta extends javax.swing.JFrame {
             out.setVisible(true);
             riprova.setVisible(true);
         }
-    }
+    }//GEN-LAST:event_cittadinoActionPerformed
 
     /**
      * Gestisce l'evento di azione del pulsante {@code operatore}.
@@ -159,7 +168,7 @@ public class GestioneScelta extends javax.swing.JFrame {
      *
      * @param evt l'evento di azione generato dal pulsante {@code operatore}.
      */
-    private void operatoreActionPerformed(java.awt.event.ActionEvent evt) {
+    private void operatoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_operatoreActionPerformed
         autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
         if(autenticazione != null) {
             FrameOperatore op = new FrameOperatore();
@@ -172,7 +181,7 @@ public class GestioneScelta extends javax.swing.JFrame {
             out.setVisible(true);
             riprova.setVisible(true);
         }
-    }
+    }//GEN-LAST:event_operatoreActionPerformed
 
     /**
      * Gestisce l'evento di azione del pulsante {@code riprova}.
@@ -185,7 +194,7 @@ public class GestioneScelta extends javax.swing.JFrame {
         operatore.setVisible(true);
         out.setVisible(false);
         riprova.setVisible(false);
-    }
+    }//GEN-LAST:event_riprovaActionPerformed
 
     /**
      * Metodo principale che avvia il frame {@code GestioneScelta}.
@@ -195,6 +204,11 @@ public class GestioneScelta extends javax.swing.JFrame {
      * @param args gli argomenti della riga di comando.
      */
     public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -211,7 +225,10 @@ public class GestioneScelta extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(GestioneScelta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        
 
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run(){
                 new GestioneScelta().setVisible(true);
@@ -219,21 +236,19 @@ public class GestioneScelta extends javax.swing.JFrame {
         });
     }
 
-    /** Bottone per la scelta dell'opzione cittadino */
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cittadino;
-
-    /** Bottone per la scelta dell'opzione operatore */
+    private javax.swing.JColorChooser jColorChooser1;
+    private javax.swing.JColorChooser jColorChooser2;
+    private javax.swing.JColorChooser jColorChooser3;
+    private javax.swing.JColorChooser jColorChooser4;
+    private javax.swing.JColorChooser jColorChooser5;
+    private javax.swing.JOptionPane jOptionPane1;
     private javax.swing.JButton operatore;
-
-    /** Etichetta per il messaggio di errore */
     private javax.swing.JLabel out;
-
-    /** Bottone per riprovare la selezione */
     private javax.swing.JButton riprova;
-
-    /** Etichetta per la scelta dell'opzione */
     private javax.swing.JLabel scelta;
-
-    /** Etichetta per l'immagine di sfondo */
     private javax.swing.JLabel sfondo;
+    // End of variables declaration//GEN-END:variables
+
 }

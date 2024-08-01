@@ -66,7 +66,10 @@ public class Login extends javax.swing.JFrame {
      * Questo metodo è generato automaticamente dal Form Editor e non dovrebbe essere modificato manualmente.
      * </p>
      */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
         log = new javax.swing.JLabel();
         ident = new javax.swing.JTextField();
         password = new javax.swing.JPasswordField();
@@ -85,8 +88,18 @@ public class Login extends javax.swing.JFrame {
         getContentPane().add(log, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 14, 70, 35));
 
         ident.setAlignmentY(0.0F);
+        ident.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                identActionPerformed(evt);
+            }
+        });
         getContentPane().add(ident, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 89, 109, -1));
 
+        password.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwordActionPerformed(evt);
+            }
+        });
         getContentPane().add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 151, 109, -1));
 
         jLabel1.setText("ID");
@@ -116,7 +129,11 @@ public class Login extends javax.swing.JFrame {
         getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 310));
 
         pack();
-    }
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
+
+    }//GEN-LAST:event_passwordActionPerformed
 
     /**
      * Gestisce l'azione del pulsante "Indietro".
@@ -132,7 +149,7 @@ public class Login extends javax.swing.JFrame {
      *
      * @param evt l'evento di azione generato dal clic sul pulsante
      */
-    private void backActionPerformed(java.awt.event.ActionEvent evt) {
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
         if(autenticazione != null){
             FrameOperatore op = new FrameOperatore();
@@ -142,16 +159,20 @@ public class Login extends javax.swing.JFrame {
         }else{
             ResetClient.spegniClient(this);
         }
-    }
+    }//GEN-LAST:event_backActionPerformed
 
-    /**
+    private void identActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_identActionPerformed
+
+    }//GEN-LAST:event_identActionPerformed
+
+     /**
      * Gestisce l'evento di azione del pulsante {@code ok}.
      * <p>Stabilisce una connessione RMI per l'autenticazione e tenta di effettuare il login con le credenziali inserite.</p>
      * <p>Se il login ha successo, apre la finestra dell'area dell'operatore; altrimenti, mostra un messaggio di errore.</p>
      *
      * @param evt l'evento di azione generato dal pulsante {@code ok}.
      */
-    private void okActionPerformed(java.awt.event.ActionEvent evt) {
+    private void okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okActionPerformed
         autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
         if(autenticazione != null){
         
@@ -182,11 +203,13 @@ public class Login extends javax.swing.JFrame {
                 ex.printStackTrace();
                 System.exit(1);
             }
+
         }else{
             ResetClient.spegniClient(this);
         }
-    }
-
+            
+    }//GEN-LAST:event_okActionPerformed
+    
     /**
      * Metodo principale che avvia il frame {@code Login}.
      * <p>Crea e visualizza l'istanza di {@code Login}.</p>
@@ -195,6 +218,11 @@ public class Login extends javax.swing.JFrame {
      * @param args gli argomenti della riga di comando.
      */
     public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -211,7 +239,9 @@ public class Login extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
 
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Login().setVisible(true);
@@ -219,30 +249,15 @@ public class Login extends javax.swing.JFrame {
         });
     }
 
-    /** Bottone per tornare indietro (non utilizzato nel codice attuale) */
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
-
-    /** Campo di testo per l'identificatore dell'utente */
     private javax.swing.JTextField ident;
-
-    /** Etichetta per l'identificatore dell'utente */
     private javax.swing.JLabel jLabel1;
-
-    /** Etichetta per la password */
     private javax.swing.JLabel jLabel2;
-
-    /** Etichetta per il login */
     private javax.swing.JLabel log;
-
-    /** Bottone per confermare il login */
     private javax.swing.JButton ok;
-
-    /** Etichetta per i messaggi di errore */
     private javax.swing.JLabel out;
-
-    /** Campo di password per l'inserimento della password */
     private javax.swing.JPasswordField password;
-
-    /** Etichetta per l'immagine di sfondo */
     private javax.swing.JLabel sfondo;
+    // End of variables declaration//GEN-END:variables
 }

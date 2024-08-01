@@ -63,6 +63,8 @@ public class FrameOperatore extends javax.swing.JFrame {
      * Questo metodo è generato automaticamente dal Form Editor e non dovrebbe essere modificato manualmente.
      * </p>
      */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
@@ -130,7 +132,7 @@ public class FrameOperatore extends javax.swing.JFrame {
         }else{
             ResetClient.spegniClient(this);
         }
-    }
+    }//GEN-LAST:event_backActionPerformed
 
     /**
      * Gestisce l'evento di azione del pulsante {@code login}.
@@ -148,7 +150,7 @@ public class FrameOperatore extends javax.swing.JFrame {
         }else{
             ResetClient.spegniClient(this);
         }
-    }
+    }//GEN-LAST:event_loginActionPerformed
 
     /**
      * Gestisce l'evento di azione del pulsante {@code reg}.
@@ -166,8 +168,8 @@ public class FrameOperatore extends javax.swing.JFrame {
         }else{
             ResetClient.spegniClient(this);
         }
-    }
-
+    }//GEN-LAST:event_regActionPerformed
+      
     /**
      * Metodo principale che avvia il frame {@code FrameOperatore}.
      * <p>Crea e visualizza l'istanza di {@code FrameOperatore}.</p>
@@ -176,6 +178,11 @@ public class FrameOperatore extends javax.swing.JFrame {
      * @param args gli argomenti della riga di comando.
      */
     public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -192,6 +199,9 @@ public class FrameOperatore extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FrameOperatore.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FrameOperatore().setVisible(true);
@@ -199,18 +209,11 @@ public class FrameOperatore extends javax.swing.JFrame {
         });
     }
 
-    /** Bottone per tornare alla schermata precedente */
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
-
-    /** Etichetta per lo sfondo del frame */
     private javax.swing.JLabel jLabel1;
-
-    /** Bottone per accedere alla finestra di login */
     private javax.swing.JButton login;
-
-    /** Bottone per accedere alla finestra di registrazione */
     private javax.swing.JButton reg;
-
-    /** Etichetta per l'immagine di sfondo */
     private javax.swing.JLabel sfondo;
+    // End of variables declaration//GEN-END:variables
 }

@@ -14,10 +14,8 @@ import client.registraeventi.Chiusura;
 import commons.oggetti.CentroMonitoraggio;
 import commons.oggetti.Operatore;
 import commons.oggetti.PuntoInteresse;
-
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-
 import commons.servizio.GestioneCentriMonitoraggio;
 import commons.servizio.RicercaPuntiInteresse;
 import java.awt.Image;
@@ -97,6 +95,8 @@ public class RegistraCentro extends javax.swing.JFrame {
      * Questo metodo è generato automaticamente dal Form Editor e non dovrebbe essere modificato manualmente.
      * </p>
      */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jRadioButton1 = new javax.swing.JRadioButton();
@@ -222,7 +222,7 @@ public class RegistraCentro extends javax.swing.JFrame {
         getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 310));
 
         pack();
-    }
+    }// </editor-fold>//GEN-END:initComponents
 
     /**
      * Gestisce l'azione del pulsante "Indietro".
@@ -238,7 +238,7 @@ public class RegistraCentro extends javax.swing.JFrame {
      *
      * @param evt l'evento di azione generato dal clic sul pulsante
      */
-    private void backActionPerformed(java.awt.event.ActionEvent evt) {
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         gestioneCentriMonitoraggio = ClientRMI.ottieniClientRMI().ottieniStubGestioneCentriMonitoraggio();
         
         if(gestioneCentriMonitoraggio != null){
@@ -250,7 +250,7 @@ public class RegistraCentro extends javax.swing.JFrame {
         }else{
             ResetClient.spegniClient(this);
         }
-    }
+    }//GEN-LAST:event_backActionPerformed
 
     /**
      * Azione eseguita quando viene cliccato il pulsante di registrazione.
@@ -259,7 +259,7 @@ public class RegistraCentro extends javax.swing.JFrame {
      *
      * @param evt Evento di azione generato dal clic del pulsante.
      */
-    private void cliccaRegActionPerformed(java.awt.event.ActionEvent evt) {
+    private void cliccaRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cliccaRegActionPerformed
         gestioneCentriMonitoraggio = ClientRMI.ottieniClientRMI().ottieniStubGestioneCentriMonitoraggio();
         
         if(gestioneCentriMonitoraggio != null){     
@@ -326,7 +326,7 @@ public class RegistraCentro extends javax.swing.JFrame {
         }else{
             ResetClient.spegniClient(this);
         }
-    }
+    }//GEN-LAST:event_cliccaRegActionPerformed
 
     /**
      * Azione eseguita quando viene cliccato il pulsante per inserire le aree.
@@ -335,7 +335,7 @@ public class RegistraCentro extends javax.swing.JFrame {
      *
      * @param evt Evento di azione generato dal clic del pulsante.
      */
-    private void insAreeActionPerformed(java.awt.event.ActionEvent evt) {
+    private void insAreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insAreeActionPerformed
         gestioneCentriMonitoraggio = ClientRMI.ottieniClientRMI().ottieniStubGestioneCentriMonitoraggio();
         
         if(gestioneCentriMonitoraggio != null){ 
@@ -345,6 +345,7 @@ public class RegistraCentro extends javax.swing.JFrame {
             int numAree = Integer.parseInt(numaReg.getText());
             PuntoInteresse puntoInteresse = null;
 
+            //TODO rmi client
             try {
                 puntoInteresse = ricercaPuntiInteresse.ricercaPerNomeENazione(asname, cc);
             } catch(RemoteException ex) {
@@ -352,6 +353,12 @@ public class RegistraCentro extends javax.swing.JFrame {
                 ex.printStackTrace();
                 System.exit(1);
             }
+            
+                /*for(PuntoInteresse puntoInteresseTemp : elencoPuntiInteresse){
+                    if(puntoInteresseTemp.getNomePuntoInteresseASCII().equalsIgnoreCase(asname) && puntoInteresseTemp.getCodiceNazione().equals(cc)){
+                        puntoInteresse = puntoInteresseTemp;
+                    }
+                }*/
             
             if(puntoInteresse == null)
                 out8.setText("Il paese non esiste");
@@ -369,7 +376,7 @@ public class RegistraCentro extends javax.swing.JFrame {
             ResetClient.spegniClient(this);
         }
 
-    }
+    }//GEN-LAST:event_insAreeActionPerformed
 
     /**
      * Azione eseguita quando viene cliccato il pulsante per registrare il centro.
@@ -377,12 +384,13 @@ public class RegistraCentro extends javax.swing.JFrame {
      *
      * @param evt Evento di azione generato dal clic del pulsante.
      */
-    private void centroRegActionPerformed(java.awt.event.ActionEvent evt) {
+    private void centroRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_centroRegActionPerformed
         gestioneCentriMonitoraggio = ClientRMI.ottieniClientRMI().ottieniStubGestioneCentriMonitoraggio();
 
         if(gestioneCentriMonitoraggio != null){
             CentroMonitoraggio nuovoCentro = new CentroMonitoraggio(nomeReg.getText(), indReg.getText(), Integer.parseInt(numcReg.getText()), capReg.getText(), comReg.getText(), proReg.getText());
 
+            //TODO rmi client
             try {
                 gestioneCentriMonitoraggio.registraCentroMonitoraggio(new CentroMonitoraggio(nuovoCentro.getNomeCentro(), nuovoCentro.getIndirizzo(), nuovoCentro.getNumeroCivico(), nuovoCentro.getCAP(), nuovoCentro.getComune(), nuovoCentro.getProvincia()));
                 gestioneCentriMonitoraggio.associaPuntiInteresseCentroMonitoraggio(nuovoCentro.getNomeCentro(), puntiInteresseMonitorati.toArray(new PuntoInteresse[puntiInteresseMonitorati.size()]));
@@ -400,7 +408,7 @@ public class RegistraCentro extends javax.swing.JFrame {
         }else{
             ResetClient.spegniClient(this);
         }
-    }
+    }//GEN-LAST:event_centroRegActionPerformed
 
     /**
      * Metodo che controlla se il cap inserito dall'utente è valido.
@@ -419,7 +427,7 @@ public class RegistraCentro extends javax.swing.JFrame {
         }
         return true;
     }
-
+    
     /**
      * Cambia la visibilità degli elementi dell'interfaccia utente in base
      * allo stato della registrazione del centro di monitoraggio.
@@ -463,6 +471,11 @@ public class RegistraCentro extends javax.swing.JFrame {
      * @param args gli argomenti della riga di comando.
      */
     public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -479,6 +492,9 @@ public class RegistraCentro extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(RegistraCentro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new RegistraCentro().setVisible(true);
@@ -486,102 +502,39 @@ public class RegistraCentro extends javax.swing.JFrame {
         });
     }
 
-    /** Etichetta per le aree da inserire. */
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel areeLabel;
-
-    /** Pulsante per tornare indietro. */
     private javax.swing.JButton back;
-
-    /** Campo di testo per il CAP del centro di monitoraggio. */
     private javax.swing.JTextField capReg;
-
-    /** Pulsante per registrare il centro di monitoraggio. */
     private javax.swing.JButton centroReg;
-
-    /** Pulsante per confermare la registrazione. */
     private javax.swing.JButton cliccaReg;
-
-    /** Campo di testo per il codice del punto di interesse. */
     private javax.swing.JTextField codiceReg;
-
-    /** Campo di testo per il comune del centro di monitoraggio. */
     private javax.swing.JTextField comReg;
-
-    /** Campo di testo per l'indirizzo del centro di monitoraggio. */
     private javax.swing.JTextField indReg;
-
-    /** Pulsante per inserire le aree di monitoraggio. */
     private javax.swing.JButton insAree;
-
-    /** Etichetta per la visualizzazione del testo o delle informazioni. */
     private javax.swing.JLabel jLabel1;
-
-    /** Etichetta per la visualizzazione del testo o delle informazioni. */
     private javax.swing.JLabel jLabel2;
-
-    /** Etichetta per la visualizzazione del testo o delle informazioni. */
     private javax.swing.JLabel jLabel3;
-
-    /** Etichetta per la visualizzazione del testo o delle informazioni. */
     private javax.swing.JLabel jLabel4;
-
-    /** Etichetta per la visualizzazione del testo o delle informazioni. */
     private javax.swing.JLabel jLabel5;
-
-    /** Etichetta per la visualizzazione del testo o delle informazioni. */
     private javax.swing.JLabel jLabel6;
-
-    /** Etichetta per la visualizzazione del testo o delle informazioni. */
     private javax.swing.JLabel jLabel7;
-
-    /** Etichetta per la visualizzazione del testo o delle informazioni. */
     private javax.swing.JLabel jLabel8;
-
-    /** Pulsante di selezione (radio button). */
     private javax.swing.JRadioButton jRadioButton1;
-
-    /** Campo di testo per il nome del centro di monitoraggio. */
     private javax.swing.JTextField nomeReg;
-
-    /** Campo di testo per il nome del punto di interesse. */
     private javax.swing.JTextField nomepReg;
-
-    /** Campo di testo per il numero di aree da inserire. */
     private javax.swing.JTextField numaReg;
-
-    /** Campo di testo per il numero civico del centro di monitoraggio. */
     private javax.swing.JTextField numcReg;
-
-    /** Etichetta per i messaggi di errore o conferma. */
     private javax.swing.JLabel out1;
-
-    /** Etichetta per i messaggi di errore o conferma. */
     private javax.swing.JLabel out2;
-
-    /** Etichetta per i messaggi di errore o conferma. */
     private javax.swing.JLabel out3;
-
-    /** Etichetta per i messaggi di errore o conferma. */
     private javax.swing.JLabel out4;
-
-    /** Etichetta per i messaggi di errore o conferma. */
     private javax.swing.JLabel out5;
-
-    /** Etichetta per i messaggi di errore o conferma. */
     private javax.swing.JLabel out6;
-
-    /** Etichetta per i messaggi di errore o conferma. */
     private javax.swing.JLabel out7;
-
-    /** Etichetta per i messaggi di errore o conferma. */
     private javax.swing.JLabel out8;
-
-    /** Etichetta per i messaggi di errore o conferma. */
     private javax.swing.JLabel out9;
-
-    /** Campo di testo per la provincia del centro di monitoraggio. */
     private javax.swing.JTextField proReg;
-
-    /** Etichetta per lo sfondo dell'interfaccia. */
     private javax.swing.JLabel sfondo;
+    // End of variables declaration//GEN-END:variables
 }

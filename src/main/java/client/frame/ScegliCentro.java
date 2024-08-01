@@ -13,9 +13,7 @@ import client.clientrmi.ResetClient;
 import client.registraeventi.Chiusura;
 import commons.oggetti.CentroMonitoraggio;
 import commons.oggetti.Operatore;
-
 import java.rmi.RemoteException;
-
 import commons.servizio.Autenticazione;
 import commons.servizio.GestioneCentriMonitoraggio;
 import java.awt.Image;
@@ -112,6 +110,8 @@ public class ScegliCentro extends javax.swing.JFrame {
      * Questo metodo è generato automaticamente dal Form Editor e non dovrebbe essere modificato manualmente.
      * </p>
      */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
@@ -160,7 +160,7 @@ public class ScegliCentro extends javax.swing.JFrame {
         getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, 310));
 
         pack();
-    }
+    }// </editor-fold>//GEN-END:initComponents
 
     /**
      * Gestisce l'azione del pulsante "Indietro".
@@ -176,7 +176,7 @@ public class ScegliCentro extends javax.swing.JFrame {
      *
      * @param evt l'evento di azione generato dal clic sul pulsante
      */
-    private void backActionPerformed(java.awt.event.ActionEvent evt) {
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
         
         if(autenticazione != null){
@@ -187,7 +187,7 @@ public class ScegliCentro extends javax.swing.JFrame {
         }else{
             ResetClient.spegniClient(this);
         }
-    }
+    }//GEN-LAST:event_backActionPerformed
 
     /**
      * Metodo chiamato quando viene selezionata una voce dal menu a discesa.
@@ -197,7 +197,7 @@ public class ScegliCentro extends javax.swing.JFrame {
      *
      * @param evt Evento di azione generato dalla selezione nel menu a discesa.
      */
-    private void sceltaActionPerformed(java.awt.event.ActionEvent evt) {
+    private void sceltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sceltaActionPerformed
         autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
         
         if(autenticazione != null){
@@ -206,7 +206,7 @@ public class ScegliCentro extends javax.swing.JFrame {
         }else{
             ResetClient.spegniClient(this);
         }
-    }
+    }//GEN-LAST:event_sceltaActionPerformed
 
     /**
      * Metodo chiamato quando viene cliccato il pulsante di conferma per selezionare un centro.
@@ -216,7 +216,7 @@ public class ScegliCentro extends javax.swing.JFrame {
      *
      * @param evt Evento di azione generato dal clic sul pulsante di conferma.
      */
-    private void scegliActionPerformed(java.awt.event.ActionEvent evt) {
+    private void scegliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scegliActionPerformed
         autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
         
         if(autenticazione != null){
@@ -238,8 +238,8 @@ public class ScegliCentro extends javax.swing.JFrame {
         }else{
             ResetClient.spegniClient(this);
         }
-    }
-
+    }//GEN-LAST:event_scegliActionPerformed
+    
     /**
      * Metodo principale che avvia il frame {@code ScegliCentro}.
      * <p>Crea e visualizza l'istanza di {@code ScegliCentro}.</p>
@@ -248,6 +248,11 @@ public class ScegliCentro extends javax.swing.JFrame {
      * @param args gli argomenti della riga di comando.
      */
     public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -264,6 +269,9 @@ public class ScegliCentro extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ScegliCentro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ScegliCentro().setVisible(true);
@@ -271,24 +279,13 @@ public class ScegliCentro extends javax.swing.JFrame {
         });
     }
 
-    /** Bottone per tornare alla schermata precedente. */
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
-
-    /** Bottone per confermare la selezione del centro di monitoraggio. */
     private javax.swing.JButton jButton1;
-
-    /** Etichetta per visualizzare messaggi di stato o errori. */
     private javax.swing.JLabel jLabel1;
-
-    /** Etichetta per visualizzare l'output o messaggi di errore. */
     private javax.swing.JLabel out;
-
-    /** Pulsante per selezionare un centro di monitoraggio. */
     private javax.swing.JButton scegli;
-
-    /** Combo box per scegliere un centro di monitoraggio. */
     private javax.swing.JComboBox<String> scelta;
-
-    /** Etichetta per lo sfondo dell'interfaccia. */
     private javax.swing.JLabel sfondo;
+    // End of variables declaration//GEN-END:variables
 }
