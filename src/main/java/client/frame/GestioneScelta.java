@@ -28,9 +28,6 @@ import javax.swing.ImageIcon;
  */
 public class GestioneScelta extends javax.swing.JFrame {
 
-    /** Intervallo di polling in millisecondi (2000 ms) */
-    private static final int POLLING_INTERVAL_MS = 2000;
-
     /** Oggetto per l'autenticazione tramite RMI */
     Autenticazione autenticazione;
 
