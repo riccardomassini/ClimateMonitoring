@@ -105,7 +105,7 @@ public class GestioneScelta extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cittadino.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        cittadino.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         cittadino.setText("Cittadino");
         cittadino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -114,7 +114,7 @@ public class GestioneScelta extends javax.swing.JFrame {
         });
         getContentPane().add(cittadino, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 141, 90, -1));
 
-        operatore.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        operatore.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         operatore.setText("Operatore");
         operatore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -123,7 +123,7 @@ public class GestioneScelta extends javax.swing.JFrame {
         });
         getContentPane().add(operatore, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 197, 90, -1));
 
-        riprova.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        riprova.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         riprova.setText("Riprova");
         riprova.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
