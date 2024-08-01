@@ -111,7 +111,7 @@ public class GestioneScelta extends javax.swing.JFrame {
                 cittadinoActionPerformed(evt);
             }
         });
-        getContentPane().add(cittadino, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 141, 86, -1));
+        getContentPane().add(cittadino, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 141, 90, -1));
 
         operatore.setText("Operatore");
         operatore.addActionListener(new java.awt.event.ActionListener() {
@@ -119,7 +119,7 @@ public class GestioneScelta extends javax.swing.JFrame {
                 operatoreActionPerformed(evt);
             }
         });
-        getContentPane().add(operatore, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 197, 86, -1));
+        getContentPane().add(operatore, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 197, 90, -1));
 
         riprova.setText("Riprova");
         riprova.addActionListener(new java.awt.event.ActionListener() {
@@ -127,7 +127,7 @@ public class GestioneScelta extends javax.swing.JFrame {
                 riprovaActionPerformed(evt);
             }
         });
-        getContentPane().add(riprova, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 83, -1));
+        getContentPane().add(riprova, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 220, 90, -1));
 
         out.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         out.setText("Server non acceso...");
