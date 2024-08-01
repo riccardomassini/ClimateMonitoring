@@ -28,16 +28,23 @@ Per installare e configurare ClimateMonitoring sul tuo ambiente locale, segui qu
 
 ## Inizializzazione del progetto
 1. Una volta entrati nella cartella principale del progetto occorre creare e inizializzare il database utilizzando 2 comandi da terminale, è fondamentale trovarsi nella stessa directory del file pom.xml:
+   Su Windows:
    * ```mvnw.cmd clean```
    * ```mvnw.cmd install```
    * oppure tutto attaccato ```mvnw.cmd clean install```
   
-2. Se avete installato maven potete semplicemente digitare:
+   Su Unix/MacOS:
+   * attiva i permessi con ```chmod +x mvnw```
+   * ```./mvnw clean```
+   * ```./mvnw install```
+   * oppure tutto attaccato ```./mvnw clean install```
+  
+3. Se avete installato maven sia suWindows sia su Unix/MacOS potete semplicemente digitare:
    * ```mvn clean```
    * ```mvn install```
    * oppure tutto attaccato ```mvn clean install```
 
-3. Una volta eseguiti questi due comandi il progetto sarà perfettamente configurato ed eseguibile, infatti sarà stata creata una cartella ```jar``` contenente 2 file eseguibili nel formato ```.jar```.
+4. Una volta eseguiti questi comandi il progetto sarà perfettamente configurato ed eseguibile, infatti sarà stata creata una cartella ```jar``` contenente 2 file eseguibili nel formato ```.jar```.
 
 ## Utilizzo
 Per utilizzare l'applicazione è necessario eseguire entrambi i file ```.jar```, sia il server che il client.
