@@ -27,7 +27,8 @@ Per installare e configurare ClimateMonitoring sul tuo ambiente locale, segui qu
     * accedi come mostrato precedentemente.
 
 ## Inizializzazione del progetto
-1. Una volta entrati nella cartella principale del progetto occorre creare e inizializzare il database utilizzando 2 comandi da terminale, è fondamentale trovarsi nella stessa directory del file pom.xml:
+1. Una volta entrati nella cartella principale del progetto occorre creare e inizializzare il database utilizzando 2 comandi da terminale, è fondamentale trovarsi nella stessa directory del file pom.xml.
+
    Su Windows:
    * ```mvnw.cmd clean```
    * ```mvnw.cmd install```
