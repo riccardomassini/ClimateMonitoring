@@ -72,4 +72,11 @@ public interface CentriMonitoraggioDAO {
      * @return un {@code ArrayList} di {@code CentroMonitoraggio} contenente tutti i centri
      */
     ArrayList<CentroMonitoraggio> leggiTuttiCentri();
+
+    /**
+     * Verifica se un centro di monitoraggio è già presente nella tabella.
+     *
+     * @return {@code true} se il centro di monitoraggio non esiste, {@code false} se esiste.
+     */
+    boolean esisteCentroMonitoraggio(String nomeCentro);
 }

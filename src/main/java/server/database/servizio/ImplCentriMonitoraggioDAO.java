@@ -80,6 +80,8 @@ public class ImplCentriMonitoraggioDAO  implements CentriMonitoraggioDAO {
      */
     private static final String QUERY_LETTURA_CENTRI_DI_MONITORAGGIO = "SELECT " + CENTRIMONITORAGGIO_RELAZIONE + ".* FROM " + CENTRIMONITORAGGIO_RELAZIONE;
 
+    private static final String QUERY_VERIFICA_NOME_CENTRO_DUPLICATO = "SELECT COUNT(*) FROM " + CENTRIMONITORAGGIO_RELAZIONE + " WHERE " + CENTRIMONITORAGGIO_ATTRIBUTO_NOMECENTRO + " = ?";
+
     /**
      * Inserisce un nuovo centro di monitoraggio nel database.
      * <p>
@@ -267,6 +269,36 @@ public class ImplCentriMonitoraggioDAO  implements CentriMonitoraggioDAO {
             System.err.println("Impossibile aggiornare l'operatore");
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Verifica se un centro di monitoraggio con il nome specificato esiste già nel database.
+     * <p>
+     * Questo metodo esegue una query SQL per verificare l'esistenza di un centro di monitoraggio
+     * con il nome fornito. Se il centro esiste, il metodo ritorna {@code false}; se non esiste,
+     * ritorna {@code true}.
+     * </p>
+     *
+     * @param nomeCentro Il nome del centro di monitoraggio da verificare.
+     * @return {@code true} se il centro di monitoraggio non esiste, {@code false} se esiste.
+     */
+    public boolean esisteCentroMonitoraggio(String nomeCentro) {
+        boolean esiste = false;
+
+        try (
+                Connection connessione = ConnettoreDatabase.ottieniConnettore().ottieniConnessioneDatabase();
+                PreparedStatement stmt = connessione.prepareStatement(QUERY_VERIFICA_NOME_CENTRO_DUPLICATO)
+        ) {
+            stmt.setString(1, nomeCentro);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                esiste = count > 0;
+            }
+        } catch (SQLException e) {}
+
+        return !esiste;
     }
 
     /**

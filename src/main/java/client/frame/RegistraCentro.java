@@ -312,17 +312,22 @@ public class RegistraCentro extends javax.swing.JFrame {
             if(provincia.length()!=2)
                 out6.setText("inserire 2 lettere");
 
-            if(!nome.isEmpty() && !indirizzo.isEmpty() && numCivico != -1 && controlloCap(cap) && !comune.isEmpty() && provincia.length()==2 && numAree>0){
-                areeLabel.setVisible(true);
-                nomepReg.setVisible(true);
-                codiceReg.setVisible(true);
-                insAree.setVisible(true);
-            }else{
-                areeLabel.setVisible(false);
-                nomepReg.setVisible(false);
-                codiceReg.setVisible(false);
-                insAree.setVisible(false);
-            }
+            try {
+                if(!gestioneCentriMonitoraggio.controllaEsistenzaCentro(nome))
+                    out1.setText("Centro già presente");
+
+                if(!nome.isEmpty() && !indirizzo.isEmpty() && numCivico != -1 && controlloCap(cap) && !comune.isEmpty() && provincia.length()==2 && numAree>0 && gestioneCentriMonitoraggio.controllaEsistenzaCentro(nome)){
+                    areeLabel.setVisible(true);
+                    nomepReg.setVisible(true);
+                    codiceReg.setVisible(true);
+                    insAree.setVisible(true);
+                }else{
+                    areeLabel.setVisible(false);
+                    nomepReg.setVisible(false);
+                    codiceReg.setVisible(false);
+                    insAree.setVisible(false);
+                }
+            } catch (RemoteException e) {}
         }else{
             ResetClient.spegniClient(this);
         }
@@ -353,12 +358,6 @@ public class RegistraCentro extends javax.swing.JFrame {
                 ex.printStackTrace();
                 System.exit(1);
             }
-            
-                /*for(PuntoInteresse puntoInteresseTemp : elencoPuntiInteresse){
-                    if(puntoInteresseTemp.getNomePuntoInteresseASCII().equalsIgnoreCase(asname) && puntoInteresseTemp.getCodiceNazione().equals(cc)){
-                        puntoInteresse = puntoInteresseTemp;
-                    }
-                }*/
             
             if(puntoInteresse == null)
                 out8.setText("Il paese non esiste");

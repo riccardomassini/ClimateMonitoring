@@ -133,4 +133,14 @@ public class GestoreCentriMonitoraggio implements GestioneCentriMonitoraggio {
     public synchronized ArrayList<CentroMonitoraggio> leggiCentri() throws RemoteException{
         return centriMonitoraggioDAO.leggiTuttiCentri();
     }
+
+    /**
+     * Verifica se un centro di monitoraggio è già presente nella tabella.
+     *
+     * @return {@code true} se il centro di monitoraggio non esiste, {@code false} se esiste.
+     */
+    @Override
+    public boolean controllaEsistenzaCentro(String nomeCentro) throws RemoteException{
+        return centriMonitoraggioDAO.esisteCentroMonitoraggio(nomeCentro);
+    }
 }

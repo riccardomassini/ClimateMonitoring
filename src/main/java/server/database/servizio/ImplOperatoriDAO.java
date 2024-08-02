@@ -90,13 +90,12 @@ public class ImplOperatoriDAO implements OperatoriDAO {
 
             stmt.executeUpdate();
         } catch(PSQLException e){
-            e.printStackTrace();
-            return false; //operatore già presente
+            return false;
         }catch (SQLException ex) {
             Logger.getLogger(Autenticatore.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return true; //operatore inserito
+        return true;
     }
 
     /**

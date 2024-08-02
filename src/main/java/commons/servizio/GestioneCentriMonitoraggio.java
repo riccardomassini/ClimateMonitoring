@@ -81,4 +81,11 @@ public interface GestioneCentriMonitoraggio extends Remote {
      * @throws RemoteException se si verifica un errore di comunicazione durante la lettura dei dati
      */
     ArrayList<CentroMonitoraggio> leggiCentri() throws RemoteException;
+
+    /**
+     * Verifica se un centro di monitoraggio è già presente nella tabella.
+     *
+     * @return {@code true} se il centro di monitoraggio non esiste, {@code false} se esiste.
+     */
+    boolean controllaEsistenzaCentro(String nomeCentro) throws RemoteException;
 }
