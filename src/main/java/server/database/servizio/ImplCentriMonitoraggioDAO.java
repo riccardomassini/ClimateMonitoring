@@ -58,7 +58,7 @@ public class ImplCentriMonitoraggioDAO  implements CentriMonitoraggioDAO {
     /**
      * Query SQL per ottenere i punti di interesse associati a un centro di monitoraggio.
      */
-    private static final String QUERY_OTTIENI_PUNTI_INTERESSE_ASSOCIATI_A_CENTRO_MONITORAGGIO = "SELECT " + PUNTIINTERESSE_RELAZIONE + ".* FROM " + PUNTIINTERESSE_RELAZIONE + " NATURAL JOIN " + PUNTIINTERESSEASSOCIATI_RELAZIONE + " NATURAL JOIN " + CENTRIMONITORAGGIO_RELAZIONE + " WHERE " + CENTRIMONITORAGGIO_ATTRIBUTO_NOMECENTRO + " ILIKE ?";
+    private static final String QUERY_OTTIENI_PUNTI_INTERESSE_ASSOCIATI_A_CENTRO_MONITORAGGIO = "SELECT " + PUNTIINTERESSE_RELAZIONE + ".* FROM " + PUNTIINTERESSE_RELAZIONE + " NATURAL JOIN " + PUNTIINTERESSEASSOCIATI_RELAZIONE + " NATURAL JOIN " + CENTRIMONITORAGGIO_RELAZIONE + " WHERE " + CENTRIMONITORAGGIO_ATTRIBUTO_NOMECENTRO + " = ?";
 
     /**
      * Query SQL per aggiornare il centro di monitoraggio associato a un operatore.
@@ -227,7 +227,7 @@ public class ImplCentriMonitoraggioDAO  implements CentriMonitoraggioDAO {
         try (Connection connessione = ConnettoreDatabase.ottieniConnettore().ottieniConnessioneDatabase();
              PreparedStatement stmt = connessione.prepareStatement(QUERY_OTTIENI_PUNTI_INTERESSE_ASSOCIATI_A_CENTRO_MONITORAGGIO);
             ) {
-            stmt.setString(1, "%" + nomeCentro + "%");
+            stmt.setString(1, nomeCentro);
             rs = stmt.executeQuery();
             while (rs.next()) {
                 puntoInteresse = new PuntoInteresse();
