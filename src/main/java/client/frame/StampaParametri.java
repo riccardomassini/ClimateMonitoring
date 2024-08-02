@@ -179,7 +179,7 @@ public class StampaParametri extends JFrame {
         jScrollPane3.setViewportView(tabella3);
 
         getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 446, 818, 49));
-        getContentPane().add(out, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 200, 136, 25));
+        getContentPane().add(out, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 200, 170, 25));
         getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 550));
 
         pack();
