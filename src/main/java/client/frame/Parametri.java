@@ -256,8 +256,8 @@ public class Parametri extends javax.swing.JFrame {
             }
         });
         getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, -1, -1));
-        getContentPane().add(out, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, 370, 23));
-        getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 470, 360));
+        getContentPane().add(out, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, 440, 23));
+        getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 360));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

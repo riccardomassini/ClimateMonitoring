@@ -133,7 +133,7 @@ public class Registrazione extends javax.swing.JFrame {
                 regActionPerformed(evt);
             }
         });
-        getContentPane().add(reg, new org.netbeans.lib.awtextra.AbsoluteConstraints(208, 260, 85, -1));
+        getContentPane().add(reg, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 260, 100, -1));
 
         back.setText("Indietro");
         back.addActionListener(new java.awt.event.ActionListener() {
@@ -142,19 +142,19 @@ public class Registrazione extends javax.swing.JFrame {
             }
         });
         getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 260, -1, -1));
-        getContentPane().add(out2, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 84, 260, 22));
+        getContentPane().add(out2, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 84, 290, 22));
         getContentPane().add(cognomeReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(111, 84, 85, -1));
 
         jLabel7.setText("Cognome");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 84, 67, 22));
-        getContentPane().add(out3, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 118, 260, 22));
-        getContentPane().add(out1, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 50, 260, 22));
+        getContentPane().add(out3, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 118, 300, 22));
+        getContentPane().add(out1, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 50, 300, 22));
 
         out4.setBackground(new java.awt.Color(204, 255, 204));
-        getContentPane().add(out4, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 152, 260, 22));
-        getContentPane().add(out5, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 186, 260, 22));
-        getContentPane().add(out6, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 220, 260, 22));
-        getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 310));
+        getContentPane().add(out4, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 152, 300, 22));
+        getContentPane().add(out5, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 186, 320, 22));
+        getContentPane().add(out6, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 220, 330, 22));
+        getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 310));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

@@ -76,9 +76,9 @@ public class FrameOperatore extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 26)); // NOI18N
         jLabel1.setText("OPERATORE");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(134, 16, -1, 42));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, 240, 42));
 
         back.setText("Indietro");
         back.addActionListener(new java.awt.event.ActionListener() {
@@ -94,7 +94,7 @@ public class FrameOperatore extends javax.swing.JFrame {
                 loginActionPerformed(evt);
             }
         });
-        getContentPane().add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(152, 112, 100, -1));
+        getContentPane().add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 120, -1));
 
         reg.setText("Registrazione");
         reg.addActionListener(new java.awt.event.ActionListener() {
@@ -102,7 +102,7 @@ public class FrameOperatore extends javax.swing.JFrame {
                 regActionPerformed(evt);
             }
         });
-        getContentPane().add(reg, new org.netbeans.lib.awtextra.AbsoluteConstraints(152, 162, -1, -1));
+        getContentPane().add(reg, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 120, -1));
         getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, 310));
 
         pack();

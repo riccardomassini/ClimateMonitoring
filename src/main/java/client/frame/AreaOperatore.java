@@ -195,7 +195,7 @@ public class AreaOperatore extends javax.swing.JFrame {
                 sceltaActionPerformed(evt);
             }
         });
-        getContentPane().add(scelta, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 120, 30));
+        getContentPane().add(scelta, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 150, 30));
 
         titReg.setText("REGISTRA IL CENTRO");
         getContentPane().add(titReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, -1, 18));
@@ -212,7 +212,7 @@ public class AreaOperatore extends javax.swing.JFrame {
         getContentPane().add(out3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 210, 90, 26));
 
         out2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        getContentPane().add(out2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 240, 24));
+        getContentPane().add(out2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 260, 24));
 
         titolo.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         titolo.setText("AREA OPERATORE");

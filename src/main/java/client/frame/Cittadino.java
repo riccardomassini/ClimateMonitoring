@@ -158,9 +158,9 @@ public class Cittadino extends javax.swing.JFrame {
         setLocationByPlatform(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         jLabel1.setText("CITTADINO");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(442, 8, 127, 46));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(442, 8, 290, 46));
 
         tabella.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -218,7 +218,7 @@ public class Cittadino extends javax.swing.JFrame {
                 backActionPerformed(evt);
             }
         });
-        getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 401, -1, -1));
+        getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, -1, -1));
         getContentPane().add(ric4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, 92, -1));
 
         cerca3.setText("Cerca");
@@ -248,7 +248,7 @@ public class Cittadino extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel2.setText("Stato");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 66, -1));
-        getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 430));
+        getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 440));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

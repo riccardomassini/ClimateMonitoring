@@ -119,9 +119,9 @@ public class StampaParametri extends JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         jLabel1.setText("STAMPA PARAMETRI");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(211, 15, -1, 27));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, 370, 40));
 
         back.setText("Indietro");
         back.addActionListener(new java.awt.event.ActionListener() {
@@ -132,7 +132,7 @@ public class StampaParametri extends JFrame {
         getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 503, -1, -1));
 
         jLabel2.setText("Inserisci Area");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(51, 67, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         getContentPane().add(ric1, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 89, 93, -1));
         getContentPane().add(ric2, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 117, 93, -1));
 

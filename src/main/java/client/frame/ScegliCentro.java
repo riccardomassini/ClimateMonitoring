@@ -141,7 +141,7 @@ public class ScegliCentro extends javax.swing.JFrame {
                 sceltaActionPerformed(evt);
             }
         });
-        getContentPane().add(scelta, new org.netbeans.lib.awtextra.AbsoluteConstraints(101, 89, 113, -1));
+        getContentPane().add(scelta, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 89, 160, -1));
 
         scegli.setText("Scegli");
         scegli.addActionListener(new java.awt.event.ActionListener() {
@@ -154,9 +154,9 @@ public class ScegliCentro extends javax.swing.JFrame {
         out.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         getContentPane().add(out, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 141, 75, 25));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 26)); // NOI18N
         jLabel1.setText("SCEGLI CENTRO");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 6, -1, 43));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 6, 270, 43));
         getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, 310));
 
         pack();

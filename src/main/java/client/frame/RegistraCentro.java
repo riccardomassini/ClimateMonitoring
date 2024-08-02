@@ -168,7 +168,7 @@ public class RegistraCentro extends javax.swing.JFrame {
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 208, 78, 22));
 
         jLabel8.setText("Numero aree");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 240, 78, 22));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 240, 130, 22));
 
         back.setText("Indietro");
         back.addActionListener(new java.awt.event.ActionListener() {
@@ -205,7 +205,7 @@ public class RegistraCentro extends javax.swing.JFrame {
 
         out9.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         out9.setText("Clicca per registrare il centro");
-        getContentPane().add(out9, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, 210, 22));
+        getContentPane().add(out9, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, 280, 22));
 
         centroReg.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         centroReg.setText("Registra");
@@ -217,8 +217,8 @@ public class RegistraCentro extends javax.swing.JFrame {
         getContentPane().add(centroReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 90, 30));
 
         areeLabel.setText("Inserisci aree");
-        getContentPane().add(areeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 70, 90, 22));
-        getContentPane().add(out8, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 240, 120, 19));
+        getContentPane().add(areeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(401, 70, 90, 22));
+        getContentPane().add(out8, new org.netbeans.lib.awtextra.AbsoluteConstraints(401, 240, 120, 19));
         getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 310));
 
         pack();

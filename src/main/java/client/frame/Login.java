@@ -83,9 +83,9 @@ public class Login extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        log.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        log.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         log.setText("LOGIN");
-        getContentPane().add(log, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 14, 70, 35));
+        getContentPane().add(log, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 150, 35));
 
         ident.setAlignmentY(0.0F);
         ident.addActionListener(new java.awt.event.ActionListener() {
@@ -124,8 +124,8 @@ public class Login extends javax.swing.JFrame {
         });
         getContentPane().add(ok, new org.netbeans.lib.awtextra.AbsoluteConstraints(109, 191, 47, -1));
 
-        out.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        getContentPane().add(out, new org.netbeans.lib.awtextra.AbsoluteConstraints(95, 251, 168, 23));
+        out.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        getContentPane().add(out, new org.netbeans.lib.awtextra.AbsoluteConstraints(113, 254, 150, 20));
         getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 310));
 
         pack();
