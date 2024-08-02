@@ -81,7 +81,7 @@ public class ImplCentriMonitoraggioDAO  implements CentriMonitoraggioDAO {
     private static final String QUERY_LETTURA_CENTRI_DI_MONITORAGGIO = "SELECT " + CENTRIMONITORAGGIO_RELAZIONE + ".* FROM " + CENTRIMONITORAGGIO_RELAZIONE;
 
     /**
-     * Query SQL per contare i centri di monitoraggio presenti dato un nome.
+     * Query SQL per contare i centri di monitoraggio presenti dato il nome di un centro.
      */
     private static final String QUERY_VERIFICA_NOME_CENTRO_DUPLICATO = "SELECT COUNT(*) FROM " + CENTRIMONITORAGGIO_RELAZIONE + " WHERE " + CENTRIMONITORAGGIO_ATTRIBUTO_NOMECENTRO + " = ?";
 
