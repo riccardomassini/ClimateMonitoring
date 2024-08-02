@@ -57,4 +57,4 @@ Su Windows:
 * accedendo alla cartella ```Eseguibili``` da terminale e digitando i seguenti comandi: ```java -jar serverCM.jar``` e ```java -jar clientCM.jar```, un alternativa a questo è eseguire direttamente i file ```.bat``` nella stessa cartella: ```serverCM.bat``` e ```clientCM.bat```.
 
 Su Unix/MacOS:
-* accedendo alla cartella ```Eseguibili``` da terminale e digitando i seguenti comandi: ```java -jar serverCM.jar``` e ```java -jar clientCM.jar```, un alternativa a questo è eseguire direttamente i file ```.bat``` nella stessa cartella: ```./serverCM.bat``` e ```./clientCM.bat```.
+* accedendo alla cartella ```Eseguibili``` da terminale e digitando i seguenti comandi: ```java -jar serverCM.jar``` e ```java -jar clientCM.jar```, un alternativa a questo è eseguire direttamente i file ```.bat``` nella stessa cartella: ```./serverCM.bat``` e ```./clientCM.bat```. Prima di eseguire i due processi ricordarsi di abilitare i permessi con ```chmod +x serverCM.bat``` e ```chmod +x clientCM.bat```.
