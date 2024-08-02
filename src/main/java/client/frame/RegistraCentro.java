@@ -205,7 +205,7 @@ public class RegistraCentro extends javax.swing.JFrame {
 
         out9.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         out9.setText("Clicca per registrare il centro");
-        getContentPane().add(out9, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, 280, 22));
+        getContentPane().add(out9, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 290, 22));
 
         centroReg.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         centroReg.setText("Registra");
@@ -218,8 +218,8 @@ public class RegistraCentro extends javax.swing.JFrame {
 
         areeLabel.setText("Inserisci aree");
         getContentPane().add(areeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(401, 70, 90, 22));
-        getContentPane().add(out8, new org.netbeans.lib.awtextra.AbsoluteConstraints(401, 240, 120, 19));
-        getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 310));
+        getContentPane().add(out8, new org.netbeans.lib.awtextra.AbsoluteConstraints(401, 240, 130, 19));
+        getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 310));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

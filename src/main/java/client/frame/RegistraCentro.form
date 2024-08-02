@@ -275,7 +275,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="170" y="100" width="280" height="22"/>
+          <AbsoluteConstraints x="160" y="100" width="290" height="22"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -308,14 +308,14 @@
     <Component class="javax.swing.JLabel" name="out8">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="401" y="240" width="120" height="19"/>
+          <AbsoluteConstraints x="401" y="240" width="130" height="19"/>
         </Constraint>
       </Constraints>
     </Component>
     <Component class="javax.swing.JLabel" name="sfondo">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="0" y="0" width="520" height="310"/>
+          <AbsoluteConstraints x="0" y="0" width="530" height="310"/>
         </Constraint>
       </Constraints>
     </Component>
