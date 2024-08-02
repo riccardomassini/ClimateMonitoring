@@ -52,7 +52,9 @@ Per utilizzare l'applicazione è necessario eseguire entrambi i file ```.jar```,
 Si può fare in diversi modi.
 
 Su Windows:
-* accedendo alla cartella ```jar``` e facendo doppio click su i due file.
+* accedendo alla cartella ```Eseguibili``` e facendo doppio click su i due file.
+* accedendo alla cartella contenente i file ```Eseguibili``` e digitando il nome dei due file su terminale: ```serverCM.jar``` e ```clientCM.jar```.
+* accedendo alla cartella ```Eseguibili``` da terminale e digitando i seguenti comandi: ```java -jar serverCM.jar``` e ```java -jar clientCM.jar```, un alternativa a questo è eseguire direttamente i file ```.bat``` nella stessa cartella: ```serverCM.bat``` e ```clientCM.bat```.
 
-Su Windows e Unix/MacOS:
-* accedendo alla cartella ```jar``` da terminale e digitando i seguenti comandi: ```java -jar serverCM.jar``` e ```java -jar clientCM.jar```, un alternativa a questo è eseguire direttamente i processi ```./serverCM``` e ```./clientCM```.
+Su Unix/MacOS:
+* accedendo alla cartella ```Eseguibili``` da terminale e digitando i seguenti comandi: ```java -jar serverCM.jar``` e ```java -jar clientCM.jar```, un alternativa a questo è eseguire direttamente i file ```.bat``` nella stessa cartella: ```./serverCM.bat``` e ```./clientCM.bat```.
