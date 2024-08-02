@@ -328,7 +328,7 @@ public class StampaParametri extends JFrame {
         if(nValutazioni == 0)
             return 0;
         
-        return somma / nValutazioni;
+        return (double) somma / nValutazioni;
     }
 
     /**
