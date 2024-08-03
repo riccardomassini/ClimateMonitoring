@@ -1,0 +1,30 @@
+CLIMATE MONITORING V2 - SPECIFICA REQUISITI DATABASE
+
+
+
+E' prevista la progettazione di un database per il sistema di monitoraggio dei fenomeni climatici.
+
+l'applicazione deve memorizzare e gestire una serie di misurazioni effettuate da operatori per conto di centri di monitoraggio,
+raccogliendo dati su parametri climatici rispetto a un punto di interesse (POI) monitorato.
+
+Le misurazioni sono caratterizzate da un POI di riferimento, dal centro di monitoraggio che l'ha effettuata, dalla
+data/ora di registrazione e dalle valutazione di una o più categorie di parametri climatici.
+
+I parametri climatici sono divisi in categorie;
+per ogni categoria va definito il nome e la descrizione (che definisce anche l'unità di misura);
+nella valutazione di un parametro climatico deve essere riportato il valore misurato, un punteggio di intensità del fenomeno (da 1 a 5) e un commento (facoltativo) di massimo 256 caratteri.
+
+Una misurazione può contenere una sola valutazione di parametro climatico per categoria, ed è necessario che venga valutata almeno una categoria;
+
+Un POI fa riferimento a un luogo geografico significativo in giro per il mondo, ed è definita da una coppia di coordinate geografiche(latitudine, longitudine),
+dal nome del luogo e dalla nazion, identificabile dal nome e da un codice a due cifre.
+
+Le misurazioni sono pubblicate da centri di monitoraggio sparsi per il territorio italiano, di cui bisogna saperne il nome e l'indirizzo;
+un centro può monitare diversi POI e può pubblicare misurazioni relative solamente a POI che esso ufficialmente monitora;
+
+Degli operatori si occupano di effettuare e registrare nuove misurazioni; 
+ogni operatore lavora per conto di un solo centro di monitoraggio;
+il profilo associato a un operatore deve riportarne il nome, cognome, CD, email, password e username.
+
+
+

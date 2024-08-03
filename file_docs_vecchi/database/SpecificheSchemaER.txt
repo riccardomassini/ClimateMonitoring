@@ -1,0 +1,66 @@
+CLIMATE MONITORING V2 - SPECIFICHE DELLO SCHEMA ER 
+
+
+----------------------------------------------------------------------------------------------------------------
+INDIVIDUAZIONE DELLE ENTITA'
+----------------------------------------------------------------------------------------------------------------
+
+Le principali entità individuate sono le seguenti:
+    Operatore
+    CentroMonitoraggio
+    PuntoInteresse
+    Misurazione
+    CategoriaParametriClimatici
+
+Note:
+    -La misurazione in sè comprende tutte le informazioni riguardanti le valutazioni dei parametri climatici;
+        .è stato scelto di definire le categorie in un'entità separate, poichè una stessa categoria può essere utilizzata da più misurazione;
+        .la valutazione di una misurazione per un certa categoria di paramtri climatici è rappresentata dalle istanze della relazionale
+         che esiste tra le entità "Misurazione" e "CategoriaParametriClimatici"
+    -operatori, centri di monitoraggio e misurazioni
+        .le misurazioni sono effettuate da operatori per conto di un centro di monitoraggio
+        .a livello teorico potrebbe esistere una relazione tra operatori e misurazioni
+        .viene però specificato che una misurazione è caratterizzata dal centro di monitoraggio che la pubblica
+        .perciò, esiste sol una relazione tra centri e misurazioni che riflette tale associazione
+    -identificazione di una misurazione
+        .una misurazione è possibile identificarla univocamente attraverso 3 attributi
+            .il timestamp
+            .il centro di monitoraggio
+            .il punto interesse
+    -obbligatorietà relazione "operatore" - "CentroMonitoraggio
+        .la partecipazione di un operatore alla relazione con i centri di monitoraggio è stata messa opzionale
+        .questo riflette la specifica riguardo al fatto che un operatore appena registrato non ha ancora un centro associato, o che potrebbe rimuoverlo in futuro
+    -obbligatorietà relazione "Misurazione" - "CategoriaParametriClimatici"
+        .la partecipazione di una misurazione alla relazione con le categoriadi parametri climatici è (1,N)
+        .il tipo di relazione è N-aria e ciò rappresenta il fatto che una misurazione contiene le valutazioni di più categorie
+        .la partecipazione di relazione è obbligatoria perchè riflette la specifica che una misurazione deve contenere la valutazione di almeno una categoria
+    -identificatore di "PuntoInteresse"
+        .un punto di interesse potrebbe essere univocamente identificato dalle coordinate geografiche;
+        .per semplicità, è stato scelto di usare un attributo separatore come identificatore univoco
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------
+RISTRUTTURAZIONE SCHEMA ER
+----------------------------------------------------------------------------------------------------------------
+
+Lo schema ER ristrutturato presenta le seguenti entità
+    Operatore
+    CentroMonitoraggio
+    PuntoInteresse
+    Misurazione
+    CategoriaParametriClimatici
+    Nazione
+
+Note:
+    -partizionamento di "Nazione" da "PuntoInteresse"
+        .è stato scelto di tradurre l'attributo composto "nazione" come un'entità separata in relazione con "PuntoInteresse";
+        .per una nazione esistono molteplici punti di interesse associati, perciò avere un'entità separata può facilitare operazioni sui campi riguardanti la nazione
+    -attributo composto "indirizzo"
+        .l'attributo "indirizzo" di "CentroMonitoraggio" è stato ristrutturato come un unico attributo semplice;
+        .i singoli campi dell'indirizzo possono essere accorpati in un'unica stringa per una gestione più semplice di queste informazioni;
+    -attributo composto "timestamp"
+        .l'attributo "timestamp" di "Misurazione" rappresenta appunto data e ora della misurazione;
+        .è stato sceltro di ristrutturarlo come unico attributo semplice poichè esistono datatype che sono in grado di rappresentare data/ora in un'unica variabile;
