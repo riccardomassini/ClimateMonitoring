@@ -34,7 +34,7 @@ class ImpostazioniDatabase {
     /**
      * Il nome del database al quale connettersi.
      */
-    static final String NOME_DATABASE = "climateMonitoring";
+    static final String NOME_DATABASE = "climatemonitoring";
 
     /**
      * L'URL di connessione al database, comprensivo della porta e del nome del database.
