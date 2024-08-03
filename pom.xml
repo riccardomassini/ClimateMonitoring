@@ -89,7 +89,7 @@
               <driver>org.postgresql.Driver</driver>
               <username>postgres</username> <!-- Nome utente per il database -->
               <password>root</password> <!-- Password per il database -->
-              <sqlCommand>drop database if exists climate</sqlCommand> <!-- Comando SQL da eseguire -->
+              <sqlCommand>drop database if exists climateMonitoring</sqlCommand> <!-- Comando SQL da eseguire -->
             </configuration>
           </execution>
 
@@ -106,7 +106,7 @@
               <driver>org.postgresql.Driver</driver>
               <username>postgres</username>
               <password>root</password>
-              <sqlCommand>create database climate</sqlCommand>
+              <sqlCommand>create database climateMonitoring</sqlCommand>
             </configuration>
           </execution>
 
@@ -118,7 +118,7 @@
               <goal>execute</goal>
             </goals>
             <configuration>
-              <url>jdbc:postgresql://localhost:5432/climate</url>
+              <url>jdbc:postgresql://localhost:5432/climateMonitoring</url>
               <autocommit>true</autocommit>
               <driver>org.postgresql.Driver</driver>
               <username>postgres</username>
