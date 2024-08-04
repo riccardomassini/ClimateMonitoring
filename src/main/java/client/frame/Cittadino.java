@@ -167,7 +167,7 @@ public class Cittadino extends javax.swing.JFrame {
 
             },
             new String [] {
-                "geonameID", "nome", "nome_ascii", "codice_stato", "nome_stato", "lat", "lon"
+                "geonameID", "nome", "nome_ascii", "cod_stato", "nome_stato", "lat", "lon"
             }
         ) {
             Class[] types = new Class [] {
@@ -177,10 +177,13 @@ public class Cittadino extends javax.swing.JFrame {
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
         });
         jScrollPane3.setViewportView(tabella);
 
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, 520, 358));
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 60, 590, 358));
         getContentPane().add(ric2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, 92, -1));
         getContentPane().add(ric3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 92, -1));
 
@@ -248,7 +251,7 @@ public class Cittadino extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel2.setText("Stato");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 66, -1));
-        getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 440));
+        getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 930, 440));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

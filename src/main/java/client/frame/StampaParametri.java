@@ -151,38 +151,82 @@ public class StampaParametri extends JFrame {
             new String [] {
                 "Centro", "Paese", "Data", "Vento", "Umidità", "Pressione", "Temperatura", "Precipitazioni", "Altitudine", "Massa", "nota1", "nota2", "nota3", "nota4", "nota5", "nota6", "nota7"
             }
-        ));
-        jScrollPane1.setViewportView(tabella1);
+        )
+        {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class,
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class,
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 67, 818, 303));
-
-        tabella2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Vento", "Umidità", "Pressione", "Temperatura", "Precipitazione", "Altitudine", "Massa"
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
             }
-        ));
-        jScrollPane2.setViewportView(tabella2);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 382, 818, 52));
-
-        tabella3.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Vento", "Umidità", "Pressione", "Temperatura", "Precipitazioni", "Altitudine", "Massa"
+            public boolean isCellEditable(int row, int column) {
+                return false;
             }
-        ));
-        jScrollPane3.setViewportView(tabella3);
+        }
+    );
+    jScrollPane1.setViewportView(tabella1);
 
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 446, 818, 49));
-        getContentPane().add(out, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 200, 150, 25));
-        getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 550));
+    getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 67, 818, 303));
 
-        pack();
+    tabella2.setModel(new javax.swing.table.DefaultTableModel(
+        new Object [][] {
+
+        },
+        new String [] {
+            "Vento", "Umidità", "Pressione", "Temperatura", "Precipitazione", "Altitudine", "Massa"
+        }
+    )
+    {
+        Class[] types = new Class [] {
+            java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+        };
+
+        public Class getColumnClass(int columnIndex) {
+            return types [columnIndex];
+        }
+
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    }
+    );
+    jScrollPane2.setViewportView(tabella2);
+
+    getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 382, 818, 52));
+
+    tabella3.setModel(new javax.swing.table.DefaultTableModel(
+        new Object [][] {
+
+        },
+        new String [] {
+            "Vento", "Umidità", "Pressione", "Temperatura", "Precipitazioni", "Altitudine", "Massa"
+        }
+    )
+    {
+        Class[] types = new Class [] {
+            java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+        };
+
+        public Class getColumnClass(int columnIndex) {
+            return types [columnIndex];
+        }
+
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    }
+    );
+    jScrollPane3.setViewportView(tabella3);
+
+    getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 446, 818, 49));
+    getContentPane().add(out, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 200, 150, 25));
+    getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 550));
+
+    pack();
     }// </editor-fold>//GEN-END:initComponents
 
     /**
