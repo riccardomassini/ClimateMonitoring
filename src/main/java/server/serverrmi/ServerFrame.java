@@ -179,16 +179,20 @@ public class ServerFrame extends javax.swing.JFrame {
             out.setText("Server spento");
             serverRunning = false;
         } else {
-            if (ImpostazioniServer.controlloCredenziali(username.getText(), new String(password.getPassword())) && ValidatoreIndirizzo.portaValida(Integer.parseInt(port.getText())) && ValidatoreIndirizzo.indirizzoIpValido(host.getText())) {
-                HOST = host.getText();
-                PORTA = Integer.parseInt(port.getText());
-                server = Server.ottieniIstanzaServer();
-                server.start();
-                avvia.setText("Ferma");
-                out.setText("Server avviato");
-                serverRunning = true;
-            } else {
-                out.setText("Dati invalidi");
+            try {
+                if (ImpostazioniServer.controlloCredenziali(username.getText(), new String(password.getPassword())) && ValidatoreIndirizzo.portaValida(Integer.parseInt(port.getText())) && ValidatoreIndirizzo.indirizzoIpValido(host.getText())) {
+                    HOST = host.getText();
+                    PORTA = Integer.parseInt(port.getText());
+                    server = Server.ottieniIstanzaServer();
+                    server.start();
+                    avvia.setText("Ferma");
+                    out.setText("Server avviato");
+                    serverRunning = true;
+                } else {
+                    out.setText("Dati invalidi");
+                }
+            }catch(NumberFormatException e){
+                out.setText("Fomato invalido");
             }
         }
     }
