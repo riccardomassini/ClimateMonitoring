@@ -40,16 +40,16 @@ import javax.swing.*;
 public class ScegliCentro extends javax.swing.JFrame {
 
     /** Oggetto per l'autenticazione dell'operatore. */
-    Autenticazione autenticazione;
+    private Autenticazione autenticazione;
 
     /** Oggetto per la gestione dei centri di monitoraggio. */
-    GestioneCentriMonitoraggio gestioneCentriMonitoraggio = ClientRMI.ottieniClientRMI().ottieniStubGestioneCentriMonitoraggio();
+    private GestioneCentriMonitoraggio gestioneCentriMonitoraggio = ClientRMI.ottieniClientRMI().ottieniStubGestioneCentriMonitoraggio();
 
     /** Operatore passato per la selezione del centro di monitoraggio. */
-    Operatore operatorePassato;
+    private Operatore operatorePassato;
 
     /** Nome del centro di monitoraggio selezionato. */
-    String sceltaCentro = null;
+    private String sceltaCentro = null;
 
     /** Crea una nuova istanza di {@code ScegliCentro} senza parametri e inizializza i componenti. */
     public ScegliCentro() {

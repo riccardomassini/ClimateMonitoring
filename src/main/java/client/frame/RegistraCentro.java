@@ -35,19 +35,19 @@ import javax.swing.ImageIcon;
 public class RegistraCentro extends javax.swing.JFrame {
 
     /** Oggetto per la gestione dei centri di monitoraggio. */
-    GestioneCentriMonitoraggio gestioneCentriMonitoraggio;
+    private GestioneCentriMonitoraggio gestioneCentriMonitoraggio;
 
     /** Oggetto per la ricerca dei punti di interesse. */
-    RicercaPuntiInteresse ricercaPuntiInteresse = ClientRMI.ottieniClientRMI().ottieniStubRicercaPuntiInteresse();
+    private RicercaPuntiInteresse ricercaPuntiInteresse = ClientRMI.ottieniClientRMI().ottieniStubRicercaPuntiInteresse();
 
     /** Lista dei punti di interesse monitorati. */
-    ArrayList<PuntoInteresse> puntiInteresseMonitorati = new ArrayList<>();
+    private ArrayList<PuntoInteresse> puntiInteresseMonitorati = new ArrayList<>();
 
     /** Operatore che sta effettuando la registrazione. */
-    Operatore operatorePassato;
+    private Operatore operatorePassato;
 
     /** Contatore per il numero di punti di interesse associati. */
-    int count;
+    private int count;
 
     /** Costruttore vuoto di default. */
     public RegistraCentro() {

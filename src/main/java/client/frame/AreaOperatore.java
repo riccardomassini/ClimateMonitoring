@@ -37,25 +37,25 @@ import javax.swing.*;
  */
 public class AreaOperatore extends javax.swing.JFrame {
     /** L'oggetto per l'autenticazione dell'operatore. */
-    Autenticazione autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
+    private Autenticazione autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
 
     /** L'oggetto per la gestione dei centri di monitoraggio. */
-    GestioneCentriMonitoraggio gestioneCentriMonitoraggio = ClientRMI.ottieniClientRMI().ottieniStubGestioneCentriMonitoraggio();
+    private GestioneCentriMonitoraggio gestioneCentriMonitoraggio = ClientRMI.ottieniClientRMI().ottieniStubGestioneCentriMonitoraggio();
 
     /** Il nome del centro di monitoraggio associato all'operatore. */
-    String nomeCentroMonitoraggioOperatore;
+    private String nomeCentroMonitoraggioOperatore;
 
     /** L'oggetto operatore passato all'area operatore. */
-    Operatore operatorePassato;
+    private Operatore operatorePassato;
 
     /** Il nome del paese selezionato nella combo box. */
-    String sceltaPaese = null;
+    private String sceltaPaese = null;
 
     /** Il nome del paese selezionato. */
-    String nomePaese = null;
+    private String nomePaese = null;
 
     /** Il codice del paese selezionato. */
-    String cc = null;
+    private String cc = null;
     
     /**
      * Costruttore predefinito della classe {@code AreaOperatore}.

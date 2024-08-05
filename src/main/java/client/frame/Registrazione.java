@@ -33,7 +33,7 @@ import javax.swing.ImageIcon;
  */
 public class Registrazione extends javax.swing.JFrame {
     /** Oggetto per gestire l'autenticazione tramite RMI. */
-    Autenticazione autenticazione;
+    private Autenticazione autenticazione;
 
     /**
      * Costruttore per inizializzare i componenti dell'interfaccia utente,

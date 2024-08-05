@@ -43,13 +43,13 @@ import javax.imageio.ImageIO;
 public class StampaParametri extends JFrame {
 
     /** Gestisce le misurazioni. */
-    GestioneMisurazioni gestioneMisurazioni;
+    private GestioneMisurazioni gestioneMisurazioni;
 
     /** Interfaccia per la ricerca dei punti di interesse. */
-    RicercaPuntiInteresse ricercaPuntiInteresse = ClientRMI.ottieniClientRMI().ottieniStubRicercaPuntiInteresse();
+    private RicercaPuntiInteresse ricercaPuntiInteresse = ClientRMI.ottieniClientRMI().ottieniStubRicercaPuntiInteresse();
 
     /** Modello di tabella per la visualizzazione delle misurazioni. */
-    DefaultTableModel model1, model2, model3;
+    private DefaultTableModel model1, model2, model3;
 
     /**
      * Costruttore della classe {@code StampaParametri}.

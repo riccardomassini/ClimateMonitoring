@@ -41,16 +41,16 @@ import javax.swing.ImageIcon;
 public class Parametri extends javax.swing.JFrame {
 
     /** Oggetto per la gestione delle misurazioni tramite RMI */
-    GestioneMisurazioni gestioneMisurazioni;
+    private GestioneMisurazioni gestioneMisurazioni;
 
     /** Operatore passato per autenticazione e altre operazioni */
-    Operatore operatorePassato;
+    private Operatore operatorePassato;
 
     /** Nome del centro passato per la registrazione delle misurazioni */
-    String nomeCentroPassato;
+    private String nomeCentroPassato;
 
     /** Punto di interesse passato per la registrazione delle misurazioni */
-    PuntoInteresse puntoInteressePassato;
+    private PuntoInteresse puntoInteressePassato;
 
     /** Valore di default per i commenti vuoti */
     private static final String FORMAT_COMMENTO_VUOTO = "/";

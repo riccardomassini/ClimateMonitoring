@@ -33,7 +33,7 @@ import javax.swing.ImageIcon;
 public class Login extends javax.swing.JFrame {
 
     /** Oggetto per l'autenticazione tramite RMI */
-    Autenticazione autenticazione;
+    private Autenticazione autenticazione;
 
     /**
      * Costruttore predefinito che inizializza la finestra di login.

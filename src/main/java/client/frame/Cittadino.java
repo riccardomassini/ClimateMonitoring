@@ -32,10 +32,10 @@ import javax.swing.ImageIcon;
  */
 public class Cittadino extends javax.swing.JFrame {
     /** Oggetto per la ricerca dei punti di interesse tramite RMI. */
-    RicercaPuntiInteresse ricercaPuntiInteresse = ClientRMI.ottieniClientRMI().ottieniStubRicercaPuntiInteresse();;
+    private RicercaPuntiInteresse ricercaPuntiInteresse = ClientRMI.ottieniClientRMI().ottieniStubRicercaPuntiInteresse();;
 
     /** Modello della tabella per visualizzare i risultati della ricerca. */
-    DefaultTableModel model;
+    private DefaultTableModel model;
 
     /**
      * Crea una nuova istanza della finestra {@code Cittadino}.
@@ -67,7 +67,7 @@ public class Cittadino extends javax.swing.JFrame {
      * Inizializza i componenti visivi e il modello della tabella.
      * <p>Imposta la visibilità degli elementi in base ai criteri di ricerca e carica l'elenco dei punti di interesse.</p>
      */
-    public void inizializza(){
+    private void inizializza(){
         ric1.setVisible(false);
         ric2.setVisible(false);
         ric3.setVisible(false);

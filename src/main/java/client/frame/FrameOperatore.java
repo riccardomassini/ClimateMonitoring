@@ -30,7 +30,7 @@ import javax.swing.ImageIcon;
 public class FrameOperatore extends javax.swing.JFrame {
 
     /** Oggetto per l'autenticazione tramite RMI */
-     Autenticazione autenticazione;
+     private Autenticazione autenticazione;
 
     /**
      * Costruttore del frame operatore.
