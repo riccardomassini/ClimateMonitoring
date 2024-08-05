@@ -45,7 +45,7 @@ public class ServerFrame extends javax.swing.JFrame {
      * </p>
      */
     public ServerFrame() {
-        ImpostazioniServer.impostaCredenziali("admin", "1234"); //credenziali default
+        ImpostazioniServer.impostaCredenziali("admin", "root"); //credenziali default
         initComponents();
         setBackgroundImage("image/sfondo.jpg");
         addWindowListener(new Chiusura());
@@ -173,22 +173,15 @@ public class ServerFrame extends javax.swing.JFrame {
      */
     private void avviaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avviaActionPerformed
         if (serverRunning) {
-            // Spegni il server
             if (server != null)
                 server.stop();
             avvia.setText("Avvia");
             out.setText("Server spento");
             serverRunning = false;
         } else {
-            if (ImpostazioniServer.controlloCredenziali(username.getText(), new String(password.getPassword()))) {
-                if(ValidatoreIndirizzo.indirizzoIpValido(host.getText()))
-                    HOST = host.getText();
-                try {
-                    if(ValidatoreIndirizzo.portaValida(Integer.parseInt(port.getText())))
-                        PORTA = Integer.parseInt(port.getText());
-                } catch(NumberFormatException e) {
-                    //se il campo è vuoto, ignora
-                }
+            if (ImpostazioniServer.controlloCredenziali(username.getText(), new String(password.getPassword())) && ValidatoreIndirizzo.portaValida(Integer.parseInt(port.getText())) && ValidatoreIndirizzo.indirizzoIpValido(host.getText())) {
+                HOST = host.getText();
+                PORTA = Integer.parseInt(port.getText());
                 server = Server.ottieniIstanzaServer();
                 server.start();
                 avvia.setText("Ferma");
