@@ -18,6 +18,10 @@ import javax.swing.*;
  * <p>Quando l'utente tenta di chiudere la finestra, viene visualizzato un dialogo di conferma. Se l'utente
  * conferma l'uscita, l'applicazione viene chiusa; in caso contrario, la chiusura della finestra viene
  * annullata.</p>
+ *
+ * @author Riccardo Massini
+ * @author Luca Abignano
+ * @author Lorenzo Artale
  */
 public class Chiusura extends WindowAdapter{
 
@@ -34,10 +38,6 @@ public class Chiusura extends WindowAdapter{
      *
      * @param e l'evento di chiusura della finestra {@link java.awt.event.WindowEvent}. Utilizzato per ottenere
      *          la finestra {@code JFrame} che sta tentando di chiudersi.
-     *
-     * @author Riccardo Massini
-     * @author Luca Abignano
-     * @author Lorenzo Artale
      */
     @Override
     public void windowClosing(WindowEvent e) {

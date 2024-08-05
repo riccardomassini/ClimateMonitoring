@@ -76,6 +76,7 @@ public interface CentriMonitoraggioDAO {
     /**
      * Verifica se un centro di monitoraggio è già presente nella tabella.
      *
+     * @param nomeCentro il nome del centro di monitoraggio
      * @return {@code true} se il centro di monitoraggio non esiste, {@code false} se esiste.
      */
     boolean esisteCentroMonitoraggio(String nomeCentro);
