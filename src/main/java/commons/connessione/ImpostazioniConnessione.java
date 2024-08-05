@@ -35,12 +35,12 @@ public class ImpostazioniConnessione {
     /**
      * Porta predefinita su cui il server RMI ascolta le richieste.
      */
-    public static int PORTA;
+    public static int PORTA = 10000;
 
     /**
      * Indirizzo IP predefinito del server RMI.
      */
-    public static String HOST;
+    public static String HOST = "127.0.0.1";
 
     /**
      * Nome di registrazione dell'oggetto remoto per la gestione dei centri di monitoraggio.
