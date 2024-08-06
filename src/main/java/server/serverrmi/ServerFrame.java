@@ -180,9 +180,7 @@ public class ServerFrame extends javax.swing.JFrame {
             serverRunning = false;
         } else {
             try {
-                if (ImpostazioniServer.controlloCredenziali(username.getText(), new String(password.getPassword())) && ValidatoreIndirizzo.portaValida(Integer.parseInt(port.getText())) && ValidatoreIndirizzo.indirizzoIpValido(host.getText())) {
-                    HOST = host.getText();
-                    PORTA = Integer.parseInt(port.getText());
+                if (ImpostazioniServer.controlloCredenziali(username.getText(), new String(password.getPassword())) && HOST.equals(host.getText()) && PORTA == Integer.parseInt(port.getText())) {
                     server = Server.ottieniIstanzaServer();
                     server.start();
                     avvia.setText("Ferma");
