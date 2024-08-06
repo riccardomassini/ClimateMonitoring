@@ -14,10 +14,14 @@ import commons.servizio.GestioneCentriMonitoraggio;
 import commons.servizio.GestioneMisurazioni;
 import commons.servizio.RicercaPuntiInteresse;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.Properties;
 
 /**
  * <p>La classe {@code ClientRMI} è responsabile di stabilire una connessione con il server RMI
@@ -41,11 +45,24 @@ import java.rmi.registry.Registry;
  * @author Lorenzo Artale
  */
 public class ClientRMI {
+
+    /** Stub per l'autenticazione degli operatori. */
     private Autenticazione stubAutenticazione;
+
+    /** Stub per la ricerca dei punti di interesse. */
     private RicercaPuntiInteresse stubRicercaPuntiInteresse;
+
+    /** Stub per la gestione dei centri di monitoraggio. */
     private GestioneCentriMonitoraggio stubGestioneCentriMonitoraggio;
+
+    /** Stub per la gestione delle misurazioni. */
     private GestioneMisurazioni stubGestioneMisurazioni;
+
+    /** Oggetto Registry per RMI. */
     private Registry registroRMI;
+
+    /** Oggetto Properties per il file di configurazione. */
+    private Properties properties = new Properties();
 
     /**
      * Costruttore privato della classe {@code ClientRMI} che stabilisce la connessione con il registro RMI
@@ -53,17 +70,22 @@ public class ClientRMI {
      * e di recupero degli oggetti remoti.
      */
     private ClientRMI() {
+        String host = null;
+        int port = 0;
         try {
-            registroRMI = LocateRegistry.getRegistry(HOST, PORTA);
+            try (FileInputStream input = new FileInputStream("config.properties")) {
+                properties.load(input);
+                host = properties.getProperty("host");
+                port = Integer.parseInt(properties.getProperty("port"));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            registroRMI = LocateRegistry.getRegistry(host, port);
             stubAutenticazione = (Autenticazione) registroRMI.lookup(RMI_Autenticazione);
             stubGestioneMisurazioni = (GestioneMisurazioni) registroRMI.lookup(RMI_GestioneMisurazioni);
             stubGestioneCentriMonitoraggio = (GestioneCentriMonitoraggio) registroRMI.lookup(RMI_GestioneCentriMonitoraggio);
             stubRicercaPuntiInteresse = (RicercaPuntiInteresse) registroRMI.lookup(RMI_RicercaPuntiInteresse);
-        } catch (RemoteException e) {
-            System.err.println("Errore di connessione al servizio RMI");
-        } catch (NotBoundException e) {
-            System.err.println("Errore nel recupero degli oggetti remoti dal registro RMI");
-        }
+        } catch (RemoteException e) {} catch (NotBoundException e) {}
     }
 
     /**

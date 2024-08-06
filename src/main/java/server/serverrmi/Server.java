@@ -18,10 +18,13 @@ import server.servizio.autenticazione.Autenticatore;
 import server.servizio.centrimonitoraggio.GestoreCentriMonitoraggio;
 import server.servizio.ricercapoi.RepositoryPuntiInteresse;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Properties;
 
 /**
  * La classe {@code Server} gestisce l'avvio, l'esecuzione e l'arresto di un server RMI.
@@ -53,6 +56,9 @@ public class Server implements Runnable {
 
     /** Repository per i punti di interesse. */
     private RepositoryPuntiInteresse repositoryPuntiInteresse;
+
+    /** Oggetto Properties per il file di configurazione. */
+    private Properties properties = new Properties();
 
     /** Variabile di controllo per il ciclo di esecuzione del server. */
     private volatile boolean running = false;
@@ -115,17 +121,26 @@ public class Server implements Runnable {
      * Inoltre, avvia il thread del server.
      */
     public void start() {
+        String host = null;
+        int port = 0;
+        try (FileInputStream input = new FileInputStream("config.properties")) {
+            properties.load(input);
+            port = Integer.parseInt(properties.getProperty("port"));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
         try {
-            registroRMI = LocateRegistry.createRegistry(PORTA);
+            registroRMI = LocateRegistry.createRegistry(port);
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
 
         try {
-            RicercaPuntiInteresse stubRicercaPuntiInteresse = (RicercaPuntiInteresse) UnicastRemoteObject.exportObject(repositoryPuntiInteresse, PORTA);
-            Autenticazione stubAutenticazione = (Autenticazione) UnicastRemoteObject.exportObject(autenticatore, PORTA);
-            GestioneMisurazioni stubGestioneMisurazioni = (GestioneMisurazioni) UnicastRemoteObject.exportObject(gestoreMisurazioni, PORTA);
-            GestioneCentriMonitoraggio stubGestioneCentriMonitoraggio = (GestioneCentriMonitoraggio) UnicastRemoteObject.exportObject(gestoreCentriMonitoraggio, PORTA);
+            RicercaPuntiInteresse stubRicercaPuntiInteresse = (RicercaPuntiInteresse) UnicastRemoteObject.exportObject(repositoryPuntiInteresse, port);
+            Autenticazione stubAutenticazione = (Autenticazione) UnicastRemoteObject.exportObject(autenticatore, port);
+            GestioneMisurazioni stubGestioneMisurazioni = (GestioneMisurazioni) UnicastRemoteObject.exportObject(gestoreMisurazioni, port);
+            GestioneCentriMonitoraggio stubGestioneCentriMonitoraggio = (GestioneCentriMonitoraggio) UnicastRemoteObject.exportObject(gestoreCentriMonitoraggio, port);
 
             registroRMI.rebind(RMI_GestioneCentriMonitoraggio, stubGestioneCentriMonitoraggio);
             registroRMI.rebind(RMI_RicercaPuntiInteresse, stubRicercaPuntiInteresse);

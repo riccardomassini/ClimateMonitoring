@@ -9,13 +9,17 @@
 package server.serverrmi;
 
 import client.registraeventi.Chiusura;
+import commons.connessione.ValidatoreIndirizzo;
 
-import static commons.connessione.ImpostazioniConnessione.*;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import java.util.Properties;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+
 
 /**
  * La classe {@code ServerFrame} rappresenta l'interfaccia grafica per controllare il server.
@@ -35,6 +39,12 @@ public class ServerFrame extends javax.swing.JFrame {
 
     /** Istanza del server. */
     private Server server;
+
+    /** nome del file di configurazione per host e porta del server. */
+    private String configFilePath = "config.properties";
+
+    /** Oggetto Properties per il file di configurazione. */
+    private Properties properties = new Properties();
 
     /**
      * Costruttore della classe {@code ServerFrame}.
@@ -171,6 +181,7 @@ public class ServerFrame extends javax.swing.JFrame {
      * @param evt L'evento generato dall'azione dell'utente sul pulsante "Avvia".
      */
     private void avviaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avviaActionPerformed
+        out.setText("");
         if (serverRunning) {
             if (server != null)
                 server.stop();
@@ -179,13 +190,31 @@ public class ServerFrame extends javax.swing.JFrame {
             serverRunning = false;
         } else {
             try {
-                if (ImpostazioniServer.controlloCredenziali(username.getText(), new String(password.getPassword())) && HOST.equals(host.getText()) && PORTA == Integer.parseInt(port.getText())) {
-                    server = Server.ottieniIstanzaServer();
-                    server.start();
-                    avvia.setText("Ferma");
-                    out.setText("Server avviato");
-                    serverRunning = true;
-                } else {
+                if (ImpostazioniServer.controlloCredenziali(username.getText(), new String(password.getPassword())) && ValidatoreIndirizzo.indirizzoIpValido(host.getText()) && ValidatoreIndirizzo.portaValida(Integer.parseInt(port.getText()))) {
+                    if (host.getText().equals("127.0.0.1")) {
+                        try (FileInputStream input = new FileInputStream(configFilePath)) {
+                            properties.load(input);
+                        } catch (IOException ex) {
+                            System.out.println("Errore durante la lettura del file di configurazione: " + ex.getMessage());
+                            return;
+                        }
+                        properties.setProperty("host", host.getText());
+                        properties.setProperty("port", port.getText());
+
+                        try (FileOutputStream output = new FileOutputStream(configFilePath)) {
+                            properties.store(output, null);
+                        } catch (IOException ex) {
+                        }
+
+                        server = Server.ottieniIstanzaServer();
+                        server.start();
+                        avvia.setText("Ferma");
+                        out.setText("Server avviato");
+                        serverRunning = true;
+                    } else {
+                        out.setText("Host non trovato");
+                    }
+                }else{
                     out.setText("Dati invalidi");
                 }
             }catch(NumberFormatException e){
