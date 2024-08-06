@@ -58,6 +58,9 @@ public class Server implements Runnable {
     /** Repository per i punti di interesse. */
     private RepositoryPuntiInteresse repositoryPuntiInteresse;
 
+    /** nome del file di configurazione per host e porta del server. */
+    private String configFilePath = "/../config.properties";
+
     /** Oggetto Properties per il file di configurazione. */
     private Properties properties = new Properties();
 
@@ -124,7 +127,7 @@ public class Server implements Runnable {
     public void start() {
         String host = null;
         int port = 0;
-        try (FileInputStream input = new FileInputStream(System.getProperty("user.dir") + "/../config.properties")) {
+        try (FileInputStream input = new FileInputStream(System.getProperty("user.dir") + configFilePath)) {
             properties.load(input);
             port = Integer.parseInt(properties.getProperty("port"));
         } catch (IOException ex) {

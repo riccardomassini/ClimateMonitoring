@@ -38,8 +38,7 @@ import java.util.Properties;
  *     <li>{@link commons.servizio.RicercaPuntiInteresse}: per la gestione delle operazioni di ricerca di punti di interesse</li>
  * </ul>
  *
- * <p>Il client si connette a un registro RMI specificato dai parametri <code>HOST</code> e {@code PORTA}
- * definiti nella classe {@code commons.connessione.ImpostazioniConnessione}.</p>
+ * <p>Il client si connette a un registro RMI specificato dai parametri <code>host</code> e {@code port}.</p>
  *
  * @author Riccardo Massini
  * @author Luca Abignano
@@ -63,6 +62,9 @@ public class ClientRMI {
     private Registry registroRMI;
 
     /** Oggetto Properties per il file di configurazione. */
+    private String configFilePath = "/../config.properties";
+
+    /** Oggetto Properties per il file di configurazione. */
     private Properties properties = new Properties();
 
     /**
@@ -74,7 +76,7 @@ public class ClientRMI {
         String host = null;
         int port = 0;
         try {
-            try (FileInputStream input = new FileInputStream(System.getProperty("user.dir") + "/../config.properties")) {
+            try (FileInputStream input = new FileInputStream(System.getProperty("user.dir") + configFilePath)) {
                 properties.load(input);
                 host = properties.getProperty("host");
                 port = Integer.parseInt(properties.getProperty("port"));
