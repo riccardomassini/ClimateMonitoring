@@ -123,7 +123,7 @@ public class Server implements Runnable {
     public void start() {
         String host = null;
         int port = 0;
-        try (FileInputStream input = new FileInputStream("./config.properties")) {
+        try (FileInputStream input = new FileInputStream("../../../../../config.properties")) {
             properties.load(input);
             port = Integer.parseInt(properties.getProperty("port"));
         } catch (IOException ex) {
