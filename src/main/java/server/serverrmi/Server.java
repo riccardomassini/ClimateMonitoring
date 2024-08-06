@@ -124,7 +124,7 @@ public class Server implements Runnable {
     public void start() {
         String host = null;
         int port = 0;
-        try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")) {
+        try (FileInputStream input = new FileInputStream(System.getProperty("user.dir") + "/../config.properties")) {
             properties.load(input);
             port = Integer.parseInt(properties.getProperty("port"));
         } catch (IOException ex) {

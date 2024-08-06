@@ -71,12 +71,10 @@ public class ClientRMI {
      * e di recupero degli oggetti remoti.
      */
     private ClientRMI() {
-        System.out.println("Directory di lavoro corrente: " + System.getProperty("user.dir"));
-
         String host = null;
         int port = 0;
         try {
-            try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")) {
+            try (FileInputStream input = new FileInputStream(System.getProperty("user.dir") + "/../config.properties")) {
                 properties.load(input);
                 host = properties.getProperty("host");
                 port = Integer.parseInt(properties.getProperty("port"));

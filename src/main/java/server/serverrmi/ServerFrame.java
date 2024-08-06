@@ -179,8 +179,6 @@ public class ServerFrame extends javax.swing.JFrame {
      * @param evt L'evento generato dall'azione dell'utente sul pulsante "Avvia".
      */
     private void avviaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avviaActionPerformed
-        System.out.println("Directory di lavoro corrente: " + System.getProperty("user.dir"));
-
         out.setText("");
         if (serverRunning) {
             if (server != null)
@@ -192,13 +190,13 @@ public class ServerFrame extends javax.swing.JFrame {
             try {
                 if (ImpostazioniServer.controlloCredenziali(username.getText(), new String(password.getPassword())) && ValidatoreIndirizzo.indirizzoIpValido(host.getText()) && ValidatoreIndirizzo.portaValida(Integer.parseInt(port.getText()))) {
                     if (host.getText().equals("127.0.0.1")) {
-                        try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")) {
+                        try (FileInputStream input = new FileInputStream(System.getProperty("user.dir") + "/../config.properties")) {
                             properties.load(input);
                         } catch (IOException ex) {return;}
                         properties.setProperty("host", host.getText());
                         properties.setProperty("port", port.getText());
 
-                        try (FileOutputStream output = new FileOutputStream("src/main/resources/config.properties")) {
+                        try (FileOutputStream output = new FileOutputStream(System.getProperty("user.dir") + "/../config.properties")) {
                             properties.store(output, null);
                         } catch (IOException ex) {
                         }
