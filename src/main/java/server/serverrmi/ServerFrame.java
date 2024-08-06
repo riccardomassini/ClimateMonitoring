@@ -9,7 +9,6 @@
 package server.serverrmi;
 
 import client.registraeventi.Chiusura;
-import commons.connessione.ValidatoreIndirizzo;
 
 import static commons.connessione.ImpostazioniConnessione.*;
 import java.awt.Image;

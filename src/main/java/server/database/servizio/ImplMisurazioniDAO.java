@@ -13,7 +13,6 @@ import commons.oggetti.misurazioni.Misurazione;
 import commons.oggetti.misurazioni.ValutazioneParametro;
 import server.database.ConnettoreDatabase;
 import server.database.dao.MisurazioniDAO;
-import server.database.dao.OperatoriDAO;
 
 import java.sql.*;
 import java.util.ArrayList;

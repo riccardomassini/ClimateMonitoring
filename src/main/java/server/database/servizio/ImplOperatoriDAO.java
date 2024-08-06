@@ -11,7 +11,6 @@ package server.database.servizio;
 import commons.oggetti.Operatore;
 import org.postgresql.util.PSQLException;
 import server.database.ConnettoreDatabase;
-import server.database.dao.CentriMonitoraggioDAO;
 import server.database.dao.OperatoriDAO;
 import server.servizio.autenticazione.Autenticatore;
 
