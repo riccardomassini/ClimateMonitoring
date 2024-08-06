@@ -78,6 +78,8 @@ public class ClientRMI {
                 properties.load(input);
                 host = properties.getProperty("host");
                 port = Integer.parseInt(properties.getProperty("port"));
+                System.out.println("HOST: " +host);
+                System.out.println("PORT: " +port);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
