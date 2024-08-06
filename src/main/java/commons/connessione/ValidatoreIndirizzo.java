@@ -36,7 +36,7 @@ public class ValidatoreIndirizzo {
     /**
      * Il valore minimo valido per una porta TCP/UDP.
      */
-    private static int PORTA_MIN = 0;
+    private static int PORTA_MIN = 1024;
 
     /**
      * Il valore massimo valido per una porta TCP/UDP.
