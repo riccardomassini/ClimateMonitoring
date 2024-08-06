@@ -17,6 +17,7 @@ import commons.servizio.RicercaPuntiInteresse;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -73,7 +74,7 @@ public class ClientRMI {
         String host = null;
         int port = 0;
         try {
-            try (FileInputStream input = new FileInputStream("config.properties")) {
+            try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")) {
                 properties.load(input);
                 host = properties.getProperty("host");
                 port = Integer.parseInt(properties.getProperty("port"));

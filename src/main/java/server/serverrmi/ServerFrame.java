@@ -13,12 +13,10 @@ import commons.connessione.ValidatoreIndirizzo;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
+import java.io.*;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import java.util.Properties;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 
 
 /**
@@ -192,7 +190,7 @@ public class ServerFrame extends javax.swing.JFrame {
             try {
                 if (ImpostazioniServer.controlloCredenziali(username.getText(), new String(password.getPassword())) && ValidatoreIndirizzo.indirizzoIpValido(host.getText()) && ValidatoreIndirizzo.portaValida(Integer.parseInt(port.getText()))) {
                     if (host.getText().equals("127.0.0.1")) {
-                        try (FileInputStream input = new FileInputStream(configFilePath)) {
+                        try (InputStream input = getClass().getClassLoader().getResourceAsStream(configFilePath)) {
                             properties.load(input);
                         } catch (IOException ex) {
                             System.out.println("Errore durante la lettura del file di configurazione: " + ex.getMessage());
@@ -201,7 +199,7 @@ public class ServerFrame extends javax.swing.JFrame {
                         properties.setProperty("host", host.getText());
                         properties.setProperty("port", port.getText());
 
-                        try (FileOutputStream output = new FileOutputStream(configFilePath)) {
+                        try (OutputStream output = new FileOutputStream(getClass().getClassLoader().getResource(configFilePath).getFile())) {
                             properties.store(output, null);
                         } catch (IOException ex) {
                         }
