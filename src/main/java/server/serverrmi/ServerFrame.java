@@ -39,10 +39,12 @@ public class ServerFrame extends javax.swing.JFrame {
     private Server server;
 
     /** nome del file di configurazione per host e porta del server. */
-    private String configFilePath = "../../../../../config.properties";
+    private String configFilePath = "./config.properties";
 
     /** Oggetto Properties per il file di configurazione. */
     private Properties properties = new Properties();
+
+    private File rootDirectory = new File(".");
 
     /**
      * Costruttore della classe {@code ServerFrame}.
@@ -192,10 +194,7 @@ public class ServerFrame extends javax.swing.JFrame {
                     if (host.getText().equals("127.0.0.1")) {
                         try (FileInputStream input = new FileInputStream(configFilePath)) {
                             properties.load(input);
-                        } catch (IOException ex) {
-                            System.out.println("Errore durante la lettura del file di configurazione: " + ex.getMessage());
-                            return;
-                        }
+                        } catch (IOException ex) {return;}
                         properties.setProperty("host", host.getText());
                         properties.setProperty("port", port.getText());
 

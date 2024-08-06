@@ -14,8 +14,8 @@ import commons.servizio.GestioneCentriMonitoraggio;
 import commons.servizio.GestioneMisurazioni;
 import commons.servizio.RicercaPuntiInteresse;
 
+import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.rmi.NotBoundException;
@@ -65,6 +65,8 @@ public class ClientRMI {
     /** Oggetto Properties per il file di configurazione. */
     private Properties properties = new Properties();
 
+    private File rootDirectory = new File(".");
+
     /**
      * Costruttore privato della classe {@code ClientRMI} che stabilisce la connessione con il registro RMI
      * e inizializza gli stub per i servizi remoti. Gestisce eventuali eccezioni di connessione
@@ -73,6 +75,7 @@ public class ClientRMI {
     private ClientRMI() {
         String host = null;
         int port = 0;
+        System.out.println(rootDirectory + "config.properties");
         try {
             try (FileInputStream input = new FileInputStream("../../../../../config.properties")) {
                 properties.load(input);
