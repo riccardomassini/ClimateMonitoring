@@ -179,6 +179,8 @@ public class ServerFrame extends javax.swing.JFrame {
      * @param evt L'evento generato dall'azione dell'utente sul pulsante "Avvia".
      */
     private void avviaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avviaActionPerformed
+        System.out.println("Directory di lavoro corrente: " + System.getProperty("user.dir"));
+
         out.setText("");
         if (serverRunning) {
             if (server != null)

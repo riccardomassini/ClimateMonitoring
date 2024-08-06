@@ -71,6 +71,8 @@ public class ClientRMI {
      * e di recupero degli oggetti remoti.
      */
     private ClientRMI() {
+        System.out.println("Directory di lavoro corrente: " + System.getProperty("user.dir"));
+
         String host = null;
         int port = 0;
         try {
