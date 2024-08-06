@@ -15,8 +15,6 @@ package commons.connessione;
  *
  * <p>Le costanti di configurazione sono:</p>
  * <ul>
- *     <li>{@link #PORTA}: La porta predefinita su cui il server RMI ascolta le richieste.</li>
- *     <li>{@link #HOST}: L'indirizzo IP predefinito del server RMI.</li>
  *     <li>{@link #RMI_GestioneCentriMonitoraggio}: Il nome di registrazione dell'oggetto remoto per la gestione dei centri di monitoraggio.</li>
  *     <li>{@link #RMI_Autenticazione}: Il nome di registrazione dell'oggetto remoto per il servizio di autenticazione.</li>
  *     <li>{@link #RMI_RicercaPuntiInteresse}: Il nome di registrazione dell'oggetto remoto per il servizio di ricerca dei punti di interesse.</li>
