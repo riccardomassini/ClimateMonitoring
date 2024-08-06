@@ -190,13 +190,13 @@ public class ServerFrame extends javax.swing.JFrame {
             try {
                 if (ImpostazioniServer.controlloCredenziali(username.getText(), new String(password.getPassword())) && ValidatoreIndirizzo.indirizzoIpValido(host.getText()) && ValidatoreIndirizzo.portaValida(Integer.parseInt(port.getText()))) {
                     if (host.getText().equals("127.0.0.1")) {
-                        try (FileInputStream input = new FileInputStream(configFilePath)) {
+                        try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")) {
                             properties.load(input);
                         } catch (IOException ex) {return;}
                         properties.setProperty("host", host.getText());
                         properties.setProperty("port", port.getText());
 
-                        try (FileOutputStream output = new FileOutputStream(configFilePath)) {
+                        try (FileOutputStream output = new FileOutputStream("src/main/resources/config.properties")) {
                             properties.store(output, null);
                         } catch (IOException ex) {
                         }

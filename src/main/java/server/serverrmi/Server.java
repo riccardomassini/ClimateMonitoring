@@ -20,6 +20,7 @@ import server.servizio.ricercapoi.RepositoryPuntiInteresse;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -123,7 +124,7 @@ public class Server implements Runnable {
     public void start() {
         String host = null;
         int port = 0;
-        try (FileInputStream input = new FileInputStream("./config.properties")) {
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")) {
             properties.load(input);
             port = Integer.parseInt(properties.getProperty("port"));
         } catch (IOException ex) {
