@@ -77,7 +77,7 @@ public class ClientRMI {
         int port = 0;
         System.out.println(rootDirectory + "config.properties");
         try {
-            try (FileInputStream input = new FileInputStream("../../../../../config.properties")) {
+            try (FileInputStream input = new FileInputStream("/config.properties")) {
                 properties.load(input);
                 host = properties.getProperty("host");
                 port = Integer.parseInt(properties.getProperty("port"));
