@@ -65,8 +65,6 @@ public class ClientRMI {
     /** Oggetto Properties per il file di configurazione. */
     private Properties properties = new Properties();
 
-    private File rootDirectory = new File(".");
-
     /**
      * Costruttore privato della classe {@code ClientRMI} che stabilisce la connessione con il registro RMI
      * e inizializza gli stub per i servizi remoti. Gestisce eventuali eccezioni di connessione
@@ -75,9 +73,8 @@ public class ClientRMI {
     private ClientRMI() {
         String host = null;
         int port = 0;
-        System.out.println(rootDirectory + "config.properties");
         try {
-            try (FileInputStream input = new FileInputStream("/config.properties")) {
+            try (FileInputStream input = new FileInputStream("./config.properties")) {
                 properties.load(input);
                 host = properties.getProperty("host");
                 port = Integer.parseInt(properties.getProperty("port"));

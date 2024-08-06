@@ -39,7 +39,7 @@ public class ServerFrame extends javax.swing.JFrame {
     private Server server;
 
     /** nome del file di configurazione per host e porta del server. */
-    private String configFilePath = "/config.properties";
+    private String configFilePath = "./config.properties";
 
     /** Oggetto Properties per il file di configurazione. */
     private Properties properties = new Properties();
