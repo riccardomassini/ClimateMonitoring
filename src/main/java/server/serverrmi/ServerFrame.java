@@ -39,7 +39,7 @@ public class ServerFrame extends javax.swing.JFrame {
     private Server server;
 
     /** nome del file di configurazione per host e porta del server. */
-    private String configFilePath = "config.properties";
+    private String configFilePath = "./config.properties";
 
     /** Oggetto Properties per il file di configurazione. */
     private Properties properties = new Properties();
@@ -190,7 +190,7 @@ public class ServerFrame extends javax.swing.JFrame {
             try {
                 if (ImpostazioniServer.controlloCredenziali(username.getText(), new String(password.getPassword())) && ValidatoreIndirizzo.indirizzoIpValido(host.getText()) && ValidatoreIndirizzo.portaValida(Integer.parseInt(port.getText()))) {
                     if (host.getText().equals("127.0.0.1")) {
-                        try (InputStream input = getClass().getClassLoader().getResourceAsStream(configFilePath)) {
+                        try (FileInputStream input = new FileInputStream(configFilePath)) {
                             properties.load(input);
                         } catch (IOException ex) {
                             System.out.println("Errore durante la lettura del file di configurazione: " + ex.getMessage());
@@ -199,7 +199,7 @@ public class ServerFrame extends javax.swing.JFrame {
                         properties.setProperty("host", host.getText());
                         properties.setProperty("port", port.getText());
 
-                        try (OutputStream output = new FileOutputStream(getClass().getClassLoader().getResource(configFilePath).getFile())) {
+                        try (FileOutputStream output = new FileOutputStream(configFilePath)) {
                             properties.store(output, null);
                         } catch (IOException ex) {
                         }
