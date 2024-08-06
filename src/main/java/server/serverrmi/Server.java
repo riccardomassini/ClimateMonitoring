@@ -20,7 +20,6 @@ import server.servizio.ricercapoi.RepositoryPuntiInteresse;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
