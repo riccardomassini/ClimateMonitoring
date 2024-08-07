@@ -62,7 +62,7 @@ public class ClientRMI {
     private Registry registroRMI;
 
     /** Oggetto Properties per il file di configurazione. */
-    private String configFilePath =  ".." + File.separator + "config.properties";
+    private String configFilePath = File.separator + "config.properties";
 
     /** Oggetto Properties per il file di configurazione. */
     private Properties properties = new Properties();
@@ -76,7 +76,12 @@ public class ClientRMI {
         String host = null;
         int port = 0;
         try {
-            try (FileInputStream input = new FileInputStream(System.getProperty("user.dir") + File.separator +  configFilePath)) {
+            String fullPath = System.getProperty("user.dir");
+            String targetDir = "ClimateMonitoring";
+            int targetIndex = fullPath.indexOf(targetDir);
+            String resultPath = fullPath.substring(0, targetIndex + targetDir.length());
+
+            try (FileInputStream input = new FileInputStream(resultPath +  configFilePath)) {
                 properties.load(input);
                 host = properties.getProperty("host");
                 port = Integer.parseInt(properties.getProperty("port"));
