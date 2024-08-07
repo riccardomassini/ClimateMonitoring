@@ -9,6 +9,7 @@
 package server.serverrmi;
 
 import client.registraeventi.Chiusura;
+import commons.connessione.ImpostazioniConnessione;
 import commons.connessione.ValidatoreIndirizzo;
 
 import java.awt.Image;
@@ -191,9 +192,7 @@ public class ServerFrame extends javax.swing.JFrame {
                 if (ImpostazioniServer.controlloCredenziali(username.getText(), new String(password.getPassword())) && ValidatoreIndirizzo.indirizzoIpValido(host.getText()) && ValidatoreIndirizzo.portaValida(Integer.parseInt(port.getText()))) {
                     if (host.getText().equals("127.0.0.1")) {
                         String fullPath = System.getProperty("user.dir");
-                        String targetDir = "ClimateMonitoring";
-                        int targetIndex = fullPath.indexOf(targetDir);
-                        String resultPath = fullPath.substring(0, targetIndex + targetDir.length());
+                        String resultPath = ImpostazioniConnessione.getPath(fullPath);
 
                         try (FileInputStream input = new FileInputStream(resultPath + configFilePath)) {
                             properties.load(input);

@@ -9,6 +9,8 @@
 package server.serverrmi;
 
 import static commons.connessione.ImpostazioniConnessione.*;
+
+import commons.connessione.ImpostazioniConnessione;
 import commons.servizio.Autenticazione;
 import commons.servizio.GestioneCentriMonitoraggio;
 import commons.servizio.GestioneMisurazioni;
@@ -129,9 +131,7 @@ public class Server implements Runnable {
         int port = 0;
 
         String fullPath = System.getProperty("user.dir");
-        String targetDir = "ClimateMonitoring";
-        int targetIndex = fullPath.indexOf(targetDir);
-        String resultPath = fullPath.substring(0, targetIndex + targetDir.length());
+        String resultPath = ImpostazioniConnessione.getPath(fullPath);
 
         try (FileInputStream input = new FileInputStream(resultPath + configFilePath)) {
             properties.load(input);

@@ -9,6 +9,8 @@
 package client.clientrmi;
 
 import static commons.connessione.ImpostazioniConnessione.*;
+
+import commons.connessione.ImpostazioniConnessione;
 import commons.servizio.Autenticazione;
 import commons.servizio.GestioneCentriMonitoraggio;
 import commons.servizio.GestioneMisurazioni;
@@ -77,17 +79,14 @@ public class ClientRMI {
         int port = 0;
         try {
             String fullPath = System.getProperty("user.dir");
-            String targetDir = "ClimateMonitoring";
-            int targetIndex = fullPath.indexOf(targetDir);
-            String resultPath = fullPath.substring(0, targetIndex + targetDir.length());
+            String resultPath = ImpostazioniConnessione.getPath(fullPath);
 
             try (FileInputStream input = new FileInputStream(resultPath +  configFilePath)) {
                 properties.load(input);
                 host = properties.getProperty("host");
                 port = Integer.parseInt(properties.getProperty("port"));
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
+            } catch (Exception e) {}
+
             registroRMI = LocateRegistry.getRegistry(host, port);
             stubAutenticazione = (Autenticazione) registroRMI.lookup(RMI_Autenticazione);
             stubGestioneMisurazioni = (GestioneMisurazioni) registroRMI.lookup(RMI_GestioneMisurazioni);
