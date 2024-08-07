@@ -1,0 +1,92 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36" version="24.7.6">
+  <diagram name="Page-1" id="kVtAbBmksg4N98zlqCsW">
+    <mxGraphModel dx="1671" dy="-784" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="jsE1_Es8Jvx7m07GS4Ue-1" value="Climate Monitoring Server" style="shape=umlFrame;whiteSpace=wrap;html=1;width=190;height=25;boundedLbl=1;verticalAlign=middle;align=left;spacingLeft=5;" vertex="1" parent="1">
+          <mxGeometry x="110" y="1190" width="540" height="470" as="geometry" />
+        </mxCell>
+        <mxCell id="jsE1_Es8Jvx7m07GS4Ue-2" value="Amministratore" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" vertex="1" parent="1">
+          <mxGeometry y="1270" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="jsE1_Es8Jvx7m07GS4Ue-4" value="&amp;lt;&amp;lt;system&amp;gt;&amp;gt;&lt;br&gt;Server" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="700" y="1270" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="jsE1_Es8Jvx7m07GS4Ue-5" value="&amp;lt;&amp;lt;system&amp;gt;&amp;gt;&lt;br&gt;App Client" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry y="1570" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="jsE1_Es8Jvx7m07GS4Ue-6" value="Autenticati" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="390" y="1265" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="jsE1_Es8Jvx7m07GS4Ue-7" value="Avvia server" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="133" y="1265" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="jsE1_Es8Jvx7m07GS4Ue-8" value="Effettua richiesta di connessione" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="140" y="1565" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="jsE1_Es8Jvx7m07GS4Ue-9" value="Inizializza e configura database" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="390" y="1460" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="jsE1_Es8Jvx7m07GS4Ue-11" value="&amp;lt;&amp;lt;system&amp;gt;&amp;gt;&lt;br&gt;servizio RMI" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="700" y="1570" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="jsE1_Es8Jvx7m07GS4Ue-13" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0.5;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="jsE1_Es8Jvx7m07GS4Ue-2" target="jsE1_Es8Jvx7m07GS4Ue-7">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="25" y="1310.0000000000005" as="sourcePoint" />
+            <mxPoint x="150.00000000000296" y="1310.0000000000005" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="jsE1_Es8Jvx7m07GS4Ue-14" value="Spegni server" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="133" y="1350" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="jsE1_Es8Jvx7m07GS4Ue-15" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0.5;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="jsE1_Es8Jvx7m07GS4Ue-2" target="jsE1_Es8Jvx7m07GS4Ue-14">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="40" y="1440" as="sourcePoint" />
+            <mxPoint x="200" y="1440" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="jsE1_Es8Jvx7m07GS4Ue-16" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0.5;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="jsE1_Es8Jvx7m07GS4Ue-5" target="jsE1_Es8Jvx7m07GS4Ue-8">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="35" y="1320.0000000000005" as="sourcePoint" />
+            <mxPoint x="160.00000000000296" y="1320.0000000000005" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="jsE1_Es8Jvx7m07GS4Ue-17" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=open;endFill=0;dashed=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="jsE1_Es8Jvx7m07GS4Ue-7" target="jsE1_Es8Jvx7m07GS4Ue-6">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="413" y="1420" as="sourcePoint" />
+            <mxPoint x="420" y="1380" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="jsE1_Es8Jvx7m07GS4Ue-19" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0.5;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="jsE1_Es8Jvx7m07GS4Ue-4" target="jsE1_Es8Jvx7m07GS4Ue-6">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="25" y="1310.0000000000005" as="sourcePoint" />
+            <mxPoint x="150.00000000000296" y="1516" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="jsE1_Es8Jvx7m07GS4Ue-20" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0.5;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="jsE1_Es8Jvx7m07GS4Ue-4" target="jsE1_Es8Jvx7m07GS4Ue-9">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="715" y="1490" as="sourcePoint" />
+            <mxPoint x="569.9999999999941" y="1310.0000000000005" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="680" y="1300" />
+              <mxPoint x="680" y="1495" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="jsE1_Es8Jvx7m07GS4Ue-21" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0.5;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="jsE1_Es8Jvx7m07GS4Ue-11" target="jsE1_Es8Jvx7m07GS4Ue-8">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="735" y="1320.0000000000005" as="sourcePoint" />
+            <mxPoint x="579.9999999999941" y="1320.0000000000005" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="jsE1_Es8Jvx7m07GS4Ue-22" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=open;endFill=0;dashed=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="jsE1_Es8Jvx7m07GS4Ue-14" target="jsE1_Es8Jvx7m07GS4Ue-6">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="283" y="1310" as="sourcePoint" />
+            <mxPoint x="430" y="1310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
