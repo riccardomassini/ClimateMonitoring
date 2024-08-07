@@ -54,7 +54,7 @@ public class ServerFrame extends javax.swing.JFrame {
     public ServerFrame() {
         ImpostazioniServer.impostaCredenziali("admin", "root"); //credenziali default
         initComponents();
-        setBackgroundImage("image" + File.separator + "sfondo.jpg");
+        setBackgroundImage("image/sfondo.jpg");
         addWindowListener(new Chiusura());
         this.setResizable(false);
     }
