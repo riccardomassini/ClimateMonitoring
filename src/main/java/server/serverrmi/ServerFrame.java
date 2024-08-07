@@ -39,7 +39,7 @@ public class ServerFrame extends javax.swing.JFrame {
     private Server server;
 
     /** nome del file di configurazione per host e porta del server. */
-    private String configFilePath = "/../config.properties";
+    private String configFilePath = ".." + File.separator + "config.properties";
 
     /** Oggetto Properties per il file di configurazione. */
     private Properties properties = new Properties();
@@ -54,7 +54,7 @@ public class ServerFrame extends javax.swing.JFrame {
     public ServerFrame() {
         ImpostazioniServer.impostaCredenziali("admin", "root"); //credenziali default
         initComponents();
-        setBackgroundImage("image/sfondo.jpg");
+        setBackgroundImage("image" + File.separator + "sfondo.jpg");
         addWindowListener(new Chiusura());
         this.setResizable(false);
     }
@@ -190,13 +190,13 @@ public class ServerFrame extends javax.swing.JFrame {
             try {
                 if (ImpostazioniServer.controlloCredenziali(username.getText(), new String(password.getPassword())) && ValidatoreIndirizzo.indirizzoIpValido(host.getText()) && ValidatoreIndirizzo.portaValida(Integer.parseInt(port.getText()))) {
                     if (host.getText().equals("127.0.0.1")) {
-                        try (FileInputStream input = new FileInputStream(System.getProperty("user.dir") + configFilePath)) {
+                        try (FileInputStream input = new FileInputStream(System.getProperty("user.dir") + File.separator + configFilePath)) {
                             properties.load(input);
                         } catch (IOException ex) {return;}
                         properties.setProperty("host", host.getText());
                         properties.setProperty("port", port.getText());
 
-                        try (FileOutputStream output = new FileOutputStream(System.getProperty("user.dir") + configFilePath)) {
+                        try (FileOutputStream output = new FileOutputStream(System.getProperty("user.dir") + File.separator +configFilePath)) {
                             properties.store(output, null);
                         } catch (IOException ex) {
                         }

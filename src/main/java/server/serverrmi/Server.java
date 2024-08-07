@@ -18,6 +18,7 @@ import server.servizio.autenticazione.Autenticatore;
 import server.servizio.centrimonitoraggio.GestoreCentriMonitoraggio;
 import server.servizio.ricercapoi.RepositoryPuntiInteresse;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -58,7 +59,7 @@ public class Server implements Runnable {
     private RepositoryPuntiInteresse repositoryPuntiInteresse;
 
     /** nome del file di configurazione per host e porta del server. */
-    private String configFilePath = "/../config.properties";
+    private String configFilePath =  ".." + File.separator + "config.properties";
 
     /** Oggetto Properties per il file di configurazione. */
     private Properties properties = new Properties();
@@ -126,7 +127,7 @@ public class Server implements Runnable {
     public void start() {
         String host = null;
         int port = 0;
-        try (FileInputStream input = new FileInputStream(System.getProperty("user.dir") + configFilePath)) {
+        try (FileInputStream input = new FileInputStream(System.getProperty("user.dir") + File.separator + configFilePath)) {
             properties.load(input);
             port = Integer.parseInt(properties.getProperty("port"));
         } catch (IOException ex) {
