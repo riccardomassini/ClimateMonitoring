@@ -10,7 +10,17 @@ Puoi utilizzare ClimateMonitoring come operatore oppure come cittadino. I primi 
 * username e password default di postgres -> username: ```postgres``` e password: ```root```.
 
 ## Cambiare username e password con PostgreSQL
+Innanzitutto è necessario collegarsi a PostgreSQL utilizzando il seguente comando: ```psql -U username```.
+Dopo aver inserito la password corretta procedere con i seguenti passaggi.
+
 **Username**
+Se si vuole cambiare nome utente è necessario cambiare la ROLE nel seguente modo: ```ALTER TABLE username RENAME TO new_username;```.
+
+**Password**
+Se si vuole cambiare password bisogna procedere nel seguente modo: ```ALTER USER username PASSWORD 'new_password';```.
+
+**Da pgadmin**
+Tutto questo può essere fatto anche da interfaccia grafica su pgadmin, infatti cliccando su ```Object - Change Password``` possiamo modificare la password. La stessa cosa vale per l'username, cliccando con il tasto destro sul nome del server e andando su ```Connection``` possiamo notare host, porta e username. Da qui si può modificare l'username e salvare.
 
 ## Installazione
 Per installare e configurare ClimateMonitoring sul tuo ambiente locale, segui questi passaggi:
