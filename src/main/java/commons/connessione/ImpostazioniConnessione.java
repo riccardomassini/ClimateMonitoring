@@ -31,7 +31,7 @@ public class ImpostazioniConnessione {
     public ImpostazioniConnessione(){}
 
     /** Nome del progetto che serve per calcolare il percorso per poter accedere alla root */
-    public static String targetDir = "ClimateMonitoring";
+    private static String targetDir = "ClimateMonitoring";
 
     /**
      * Nome di registrazione dell'oggetto remoto per la gestione dei centri di monitoraggio.
