@@ -151,38 +151,59 @@ public class StampaParametri extends JFrame {
             new String [] {
                 "Centro", "Paese", "Data", "Vento", "Umidità", "Pressione", "Temperatura", "Precipitazioni", "Altitudine", "Massa", "nota1", "nota2", "nota3", "nota4", "nota5", "nota6", "nota7"
             }
-        ));
-        jScrollPane1.setViewportView(tabella1);
-
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 67, 818, 303));
-
-        tabella2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Vento", "Umidità", "Pressione", "Temperatura", "Precipitazione", "Altitudine", "Massa"
+        )
+        {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
             }
-        ));
-        jScrollPane2.setViewportView(tabella2);
+        }
+    );
+    jScrollPane1.setViewportView(tabella1);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 382, 818, 52));
+    getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 67, 818, 303));
 
-        tabella3.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+    tabella2.setModel(new javax.swing.table.DefaultTableModel(
+        new Object [][] {
 
-            },
-            new String [] {
-                "Vento", "Umidità", "Pressione", "Temperatura", "Precipitazioni", "Altitudine", "Massa"
-            }
-        ));
-        jScrollPane3.setViewportView(tabella3);
+        },
+        new String [] {
+            "Vento", "Umidità", "Pressione", "Temperatura", "Precipitazione", "Altitudine", "Massa"
+        }
+    )
+    {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    }
+    );
+    jScrollPane2.setViewportView(tabella2);
 
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 446, 818, 49));
-        getContentPane().add(out, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 200, 150, 25));
-        getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 550));
+    getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 382, 818, 52));
 
-        pack();
+    tabella3.setModel(new javax.swing.table.DefaultTableModel(
+        new Object [][] {
+
+        },
+        new String [] {
+            "Vento", "Umidità", "Pressione", "Temperatura", "Precipitazioni", "Altitudine", "Massa"
+        }
+    )
+    {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    }
+    );
+    jScrollPane3.setViewportView(tabella3);
+
+    getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 446, 818, 49));
+    getContentPane().add(out, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 200, 150, 25));
+    getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 550));
+
+    pack();
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -343,24 +364,33 @@ public class StampaParametri extends JFrame {
      */
     private Object calcolaModa(Misurazione[] elencoMisurazioni, CategorieParametriClimatici categoria) {
         int[] conteggioPunteggi = new int[PunteggioParametroClimatico.values().length - 1];
+        int totalNonZeroCounts = 0;
+
         for(Misurazione misurazione : elencoMisurazioni) {
             if (misurazione.getValutazioneParametroConCategoria(categoria) != PunteggioParametroClimatico.NULLO.getPunteggio()) {
                 conteggioPunteggi[misurazione.getValutazioneParametroConCategoria(categoria) - 1]++;
+                totalNonZeroCounts++;
             }
         }
 
         int max = 0;
         int maxPunteggio = 1;
+        boolean tuttiUno = true;
+
         for(int i = 0; i < conteggioPunteggi.length; i++) {
             if(conteggioPunteggi[i] > max) {
                 max = conteggioPunteggi[i];
                 maxPunteggio = i + 1;
             }
+            if(conteggioPunteggi[i] > 1) {
+                tuttiUno = false;
+            }
         }
         
         if(max==0)
             return PunteggioParametroClimatico.NULLO.getPunteggio();
-        
+        if(tuttiUno && totalNonZeroCounts > 1)
+            return "Inesistente";
         return PunteggioParametroClimatico.values()[maxPunteggio].getPunteggio();
     }
 

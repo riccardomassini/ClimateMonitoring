@@ -76,16 +76,8 @@
       <SubComponents>
         <Component class="javax.swing.JTable" name="tabella">
           <Properties>
-            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="7" rowCount="0">
-                <Column editable="true" title="geonameID" type="java.lang.Integer"/>
-                <Column editable="true" title="nome" type="java.lang.String"/>
-                <Column editable="true" title="nome_ascii" type="java.lang.String"/>
-                <Column editable="true" title="codice_stato" type="java.lang.String"/>
-                <Column editable="true" title="nome_stato" type="java.lang.String"/>
-                <Column editable="true" title="lat" type="java.lang.Double"/>
-                <Column editable="true" title="lon" type="java.lang.Double"/>
-              </Table>
+            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="new javax.swing.table.DefaultTableModel(&#xa;    new Object [][] {&#xa;&#xa;    },&#xa;    new String [] {&#xa;        &quot;geonameID&quot;, &quot;nome&quot;, &quot;nome_ascii&quot;, &quot;codice_stato&quot;, &quot;nome_stato&quot;, &quot;lat&quot;, &quot;lon&quot;&#xa;    }&#xa;) {&#xa;    Class[] types = new Class [] {&#xa;        java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class&#xa;    };&#xa;&#xa;    public Class getColumnClass(int columnIndex) {&#xa;        return types [columnIndex];&#xa;    }&#xa;    @Override&#xa;    public boolean isCellEditable(int row, int column) {&#xa;        return false;&#xa;    }&#xa;}" type="code"/>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">

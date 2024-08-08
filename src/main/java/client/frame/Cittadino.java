@@ -177,6 +177,10 @@ public class Cittadino extends javax.swing.JFrame {
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
         });
         jScrollPane3.setViewportView(tabella);
 
