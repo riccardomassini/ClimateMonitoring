@@ -406,7 +406,6 @@ public class StampaParametri extends JFrame {
         model3.setRowCount(0);
     }
 
-
     /**
      * Metodo principale che avvia il frame {@code StampaParametri}.
      * <p>Crea e visualizza l'istanza di {@code StampaParametri}.</p>
