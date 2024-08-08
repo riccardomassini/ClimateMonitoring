@@ -278,48 +278,21 @@ public class ServerFrame extends javax.swing.JFrame {
         });
     }
 
-    /** Pulsante per avviare o fermare il server. */
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton avvia;
-
-    /** Campo di testo per l'inserimento dell'indirizzo IP del server. */
     private javax.swing.JTextField host;
-
-    /** Label 1 */
     private javax.swing.JLabel jLabel1;
-
-    /** Label 2 */
     private javax.swing.JLabel jLabel2;
-
-    /** Label 3 */
     private javax.swing.JLabel jLabel3;
-
-    /** Label 4 */
     private javax.swing.JLabel jLabel4;
-
-    /** Label 5 */
     private javax.swing.JLabel jLabel5;
-
-    /** Pannello  per la grafica */
     private javax.swing.JPanel jPanel1;
-
-    /** Contenitore testo per la password */
     private javax.swing.JPasswordField jPasswordField1;
-
-    /** Label per messaggi di errore */
     private javax.swing.JLabel out;
-
-    /** Contenitore testo per la password */
     private javax.swing.JPasswordField password;
-
-    /** Contenitore testo per la porta */
     private javax.swing.JTextField port;
-
-    /** Label per lo sfondo */
     private javax.swing.JLabel sfondo;
-
-    /** Label per il titolo */
     private javax.swing.JLabel titolo;
-
-    /** Contenitore testo per l'username */
     private javax.swing.JTextField username;
+    // End of variables declaration//GEN-END:variables
 }

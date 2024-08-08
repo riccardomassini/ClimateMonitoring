@@ -253,5 +253,4 @@ public class GestioneScelta extends javax.swing.JFrame {
     private javax.swing.JLabel scelta;
     private javax.swing.JLabel sfondo;
     // End of variables declaration//GEN-END:variables
-
 }
