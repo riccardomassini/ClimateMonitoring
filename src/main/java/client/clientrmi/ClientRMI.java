@@ -80,12 +80,14 @@ public class ClientRMI {
         try {
             String fullPath = System.getProperty("user.dir");
             String resultPath = ImpostazioniConnessione.getPath(fullPath);
+            if(resultPath == null)
+                return;
 
             try (FileInputStream input = new FileInputStream(resultPath +  configFilePath)) {
                 properties.load(input);
                 host = properties.getProperty("host");
                 port = Integer.parseInt(properties.getProperty("port"));
-            } catch (Exception e) {}
+            } catch (Exception ex) {}
 
             registroRMI = LocateRegistry.getRegistry(host, port);
             stubAutenticazione = (Autenticazione) registroRMI.lookup(RMI_Autenticazione);

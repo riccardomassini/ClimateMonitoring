@@ -193,6 +193,8 @@ public class ServerFrame extends javax.swing.JFrame {
                     if (host.getText().equals("127.0.0.1")) {
                         String fullPath = System.getProperty("user.dir");
                         String resultPath = ImpostazioniConnessione.getPath(fullPath);
+                        if(resultPath == null)
+                            return;
 
                         try (FileInputStream input = new FileInputStream(resultPath + configFilePath)) {
                             properties.load(input);

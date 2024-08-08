@@ -67,6 +67,9 @@ public class ImpostazioniConnessione {
      */
     public static String getPath(String fullPath){
         int targetIndex = fullPath.indexOf(targetDir);
-        return fullPath.substring(0, targetIndex + targetDir.length());
+        if(targetIndex != -1)
+            return fullPath.substring(0, targetIndex + targetDir.length());
+        else
+            return null;
     }
 }

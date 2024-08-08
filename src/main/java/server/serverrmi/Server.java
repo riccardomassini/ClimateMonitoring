@@ -132,13 +132,13 @@ public class Server implements Runnable {
 
         String fullPath = System.getProperty("user.dir");
         String resultPath = ImpostazioniConnessione.getPath(fullPath);
+        if(resultPath == null)
+            return;
 
         try (FileInputStream input = new FileInputStream(resultPath + configFilePath)) {
             properties.load(input);
             port = Integer.parseInt(properties.getProperty("port"));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        } catch (IOException ex) {}
 
         try {
             registroRMI = LocateRegistry.createRegistry(port);
