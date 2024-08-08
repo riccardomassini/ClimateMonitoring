@@ -75,5 +75,5 @@ Su Unix/MacOS:
 Una volta eseguiti i ```jar``` è importante avviare il server per poter utilizzare l'applicazione, i dati necessari sono i seguenti:
 * username: admin
 * password: root
-* host: 127.0.0.1
+* host: 127.0.0.1  
 La porta è possibile sceglierla tra il range di indirizzi validi per porte TCP/UDP, da 1024 a 65535.
