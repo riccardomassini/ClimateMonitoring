@@ -10,8 +10,7 @@ Puoi utilizzare ClimateMonitoring come operatore oppure come cittadino. I primi 
 * username e password default di postgres -> username: ```postgres``` e password: ```root```.
 
 ## Cambiare username e password con PostgreSQL
-
-#### Username
+**Username**
 
 ## Installazione
 Per installare e configurare ClimateMonitoring sul tuo ambiente locale, segui questi passaggi:
