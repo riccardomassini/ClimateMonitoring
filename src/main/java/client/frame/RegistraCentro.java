@@ -205,7 +205,7 @@ public class RegistraCentro extends javax.swing.JFrame {
 
         out9.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         out9.setText("Clicca per registrare il centro");
-        getContentPane().add(out9, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 290, 22));
+        getContentPane().add(out9, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, 290, 22));
 
         centroReg.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         centroReg.setText("Registra");
