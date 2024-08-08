@@ -76,4 +76,4 @@ Una volta eseguiti i ```jar``` è importante avviare il server per poter utilizz
 * username: admin
 * password: root
 * host: 127.0.0.1
-La porta è possibile sceglierla tra il range di indirizzi validi per porte TCP/UDP, da 1024 a 65535.
+* porta: è possibile sceglierla tra il range di indirizzi validi per porte TCP/UDP, da 1024 a 65535
