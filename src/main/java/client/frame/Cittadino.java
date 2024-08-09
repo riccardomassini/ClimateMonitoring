@@ -158,9 +158,9 @@ public class Cittadino extends javax.swing.JFrame {
         setLocationByPlatform(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 28)); // NOI18N
         jLabel1.setText("CITTADINO");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(442, 8, 290, 46));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(442, 8, 310, 46));
 
         tabella.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -184,7 +184,7 @@ public class Cittadino extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(tabella);
 
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, 520, 358));
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, 670, 358));
         getContentPane().add(ric2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, 92, -1));
         getContentPane().add(ric3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 92, -1));
 
@@ -252,7 +252,7 @@ public class Cittadino extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel2.setText("Stato");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 66, -1));
-        getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 440));
+        getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1020, 440));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

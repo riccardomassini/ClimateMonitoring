@@ -119,9 +119,9 @@ public class StampaParametri extends JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         jLabel1.setText("STAMPA PARAMETRI");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, 370, 40));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, 440, 40));
 
         back.setText("Indietro");
         back.addActionListener(new java.awt.event.ActionListener() {
@@ -161,7 +161,7 @@ public class StampaParametri extends JFrame {
     );
     jScrollPane1.setViewportView(tabella1);
 
-    getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 67, 818, 303));
+    getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 67, 1020, 303));
 
     tabella2.setModel(new javax.swing.table.DefaultTableModel(
         new Object [][] {
@@ -180,7 +180,7 @@ public class StampaParametri extends JFrame {
     );
     jScrollPane2.setViewportView(tabella2);
 
-    getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 382, 818, 52));
+    getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 382, 1020, 52));
 
     tabella3.setModel(new javax.swing.table.DefaultTableModel(
         new Object [][] {
@@ -199,9 +199,9 @@ public class StampaParametri extends JFrame {
     );
     jScrollPane3.setViewportView(tabella3);
 
-    getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 446, 818, 49));
+    getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 446, 1020, 49));
     getContentPane().add(out, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 200, 150, 25));
-    getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 550));
+    getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1210, 550));
 
     pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -364,7 +364,6 @@ public class StampaParametri extends JFrame {
      */
     private Object calcolaModa(Misurazione[] elencoMisurazioni, CategorieParametriClimatici categoria) {
         int[] conteggioPunteggi = new int[PunteggioParametroClimatico.values().length - 1];
-
         for(Misurazione misurazione : elencoMisurazioni) {
             if (misurazione.getValutazioneParametroConCategoria(categoria) != PunteggioParametroClimatico.NULLO.getPunteggio()) {
                 conteggioPunteggi[misurazione.getValutazioneParametroConCategoria(categoria) - 1]++;
@@ -373,24 +372,16 @@ public class StampaParametri extends JFrame {
 
         int max = 0;
         int maxPunteggio = 1;
-        boolean isModaDuplicata = false;
-
         for(int i = 0; i < conteggioPunteggi.length; i++) {
             if(conteggioPunteggi[i] > max) {
                 max = conteggioPunteggi[i];
                 maxPunteggio = i + 1;
-                isModaDuplicata = false;
-            }else if (conteggioPunteggi[i] == max) {
-                isModaDuplicata = true;
             }
         }
         
         if(max==0)
-            return "Inesistente";
-
-        if(isModaDuplicata)
-            return "Inesistente";
-
+            return PunteggioParametroClimatico.NULLO.getPunteggio();
+        
         return PunteggioParametroClimatico.values()[maxPunteggio].getPunteggio();
     }
 
@@ -405,6 +396,7 @@ public class StampaParametri extends JFrame {
         model2.setRowCount(0);
         model3.setRowCount(0);
     }
+
 
     /**
      * Metodo principale che avvia il frame {@code StampaParametri}.
