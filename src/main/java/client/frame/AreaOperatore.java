@@ -190,6 +190,10 @@ public class AreaOperatore extends javax.swing.JFrame {
         });
         getContentPane().add(scegliCentro, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, 80, -1));
 
+        scelta.setMaximumRowCount(5);
+        scelta.setDoubleBuffered(true);
+        scelta.setMinimumSize(new java.awt.Dimension(50, 22));
+        scelta.setPreferredSize(new java.awt.Dimension(50, 22));
         scelta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sceltaActionPerformed(evt);

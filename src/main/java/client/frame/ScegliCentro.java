@@ -135,6 +135,7 @@ public class ScegliCentro extends javax.swing.JFrame {
         });
         getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 271, -1, -1));
 
+        scelta.setMaximumRowCount(5);
         scelta.setName(""); // NOI18N
         scelta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
