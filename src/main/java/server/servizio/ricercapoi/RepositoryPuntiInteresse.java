@@ -34,7 +34,7 @@ public class RepositoryPuntiInteresse implements RicercaPuntiInteresse {
     private final PuntiInteresseDAO puntiInteresseDAO;
 
     /** Il numero massimo di punti di interesse restituiti dalla ricerca per coordinate. */
-    private static final int PUNTI_INTERESSE_MAX_RICERCA_COORDINATE = 10;
+    private static final int PUNTI_INTERESSE_MAX_RICERCA_COORDINATE = 100;
 
     /**
      * Costruttore della classe {@code RepositoryPuntiInteresse}.
