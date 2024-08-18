@@ -174,7 +174,7 @@
               <appendAssemblyId>false</appendAssemblyId>
               <archive>
                 <manifest>
-                  <mainClass>climatemonitoring.client.frame.GestioneScelta</mainClass> <!-- Classe principale dell'applicazione client -->
+                  <mainClass>client.frame.GestioneScelta</mainClass> <!-- Classe principale dell'applicazione client -->
                 </manifest>
               </archive>
               <descriptorRefs>
@@ -196,7 +196,7 @@
               <appendAssemblyId>false</appendAssemblyId>
               <archive>
                 <manifest>
-                  <mainClass>climatemonitoring.server.serverrmi.ServerFrame</mainClass> <!-- Classe principale dell'applicazione server -->
+                  <mainClass>server.serverrmi.ServerFrame</mainClass> <!-- Classe principale dell'applicazione server -->
                 </manifest>
               </archive>
               <descriptorRefs>
