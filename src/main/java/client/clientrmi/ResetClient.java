@@ -7,7 +7,8 @@
  ***************************************/
 package client.clientrmi;
 
-import client.frame.GestioneScelta;
+import client.climatemonitoring.ClimateMonitoring;
+
 import javax.swing.JFrame;
 
 /**
@@ -27,18 +28,18 @@ public class ResetClient {
     /**
      * Chiude la finestra corrente e apre la finestra di scelta.
      *
-     * <p>Questo metodo crea un'istanza di {@link client.frame.GestioneScelta} e la posiziona
+     * <p>Questo metodo crea un'istanza di {@link ClimateMonitoring} e la posiziona
      * nella stessa posizione della finestra {@code frame} passata come parametro. Dopo aver chiuso
      * la finestra corrente, rende visibile la nuova finestra di scelta.</p>
      *
      * @param frame la finestra {@code JFrame} da chiudere. La posizione della finestra corrente
      *              verrà utilizzata per posizionare la nuova finestra di scelta.
      *
-     * @see client.frame.GestioneScelta
+     * @see ClimateMonitoring
      */
     public static void spegniClient(JFrame frame){
         //passo una stringa vuota perchè il costruttore vuoto esiste già
-        GestioneScelta gs = new GestioneScelta("");
+        ClimateMonitoring gs = new ClimateMonitoring("");
         gs.setLocation(frame.getX(), frame.getY());
         frame.dispose();
         gs.setVisible(true);

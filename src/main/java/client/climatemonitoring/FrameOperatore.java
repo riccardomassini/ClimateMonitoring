@@ -6,7 +6,7 @@
  * Sede: Como
  ***************************************/
 
-package client.frame;
+package client.climatemonitoring;
 
 import client.clientrmi.ClientRMI;
 import client.clientrmi.ResetClient;
@@ -111,7 +111,7 @@ public class FrameOperatore extends javax.swing.JFrame {
     /**
      * Gestisce l'azione del pulsante "Indietro".
      * <p>
-     * Quando l'utente clicca sul pulsante "Indietro", questo metodo crea una nuova istanza di {@link GestioneScelta},
+     * Quando l'utente clicca sul pulsante "Indietro", questo metodo crea una nuova istanza di {@link ClimateMonitoring},
      * imposta la posizione della nuova finestra sulla stessa posizione della finestra corrente,
      * chiude la finestra corrente e rende visibile la nuova finestra di GestioneScelta.
      * </p>
@@ -125,7 +125,7 @@ public class FrameOperatore extends javax.swing.JFrame {
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         autenticazione = ClientRMI.ottieniClientRMI().ottieniStubAutenticazione();
         if(autenticazione != null) {
-            GestioneScelta gs = new GestioneScelta();
+            ClimateMonitoring gs = new ClimateMonitoring();
             gs.setLocation(this.getX(), this.getY());
             this.dispose();
             gs.setVisible(true);  

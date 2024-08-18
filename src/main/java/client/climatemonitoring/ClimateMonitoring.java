@@ -6,7 +6,7 @@
  * Sede: Como
  ***************************************/
 
-package client.frame;
+package client.climatemonitoring;
 
 import client.clientrmi.ClientRMI;
 import client.registraeventi.Chiusura;
@@ -26,7 +26,7 @@ import javax.swing.ImageIcon;
  * @author Luca Abignano
  * @author Lorenzo Artale
  */
-public class GestioneScelta extends javax.swing.JFrame {
+public class ClimateMonitoring extends javax.swing.JFrame {
 
     /** Oggetto per l'autenticazione tramite RMI */
     private Autenticazione autenticazione;
@@ -35,7 +35,7 @@ public class GestioneScelta extends javax.swing.JFrame {
      * Costruttore predefinito che inizializza la finestra per la selezione tra cittadino e operatore.
      * <p>Imposta l'immagine di sfondo, aggiunge un listener per la chiusura della finestra e gestisce la visibilità dei pulsanti e dei messaggi.</p>
      */
-    public GestioneScelta() {
+    public ClimateMonitoring() {
         initComponents();
         setBackgroundImage("image/sfondo.jpg");
         addWindowListener(new Chiusura());
@@ -53,7 +53,7 @@ public class GestioneScelta extends javax.swing.JFrame {
      *
      * @param flag parametro temporaneo e inutilizzato per poter avere un altro costruttore per gestire l'errore dello spegnimento del server.
      */
-    public GestioneScelta(String flag){
+    public ClimateMonitoring(String flag){
         initComponents();
         setBackgroundImage("image/sfondo.jpg");
         addWindowListener(new Chiusura());
@@ -220,13 +220,13 @@ public class GestioneScelta extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GestioneScelta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClimateMonitoring.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GestioneScelta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClimateMonitoring.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GestioneScelta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClimateMonitoring.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GestioneScelta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClimateMonitoring.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         
@@ -234,7 +234,7 @@ public class GestioneScelta extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run(){
-                new GestioneScelta().setVisible(true);
+                new ClimateMonitoring().setVisible(true);
             }
         });
     }

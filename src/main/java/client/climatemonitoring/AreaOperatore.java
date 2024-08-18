@@ -6,7 +6,7 @@
  * Sede: Como
  ***************************************/
 
-package client.frame;
+package client.climatemonitoring;
 
 import client.clientrmi.ClientRMI;
 import client.clientrmi.ResetClient;

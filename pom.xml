@@ -174,7 +174,7 @@
               <appendAssemblyId>false</appendAssemblyId>
               <archive>
                 <manifest>
-                  <mainClass>client.frame.GestioneScelta</mainClass> <!-- Classe principale dell'applicazione client -->
+                  <mainClass>client.climatemonitoring.ClimateMonitoring</mainClass> <!-- Classe principale dell'applicazione client -->
                 </manifest>
               </archive>
               <descriptorRefs>
@@ -184,7 +184,7 @@
             </configuration>
           </execution>
 
-          <!-- Creazione di un pacchetto JAR per il client -->
+          <!-- Creazione di un pacchetto JAR per il server -->
           <execution>
             <id>make-server-assembly</id>
             <phase>package</phase>
