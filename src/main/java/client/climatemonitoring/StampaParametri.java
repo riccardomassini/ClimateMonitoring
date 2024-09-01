@@ -364,24 +364,33 @@ public class StampaParametri extends JFrame {
      */
     private Object calcolaModa(Misurazione[] elencoMisurazioni, CategorieParametriClimatici categoria) {
         int[] conteggioPunteggi = new int[PunteggioParametroClimatico.values().length - 1];
+        int totalNonZeroCounts = 0;
+
         for(Misurazione misurazione : elencoMisurazioni) {
             if (misurazione.getValutazioneParametroConCategoria(categoria) != PunteggioParametroClimatico.NULLO.getPunteggio()) {
                 conteggioPunteggi[misurazione.getValutazioneParametroConCategoria(categoria) - 1]++;
+                totalNonZeroCounts++;
             }
         }
 
         int max = 0;
         int maxPunteggio = 1;
+        boolean tuttiUno = true;
+
         for(int i = 0; i < conteggioPunteggi.length; i++) {
             if(conteggioPunteggi[i] > max) {
                 max = conteggioPunteggi[i];
                 maxPunteggio = i + 1;
             }
+            if(conteggioPunteggi[i] > 1) {
+                tuttiUno = false;
+            }
         }
-        
+
         if(max==0)
             return PunteggioParametroClimatico.NULLO.getPunteggio();
-        
+        if(tuttiUno && totalNonZeroCounts > 1)
+            return "Inesistente";
         return PunteggioParametroClimatico.values()[maxPunteggio].getPunteggio();
     }
 
